@@ -10,13 +10,13 @@
 
 
 @interface UsersViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIPopoverControllerDelegate> {
-	NSMutableArray			*listOfUsers;
-	UITableView				*thisTableView;
+	NSMutableArray			*__weak listOfUsers;
+	UITableView				*__weak thisTableView;
     
 }
 
-@property (nonatomic)				NSMutableArray			*listOfUsers;
-@property (nonatomic)	IBOutlet	UITableView				*thisTableView;
+@property (weak, nonatomic)				NSMutableArray			*listOfUsers;
+@property (weak, nonatomic)	IBOutlet	UITableView				*thisTableView;
 
 -(IBAction) setEditableTable;
 -(IBAction)	userTableEditingTapped;

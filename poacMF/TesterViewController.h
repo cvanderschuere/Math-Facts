@@ -23,21 +23,21 @@
 	UIButton				*availableTestsButton;
 	UILabel					*xValueLabel;
 	UILabel					*yValueLabel;
-	UILabel					*mathSymbolLabel;
-	UILabel					*dashedLineLabel;
-	UILabel					*answerLabel;
-	UILabel					*usernameLabel;
-	UILabel					*modeLabel;
-	UILabel					*successLabel;
-	UILabel					*questionCountLabel;
-	UILabel					*timeLabel;	
-	UIButton				*nextButton;
+	UILabel					*__weak mathSymbolLabel;
+	UILabel					*__weak dashedLineLabel;
+	UILabel					*__weak answerLabel;
+	UILabel					*__weak usernameLabel;
+	UILabel					*__weak modeLabel;
+	UILabel					*__weak successLabel;
+	UILabel					*__weak questionCountLabel;
+	UILabel					*__weak timeLabel;	
+	UIButton				*__weak nextButton;
 	
-	NSMutableArray			*availablePracticeQuizzesNSMA;
-	NSMutableArray			*availableTestQuizzesNSMA;
+	NSMutableArray			*__weak availablePracticeQuizzesNSMA;
+	NSMutableArray			*__weak availableTestQuizzesNSMA;
 	QuizSet					*studentQuizSet;
-	NSMutableArray			*errorQueueNSMA;
-	NSMutableArray			*lastQuestionNSMA;
+	NSMutableArray			*__weak errorQueueNSMA;
+	NSMutableArray			*__weak lastQuestionNSMA;
 	
 	int xValue;
 	int yValue;
@@ -46,8 +46,8 @@
 	int totalAnswerCounter;
 	int errorCounter;
 	int timeCounter;
-	NSTimer					*testTimer;
-	NSMutableArray			*seededQuestionBankNSMA;
+	NSTimer					*__weak testTimer;
+	NSMutableArray			*__weak seededQuestionBankNSMA;
 	BOOL					justMissed;
 	int errorWaitCount;
 	
@@ -61,40 +61,40 @@
 	
 }
 
-@property (nonatomic)	UIPopoverController			*loginPopoverController;
-@property (nonatomic)	IBOutlet	UIToolbar		*thisToolBar;
-@property (nonatomic)	IBOutlet	UIView			*numberPadView;
-@property (nonatomic)	IBOutlet	UIImageView		*numberPadBackView;
-@property (nonatomic)	IBOutlet	UIButton		*availablePracticesButton;
-@property (nonatomic)	IBOutlet	UIButton		*availableTestsButton;
-@property (nonatomic)	IBOutlet	UILabel			*xValueLabel;
-@property (nonatomic)	IBOutlet	UILabel			*yValueLabel;
-@property (nonatomic)	IBOutlet	UILabel			*mathSymbolLabel;
-@property (nonatomic)	IBOutlet	UILabel			*dashedLineLabel;
-@property (nonatomic)	IBOutlet	UILabel			*answerLabel;
-@property (nonatomic)	IBOutlet	UILabel			*modeLabel;
-@property (nonatomic)	IBOutlet	UILabel			*successLabel;
-@property (nonatomic)	IBOutlet	UILabel			*questionCountLabel;
-@property (nonatomic)	IBOutlet	UILabel			*timeLabel;	
-@property (nonatomic)	IBOutlet	UILabel			*usernameLabel;
-@property (nonatomic)	IBOutlet	UIButton		*nextButton;
+@property (nonatomic, strong)	UIPopoverController			*loginPopoverController;
+@property (nonatomic, weak)	IBOutlet	UIToolbar		*thisToolBar;
+@property (nonatomic, weak)	IBOutlet	UIView			*numberPadView;
+@property (nonatomic, weak)	IBOutlet	UIImageView		*numberPadBackView;
+@property (nonatomic, weak)	IBOutlet	UIButton		*availablePracticesButton;
+@property (nonatomic, weak)	IBOutlet	UIButton		*availableTestsButton;
+@property (nonatomic, weak)	IBOutlet	UILabel			*xValueLabel;
+@property (nonatomic, weak)	IBOutlet	UILabel			*yValueLabel;
+@property (weak, nonatomic)	IBOutlet	UILabel			*mathSymbolLabel;
+@property (weak, nonatomic)	IBOutlet	UILabel			*dashedLineLabel;
+@property (weak, nonatomic)	IBOutlet	UILabel			*answerLabel;
+@property (weak, nonatomic)	IBOutlet	UILabel			*modeLabel;
+@property (weak, nonatomic)	IBOutlet	UILabel			*successLabel;
+@property (weak, nonatomic)	IBOutlet	UILabel			*questionCountLabel;
+@property (weak, nonatomic)	IBOutlet	UILabel			*timeLabel;	
+@property (weak, nonatomic)	IBOutlet	UILabel			*usernameLabel;
+@property (weak, nonatomic)	IBOutlet	UIButton		*nextButton;
 
-@property (nonatomic)				NSMutableArray	*availablePracticeQuizzesNSMA;
-@property (nonatomic)				NSMutableArray	*availableTestQuizzesNSMA;
-@property (nonatomic)				QuizSet			*studentQuizSet;
-@property (nonatomic)				NSTimer			*testTimer;
-@property (nonatomic)				NSMutableArray	*seededQuestionBankNSMA;
-@property (nonatomic)				NSMutableArray	*errorQueueNSMA;
-@property (nonatomic)				NSMutableArray	*lastQuestionNSMA;
+@property (weak, nonatomic)				NSMutableArray	*availablePracticeQuizzesNSMA;
+@property (weak, nonatomic)				NSMutableArray	*availableTestQuizzesNSMA;
+@property (nonatomic, strong)				QuizSet			*studentQuizSet;
+@property (weak, nonatomic)				NSTimer			*testTimer;
+@property (weak, nonatomic)				NSMutableArray	*seededQuestionBankNSMA;
+@property (weak, nonatomic)				NSMutableArray	*errorQueueNSMA;
+@property (weak, nonatomic)				NSMutableArray	*lastQuestionNSMA;
 @property (nonatomic)						BOOL			justMissed;
 
 //Division Items
-@property (nonatomic)	IBOutlet	UIView			*divisionView;
-@property (nonatomic)	IBOutlet	UILabel			*xDivValueLabel;
-@property (nonatomic)	IBOutlet	UILabel			*yDivValueLabel;
-@property (nonatomic)	IBOutlet	UILabel			*answerDivValueLabel;
+@property (nonatomic, strong)	IBOutlet	UIView			*divisionView;
+@property (nonatomic, strong)	IBOutlet	UILabel			*xDivValueLabel;
+@property (nonatomic, strong)	IBOutlet	UILabel			*yDivValueLabel;
+@property (nonatomic, strong)	IBOutlet	UILabel			*answerDivValueLabel;
 
-@property (nonatomic)	IBOutlet	UILabel			*buildLabel;
+@property (nonatomic, strong)	IBOutlet	UILabel			*buildLabel;
 
 
 @property int xValue;

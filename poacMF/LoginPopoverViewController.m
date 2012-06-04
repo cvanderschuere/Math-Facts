@@ -6,8 +6,8 @@
 //  Copyright 2011 Matt Hunter. All rights reserved.
 //
 
-#import <QuartzCore/QuartzCore.h>
 #import "LoginPopoverViewController.h"
+#import <QuartzCore/QuartzCore.h>
 #import "PoacMFAppDelegate.h"
 #import "AppLibrary.h"
 #import "AppConstants.h"

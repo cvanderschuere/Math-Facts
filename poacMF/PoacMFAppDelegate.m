@@ -13,10 +13,12 @@
 @implementation PoacMFAppDelegate
 
 
-@synthesize window=_window, viewController=_viewController;
-@synthesize databasePath, loggedIn, currentUser;
+@synthesize window = _window, viewController=_viewController;
+@synthesize databasePath = _databasePath, loggedIn = _loggedIn, currentUser = _currentUser;
 
 //end method
+
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	[self applicationPrep];
@@ -35,7 +37,7 @@
 	 Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
 	 If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 	 */
-	loggedIn = NO;
+	self.loggedIn = NO;
 }//end method
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -62,11 +64,11 @@
 	//create the database if it doesn't exist
 	[self checkAndCreateDatabase];
 	
-	loggedIn = NO;
-	currentUser = [[User alloc] init];
+	self.loggedIn = NO;
+	self.currentUser = [[User alloc] init];
 	
     // Override point for customization after application launch.
-	self.window.rootViewController = self.viewController;
+    
 	[self.window makeKeyAndVisible];
 }//end method
 

@@ -15,17 +15,15 @@
 #import "POACDetailViewController.h"
 
 @interface PoacMFAppDelegate : NSObject <UIApplicationDelegate> {	
-	NSString	*databasePath;
-	BOOL		loggedIn;
-	User		*currentUser;
+
 }
 
-@property (nonatomic)	IBOutlet	UIWindow *window;
-@property (nonatomic)	IBOutlet	POACDetailViewController *viewController;
+@property (strong, nonatomic)	IBOutlet	UIWindow *window;
+@property (weak, nonatomic)	IBOutlet	POACDetailViewController *viewController;
 
-@property (nonatomic)	NSString	*databasePath;
+@property (strong, nonatomic)	NSString	*databasePath;
 @property (nonatomic)	BOOL	loggedIn;
-@property (nonatomic)	User		*currentUser;
+@property (nonatomic, strong)	User		*currentUser;
 
 
 -(void) checkAndCreateDatabase;

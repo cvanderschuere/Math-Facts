@@ -12,16 +12,16 @@
 @interface LoginPopoverViewController : UIViewController 
 	<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate> {    
 	
-	UITableView				*thisTableView;
-	UINavigationBar			*thisNavBar;
-	UITextField				*userNameTextField;
-	UITextField				*passwordTextField;
+	UITableView				*__weak thisTableView;
+	UINavigationBar			*__weak thisNavBar;
+	UITextField				*__weak userNameTextField;
+	UITextField				*__weak passwordTextField;
 }//end interface
 
-@property (nonatomic) IBOutlet	UITableView				*thisTableView;
-@property (nonatomic) IBOutlet	UINavigationBar			*thisNavBar;
-@property (nonatomic) IBOutlet	UITextField				*userNameTextField;
-@property (nonatomic) IBOutlet	UITextField				*passwordTextField;
+@property (weak, nonatomic) IBOutlet	UITableView				*thisTableView;
+@property (weak, nonatomic) IBOutlet	UINavigationBar			*thisNavBar;
+@property (weak, nonatomic) IBOutlet	UITextField				*userNameTextField;
+@property (weak, nonatomic) IBOutlet	UITextField				*passwordTextField;
 
 -(IBAction) cancelTapped;
 -(IBAction) loginTapped;

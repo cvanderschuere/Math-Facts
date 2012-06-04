@@ -13,29 +13,29 @@
  the UITableCell in the nib file and set it's class to ResultsViewCell */
 
 @interface ResultsViewCell : UITableViewCell {
-	UILabel		*testTypeLabel;
-	UILabel		*mathTypeLabel;	
-	UILabel		*resultsNumberCorrect;
-	UILabel		*resultsTotalCount;
-	UILabel		*resultsTimeTaken;	
-	UILabel		*requiredNumberCorrect;
-	UILabel		*requiredTotalCount;
-	UILabel		*requiredTimeTaken;
-	UILabel		*testDate;
-	UILabel		*passFailLabel;
+	UILabel		*__weak testTypeLabel;
+	UILabel		*__weak mathTypeLabel;	
+	UILabel		*__weak resultsNumberCorrect;
+	UILabel		*__weak resultsTotalCount;
+	UILabel		*__weak resultsTimeTaken;	
+	UILabel		*__weak requiredNumberCorrect;
+	UILabel		*__weak requiredTotalCount;
+	UILabel		*__weak requiredTimeTaken;
+	UILabel		*__weak testDate;
+	UILabel		*__weak passFailLabel;
     
 }
 
-@property (nonatomic) IBOutlet	UILabel		*testTypeLabel;
-@property (nonatomic) IBOutlet	UILabel		*mathTypeLabel;	
-@property (nonatomic) IBOutlet	UILabel		*resultsNumberCorrect;
-@property (nonatomic) IBOutlet	UILabel		*resultsTotalCount;
-@property (nonatomic) IBOutlet	UILabel		*resultsTimeTaken;	
-@property (nonatomic) IBOutlet	UILabel		*requiredNumberCorrect;
-@property (nonatomic) IBOutlet	UILabel		*requiredTotalCount;
-@property (nonatomic) IBOutlet	UILabel		*requiredTimeTaken;
-@property (nonatomic) IBOutlet	UILabel		*testDate;
-@property (nonatomic) IBOutlet	UILabel		*passFailLabel;
+@property (weak, nonatomic) IBOutlet	UILabel		*testTypeLabel;
+@property (weak, nonatomic) IBOutlet	UILabel		*mathTypeLabel;	
+@property (weak, nonatomic) IBOutlet	UILabel		*resultsNumberCorrect;
+@property (weak, nonatomic) IBOutlet	UILabel		*resultsTotalCount;
+@property (weak, nonatomic) IBOutlet	UILabel		*resultsTimeTaken;	
+@property (weak, nonatomic) IBOutlet	UILabel		*requiredNumberCorrect;
+@property (weak, nonatomic) IBOutlet	UILabel		*requiredTotalCount;
+@property (weak, nonatomic) IBOutlet	UILabel		*requiredTimeTaken;
+@property (weak, nonatomic) IBOutlet	UILabel		*testDate;
+@property (weak, nonatomic) IBOutlet	UILabel		*passFailLabel;
 
 
 @end

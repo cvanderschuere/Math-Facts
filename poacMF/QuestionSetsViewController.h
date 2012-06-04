@@ -10,17 +10,17 @@
 
 
 @interface QuestionSetsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
-    NSMutableArray			*listofQuestionSets;
-	UITableView				*thisTableView;
+    NSMutableArray			*__weak listofQuestionSets;
+	UITableView				*__weak thisTableView;
 	UIPopoverController		*addDetailsPopoverController;
 	UIPopoverController		*addSetPopoverController;
     
 }
 
-@property (nonatomic)				NSMutableArray			*listofQuestionSets;
-@property (nonatomic)	IBOutlet	UITableView				*thisTableView;
-@property (nonatomic)				UIPopoverController		*addDetailsPopoverController;
-@property (nonatomic)				UIPopoverController		*addSetPopoverController;
+@property (weak, nonatomic)				NSMutableArray			*listofQuestionSets;
+@property (weak, nonatomic)	IBOutlet	UITableView				*thisTableView;
+@property (nonatomic, strong)				UIPopoverController		*addDetailsPopoverController;
+@property (nonatomic, strong)				UIPopoverController		*addSetPopoverController;
 
 -(void)		loadQuestionSets: (int) mathType;
 -(IBAction) addSetButtonTapped: (id) sender;

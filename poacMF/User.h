@@ -11,24 +11,24 @@
 
 @interface User : NSObject {
 	int						userId;
-	NSString				*username;
-    NSString                *password;
-	NSString				*firstName;
-	NSString				*lastName;
+	NSString				*__weak username;
+    NSString                *__weak password;
+	NSString				*__weak firstName;
+	NSString				*__weak lastName;
 	int						userType;
-	NSString				*emailAddress;
+	NSString				*__weak emailAddress;
 	double					defaultPracticeTimeLimit;
 	double					defaultTimedTimeLimit;
 	int						delayRetake;
 }
 
 @property (nonatomic)			int						userId;
-@property (nonatomic)	NSString				*username;
-@property (nonatomic)	NSString                *password;
-@property (nonatomic)	NSString				*firstName;
-@property (nonatomic)	NSString				*lastName;
+@property (weak, nonatomic)	NSString				*username;
+@property (weak, nonatomic)	NSString                *password;
+@property (weak, nonatomic)	NSString				*firstName;
+@property (weak, nonatomic)	NSString				*lastName;
 @property (nonatomic)			int						userType;
-@property (nonatomic)	NSString				*emailAddress;
+@property (weak, nonatomic)	NSString				*emailAddress;
 @property (nonatomic)			double					defaultPracticeTimeLimit;
 @property (nonatomic)			double					defaultTimedTimeLimit;
 @property (nonatomic)			int						delayRetake;

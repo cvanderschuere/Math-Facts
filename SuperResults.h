@@ -11,7 +11,7 @@
 
 @interface SuperResults : NSObject {
 	int			userId;
-	NSString	*setName;
+	NSString	*__weak setName;
 	
 	int			setId;
 	int			requiredTimeLimit;
@@ -20,23 +20,23 @@
 	int			testType;
 	
 	int			mathType;
-	NSDate		*resultsTestDate;
+	NSDate		*__weak resultsTestDate;
 	int			resultsCorrect;
-	NSString	*resultsPassFail;
+	NSString	*__weak resultsPassFail;
 	int			resultsTimeTaken;
 	int			resultsTotalQuestions;
 }
 @property (nonatomic)				int			userId;
-@property (nonatomic)		NSString	*setName;
+@property (weak, nonatomic)		NSString	*setName;
 @property (nonatomic)				int			setId;
 @property (nonatomic)				int			requiredTimeLimit;
 @property (nonatomic)				int			requiredCorrect;
 @property (nonatomic)				int			requiredTotalQuestions;
 @property (nonatomic)				int			testType;
 @property (nonatomic)				int			mathType;
-@property (nonatomic)		NSDate		*resultsTestDate;
+@property (weak, nonatomic)		NSDate		*resultsTestDate;
 @property (nonatomic)				int			resultsCorrect;
-@property (nonatomic)		NSString	*resultsPassFail;
+@property (weak, nonatomic)		NSString	*resultsPassFail;
 @property (nonatomic)				int			resultsTimeTaken;
 @property (nonatomic)				int			resultsTotalQuestions;
 

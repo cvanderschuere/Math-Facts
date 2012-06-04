@@ -10,21 +10,21 @@
 
 
 @interface ResultsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
-    UITableView				*thisTableView;
-	NSMutableArray			*listOfUsersNSMA;
-	NSMutableArray			*listOfResultsNSMA;
-	NSDictionary			*detailsCountForUsersNSD;
-	NSMutableArray			*detailsForSelectedUserNSMA;
+    UITableView				*__weak thisTableView;
+	NSMutableArray			*__weak listOfUsersNSMA;
+	NSMutableArray			*__weak listOfResultsNSMA;
+	NSDictionary			*__weak detailsCountForUsersNSD;
+	NSMutableArray			*__weak detailsForSelectedUserNSMA;
 	BOOL					detailMode;
 	int						selectedUserIndex;
 	
 }
 
-@property (nonatomic) IBOutlet	UITableView				*thisTableView;
-@property (nonatomic)			NSMutableArray			*listOfUsersNSMA;
-@property (nonatomic)			NSMutableArray			*listOfResultsNSMA;
-@property (nonatomic)			NSDictionary			*detailsCountForUsersNSD;
-@property (nonatomic)			NSMutableArray			*detailsForSelectedUserNSMA;
+@property (weak, nonatomic) IBOutlet	UITableView				*thisTableView;
+@property (weak, nonatomic)			NSMutableArray			*listOfUsersNSMA;
+@property (weak, nonatomic)			NSMutableArray			*listOfResultsNSMA;
+@property (weak, nonatomic)			NSDictionary			*detailsCountForUsersNSD;
+@property (weak, nonatomic)			NSMutableArray			*detailsForSelectedUserNSMA;
 @property (nonatomic)					BOOL					detailMode;
 @property (nonatomic)					int						selectedUserIndex;
 

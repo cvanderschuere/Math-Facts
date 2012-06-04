@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PoacMFAppDelegate.h"
 
 int main(int argc, char *argv[])
 {
-	@autoreleasepool {
-		int retVal = UIApplicationMain(argc, argv, nil, nil);
-		return retVal;
-	}
+    int retVal = 0;
+    @autoreleasepool {
+        retVal = UIApplicationMain(argc, argv, nil, NSStringFromClass([PoacMFAppDelegate class]));
+    }
+    return retVal;
+
 }

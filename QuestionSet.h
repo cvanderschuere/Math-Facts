@@ -11,17 +11,17 @@
 
 @interface QuestionSet : NSObject {
 	int						setId;
-	NSString				*questionSetName;
+	NSString				*__weak questionSetName;
 	int						mathType;
 	int						setOrder;
-	NSMutableArray			*setDetailsNSMA;
+	NSMutableArray			*__weak setDetailsNSMA;
 }
 
 @property (nonatomic)			int						setId;
-@property (nonatomic)	NSString				*questionSetName;
+@property (weak, nonatomic)	NSString				*questionSetName;
 @property (nonatomic)			int						mathType;
 @property (nonatomic)			int						setOrder;
-@property (nonatomic)	NSMutableArray			*setDetailsNSMA;
+@property (weak, nonatomic)	NSMutableArray			*setDetailsNSMA;
 
 - (id)mutableCopyWithZone:(NSZone *)zone;
 

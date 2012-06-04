@@ -20,11 +20,11 @@
 	
 }
 
-@property (nonatomic)	IBOutlet	UITableView		*thisTableView;
-@property (nonatomic)				UITextField		*xValueTF;
-@property (nonatomic)				UITextField		*yValueTF;
-@property (nonatomic)	IBOutlet	UIPickerView	*questionSetPicker;
-@property (nonatomic)				NSMutableArray	*listOfQuestionSets;
+@property (nonatomic, weak)	IBOutlet	UITableView		*thisTableView;
+@property (nonatomic, strong)				UITextField		*xValueTF;
+@property (nonatomic, strong)				UITextField		*yValueTF;
+@property (nonatomic, weak)	IBOutlet	UIPickerView	*questionSetPicker;
+@property (nonatomic, strong)				NSMutableArray	*listOfQuestionSets;
 @property (nonatomic)						int				selectedSetIndex;
 
 -(IBAction) cancelClicked;
