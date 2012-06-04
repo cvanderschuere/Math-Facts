@@ -28,7 +28,6 @@
 	NSMutableArray *nsma = [rsDAO getAllResults];
 	if ((nil != nsma) && (0 < [nsma count]))
 		NSLog(@"ResultsDAOTest.testGetAllResults.count %i", [nsma count]);
-	[rsDAO release];
 	
     STAssertTrue((1+1)==2, @"Compiler isn't feeling well today :-(" );
     

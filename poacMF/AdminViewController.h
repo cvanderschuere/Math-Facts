@@ -21,11 +21,11 @@
 	
 }
 
-@property (nonatomic, retain) IBOutlet	UsersViewController				*usersVC;
-@property (nonatomic, retain) IBOutlet	QuestionSetsViewController		*questionSetsVC;
-@property (nonatomic, retain) IBOutlet	ResultsViewController			*resultsVC;
-@property (nonatomic, retain) IBOutlet	UIView							*studentView;
-@property (nonatomic, retain) IBOutlet	UIView							*questionsView;
+@property (nonatomic, strong) IBOutlet	UsersViewController				*usersVC;
+@property (nonatomic, strong) IBOutlet	QuestionSetsViewController		*questionSetsVC;
+@property (nonatomic, strong) IBOutlet	ResultsViewController			*resultsVC;
+@property (nonatomic, strong) IBOutlet	UIView							*studentView;
+@property (nonatomic, strong) IBOutlet	UIView							*questionsView;
 @property BOOL usersViewable;
 @property BOOL questionSetsViewable;
 

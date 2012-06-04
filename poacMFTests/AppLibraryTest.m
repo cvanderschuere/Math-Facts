@@ -28,21 +28,18 @@
     
 	UsersDAO *uDAO = [[UsersDAO alloc] init];
 	NSMutableArray *listOfUsers = [uDAO getAllUsers];
-	[uDAO release];
 	
 	if (nil == listOfUsers)
 		listOfUsers = [NSMutableArray array];
 	
 	ResultsDAO *rDAO = [[ResultsDAO alloc] init];
 	NSMutableArray *listOfResults = [rDAO getAllResults];
-	[rDAO release];
 	
 	if (nil == listOfResults)
 		listOfResults = [NSMutableArray array];
 	
 	AppLibrary *al = [[AppLibrary alloc] init];
 	NSDictionary *detailsCountForUsers = [al matchAndCountUsers: listOfUsers toDetails:listOfResults];
-	[al release];
 	
 	NSLog(@"AppLibraryTest.testMatchAndCountUsersToDetails: %s", [[detailsCountForUsers description] UTF8String]);
 	

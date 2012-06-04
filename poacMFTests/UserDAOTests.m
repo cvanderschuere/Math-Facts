@@ -37,7 +37,6 @@
     UsersDAO *uDAO = [[UsersDAO alloc] init];
 	BOOL success = [uDAO  loginUserWithUserName: @"admin" andPassword:@"poacMF"];
 	STAssertTrue(success,@"UserDAOTests.testLoginUserWithUserNameandPassword");
-	[uDAO release];
 }//end method
 
 - (void) testGetUserInformation {
@@ -51,7 +50,6 @@
 		STAssertTrue(TRUE,@"UserDAOTests.testGetUserInformation");
 	} else
 		STAssertTrue(FALSE,@"UserDAOTests.testGetUserInformation");
-	[uDAO release];
 }//end method
 
 - (void) testGetAddUser {
@@ -68,7 +66,6 @@
 	newUser.userId = [uDAO addUser: newUser];
 	STAssertTrue(0 < newUser.userId,@"UserDAOTests.testGetAddUser");
 	[uDAO deleteUserById:newUser.userId];
-	[uDAO release];
 }//end method
 
 - (void) testDeleteUserById {
@@ -82,14 +79,12 @@
 	UsersDAO *uDAO = [[UsersDAO alloc] init];
 	newUser.userId = [uDAO addUser: newUser];
 	BOOL results = [uDAO deleteUserById:newUser.userId];
-	[uDAO release];
 	STAssertTrue(results,@"UserDAOTests.testDeleteUserById");
 }//end method
 
 - (void) testGetAllUsers {
 	UsersDAO *uDAO = [[UsersDAO alloc] init];
 	NSMutableArray *usersNSMA = [uDAO getAllUsers];
-	[uDAO release];
 	STAssertTrue(0 < [usersNSMA count],@"UserDAOTests.testGetAllUsers");
 }//end method
 

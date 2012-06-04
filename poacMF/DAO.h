@@ -15,6 +15,6 @@
 	NSString	*databasePath;
 }
 
-@property (nonatomic, retain) NSString	*databasePath;
+@property (nonatomic) NSString	*databasePath;
 
 @end

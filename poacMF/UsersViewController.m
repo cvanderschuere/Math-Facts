@@ -26,11 +26,7 @@
 int TABLE_WIDTH = 300;
 int TABLE_HEIGHT = 400;
 
-- (void)dealloc {
-	[listOfUsers release];
-	[thisTableView release];
-    [super dealloc];
-}//end method
+//end method
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Return YES for supported orientations
@@ -52,7 +48,6 @@ int TABLE_HEIGHT = 400;
 	addVC.view.frame = CGRectMake(0, 0, TABLE_WIDTH, TABLE_HEIGHT);
 	[self presentModalViewController: addVC animated:YES];
 	addVC.ptrTableToRedraw = thisTableView;
-	[addVC release];
 }//end method
 
 -(IBAction)	assignQuizTapped {
@@ -62,7 +57,6 @@ int TABLE_HEIGHT = 400;
 	addVC.view.frame = CGRectMake(0, 0, TABLE_WIDTH,TABLE_HEIGHT);
 	[self presentModalViewController: addVC animated:YES];
 	addVC.ptrTableToRedraw = thisTableView;
-	[addVC release];
 }//end method
 
 -(IBAction)	assignTestTapped {
@@ -72,7 +66,6 @@ int TABLE_HEIGHT = 400;
 	addVC.view.frame = CGRectMake(0, 0, 540, 580);
 	[self presentModalViewController: addVC animated:YES];
 	addVC.ptrTableToRedraw = thisTableView;
-	[addVC release];
 }//end method
 
 -(void)	quizButtonClicked: (id) sender {
@@ -98,12 +91,10 @@ int TABLE_HEIGHT = 400;
 		NSMutableArray *practiceQuizzesNSMA = [quizsDAO getAvailablePracticeQuizzesByUserId: u.userId];
 		addVC.assignedQuiz = [practiceQuizzesNSMA objectAtIndex:0];
 	}//end if
-	[quizsDAO release];
 	
 	addVC.ptrTableToRedraw = thisTableView;
 	
 	[self presentModalViewController: addVC animated:YES];
-	[addVC release];
 }//end method
 
 #pragma mark - View lifecycle
@@ -112,7 +103,6 @@ int TABLE_HEIGHT = 400;
 	
 	UsersDAO *uDAO = [[UsersDAO alloc] init];
 	self.listOfUsers = [uDAO getAllUsers];
-	[uDAO release];
 
 	if (nil == self.listOfUsers)
 		self.listOfUsers = [NSMutableArray array];
@@ -150,7 +140,7 @@ NSLog(@"UsersTableVC.viewWillAppear");
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
 	
 	//Pull all the subviews off the cell, otherwise the labels appear multiple times, 
@@ -201,7 +191,6 @@ NSLog(@"UsersTableVC.viewWillAppear");
 		pLabel.text = @"Practice not assigned.";
 		pLabel.backgroundColor = [UIColor clearColor];
 		[cell addSubview:pLabel];
-		[pLabel release];
 	}//end if-else
 	
 	//3) Get user's current Test
@@ -232,12 +221,8 @@ NSLog(@"UsersTableVC.viewWillAppear");
 		pLabel.text = @"Test not assigned.";
 		pLabel.backgroundColor = [UIColor clearColor];
 		[cell addSubview:pLabel];
-		[pLabel release];
 	}//end if-else
 	
-	[al release];
-	[qSetDAO release];
-	[quizsDAO release];
     return cell;
 }//end method
 
@@ -257,7 +242,6 @@ NSLog(@"UsersTableVC.viewWillAppear");
 		User *deleteUser = [listOfUsers objectAtIndex:indexPath.row];
 		UsersDAO *usDAO = [[UsersDAO alloc] init];
 		[usDAO deleteUserById:deleteUser.userId];
-		[usDAO release];
 		[listOfUsers removeObjectAtIndex:indexPath.row];
 		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 	}//end if

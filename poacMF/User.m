@@ -16,14 +16,7 @@
 @synthesize delayRetake,defaultPracticeTimeLimit,defaultTimedTimeLimit;
 
 #pragma mark Memory Management
-- (void)dealloc {
-	[username release];
-	[password release];
-	[firstName release];
-	[lastName release];
-	[emailAddress release];
-	[super dealloc];
-}//end method
+//end method
 
 #pragma mark Mutable Copy Methods
 - (id)mutableCopyWithZone:(NSZone *)zone {

@@ -44,10 +44,6 @@
 	
 	STAssertNotNil(studentQuizSet, @"QuizSetDAOTest.testGetQuizSetDetails failed");
     
-	[qDAO release];
-	[qsDAO release];
-	[quizsDAO release];
-	[studentQuizSet release];
 }//end method
 
 #endif

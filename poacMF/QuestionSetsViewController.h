@@ -17,10 +17,10 @@
     
 }
 
-@property (nonatomic, retain)				NSMutableArray			*listofQuestionSets;
-@property (nonatomic, retain)	IBOutlet	UITableView				*thisTableView;
-@property (nonatomic, retain)				UIPopoverController		*addDetailsPopoverController;
-@property (nonatomic, retain)				UIPopoverController		*addSetPopoverController;
+@property (nonatomic)				NSMutableArray			*listofQuestionSets;
+@property (nonatomic)	IBOutlet	UITableView				*thisTableView;
+@property (nonatomic)				UIPopoverController		*addDetailsPopoverController;
+@property (nonatomic)				UIPopoverController		*addSetPopoverController;
 
 -(void)		loadQuestionSets: (int) mathType;
 -(IBAction) addSetButtonTapped: (id) sender;

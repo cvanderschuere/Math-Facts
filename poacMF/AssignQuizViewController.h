@@ -30,23 +30,23 @@
     UITableView			*ptrTableToRedraw;
 }
 
-@property (nonatomic, retain)	IBOutlet	UILabel				*selectedStudent;
-@property (nonatomic, retain)	IBOutlet	UILabel				*assignedSet;
-@property (nonatomic, retain)				NSMutableArray		*listOfUsers;
-@property (nonatomic, retain)				NSMutableArray		*listofQuestionSets;
-@property (nonatomic, retain)	IBOutlet	UIPickerView		*studentPicker;
-@property (nonatomic, retain)	IBOutlet	UIPickerView		*quizSetPicker;
+@property (nonatomic)	IBOutlet	UILabel				*selectedStudent;
+@property (nonatomic)	IBOutlet	UILabel				*assignedSet;
+@property (nonatomic)				NSMutableArray		*listOfUsers;
+@property (nonatomic)				NSMutableArray		*listofQuestionSets;
+@property (nonatomic)	IBOutlet	UIPickerView		*studentPicker;
+@property (nonatomic)	IBOutlet	UIPickerView		*quizSetPicker;
 @property (nonatomic)						int					selectedStudentIndex;
 @property (nonatomic)						int					assignedSetIndex;
 @property (nonatomic)						int					testType;
-@property (nonatomic, retain)	IBOutlet	UITextField			*timeLimitTF;
-@property (nonatomic, retain)	IBOutlet	UITextField			*requiredCorrectTF;
-@property (nonatomic, retain)	IBOutlet	UITextField			*allowedIncorrectTF;
-@property (nonatomic, retain)	IBOutlet	UITextField			*totalQuestionsTF;
-@property (nonatomic, retain)	IBOutlet	UINavigationBar		*thisNavBar;
-@property (nonatomic, retain)				Quiz				*assignedQuiz;
+@property (nonatomic)	IBOutlet	UITextField			*timeLimitTF;
+@property (nonatomic)	IBOutlet	UITextField			*requiredCorrectTF;
+@property (nonatomic)	IBOutlet	UITextField			*allowedIncorrectTF;
+@property (nonatomic)	IBOutlet	UITextField			*totalQuestionsTF;
+@property (nonatomic)	IBOutlet	UINavigationBar		*thisNavBar;
+@property (nonatomic)				Quiz				*assignedQuiz;
 @property (nonatomic)						BOOL				updateMode;
-@property (nonatomic, retain)			    UITableView			*ptrTableToRedraw;
+@property (nonatomic)			    UITableView			*ptrTableToRedraw;
 
 -(IBAction) cancelClicked;
 -(IBAction) saveClicked;

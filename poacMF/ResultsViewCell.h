@@ -26,16 +26,16 @@
     
 }
 
-@property (nonatomic, retain) IBOutlet	UILabel		*testTypeLabel;
-@property (nonatomic, retain) IBOutlet	UILabel		*mathTypeLabel;	
-@property (nonatomic, retain) IBOutlet	UILabel		*resultsNumberCorrect;
-@property (nonatomic, retain) IBOutlet	UILabel		*resultsTotalCount;
-@property (nonatomic, retain) IBOutlet	UILabel		*resultsTimeTaken;	
-@property (nonatomic, retain) IBOutlet	UILabel		*requiredNumberCorrect;
-@property (nonatomic, retain) IBOutlet	UILabel		*requiredTotalCount;
-@property (nonatomic, retain) IBOutlet	UILabel		*requiredTimeTaken;
-@property (nonatomic, retain) IBOutlet	UILabel		*testDate;
-@property (nonatomic, retain) IBOutlet	UILabel		*passFailLabel;
+@property (nonatomic) IBOutlet	UILabel		*testTypeLabel;
+@property (nonatomic) IBOutlet	UILabel		*mathTypeLabel;	
+@property (nonatomic) IBOutlet	UILabel		*resultsNumberCorrect;
+@property (nonatomic) IBOutlet	UILabel		*resultsTotalCount;
+@property (nonatomic) IBOutlet	UILabel		*resultsTimeTaken;	
+@property (nonatomic) IBOutlet	UILabel		*requiredNumberCorrect;
+@property (nonatomic) IBOutlet	UILabel		*requiredTotalCount;
+@property (nonatomic) IBOutlet	UILabel		*requiredTimeTaken;
+@property (nonatomic) IBOutlet	UILabel		*testDate;
+@property (nonatomic) IBOutlet	UILabel		*passFailLabel;
 
 
 @end

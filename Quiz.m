@@ -17,9 +17,7 @@
 
 
 #pragma mark Memory Management
-- (void)dealloc {
-	[super dealloc];
-}//end method
+//end method
 
 #pragma mark Mutable Copy Methods
 - (id)mutableCopyWithZone:(NSZone *) zone {

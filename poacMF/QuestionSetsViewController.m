@@ -20,15 +20,7 @@
 
 @synthesize listofQuestionSets, thisTableView, addDetailsPopoverController, addSetPopoverController;
 
-- (void)dealloc {
-	[listofQuestionSets release];
-	[thisTableView release];
-	if (nil != addDetailsPopoverController)
-		[addDetailsPopoverController release];
-	if (nil != addSetPopoverController)
-		[addSetPopoverController release];
-    [super dealloc];
-}//end method
+//end method
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   	return YES;
@@ -40,7 +32,6 @@
 	addVC.view.backgroundColor = [UIColor blackColor];
 	addVC.contentSizeForViewInPopover = CGSizeMake(400, 380);
 	self.addSetPopoverController = [[UIPopoverController alloc] initWithContentViewController:addVC];
-	[addVC release];
 	
 	//[self dismissThePopovers];
 	[addSetPopoverController presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
@@ -51,7 +42,6 @@
 	addVC.view.backgroundColor = [UIColor blackColor];
 	addVC.contentSizeForViewInPopover = CGSizeMake(400, 380);
 	self.addDetailsPopoverController = [[UIPopoverController alloc] initWithContentViewController:addVC];
-	[addVC release];
 	
 	//[self dismissThePopovers];
 	[addDetailsPopoverController presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
@@ -76,7 +66,6 @@
 -(void) loadQuestionSets: (int) mathType {
 	QuestionSetsDAO *uDAO = [[QuestionSetsDAO alloc] init];
 	self.listofQuestionSets = [uDAO getSetByMathType:mathType];
-	[uDAO release];
 	
 	if (nil == self.listofQuestionSets)
 		self.listofQuestionSets = [NSMutableArray array];
@@ -126,7 +115,6 @@
 		titleString = [al interpretMathTypeAsPhrase:qs.mathType];
 		titleString = [titleString stringByAppendingString:qs.questionSetName];
 	}//
-	[al release];
 	return titleString;
 }//end method
 
@@ -135,7 +123,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
 	
 	AppLibrary *al = [[AppLibrary alloc] init];
@@ -163,7 +151,6 @@
 		
 		cell.textLabel.text = questionString;
 	}//end method
-	[al release];
 	
 	return cell;
 }//end method
@@ -197,7 +184,6 @@
 		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];		
 		//[tableView reloadData];
 		
-		[qsdDAO release];
 	} //end IF statement
 } //end method
 

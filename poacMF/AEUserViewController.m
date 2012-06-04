@@ -18,23 +18,7 @@
 @synthesize editMode, adminstratorSwitch, studentSwitch,updateUser,userPracticeTimeLimitTF;
 @synthesize userTimedTimeLimitTF, delayRetakeTF, ptrTableToRedraw;
 
-- (void)dealloc {
-	[thisTableView release];
-	[usernameTF release];
-	[firstNameTF release];
-	[lastNameTF release];
-	[passwordTF release];
-	[emailAddressTF release];
-	[userPracticeTimeLimitTF release];
-	[userTimedTimeLimitTF release];
-	[adminstratorSwitch release];
-	[studentSwitch release];
-	[delayRetakeTF release];
-	if (nil != updateUser)
-		[updateUser release];
-	[ptrTableToRedraw release];
-    [super dealloc];
-}//end method
+//end method
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Return YES for supported orientations
@@ -48,7 +32,7 @@
 
 -(IBAction) saveClicked {
 	//TODO: Need to check for valid values
-	AppLibrary *al = [[[AppLibrary alloc] init] autorelease];
+	AppLibrary *al = [[AppLibrary alloc] init];
 	if (nil == usernameTF.text){
 		NSString *msg = @"Username must be entered.";
 		[al showAlertFromDelegate:self withWarning:msg];
@@ -97,7 +81,6 @@
 	
 		newUser.userId = [uDAO addUser:newUser];
 		[avc.usersVC.listOfUsers addObject:newUser];
-		[newUser release];
 	} else {
 		updateUser.username = usernameTF.text;
 		updateUser.firstName = firstNameTF.text;
@@ -119,7 +102,6 @@
 			updateUser.userType = STUDENT_USER_TYPE;
 		[uDAO updateUser: updateUser];
 	}//end if-else
-	[uDAO release];
 	
 	[self dismissModalViewControllerAnimated:YES];
 	[ptrTableToRedraw reloadData];
@@ -199,7 +181,7 @@
 
 -(UITextField *) createTextField {
 	CGRect frame = CGRectMake(10, 3, 520, 35);
-	UITextField *foo = [[[UITextField alloc] initWithFrame:frame] autorelease];
+	UITextField *foo = [[UITextField alloc] initWithFrame:frame];
 	foo.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 	foo.textAlignment = UITextAlignmentCenter;
 	foo.returnKeyType = UIReturnKeyDone;
@@ -225,7 +207,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
 	//otherwise the labels appear multiple times, 

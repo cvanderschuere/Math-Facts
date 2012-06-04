@@ -22,13 +22,13 @@
 		
 	}
 
-@property (nonatomic, retain)	IBOutlet	UITableView		*thisTableView;
-@property (nonatomic, retain)				NSMutableArray	*listOfQuestionSets;
-@property (nonatomic, retain)				UITextField		*nameSetTF;
-@property (nonatomic, retain)				UISwitch		*addSwitch;
-@property (nonatomic, retain)				UISwitch		*subSwitch;
-@property (nonatomic, retain)				UISwitch		*multSwitch;
-@property (nonatomic, retain)				UISwitch		*divSwitch;
+@property (nonatomic)	IBOutlet	UITableView		*thisTableView;
+@property (nonatomic)				NSMutableArray	*listOfQuestionSets;
+@property (nonatomic)				UITextField		*nameSetTF;
+@property (nonatomic)				UISwitch		*addSwitch;
+@property (nonatomic)				UISwitch		*subSwitch;
+@property (nonatomic)				UISwitch		*multSwitch;
+@property (nonatomic)				UISwitch		*divSwitch;
 
 -(IBAction)			cancelClicked;
 -(IBAction)			saveClicked;

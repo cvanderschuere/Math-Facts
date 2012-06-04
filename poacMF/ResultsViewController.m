@@ -19,14 +19,7 @@
 @synthesize thisTableView, listOfUsersNSMA, listOfResultsNSMA, detailsCountForUsersNSD;
 @synthesize selectedUserIndex, detailMode, detailsForSelectedUserNSMA;
 
-- (void)dealloc {
-	[thisTableView release];
-	[listOfUsersNSMA release];
-	[listOfResultsNSMA release];
-	[detailsCountForUsersNSD release];
-	[detailsForSelectedUserNSMA release];
-    [super dealloc];
-}//end method
+//end method
 
 #pragma mark Button Methods
 
@@ -37,21 +30,18 @@
 	
 	UsersDAO *uDAO = [[UsersDAO alloc] init];
 	self.listOfUsersNSMA = [uDAO getAllUsers];
-	[uDAO release];
 	
 	if (nil == self.listOfUsersNSMA)
 		self.listOfUsersNSMA = [NSMutableArray array];
 	
 	ResultsDAO *rDAO = [[ResultsDAO alloc] init];
 	self.listOfResultsNSMA = [rDAO getAllResults];
-	[rDAO release];
 	
 	if (nil == self.listOfResultsNSMA)
 		self.listOfResultsNSMA = [NSMutableArray array];
 	
 	AppLibrary *al = [[AppLibrary alloc] init];
 	self.detailsCountForUsersNSD = [al matchAndCountUsers: listOfUsersNSMA toDetails:listOfResultsNSMA];
-	[al release];
 	
 	self.detailsForSelectedUserNSMA = [NSMutableArray array];
 	
@@ -164,14 +154,13 @@
 		else
 			cell.passFailLabel.backgroundColor = [UIColor greenColor];
 	
-		[al release];
 	   return cell;
    } else {
 	   static NSString *CellIdentifier = @"Cell";
 	   
 	   UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	   if (cell == nil) {
-		   cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+		   cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 	   }
 	   NSString *titleString=@"";
 	   User *u = [listOfUsersNSMA objectAtIndex:indexPath.row];

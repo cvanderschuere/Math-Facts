@@ -15,12 +15,6 @@
 @synthesize mathType,resultsTestDate,resultsPassFail,resultsTimeTaken, resultsTotalQuestions,resultsCorrect;
 
 #pragma mark Memory Management
-- (void)dealloc {
-	
-	[resultsTestDate release];
-	[resultsPassFail release];
-	[setName release];
-	[super dealloc];
-}//end method
+//end method
 
 @end

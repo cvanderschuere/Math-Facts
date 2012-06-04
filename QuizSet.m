@@ -15,12 +15,7 @@
 @synthesize numberCorrect, numberIncorrect, recordedTime, passedQuiz;
 
 #pragma mark Memory Management
-- (void)dealloc {
-	[assignedQuiz release];
-	[assignedQuestionSet release];
-	[questionDetailsNSMA release];
-	[super dealloc];
-}//end method
+//end method
 
 #pragma mark Mutable Copy Methods
 - (id)mutableCopyWithZone:(NSZone *)zone {

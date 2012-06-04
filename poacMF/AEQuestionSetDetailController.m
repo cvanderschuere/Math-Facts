@@ -22,14 +22,7 @@
 @synthesize thisTableView,xValueTF,yValueTF,questionSetPicker;
 @synthesize selectedSetIndex, listOfQuestionSets;
 
-- (void)dealloc {
-	[thisTableView release];
-	[xValueTF release];
-	[yValueTF release];
-	[questionSetPicker release];
-	[listOfQuestionSets release];
-	[super dealloc];
-}//end method
+//end method
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return YES;
@@ -43,7 +36,7 @@
 }//end method
 
 -(IBAction) saveClicked {
-	AppLibrary *al = [[[AppLibrary alloc] init] autorelease];
+	AppLibrary *al = [[AppLibrary alloc] init];
 	if (nil == xValueTF.text){
 		NSString *msg = @"xValue must be entered.";
 		[al showAlertFromDelegate:self withWarning:msg];
@@ -63,9 +56,7 @@
 	qsd.setId = qs.setId;
 
 	qsd.detailId = [qsdDAO addDetailsById:qsd.setId andXValue:qsd.xValue andYValue:qsd.yValue];
-	[qsd release];
 	
-	[qsdDAO release];
 	
 	PoacMFAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
 	AdminViewController *avc = (AdminViewController *) appDelegate.viewController.modalViewController;
@@ -88,7 +79,6 @@
 	
 	QuestionSetsDAO *uDAO = [[QuestionSetsDAO alloc] init];
 	self.listOfQuestionSets = [uDAO getAllSets];
-	[uDAO release];
 	
 	if (nil == self.listOfQuestionSets)
 		self.listOfQuestionSets = [NSMutableArray array];
@@ -98,7 +88,7 @@
 
 -(UITextField *) createTextField {
 	CGRect frame = CGRectMake(50, 3, 300, 35);
-	UITextField *foo = [[[UITextField alloc] initWithFrame:frame] autorelease];
+	UITextField *foo = [[UITextField alloc] initWithFrame:frame];
 	foo.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 	foo.textAlignment = UITextAlignmentCenter;
 	foo.returnKeyType = UIReturnKeyDone;
@@ -124,7 +114,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
 	//otherwise the labels appear multiple times, 
@@ -166,7 +156,6 @@
 		NSString *backend = [NSString stringWithFormat:@" - %i questions", [qs.setDetailsNSMA count]];
 		NSString *frontend = [[al interpretMathTypeAsPhrase:qs.mathType] stringByAppendingString:qs.questionSetName];
 		returnString = [frontend stringByAppendingString:backend];
-		[al release];
 		return returnString;					  
 	}//end if
 	return returnString;

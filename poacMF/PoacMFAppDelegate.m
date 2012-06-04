@@ -16,13 +16,7 @@
 @synthesize window=_window, viewController=_viewController;
 @synthesize databasePath, loggedIn, currentUser;
 
-- (void)dealloc {
-	[_window release];
-	[_viewController release];
-	[databasePath release];
-	[currentUser release];
-    [super dealloc];
-}//end method
+//end method
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	[self applicationPrep];

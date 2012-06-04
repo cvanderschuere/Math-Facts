@@ -25,23 +25,7 @@
 @synthesize timeLimitTF, requiredCorrectTF, allowedIncorrectTF, totalQuestionsTF;
 @synthesize thisNavBar, assignedQuiz, updateMode, ptrTableToRedraw;
 
-- (void)dealloc {
-	[selectedStudent release];
-	[assignedSet release];
-	[listOfUsers release];
-	[listofQuestionSets release];
-	[studentPicker release];
-	[quizSetPicker release];
-	[timeLimitTF release];
-	[requiredCorrectTF release];
-	[allowedIncorrectTF release];
-	[totalQuestionsTF release];
-	[thisNavBar release];
-	if (nil != assignedQuiz)
-		[assignedQuiz release];
-	[ptrTableToRedraw release];
-    [super dealloc];
-}//end method
+//end method
 
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -57,7 +41,6 @@
 	//load the users
 	UsersDAO *uDAO = [[UsersDAO alloc] init];
 	self.listOfUsers = [uDAO getAllUsers];
-	[uDAO release];
 	
 	if (nil == self.listOfUsers)
 		self.listOfUsers = [NSMutableArray array];
@@ -65,7 +48,6 @@
 	//load the Quiz Sets
 	QuestionSetsDAO *qsDAO = [[QuestionSetsDAO alloc] init];
 	self.listofQuestionSets = [qsDAO getAllSets];
-	[qsDAO release];
 	
 	if (nil == self.listofQuestionSets)
 		self.listofQuestionSets = [NSMutableArray array];
@@ -150,7 +132,6 @@
 		(0 >= allowedIncorrectTF)){
 		NSString *msg = @"All fields need to be filled in.";
 		[al showAlertFromDelegate:self withWarning:msg];
-		[al release];
 		return;
 	}//end 
 	
@@ -167,8 +148,6 @@
 		newQuiz.testType = self.testType;
 		QuizzesDAO *qDAO = [[QuizzesDAO alloc] init];
 		[qDAO addQuizForUser:newQuiz];
-		[qDAO release];
-		[newQuiz release];		
 	} else {
 		QuestionSet *qs = [listofQuestionSets objectAtIndex:assignedSetIndex];
 		assignedQuiz.setId = qs.setId;
@@ -179,10 +158,8 @@
 		assignedQuiz.testType = self.testType;
 		QuizzesDAO *qDAO = [[QuizzesDAO alloc] init];
 		[qDAO updateQuizForUser: assignedQuiz];
-		[qDAO release];
 	}//
 	
-	[al release];
 	
 	[self dismissModalViewControllerAnimated:YES];
 	
@@ -220,7 +197,6 @@
 			NSString *backend = [NSString stringWithFormat:@" - %i questions", [qs.setDetailsNSMA count]];
 			NSString *frontend = [[al interpretMathTypeAsPhrase:qs.mathType] stringByAppendingString:qs.questionSetName];
 			returnString = [frontend stringByAppendingString:backend];
-			[al release];
 			return returnString;					  
 		}//end if
 	return returnString;
@@ -256,7 +232,6 @@
 			NSString *backend = [NSString stringWithFormat:@" - %i questions", [qs.setDetailsNSMA count]];
 			NSString *frontend = [[al interpretMathTypeAsPhrase:qs.mathType] stringByAppendingString:qs.questionSetName];
 			returnString = [frontend stringByAppendingString:backend];
-			[al release];
 			self.assignedSet.text = returnString;
 			assignedSetIndex = row;
 		}//end if

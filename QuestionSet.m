@@ -14,11 +14,7 @@
 @synthesize setId,questionSetName,mathType,setOrder,setDetailsNSMA;
 
 #pragma mark Memory Management
-- (void)dealloc {
-	[questionSetName release];
-	[setDetailsNSMA release];
-	[super dealloc];
-}//end method
+//end method
 
 #pragma mark Mutable Copy Methods
 - (id)mutableCopyWithZone:(NSZone *)zone {

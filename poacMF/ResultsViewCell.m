@@ -15,18 +15,5 @@
 @synthesize resultsTotalCount,resultsTimeTaken,requiredNumberCorrect;
 @synthesize requiredTotalCount,requiredTimeTaken, testDate, passFailLabel;
 
-- (void)dealloc {
-	[testTypeLabel release];
-	[mathTypeLabel release];
-	[resultsNumberCorrect release];
-	[resultsTotalCount release];
-	[resultsTimeTaken release];
-	[requiredNumberCorrect release];
-	[requiredTotalCount release];
-	[requiredTimeTaken release];
-	[testDate release];
-	[passFailLabel release];
-    [super dealloc];
-}
 
 @end

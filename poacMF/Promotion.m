@@ -35,7 +35,6 @@
 		nextQuestionSet.setOrder = 0;
 		nextQuestionSet = [qDAO getQuestionSetBySetOrder:nextQuestionSet.setOrder andMathType:nextQuestionSet.mathType];
 	}//end if
-	[qDAO release];
 	
 	//if we've passed all things, don't assign
 	if (nextMathType > DIVISION_MATH_TYPE)
@@ -58,7 +57,6 @@
 		}//
 		//	c) insert
 		[quizDAO addQuizForUser:newTestQuiz];
-		[newTestQuiz release];
 	} else {
 		//   a) create the next Practice
 		Quiz *newPracticeQuiz = [studentQuizSet.assignedQuiz mutableCopyWithZone:nil];
@@ -80,10 +78,8 @@
 		//newPracticeQuiz.testType=QUIZ_TEST_TYPE;
 		//[quizDAO addQuizForUser:newPracticeQuiz];
 		
-		[newPracticeQuiz release];
 	}//end if-else
 	
-	[quizDAO release];
 }//end method
 
 -(void) regressUser: (User *) user withQuizSet: (QuizSet *) studentQuizSet {
@@ -93,8 +89,6 @@
 		newTestQuiz.timeLimit = user.defaultPracticeTimeLimit;
 		newTestQuiz.quizId = -1;
 		[quizDAO addQuizForUser:newTestQuiz];
-		[newTestQuiz release];
-		[quizDAO release];
 }//end method
 
 @end

@@ -40,7 +40,7 @@
 
 #pragma mark Get Methods
 -(User *) getUserInformation : (NSString *) userName {
-	User *newUser = [[[User alloc] init] autorelease];
+	User *newUser = [[User alloc] init];
 	NSString *u = [userName lowercaseString];
 	sqlite3 *database;
 	if(sqlite3_open([super.databasePath UTF8String], &database) == SQLITE_OK) {
@@ -101,7 +101,6 @@
 				qs.delayRetake = sqlite3_column_double(compiledStatement, 8);
 				qs.defaultTimedTimeLimit = sqlite3_column_double(compiledStatement, 9);
 				[uNSMA addObject:qs];
-				[qs autorelease];
 			}//end while
 		} else {
 			NSLog(@"UsersDAO.getAllUsers: Select error: %s", sqlite3_errmsg(database) );

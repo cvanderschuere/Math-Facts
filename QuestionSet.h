@@ -18,10 +18,10 @@
 }
 
 @property (nonatomic)			int						setId;
-@property (nonatomic, retain)	NSString				*questionSetName;
+@property (nonatomic)	NSString				*questionSetName;
 @property (nonatomic)			int						mathType;
 @property (nonatomic)			int						setOrder;
-@property (nonatomic, retain)	NSMutableArray			*setDetailsNSMA;
+@property (nonatomic)	NSMutableArray			*setDetailsNSMA;
 
 - (id)mutableCopyWithZone:(NSZone *)zone;
 

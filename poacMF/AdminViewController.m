@@ -16,16 +16,6 @@
 @synthesize usersVC, questionSetsVC, studentView, questionsView, usersViewable;
 @synthesize resultsVC, questionSetsViewable;
 
-- (void)dealloc {
-	if (nil != usersVC)
-		[usersVC release];
-	if (nil != questionSetsVC)
-		[questionSetsVC release];
-	[studentView release];
-	[questionsView release];
-	[resultsVC release];
-    [super dealloc];
-}
 
 #pragma mark - View lifecycle
 - (void)viewDidLoad {
@@ -119,7 +109,8 @@
 		//execute the animation
 		[[usersVC.view layer] addAnimation:animation forKey:@"SwitchToView0"];
 		
-	} else {
+	} 
+    else {
 		[usersVC.thisTableView reloadData];
 		
 		//if we've never opened the view, slide it open
@@ -164,7 +155,6 @@
 		otherButtonTitles:@"Cancel", nil, nil];
 	popupQuery.actionSheetStyle = UIActionSheetStyleBlackOpaque;
 	[popupQuery showInView:self.view];
-	[popupQuery release];
 }//end method
 
 #pragma mark - Action Sheet Methods

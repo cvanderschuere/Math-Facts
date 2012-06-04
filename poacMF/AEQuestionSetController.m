@@ -21,12 +21,7 @@
 @synthesize addSwitch,subSwitch,multSwitch,divSwitch;
 
 
-- (void)dealloc {
-	[thisTableView release];
-	[listOfQuestionSets release];
-	[nameSetTF release];
-	[super dealloc];
-}//end method
+//end method
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return YES;
@@ -60,7 +55,6 @@
 	
 	QuestionSetsDAO *qsDAO = [[QuestionSetsDAO alloc] init];
 	newQS.setId = [qsDAO addQuestionSet:newQS.questionSetName forMathType:newQS.mathType withSetOrder:0];
-	[qsDAO release];
 	
 	PoacMFAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
 	AdminViewController *avc = (AdminViewController *) appDelegate.viewController.modalViewController;
@@ -69,7 +63,6 @@
 	[avc.questionSetsVC loadQuestionSets:newQS.mathType];
 	[avc.questionSetsVC.thisTableView reloadData];
 	
-	[newQS release];
 }//end method
 
 -(IBAction) switchSet: (id) sender{
@@ -109,7 +102,7 @@
 
 -(UITextField *) createTextField {
 	CGRect frame = CGRectMake(20, 4, 350, 35);
-	UITextField *foo = [[[UITextField alloc] initWithFrame:frame] autorelease];
+	UITextField *foo = [[UITextField alloc] initWithFrame:frame];
 	foo.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 	foo.textAlignment = UITextAlignmentCenter;
 	foo.returnKeyType = UIReturnKeyDone;
@@ -132,7 +125,6 @@
 	
 	QuestionSetsDAO *uDAO = [[QuestionSetsDAO alloc] init];
 	self.listOfQuestionSets = [uDAO getAllSets];
-	[uDAO release];
 	
 	if (nil == self.listOfQuestionSets)
 		self.listOfQuestionSets = [NSMutableArray array];
@@ -174,7 +166,7 @@
 		static NSString *CellIdentifier = @"CellOne";
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 		if (cell == nil)
-			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 
 		//otherwise the labels appear multiple times, 
 		for (UIView *view in cell.contentView.subviews)
@@ -206,7 +198,7 @@
 	static NSString *CellIdentifier = @"CellTwo";
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil)
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];	
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];	
 
 	if (1 == indexPath.section) {		
 		if (nil != self.listOfQuestionSets){
@@ -217,7 +209,7 @@
 			
 			cell.textLabel.text = frontend;
 			cell.detailTextLabel.text = backend;
-			[al release];;					  
+			;					  
 		}//end if
 	}//end if
 		
@@ -244,7 +236,6 @@
 		QuestionSet *qs = [self.listOfQuestionSets objectAtIndex:indexPath.row];
 		QuestionSetsDAO *qsDAO = [[QuestionSetsDAO alloc] init];
 		[qsDAO deleteQuestionSetById:qs.setId];
-		[qsDAO release];
 		
 		[self.listOfQuestionSets removeObjectAtIndex:indexPath.row];
 		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];		

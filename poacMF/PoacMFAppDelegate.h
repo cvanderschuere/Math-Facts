@@ -20,12 +20,12 @@
 	User		*currentUser;
 }
 
-@property (nonatomic, retain)	IBOutlet	UIWindow *window;
-@property (nonatomic, retain)	IBOutlet	POACDetailViewController *viewController;
+@property (nonatomic)	IBOutlet	UIWindow *window;
+@property (nonatomic)	IBOutlet	POACDetailViewController *viewController;
 
-@property (nonatomic, retain)	NSString	*databasePath;
+@property (nonatomic)	NSString	*databasePath;
 @property (nonatomic)	BOOL	loggedIn;
-@property (nonatomic, retain)	User		*currentUser;
+@property (nonatomic)	User		*currentUser;
 
 
 -(void) checkAndCreateDatabase;

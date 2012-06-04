@@ -8,6 +8,7 @@
 
 #import "QuestionSetsDAOTest.h"
 #import "QuestionSetsDAO.h"
+#import "QuestionSet.h"
 #import "AppConstants.h"
 
 
@@ -61,7 +62,6 @@
 	QuestionSetsDAO *qsDAO = [[QuestionSetsDAO alloc] init];
 	NSArray *questionSetsNSA = [qsDAO getAllSets];
 	//NSLog(@"questionSetsNSA %s", [[questionSetsNSA description] UTF8String]);
-	[qsDAO release];
 	STAssertNotNil(questionSetsNSA,@"getAllSets Failed");
 }//end method
 
@@ -69,7 +69,6 @@
 	QuestionSetsDAO *qsDAO = [[QuestionSetsDAO alloc] init];
 	NSArray *questionSetsNSA = [qsDAO getSetByMathType:DIVISION_MATH_TYPE];
 	NSLog(@"testGetSetByMathType.questionSetsNSA %s", [[questionSetsNSA description] UTF8String]);
-	[qsDAO release];
 	STAssertNotNil(questionSetsNSA,@"testGetSetByMathType Failed");
 }//end method
 
@@ -77,7 +76,6 @@
 	QuestionSetsDAO *qsDAO = [[QuestionSetsDAO alloc] init];
 	QuestionSet *qs = [qsDAO getQuestionSetById:5];
 	//NSLog(@"QuestionSet %s", [[qs description] UTF8String]);
-	[qsDAO release];
 	STAssertNotNil(qs,@"testGetQuestionSetById Failed");
 }//end method
 
@@ -85,7 +83,6 @@
 	QuestionSetsDAO *qsDAO = [[QuestionSetsDAO alloc] init];
 	QuestionSet *qs = [qsDAO getQuestionSetBySetOrder:5 andMathType:0];
 	NSLog(@"QuestionSet %s", [[qs description] UTF8String]);
-	[qsDAO release];
 	STAssertNotNil(qs,@"testgetQuestionSetBySetOrderAndMathType Failed");
 }//end method
 

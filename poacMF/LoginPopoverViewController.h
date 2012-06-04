@@ -18,10 +18,10 @@
 	UITextField				*passwordTextField;
 }//end interface
 
-@property (nonatomic, retain) IBOutlet	UITableView				*thisTableView;
-@property (nonatomic, retain) IBOutlet	UINavigationBar			*thisNavBar;
-@property (nonatomic, retain) IBOutlet	UITextField				*userNameTextField;
-@property (nonatomic, retain) IBOutlet	UITextField				*passwordTextField;
+@property (nonatomic) IBOutlet	UITableView				*thisTableView;
+@property (nonatomic) IBOutlet	UINavigationBar			*thisNavBar;
+@property (nonatomic) IBOutlet	UITextField				*userNameTextField;
+@property (nonatomic) IBOutlet	UITextField				*passwordTextField;
 
 -(IBAction) cancelTapped;
 -(IBAction) loginTapped;

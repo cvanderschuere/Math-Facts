@@ -27,7 +27,6 @@
 	QuizzesDAO *qsDAO = [[QuizzesDAO alloc] init];
 	NSArray *allQuizzesNSA = [qsDAO getAllQuizzesByUserId:3];
 	NSLog(@"allQuizzesNSA %s", [[allQuizzesNSA description] UTF8String]);
-	[qsDAO release];
 	STAssertNotNil(allQuizzesNSA,@"testGetAllQuizzesByUserId Failed");
 }//end method
 
@@ -35,7 +34,6 @@
 	QuizzesDAO *qsDAO = [[QuizzesDAO alloc] init];
 	NSArray *allAvailableQuizzesNSA = [qsDAO getAvailablePracticeQuizzesByUserId:3];
 	NSLog(@"allAvailableQuizzesNSA.count %i", [allAvailableQuizzesNSA count]);
-	[qsDAO release];
 	STAssertNotNil(allAvailableQuizzesNSA,@"testGetAvailablePracticeQuizzesByUserId Failed");
 }//end method
 

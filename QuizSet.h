@@ -23,9 +23,9 @@
 }
 
 
-@property (nonatomic, retain)	Quiz			*assignedQuiz;
-@property (nonatomic, retain)	QuestionSet		*assignedQuestionSet;
-@property (nonatomic, retain)	NSMutableArray	*questionDetailsNSMA;
+@property (nonatomic)	Quiz			*assignedQuiz;
+@property (nonatomic)	QuestionSet		*assignedQuestionSet;
+@property (nonatomic)	NSMutableArray	*questionDetailsNSMA;
 
 @property	int				numberCorrect;
 @property	int				numberIncorrect;

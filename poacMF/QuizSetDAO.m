@@ -17,7 +17,6 @@
 	// Query 1 - Get the QuestionSets
 	QuestionSetsDAO *qsDAO = [[QuestionSetsDAO alloc] init];
 	studentQuizSet.assignedQuestionSet = [qsDAO getQuestionSetById: studentQuizSet.assignedQuiz.setId];
-	[qsDAO release];
 		
 	sqlite3 *database;
 	sqlite3_stmt *compiledStatement;
@@ -36,7 +35,6 @@
 				qsd.xValue = sqlite3_column_int(compiledStatement, 2);
 				qsd.yValue = sqlite3_column_int(compiledStatement, 3);
 				[studentQuizSet.questionDetailsNSMA addObject:qsd];
-				[qsd release];
 			}//end while
 		}//end if
 		sqlite3_finalize(compiledStatement);

@@ -28,21 +28,21 @@
 	
 }
 
-@property (nonatomic, retain)	IBOutlet	UITableView		*thisTableView;
-@property (nonatomic, retain)	IBOutlet	UITextField		*usernameTF;
-@property (nonatomic, retain)	IBOutlet	UITextField		*firstNameTF;
-@property (nonatomic, retain)	IBOutlet	UITextField		*lastNameTF;
-@property (nonatomic, retain)	IBOutlet	UITextField		*passwordTF;
-@property (nonatomic, retain)	IBOutlet	UITextField		*emailAddressTF;
-@property (nonatomic, retain)	IBOutlet	UITextField		*userPracticeTimeLimitTF;
-@property (nonatomic, retain)	IBOutlet	UITextField		*userTimedTimeLimitTF;
-@property (nonatomic, retain)	IBOutlet	UITextField		*delayRetakeTF;
-@property (nonatomic, retain)	IBOutlet	UISwitch		*adminstratorSwitch;
-@property (nonatomic, retain)	IBOutlet	UISwitch		*studentSwitch;
+@property (nonatomic)	IBOutlet	UITableView		*thisTableView;
+@property (nonatomic)	IBOutlet	UITextField		*usernameTF;
+@property (nonatomic)	IBOutlet	UITextField		*firstNameTF;
+@property (nonatomic)	IBOutlet	UITextField		*lastNameTF;
+@property (nonatomic)	IBOutlet	UITextField		*passwordTF;
+@property (nonatomic)	IBOutlet	UITextField		*emailAddressTF;
+@property (nonatomic)	IBOutlet	UITextField		*userPracticeTimeLimitTF;
+@property (nonatomic)	IBOutlet	UITextField		*userTimedTimeLimitTF;
+@property (nonatomic)	IBOutlet	UITextField		*delayRetakeTF;
+@property (nonatomic)	IBOutlet	UISwitch		*adminstratorSwitch;
+@property (nonatomic)	IBOutlet	UISwitch		*studentSwitch;
 @property (nonatomic)						BOOL			editMode;
-@property (nonatomic, retain)				User			*updateUser;
+@property (nonatomic)				User			*updateUser;
 
-@property (nonatomic, retain)				UITableView			*ptrTableToRedraw;
+@property (nonatomic)				UITableView			*ptrTableToRedraw;
 
 -(IBAction) cancelClicked;
 -(IBAction) saveClicked;

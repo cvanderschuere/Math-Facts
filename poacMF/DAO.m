@@ -22,9 +22,6 @@
 
 
 #pragma mark -
-- (void)dealloc {
-	[databasePath release];
-	[super dealloc];
-}//end method
+//end method
 
 @end

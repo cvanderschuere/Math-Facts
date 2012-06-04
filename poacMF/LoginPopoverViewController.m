@@ -19,13 +19,7 @@
 
 @synthesize thisNavBar, thisTableView, userNameTextField, passwordTextField;
 
-- (void)dealloc {
-	[thisNavBar release];
-	[thisTableView release];
-	[userNameTextField release];
-	[passwordTextField release];
-    [super dealloc];
-}//end method
+//end method
 
 #pragma mark Button Methods
 -(IBAction) cancelTapped {
@@ -34,7 +28,7 @@
 }//end method
 
 -(IBAction) loginTapped {
-	AppLibrary *al = [[[AppLibrary alloc] init] autorelease];
+	AppLibrary *al = [[AppLibrary alloc] init];
 	//check if username entered
 	if (nil == userNameTextField.text){
 		NSString *msg = @"Username must be entered.";
@@ -63,7 +57,6 @@
 			newDVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
 			newDVC.view.frame = CGRectMake(0, 0, 350, 365);
 			[appDelegate.viewController presentModalViewController: newDVC animated:YES];
-			[newDVC release];
 		} else {
 			TesterViewController *testerView = (TesterViewController *) appDelegate.viewController;
 			[testerView setInitialStudentView];
@@ -72,7 +65,6 @@
 		NSString *msg = @"Incorrect username/password.";
 		[al showAlertFromDelegate:self withWarning:msg];
 	}
-	[uDAO release];
 }//end method
 
 #pragma mark View lifecycle
@@ -85,7 +77,7 @@
 		(self.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown))
 		frame = CGRectMake(10, 6, 280, 30);
 	
-	UITextField *foo = [[[UITextField alloc] initWithFrame:frame] autorelease];
+	UITextField *foo = [[UITextField alloc] initWithFrame:frame];
 	self.userNameTextField = foo;
 	userNameTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 	userNameTextField.textAlignment = UITextAlignmentCenter;
@@ -97,7 +89,7 @@
 	userNameTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
 	userNameTextField.placeholder = @"Please Enter Username";
 	
-	UITextField *foo2 = [[[UITextField alloc] initWithFrame:frame] autorelease];
+	UITextField *foo2 = [[UITextField alloc] initWithFrame:frame];
 	self.passwordTextField = foo2;
 	passwordTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;	
 	passwordTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
@@ -136,7 +128,7 @@
     static NSString *CellIdentifier = @"CellIdentifier";
 	UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
 	

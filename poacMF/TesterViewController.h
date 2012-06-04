@@ -61,40 +61,40 @@
 	
 }
 
-@property (nonatomic, retain)	UIPopoverController			*loginPopoverController;
-@property (nonatomic, retain)	IBOutlet	UIToolbar		*thisToolBar;
-@property (nonatomic, retain)	IBOutlet	UIView			*numberPadView;
-@property (nonatomic, retain)	IBOutlet	UIImageView		*numberPadBackView;
-@property (nonatomic, retain)	IBOutlet	UIButton		*availablePracticesButton;
-@property (nonatomic, retain)	IBOutlet	UIButton		*availableTestsButton;
-@property (nonatomic, retain)	IBOutlet	UILabel			*xValueLabel;
-@property (nonatomic, retain)	IBOutlet	UILabel			*yValueLabel;
-@property (nonatomic, retain)	IBOutlet	UILabel			*mathSymbolLabel;
-@property (nonatomic, retain)	IBOutlet	UILabel			*dashedLineLabel;
-@property (nonatomic, retain)	IBOutlet	UILabel			*answerLabel;
-@property (nonatomic, retain)	IBOutlet	UILabel			*modeLabel;
-@property (nonatomic, retain)	IBOutlet	UILabel			*successLabel;
-@property (nonatomic, retain)	IBOutlet	UILabel			*questionCountLabel;
-@property (nonatomic, retain)	IBOutlet	UILabel			*timeLabel;	
-@property (nonatomic, retain)	IBOutlet	UILabel			*usernameLabel;
-@property (nonatomic, retain)	IBOutlet	UIButton		*nextButton;
+@property (nonatomic)	UIPopoverController			*loginPopoverController;
+@property (nonatomic)	IBOutlet	UIToolbar		*thisToolBar;
+@property (nonatomic)	IBOutlet	UIView			*numberPadView;
+@property (nonatomic)	IBOutlet	UIImageView		*numberPadBackView;
+@property (nonatomic)	IBOutlet	UIButton		*availablePracticesButton;
+@property (nonatomic)	IBOutlet	UIButton		*availableTestsButton;
+@property (nonatomic)	IBOutlet	UILabel			*xValueLabel;
+@property (nonatomic)	IBOutlet	UILabel			*yValueLabel;
+@property (nonatomic)	IBOutlet	UILabel			*mathSymbolLabel;
+@property (nonatomic)	IBOutlet	UILabel			*dashedLineLabel;
+@property (nonatomic)	IBOutlet	UILabel			*answerLabel;
+@property (nonatomic)	IBOutlet	UILabel			*modeLabel;
+@property (nonatomic)	IBOutlet	UILabel			*successLabel;
+@property (nonatomic)	IBOutlet	UILabel			*questionCountLabel;
+@property (nonatomic)	IBOutlet	UILabel			*timeLabel;	
+@property (nonatomic)	IBOutlet	UILabel			*usernameLabel;
+@property (nonatomic)	IBOutlet	UIButton		*nextButton;
 
-@property (nonatomic, retain)				NSMutableArray	*availablePracticeQuizzesNSMA;
-@property (nonatomic, retain)				NSMutableArray	*availableTestQuizzesNSMA;
-@property (nonatomic, retain)				QuizSet			*studentQuizSet;
-@property (nonatomic, retain)				NSTimer			*testTimer;
-@property (nonatomic, retain)				NSMutableArray	*seededQuestionBankNSMA;
-@property (nonatomic, retain)				NSMutableArray	*errorQueueNSMA;
-@property (nonatomic, retain)				NSMutableArray	*lastQuestionNSMA;
+@property (nonatomic)				NSMutableArray	*availablePracticeQuizzesNSMA;
+@property (nonatomic)				NSMutableArray	*availableTestQuizzesNSMA;
+@property (nonatomic)				QuizSet			*studentQuizSet;
+@property (nonatomic)				NSTimer			*testTimer;
+@property (nonatomic)				NSMutableArray	*seededQuestionBankNSMA;
+@property (nonatomic)				NSMutableArray	*errorQueueNSMA;
+@property (nonatomic)				NSMutableArray	*lastQuestionNSMA;
 @property (nonatomic)						BOOL			justMissed;
 
 //Division Items
-@property (nonatomic, retain)	IBOutlet	UIView			*divisionView;
-@property (nonatomic, retain)	IBOutlet	UILabel			*xDivValueLabel;
-@property (nonatomic, retain)	IBOutlet	UILabel			*yDivValueLabel;
-@property (nonatomic, retain)	IBOutlet	UILabel			*answerDivValueLabel;
+@property (nonatomic)	IBOutlet	UIView			*divisionView;
+@property (nonatomic)	IBOutlet	UILabel			*xDivValueLabel;
+@property (nonatomic)	IBOutlet	UILabel			*yDivValueLabel;
+@property (nonatomic)	IBOutlet	UILabel			*answerDivValueLabel;
 
-@property (nonatomic, retain)	IBOutlet	UILabel			*buildLabel;
+@property (nonatomic)	IBOutlet	UILabel			*buildLabel;
 
 
 @property int xValue;

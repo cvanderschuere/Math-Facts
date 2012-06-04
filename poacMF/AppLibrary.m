@@ -21,7 +21,6 @@
 						  cancelButtonTitle: @"Ok"
 						  otherButtonTitles:nil];
 	[alert show];
-	[alert release];
 }//end method
 
 -(NSString *)	interpretMathTypeAsPhrase: (int) mathType {
@@ -49,7 +48,7 @@
 }//end method
 
 -(NSString *) formattedDate: (NSDate *)thisDate {
-	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init]  autorelease];
+	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setTimeStyle:NSDateFormatterShortStyle];
 	[dateFormatter setDateStyle:NSDateFormatterShortStyle];
 	[dateFormatter setFormatterBehavior:NSDateFormatterBehaviorDefault];
@@ -74,7 +73,6 @@
 		recordCount=0;
 	}//end for
 	
-	[returnNSD autorelease];
 	return returnNSD;
 }//end method
 

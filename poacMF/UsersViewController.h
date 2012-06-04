@@ -15,8 +15,8 @@
     
 }
 
-@property (nonatomic, retain)				NSMutableArray			*listOfUsers;
-@property (nonatomic, retain)	IBOutlet	UITableView				*thisTableView;
+@property (nonatomic)				NSMutableArray			*listOfUsers;
+@property (nonatomic)	IBOutlet	UITableView				*thisTableView;
 
 -(IBAction) setEditableTable;
 -(IBAction)	userTableEditingTapped;

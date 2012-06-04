@@ -35,7 +35,6 @@
 				qs.totalQuestions = sqlite3_column_int(compiledStatement, 6);
 				qs.testType = sqlite3_column_int(compiledStatement, 7);
 				[uNSMA addObject:qs];
-				[qs autorelease];
 			}//end while
 		} else {
 			NSLog(@"QuizzesDAO.getAllQuizzesByUserId: Select error: %s", sqlite3_errmsg(database) );
@@ -79,7 +78,6 @@
 				newQuiz.totalQuestions = sqlite3_column_int(compiledStatement, 6);
 				newQuiz.testType = sqlite3_column_int(compiledStatement, 7);
 				[uNSMA addObject:newQuiz];
-				[newQuiz release];
 			}//end while
 		}//end if
 		sqlite3_finalize(compiledStatement);
@@ -90,7 +88,7 @@
 
 -(Quiz *) getSampleQuizForUser: (int) userId andTestType: (int) testType {
 	
-	Quiz *newQuiz = [[[Quiz alloc] init] autorelease];
+	Quiz *newQuiz = [[Quiz alloc] init];
 	sqlite3 *database;
 	if(sqlite3_open([super.databasePath UTF8String], &database) == SQLITE_OK) {
 		const char *sqlStatement = "SELECT quizId, userId, setid, timeLimit, correct, incorrect, totalQuestions, testType FROM quizzes q WHERE q.userId = ? AND testType =? order by quizId desc";

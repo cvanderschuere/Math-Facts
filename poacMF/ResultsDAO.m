@@ -78,7 +78,7 @@
 				if (nil != sqlite3_column_text(compiledStatement, 7))
 					foo = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 7)];
 				
-				NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init]  autorelease];
+				NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 				[dateFormatter setLenient:YES];		
 				[dateFormatter setDateStyle:NSDateFormatterShortStyle];
 				[dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss Z"];
@@ -99,7 +99,6 @@
 					sr.setName = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 12)];
 				
 				[uNSMA addObject:sr];
-				[sr autorelease];
 			}//end while
 		} else {
 			NSLog(@"ResultsDAO.getResultsSet: Select error: %s", sqlite3_errmsg(database) );

@@ -33,38 +33,7 @@
 @synthesize timeLabel, buildLabel, usernameLabel;
 @synthesize divisionView, xDivValueLabel, yDivValueLabel, answerDivValueLabel, lastQuestionNSMA;
 
-- (void)dealloc {
-	[thisToolBar release];
-	[loginPopoverController release];
-	[availablePracticesButton release];
-	[availableTestsButton release];
-	[availablePracticeQuizzesNSMA release];
-	[availableTestQuizzesNSMA release];
-	[numberPadView release];
-	[numberPadBackView release];
-	[xValueLabel release];
-	[yValueLabel release];
-	[mathSymbolLabel release];
-	[dashedLineLabel release];
-	[answerLabel release];
-	[timeLabel release];
-	[studentQuizSet release];
-	[testTimer release];
-	[seededQuestionBankNSMA release];
-	[modeLabel release];
-	[successLabel release];
-	[usernameLabel release];
-	[questionCountLabel release];
-	[nextButton release];
-	[errorQueueNSMA release];
-	[buildLabel release];
-	[divisionView release];
-	[xDivValueLabel release];
-	[yDivValueLabel release];
-	[answerDivValueLabel release];
-	[lastQuestionNSMA release];
-    [super dealloc];
-}//end method
+//end method
 
 #pragma mark - View lifecycle
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -102,7 +71,6 @@
 	apc.view.backgroundColor = [UIColor blackColor];
 	apc.contentSizeForViewInPopover = CGSizeMake(340, 130);
 	self.loginPopoverController = [[UIPopoverController alloc] initWithContentViewController:apc];
-	[apc release];	
 		
 }//end method
 
@@ -120,7 +88,6 @@
 				otherButtonTitles:@"Cancel", nil, nil];
 		popupQuery.actionSheetStyle = UIActionSheetStyleBlackOpaque;
 		[popupQuery showInView:self.view];
-		[popupQuery release];
 	}//end if
 }//end method
 
@@ -146,7 +113,6 @@
 	//Using the Quiz, get the full QuizSet
 	QuizSetDAO *qsDAO = [[QuizSetDAO alloc] init];
 	self.studentQuizSet = [qsDAO getQuizSetDetails: studentQuizSet];
-	[qsDAO release];
 	
 	[self initiateScenario];
 }//end method
@@ -213,12 +179,9 @@
 		Quiz *firstPracticeQuiz = [[Quiz alloc] init];;
 		if (0 != [self.availablePracticeQuizzesNSMA count])
 			firstPracticeQuiz = [self.availablePracticeQuizzesNSMA objectAtIndex:0];
-		else
-			[firstPracticeQuiz autorelease];
 		
 		ResultsDAO *rdao = [[ResultsDAO alloc] init];
 		BOOL practicesPassed = [rdao haveAnyPracticesBeenPassedForThisUser:appDelegate.currentUser.userId];
-		[rdao release];
 		
 		//QuestionSet *qsP = [qsDAO getQuestionSetById: firstQuiz.setId];
 		ResultsDAO *rDAO = [[ResultsDAO alloc] init];
@@ -238,14 +201,10 @@
 			buttonText = [buttonText stringByAppendingString:qs.questionSetName];
 			availableTestsButton.titleLabel.text = buttonText;
 		}//
-		[rDAO release];
 	} else {
 		availableTestsButton.titleLabel.text = @"0 Tests";
 	}
 	
-	[qsDAO release];	
-	[al release];
-	[qDAO release];
 }//end method
 
 -(void) numberPadAnimation {
@@ -335,7 +294,6 @@
 	if (studentQuizSet.assignedQuiz.totalQuestions > [self.seededQuestionBankNSMA count])
 		[self createQuestions];
 	
-	[al release];
 }//end method
 
 -(void) setFlashcardDigits {
@@ -663,20 +621,17 @@
 	//Record Results
 	ResultsDAO *rDAO = [[ResultsDAO alloc] init];
 	[rDAO recordResultsForQuizSet: studentQuizSet];
-	[rDAO release];
 	
 	//Call Business Object to Promote student if possible, otherwise reopen quiz
 	if (studentQuizSet.passedQuiz) {
 		PoacMFAppDelegate *appDelegate = (PoacMFAppDelegate *)[[UIApplication sharedApplication] delegate];	
 		Promotion *promo = [[Promotion alloc] init];
 		[promo promoteUser: appDelegate.currentUser withQuizSet:studentQuizSet];
-		[promo release];
 	} else {
 		if (studentQuizSet.assignedQuiz.testType == QUIZ_TIMED_TYPE) {
 			PoacMFAppDelegate *appDelegate = (PoacMFAppDelegate *)[[UIApplication sharedApplication] delegate];	
 			Promotion *promo = [[Promotion alloc] init];
 			[promo regressUser: appDelegate.currentUser withQuizSet:studentQuizSet];
-			[promo release];
 		}
 	}//end method
 	

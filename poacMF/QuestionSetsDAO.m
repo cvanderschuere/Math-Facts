@@ -76,7 +76,6 @@
 				qs.setDetailsNSMA = [qsdDAO getDetailSetForSetId:qs.setId];
 				
 				[qsNSMA addObject:qs];
-				[qs autorelease];
 			}//end while
 		} else {
 			NSLog(@"QuestionSetsDAO.getAllSets: Select error: %s", sqlite3_errmsg(database) );
@@ -84,7 +83,6 @@
 		sqlite3_finalize(compiledStatement);
 		sqlite3_close(database);
 	}//end if
-	[qsdDAO release];
 	return qsNSMA;
 }//end method
 
@@ -111,7 +109,6 @@
 				qs.setDetailsNSMA = [qsdDAO getDetailSetForSetId:qs.setId];
 				
 				[qsNSMA addObject:qs];
-				[qs autorelease];
 			}//end while
 		} else {
 			NSLog(@"QuestionSetsDAO.getAllSets: Select error: %s", sqlite3_errmsg(database) );
@@ -119,7 +116,6 @@
 		sqlite3_finalize(compiledStatement);
 		sqlite3_close(database);
 	}//end if
-	[qsdDAO release];
 	return qsNSMA;
 	
 }//end method
@@ -151,8 +147,6 @@
 		sqlite3_finalize(compiledStatement);
 		sqlite3_close(database);
 	}//end if
-	[qsdDAO release];
-	[qs autorelease];
 	return qs;
 }//end method
 
@@ -183,8 +177,6 @@
 		sqlite3_finalize(compiledStatement);
 		sqlite3_close(database);
 	}//end if
-	[qsdDAO release];
-	[qs autorelease];
 	return qs;
 }//end method
 
@@ -211,7 +203,6 @@
 	
 	QuestionSetDetailsDAO *qsDAO = [[QuestionSetDetailsDAO alloc] init];
 	[qsDAO deleteDetailSetForSetId: setId];
-	[qsDAO release];
 	return TRUE;
 }//end method
 

@@ -556,7 +556,6 @@
 	QuestionSetDetailsDAO *qsDAO = [[QuestionSetDetailsDAO alloc] init];
 	NSArray *questionDetailSetsNSA = [qsDAO getAllDetailSets];
 	//NSLog(@"questionDetailSetsNSA %s", [[questionDetailSetsNSA description] UTF8String]);
-	[qsDAO release];
 	STAssertNotNil(questionDetailSetsNSA,@"testGetAllDetailSets Failed");
 }//end method
 
@@ -564,7 +563,6 @@
 	QuestionSetDetailsDAO *qsDAO = [[QuestionSetDetailsDAO alloc] init];
 	NSArray *questionDetailSetsNSA = [qsDAO getDetailSetForSetId:1];
 	//NSLog(@"testGetDetailSetForSetId.questionDetailSetsNSA %s", [[questionDetailSetsNSA description] UTF8String]);
-	[qsDAO release];
 	STAssertNotNil(questionDetailSetsNSA,@"testGetDetailSetForSetId Failed");
 }//end method
 

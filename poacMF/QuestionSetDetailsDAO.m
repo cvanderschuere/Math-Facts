@@ -56,7 +56,6 @@
 				qs.xValue = sqlite3_column_int(compiledStatement, 2);
 				qs.yValue = sqlite3_column_int(compiledStatement, 3);
 				[qsNSMA addObject:qs];
-				[qs autorelease];
 			}//end while
 		} else {
 			NSLog(@"QuestionSetDetailsDAO.getAllDetailSets: Select error: %s", sqlite3_errmsg(database) );
@@ -85,7 +84,6 @@
 				qs.xValue = sqlite3_column_int(compiledStatement, 2);
 				qs.yValue = sqlite3_column_int(compiledStatement, 3);
 				[qsNSMA addObject:qs];
-				[qs autorelease];
 			}//end while
 		} else {
 			NSLog(@"QuestionSetDetailsDAO.getDetailSetForSetId: Select error: %s", sqlite3_errmsg(database) );

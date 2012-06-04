@@ -23,12 +23,12 @@
 }
 
 @property (nonatomic)			int						userId;
-@property (nonatomic, retain)	NSString				*username;
-@property (nonatomic, retain)	NSString                *password;
-@property (nonatomic, retain)	NSString				*firstName;
-@property (nonatomic, retain)	NSString				*lastName;
+@property (nonatomic)	NSString				*username;
+@property (nonatomic)	NSString                *password;
+@property (nonatomic)	NSString				*firstName;
+@property (nonatomic)	NSString				*lastName;
 @property (nonatomic)			int						userType;
-@property (nonatomic, retain)	NSString				*emailAddress;
+@property (nonatomic)	NSString				*emailAddress;
 @property (nonatomic)			double					defaultPracticeTimeLimit;
 @property (nonatomic)			double					defaultTimedTimeLimit;
 @property (nonatomic)			int						delayRetake;
