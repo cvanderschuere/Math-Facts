@@ -13,8 +13,8 @@
 
 @implementation AdminViewController
 
-@synthesize usersVC, questionSetsVC, studentView, questionsView, usersViewable;
-@synthesize resultsVC, questionSetsViewable;
+@synthesize usersVC = _usersVC, questionSetsVC = _questionSetsVC, studentView = _studentView, questionsView = _questionsView, usersViewable = _usersViewable;
+@synthesize resultsVC = _resultsVC, questionSetsViewable = _questionSetsViewable;
 
 
 #pragma mark - View lifecycle
@@ -33,15 +33,15 @@
 }
 
 -(IBAction) showQuestionSets {
-	if (questionSetsViewable) {
-		questionSetsViewable = NO;
+	if (self.questionSetsViewable) {
+		self.questionSetsViewable = NO;
 		//create the frame for the view so that it exists off screen.
 		int X_POSITION = 1024;
-		int Y_POSITION = questionSetsVC.view.frame.origin.y;
-		int WIDTH = questionSetsVC.view.frame.size.width;
-		int HEIGHT = questionSetsVC.view.frame.size.height;
+		int Y_POSITION = self.questionSetsVC.view.frame.origin.y;
+		int WIDTH = self.questionSetsVC.view.frame.size.width;
+		int HEIGHT = self.questionSetsVC.view.frame.size.height;
 		CGRect frame = CGRectMake(X_POSITION,Y_POSITION,WIDTH, HEIGHT);
-		questionSetsVC.view.frame = frame;
+		self.questionSetsVC.view.frame = frame;
 		
 		// set up an animation for the transition between the views
 		CATransition *animation = [CATransition animation];
@@ -50,55 +50,54 @@
 		[animation setSubtype:kCATransitionFromRight];
 		[animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
 		//execute the animation
-		[[questionSetsVC.view layer] addAnimation:animation forKey:@"SwitchToView2"];
-	} else {
-		[questionSetsVC.thisTableView reloadData];
-		
-		//if we've never opened the view, slide it open
-		if (!questionSetsViewable) {
-			/*create the VC with NIB. When I had this code in the viewDidLoad the views didn't
-			 slide in/out correctly after the first one. */
-			self.questionSetsVC = [[QuestionSetsViewController alloc] initWithNibName:QUESTION_SETS_VIEW_NIB bundle:nil];
-			
-			//setup the frame of the subTopicsVC
-			int WIDTH = 374;
-			int HEIGHT = 600;
-			int Y_POSITION = 125;
-			
-			int X_POSITION = (0);
-			if (self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft ||
-				self.interfaceOrientation == UIInterfaceOrientationLandscapeRight) {
-				X_POSITION = 0;
-			}//end
-			
-			CGRect frame = CGRectMake(X_POSITION,Y_POSITION,WIDTH, HEIGHT);
-			questionSetsVC.view.frame = frame;
-			[self.view addSubview:questionSetsVC.view];
-			
-			// set up an animation for the transition between the views
-			CATransition *animation = [CATransition animation];
-			[animation setDuration:0.5];
-			[animation setType:kCATransitionPush];
-			[animation setSubtype:kCATransitionFromLeft];
-			[animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-			//call the animation
-			[[questionSetsVC.view layer] addAnimation:animation forKey:@"SwitchToView4"];
-		}//end if
+		[[self.questionSetsVC.view layer] addAnimation:animation forKey:@"SwitchToView2"];
+	} else {		
+        /*Matt: When I had this code in the viewDidLoad the views didn't
+         slide in/out correctly after the first one. */
+        
+        //Create viewcontroller from nib if need-be and add as child
+        if (!self.questionSetsVC){
+            self.questionSetsVC = [[QuestionSetsViewController alloc] initWithNibName:QUESTION_SETS_VIEW_NIB bundle:nil];
+            [self addChildViewController:self.questionSetsVC];
+            [self.view addSubview:self.questionSetsVC.view];
+            [self.questionSetsVC didMoveToParentViewController:self];
+        }
+
+        [self.questionSetsVC.thisTableView reloadData];
+        
+        //setup the frame of the subTopicsVC
+        int WIDTH = 374;
+        int HEIGHT = 600;
+        int Y_POSITION = 125;
+        
+        int X_POSITION = (0);
+        
+        CGRect frame = CGRectMake(X_POSITION,Y_POSITION,WIDTH, HEIGHT);
+        self.questionSetsVC.view.frame = frame;
+        
+        // set up an animation for the transition between the views
+        CATransition *animation = [CATransition animation];
+        [animation setDuration:0.5];
+        [animation setType:kCATransitionPush];
+        [animation setSubtype:kCATransitionFromLeft];
+        [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+        //call the animation
+        [[self.questionSetsVC.view layer] addAnimation:animation forKey:@"SwitchToView4"];
 		//turn the flag so that a second VC isn't created
-		questionSetsViewable = YES;	
+		self.questionSetsViewable = YES;	
 	}//end if
 }//end method
 
 -(IBAction) showUsers {
-	if (usersViewable) {
-		usersViewable = NO;
+	if (self.usersViewable) {
+		self.usersViewable = NO;
 		//create the frame for the view so that it exists off screen.
 		int X_POSITION = 1024;
-		int Y_POSITION = usersVC.view.frame.origin.y;
-		int WIDTH = usersVC.view.frame.size.width;
-		int HEIGHT = usersVC.view.frame.size.height;
+		int Y_POSITION = self.usersVC.view.frame.origin.y;
+		int WIDTH = self.usersVC.view.frame.size.width;
+		int HEIGHT = self.usersVC.view.frame.size.height;
 		CGRect frame = CGRectMake(X_POSITION,Y_POSITION,WIDTH, HEIGHT);
-		usersVC.view.frame = frame;
+		self.usersVC.view.frame = frame;
 		
 		// set up an animation for the transition between the views
 		CATransition *animation = [CATransition animation];
@@ -107,17 +106,24 @@
 		[animation setSubtype:kCATransitionFromLeft];
 		[animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
 		//execute the animation
-		[[usersVC.view layer] addAnimation:animation forKey:@"SwitchToView0"];
+		[[self.usersVC.view layer] addAnimation:animation forKey:@"SwitchToView0"];
 		
 	} 
     else {
-		[usersVC.thisTableView reloadData];
+		[self.usersVC.thisTableView reloadData];
 		
 		//if we've never opened the view, slide it open
-		if (!usersViewable) {
+		if (!self.usersViewable) {
 			/*create the VC with NIB. When I had this code in the viewDidLoad the views didn't
 			 slide in/out correctly after the first one. */
-			self.usersVC = [[UsersViewController alloc] initWithNibName:USERS_VIEW_NIB bundle:nil];
+            
+            //Create viewcontroller from nib if need-be and add as child
+            if (!self.usersVC){
+                self.usersVC = [[UsersViewController alloc] initWithNibName:USERS_VIEW_NIB bundle:nil];
+                [self addChildViewController:self.usersVC];
+                [self.view addSubview:self.usersVC.view];
+                [self.usersVC didMoveToParentViewController:self];
+            }
 			
 			//setup the frame of the subTopicsVC
 			int WIDTH = 374;
@@ -131,8 +137,7 @@
 			}//end
 			
 			CGRect frame = CGRectMake(X_POSITION,Y_POSITION,WIDTH, HEIGHT);
-			usersVC.view.frame = frame;
-			[self.view addSubview:usersVC.view];
+			self.usersVC.view.frame = frame;
 			
 			// set up an animation for the transition between the views
 			CATransition *animation = [CATransition animation];
@@ -141,10 +146,10 @@
 			[animation setSubtype:kCATransitionFromRight];
 			[animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
 			//call the animation
-			[[usersVC.view layer] addAnimation:animation forKey:@"SwitchToView1"];
+			[[self.usersVC.view layer] addAnimation:animation forKey:@"SwitchToView1"];
 		}//end if
 		//turn the flag so that a second VC isn't created
-		usersViewable = YES;	
+		self.usersViewable = YES;	
 	}//end if
 }//end method
 

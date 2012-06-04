@@ -13,11 +13,6 @@
 #import "ResultsViewController.h"
 
 @interface AdminViewController : POACDetailViewController <UIActionSheetDelegate> {
-	UsersViewController				*usersVC;
-	QuestionSetsViewController		*questionSetsVC;
-	ResultsViewController			*resultsVC;
-	BOOL							usersViewable;
-	BOOL							questionSetsViewable;
 	
 }
 
