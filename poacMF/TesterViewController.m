@@ -22,8 +22,9 @@
 #import "Promotion.h"
  
 @implementation TesterViewController
+@synthesize titleBarButton;
 
-@synthesize thisToolBar, loginPopoverController, availablePracticesButton, availableTestsButton;
+@synthesize thisToolBar, availablePracticesButton, availableTestsButton;
 @synthesize availablePracticeQuizzesNSMA, availableTestQuizzesNSMA, numberPadView;
 @synthesize numberPadBackView, xValueLabel, yValueLabel, mathSymbolLabel, dashedLineLabel, answerLabel;
 @synthesize studentQuizSet;
@@ -66,30 +67,18 @@
 	
 	[self hideMostThings];
 	
-	self.usernameLabel.text = @"";
+	self.titleBarButton.title = @"";
 	
-	LoginPopoverViewController *apc = [[LoginPopoverViewController alloc] initWithNibName:LOGIN_VIEW_NIB bundle:nil]; 
-	apc.view.backgroundColor = [UIColor blackColor];
-	apc.contentSizeForViewInPopover = CGSizeMake(340, 130);
-	self.loginPopoverController = [[UIPopoverController alloc] initWithContentViewController:apc];
-		
 }//end method
 
 #pragma mark - Button Methods
--(IBAction) logInOut: (id) sender {
-	PoacMFAppDelegate *appDelegate = (PoacMFAppDelegate *)[[UIApplication sharedApplication] delegate];	
-	if (!appDelegate.loggedIn) {
-		//1) pop open a login window if not logged in
-		[self dismissThePopovers];
-		[loginPopoverController presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-	} else {
-		//2) confirmatory logout prompt if they are logged in
-		UIActionSheet *popupQuery = [[UIActionSheet alloc] initWithTitle:@"Logout?" 
-				delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"Logout" 
-				otherButtonTitles:@"Cancel", nil, nil];
-		popupQuery.actionSheetStyle = UIActionSheetStyleBlackOpaque;
-		[popupQuery showInView:self.view];
-	}//end if
+-(IBAction) logOut: (id) sender {
+    //2) confirmatory logout prompt if they are logged in
+    UIActionSheet *popupQuery = [[UIActionSheet alloc] initWithTitle:@"Logout?" 
+            delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"Logout" 
+            otherButtonTitles:@"Cancel", nil, nil];
+    popupQuery.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+    [popupQuery showInView:self.view];
 }//end method
 
 -(IBAction) testButtonsTapped: (id) sender{
@@ -118,11 +107,6 @@
 	[self initiateScenario];
 }//end method
 
-#pragma mark Managing the add popover
--(void) dismissThePopovers {
-	[loginPopoverController dismissPopoverAnimated:YES];
-}//end
-
 #pragma mark - Action Sheet Methods
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
 	PoacMFAppDelegate *appDelegate = (PoacMFAppDelegate *)[[UIApplication sharedApplication] delegate];	
@@ -134,7 +118,7 @@
 			[testTimer invalidate];
 			testTimer=nil;
 		}//end if
-        [self.presentingViewController dismissModalViewControllerAnimated:YES];
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
 	}//end if
 }//end method
 
@@ -142,7 +126,7 @@
 -(void) setInitialStudentView {
 	PoacMFAppDelegate *appDelegate = (PoacMFAppDelegate *)[[UIApplication sharedApplication] delegate];	
 	NSString *first = [appDelegate.currentUser.firstName stringByAppendingString:@" "];
-	self.usernameLabel.text = [first stringByAppendingString:appDelegate.currentUser.lastName];
+	self.titleBarButton.title = [first stringByAppendingString:appDelegate.currentUser.lastName];
 	
 	availablePracticesButton.hidden = NO;
 	availableTestsButton.hidden = NO;	
@@ -658,4 +642,8 @@
 	divisionView.hidden = YES;
 }//end method
 
+- (void)viewDidUnload {
+    [self setTitleBarButton:nil];
+    [super viewDidUnload];
+}
 @end

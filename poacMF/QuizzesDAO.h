@@ -24,6 +24,8 @@
 
 -(BOOL) addQuizForUser: (Quiz *) newQuiz;
 -(BOOL) updateQuizForUser: (Quiz *) newQuiz;
+-(BOOL) deleteQuizForUser:(Quiz*)quiz;
+
 
 
 @end

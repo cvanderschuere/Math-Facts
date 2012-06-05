@@ -1,5 +1,5 @@
 //
-//  AdminSplitViewController.h
+//  LogoutSegue.h
 //  poacMF
 //
 //  Created by Chris Vanderschuere on 05/06/2012.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AdminSplitViewController : UISplitViewController <UISplitViewControllerDelegate>
+@interface LogoutSegue : UIStoryboardSegue
 
 @end

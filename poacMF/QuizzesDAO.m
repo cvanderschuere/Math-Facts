@@ -199,5 +199,29 @@
 	}//end if
 	return TRUE;
 }//end method
+#pragma mark DELETE methods
+-(BOOL) deleteQuizForUser:(Quiz*)quiz{
+    BOOL deleted=FALSE;
+	sqlite3 *database;
+	if(sqlite3_open([super.databasePath UTF8String], &database) == SQLITE_OK) {
+		const char *sqlStatement = "DELETE FROM Quizzes WHERE userId = ? and quizId=?";
+		sqlite3_stmt *compiledStatement;
+		int returnValue =sqlite3_prepare_v2(database, sqlStatement, -1, &compiledStatement, NULL);
+		if (returnValue == SQLITE_OK) {
+			sqlite3_bind_int(compiledStatement, 1, quiz.userId);
+            sqlite3_bind_int(compiledStatement, 2, quiz.quizId);
 
+			if(SQLITE_DONE != sqlite3_step(compiledStatement))	
+				NSLog(@"QuizzesDAO.deleteQuizForUser:error while deleting: %s", sqlite3_errmsg(database));
+			else
+				deleted = TRUE;
+		} else {
+			NSLog(@"QuizzesDAO.deleteQuizForUser: Prepare statement error: %s", sqlite3_errmsg(database) );
+		}
+        sqlite3_finalize(compiledStatement);
+		sqlite3_close(database);
+	}//end if
+	return deleted;
+
+}
 @end

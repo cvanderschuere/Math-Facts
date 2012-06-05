@@ -15,6 +15,7 @@
 #import "ResultsDAO.h"
 #import "SuperResults.h"
 #import "AppLibrary.h"
+#import "UserDetailTableViewController.h"
 
 //Private Interface
 @interface UsersTableViewController ()
@@ -26,11 +27,19 @@
 @property (nonatomic)					BOOL					detailMode;
 @property (nonatomic)					int						selectedUserIndex;
 
+@property (nonatomic, weak)             UserDetailTableViewController   *userDetail;
+
 @end
 
 @implementation UsersTableViewController
 @synthesize listOfUsersNSMA = _listOfUsersNSMA, listOfResultsNSMA = _listOfResultsNSMA, detailsCountForUsersNSD = _detailsCountForUsersNSD, detailsForSelectedUserNSMA = _detailsForSelectedUserNSMA;
 @synthesize detailMode = _detailMode, selectedUserIndex = _selectedUserIndex;
+@synthesize userDetail = _userDetail;
+
+-(UserDetailTableViewController*) userDetail{
+    NSLog(@"Present: %@",self.parentViewController.parentViewController);
+    return (UserDetailTableViewController*) [[[[(UISplitViewController*) self.parentViewController.parentViewController viewControllers] lastObject] viewControllers] lastObject];
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -40,11 +49,7 @@
     }
     return self;
 }
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
+-(void) refreshUserInformation{
     //Load Users Information and store in array
     UsersDAO *uDAO = [[UsersDAO alloc] init];
 	self.listOfUsersNSMA = [uDAO getAllUsers];
@@ -62,6 +67,27 @@
 	self.detailsCountForUsersNSD = [al matchAndCountUsers: self.listOfUsersNSMA toDetails:self.listOfResultsNSMA];
 	
 	self.detailsForSelectedUserNSMA = [NSMutableArray array];
+    [self.tableView reloadData];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    //Update Information and register for change notifications
+    [self refreshUserInformation];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshUserInformation) name:@"usersUpdated" object:nil];
+    
+    
+    //Setup ViewController Switcher Toolbar
+    UISegmentedControl *segControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Users",@"Sets", nil]];
+    segControl.segmentedControlStyle = UISegmentedControlStyleBar;
+    segControl.selectedSegmentIndex = 0;
+    [segControl addTarget:self.navigationController action:@selector(switchViewController:) forControlEvents:UIControlEventValueChanged];
+    
+    UIBarButtonItem* flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    self.toolbarItems = [NSArray arrayWithObjects:flexibleSpace,[[UIBarButtonItem alloc] initWithCustomView:segControl],flexibleSpace, nil];
+    
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -73,6 +99,7 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
@@ -111,28 +138,33 @@
     return cell;
 }
 
-/*
+
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
     return YES;
 }
-*/
 
-/*
+
+
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
+        User *deleteUser = [self.listOfUsersNSMA objectAtIndex:indexPath.row];
+        if ([self.userDetail.currentUser isEqual:deleteUser]) {
+            self.userDetail.currentUser = nil;
+        }
+		UsersDAO *usDAO = [[UsersDAO alloc] init];
+		[usDAO deleteUserById:deleteUser.userId];
+		[self.listOfUsersNSMA removeObjectAtIndex:indexPath.row];
+
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
 }
-*/
+
 
 /*
 // Override to support rearranging the table view.
@@ -154,13 +186,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+        //Update Detail View controller with selected user
+    self.userDetail.currentUser = [self.listOfUsersNSMA objectAtIndex:indexPath.row];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
 }
 
 @end

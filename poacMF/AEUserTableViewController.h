@@ -1,5 +1,5 @@
 //
-//  AdminSplitViewController.h
+//  AEUserTableViewController.h
 //  poacMF
 //
 //  Created by Chris Vanderschuere on 05/06/2012.
@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AdminSplitViewController : UISplitViewController <UISplitViewControllerDelegate>
+@interface AEUserTableViewController : UITableViewController <UITextFieldDelegate>
 
+@property (nonatomic) BOOL editMode;
 @end

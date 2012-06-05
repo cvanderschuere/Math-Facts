@@ -11,58 +11,11 @@
 #import "POACDetailViewController.h"
 #import	"QuizSet.h"
 
-@interface TesterViewController : POACDetailViewController <UIActionSheetDelegate, UIPopoverControllerDelegate> {
+@interface TesterViewController : POACDetailViewController <UIActionSheetDelegate> {
     
-	UIPopoverController		*loginPopoverController;
-	/*
-	@private
-	UIToolbar				*thisToolBar;
-	UIView					*numberPadView;
-	UIImageView				*numberPadBackView;
-	UIButton				*availablePracticesButton;
-	UIButton				*availableTestsButton;
-	UILabel					*xValueLabel;
-	UILabel					*yValueLabel;
-	UILabel					*__weak mathSymbolLabel;
-	UILabel					*__weak dashedLineLabel;
-	UILabel					*__weak answerLabel;
-	UILabel					*__weak usernameLabel;
-	UILabel					*__weak modeLabel;
-	UILabel					*__weak successLabel;
-	UILabel					*__weak questionCountLabel;
-	UILabel					*__weak timeLabel;	
-	UIButton				*__weak nextButton;
-	
-	NSMutableArray			*__weak availablePracticeQuizzesNSMA;
-	NSMutableArray			*__weak availableTestQuizzesNSMA;
-	QuizSet					*studentQuizSet;
-	NSMutableArray			*__weak errorQueueNSMA;
-	NSMutableArray			*__weak lastQuestionNSMA;
-	
-	int xValue;
-	int yValue;
-	int zResult;
-	int correctAnswerCounter;
-	int totalAnswerCounter;
-	int errorCounter;
-	int timeCounter;
-	NSTimer					*__weak testTimer;
-	NSMutableArray			*__weak seededQuestionBankNSMA;
-	BOOL					justMissed;
-	int errorWaitCount;
-	
-	//Division Items
-	UIView					*divisionView;
-	UILabel					*xDivValueLabel;
-	UILabel					*yDivValueLabel;
-	UILabel					*answerDivValueLabel;
-	
-	UILabel					*buildLabel;
-     */
-	
 }
 
-@property (nonatomic, strong)	UIPopoverController			*loginPopoverController;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *titleBarButton;
 @property (nonatomic, weak)	IBOutlet	UIToolbar		*thisToolBar;
 @property (nonatomic, weak)	IBOutlet	UIView			*numberPadView;
 @property (nonatomic, weak)	IBOutlet	UIImageView		*numberPadBackView;
@@ -109,7 +62,7 @@
 
 
 -(void)			dismissThePopovers; 
--(IBAction)		logInOut: (id) sender;
+-(IBAction)		logOut: (id) sender;
 -(void)			setInitialStudentView;
 -(IBAction)		testButtonsTapped: (id) sender;
 -(void)			initiateScenario;

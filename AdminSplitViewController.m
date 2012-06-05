@@ -14,6 +14,18 @@
 
 @implementation AdminSplitViewController
 
+-(id) initWithCoder:(NSCoder *)aDecoder{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        self.delegate = self;
+    }
+    return self;
+}
+#pragma mark - UISplitViewDelegate Methods
+-(BOOL) splitViewController:(UISplitViewController *)svc shouldHideViewController:(UIViewController *)vc inOrientation:(UIInterfaceOrientation)orientation{
+    return NO;
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return YES;

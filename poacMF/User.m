@@ -15,8 +15,6 @@
 @synthesize userId,username,password,firstName,lastName,userType,emailAddress;
 @synthesize delayRetake,defaultPracticeTimeLimit,defaultTimedTimeLimit;
 
-#pragma mark Memory Management
-//end method
 
 #pragma mark Mutable Copy Methods
 - (id)mutableCopyWithZone:(NSZone *)zone {
