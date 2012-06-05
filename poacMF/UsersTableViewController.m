@@ -7,12 +7,30 @@
 //
 
 #import "UsersTableViewController.h"
+#import <QuartzCore/QuartzCore.h>
+#import "PoacMFAppDelegate.h"
+#import "AppConstants.h"
+#import "ResultsViewCell.h"
+#import "UsersDAO.h"
+#import "ResultsDAO.h"
+#import "SuperResults.h"
+#import "AppLibrary.h"
 
+//Private Interface
 @interface UsersTableViewController ()
+
+@property (strong, nonatomic)			NSMutableArray			*listOfUsersNSMA;
+@property (strong, nonatomic)			NSMutableArray			*listOfResultsNSMA;
+@property (strong, nonatomic)			NSDictionary			*detailsCountForUsersNSD;
+@property (strong, nonatomic)			NSMutableArray			*detailsForSelectedUserNSMA;
+@property (nonatomic)					BOOL					detailMode;
+@property (nonatomic)					int						selectedUserIndex;
 
 @end
 
 @implementation UsersTableViewController
+@synthesize listOfUsersNSMA = _listOfUsersNSMA, listOfResultsNSMA = _listOfResultsNSMA, detailsCountForUsersNSD = _detailsCountForUsersNSD, detailsForSelectedUserNSMA = _detailsForSelectedUserNSMA;
+@synthesize detailMode = _detailMode, selectedUserIndex = _selectedUserIndex;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -26,7 +44,25 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
+    //Load Users Information and store in array
+    UsersDAO *uDAO = [[UsersDAO alloc] init];
+	self.listOfUsersNSMA = [uDAO getAllUsers];
+	NSLog(@"List of Users: %@",self.listOfUsersNSMA);
+	if (nil == self.listOfUsersNSMA)
+		self.listOfUsersNSMA = [NSMutableArray array];
+	
+	ResultsDAO *rDAO = [[ResultsDAO alloc] init];
+	self.listOfResultsNSMA = [rDAO getAllResults];
+	
+	if (nil == self.listOfResultsNSMA)
+		self.listOfResultsNSMA = [NSMutableArray array];
+	
+	AppLibrary *al = [[AppLibrary alloc] init];
+	self.detailsCountForUsersNSD = [al matchAndCountUsers: self.listOfUsersNSMA toDetails:self.listOfResultsNSMA];
+	
+	self.detailsForSelectedUserNSMA = [NSMutableArray array];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -50,24 +86,27 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return [self.listOfUsersNSMA count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"defaultCell";
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    // Configure the cell...
+    NSString *titleString=@"";
+    User *u = [self.listOfUsersNSMA objectAtIndex:indexPath.row];
+    NSString *name = [u.firstName stringByAppendingString:@" "];
+    titleString = [name stringByAppendingString:u.lastName];
+    cell.textLabel.text = titleString; 
     
     return cell;
 }

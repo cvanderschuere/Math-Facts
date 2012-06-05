@@ -27,7 +27,8 @@
 
 #pragma mark Button Methods
 -(IBAction) cancelClicked {
-	[self dismissModalViewControllerAnimated:YES];
+    //Dismiss View
+	[self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
 }//end method
 
 -(IBAction) saveClicked {
