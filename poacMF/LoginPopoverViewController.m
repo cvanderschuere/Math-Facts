@@ -24,7 +24,7 @@
 #pragma mark Button Methods
 -(IBAction) cancelTapped {
 	PoacMFAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-	[appDelegate.viewController dismissThePopovers];
+	//[appDelegate.roo dismissThePopovers];
 }//end method
 
 -(IBAction) loginTapped {
@@ -50,16 +50,16 @@
 		PoacMFAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
 		appDelegate.loggedIn = TRUE;
 		appDelegate.currentUser = [uDAO getUserInformation:userNameTextField.text];
-		[appDelegate.viewController dismissThePopovers];
+		//[appDelegate.viewController dismissThePopovers];
 		
 		if (ADMIN_USER_TYPE == appDelegate.currentUser.userType) {		
 			POACDetailViewController *newDVC = [[AdminViewController alloc] initWithNibName:ADMIN_VIEW_NIB bundle:nil];
 			newDVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
 			newDVC.view.frame = CGRectMake(0, 0, 350, 365);
-			[appDelegate.viewController presentModalViewController: newDVC animated:YES];
+			//[appDelegate.viewController presentModalViewController: newDVC animated:YES];
 		} else {
-			TesterViewController *testerView = (TesterViewController *) appDelegate.viewController;
-			[testerView setInitialStudentView];
+			//TesterViewController *testerView = (TesterViewController *) appDelegate.viewController;
+			//[testerView setInitialStudentView];
 		}//
 	} else {
 		NSString *msg = @"Incorrect username/password.";

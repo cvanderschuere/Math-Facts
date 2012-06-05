@@ -8,23 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+//Note: View is part of admin screen
 
 @interface ResultsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
-    UITableView				*__weak thisTableView;
-	NSMutableArray			*__weak listOfUsersNSMA;
-	NSMutableArray			*__weak listOfResultsNSMA;
-	NSDictionary			*__weak detailsCountForUsersNSD;
-	NSMutableArray			*__weak detailsForSelectedUserNSMA;
-	BOOL					detailMode;
-	int						selectedUserIndex;
-	
+
 }
 
 @property (weak, nonatomic) IBOutlet	UITableView				*thisTableView;
-@property (weak, nonatomic)			NSMutableArray			*listOfUsersNSMA;
-@property (weak, nonatomic)			NSMutableArray			*listOfResultsNSMA;
-@property (weak, nonatomic)			NSDictionary			*detailsCountForUsersNSD;
-@property (weak, nonatomic)			NSMutableArray			*detailsForSelectedUserNSMA;
+@property (strong, nonatomic)			NSMutableArray			*listOfUsersNSMA;
+@property (strong, nonatomic)			NSMutableArray			*listOfResultsNSMA;
+@property (strong, nonatomic)			NSDictionary			*detailsCountForUsersNSD;
+@property (strong, nonatomic)			NSMutableArray			*detailsForSelectedUserNSMA;
 @property (nonatomic)					BOOL					detailMode;
 @property (nonatomic)					int						selectedUserIndex;
 

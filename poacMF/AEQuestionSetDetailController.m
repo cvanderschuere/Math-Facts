@@ -31,7 +31,7 @@
 #pragma mark Button Methods
 -(IBAction) cancelClicked {
 	PoacMFAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-	AdminViewController *avc = (AdminViewController *) appDelegate.viewController.modalViewController;
+	AdminViewController *avc = nil;//(AdminViewController *) appDelegate.viewController.modalViewController;
 	[avc.questionSetsVC dismissPopovers];
 }//end method
 
@@ -59,7 +59,7 @@
 	
 	
 	PoacMFAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-	AdminViewController *avc = (AdminViewController *) appDelegate.viewController.modalViewController;
+	AdminViewController *avc = nil;//(AdminViewController *) appDelegate.viewController.modalViewController;
 	[avc.questionSetsVC dismissPopovers];
 	
 	[avc.questionSetsVC loadQuestionSets:qs.mathType];

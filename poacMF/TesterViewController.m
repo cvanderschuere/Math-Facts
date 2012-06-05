@@ -134,6 +134,7 @@
 			[testTimer invalidate];
 			testTimer=nil;
 		}//end if
+        [self.presentingViewController dismissModalViewControllerAnimated:YES];
 	}//end if
 }//end method
 

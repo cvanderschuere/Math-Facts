@@ -55,7 +55,7 @@
 	}//end if
 	
 	PoacMFAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-	AdminViewController *avc = (AdminViewController *) appDelegate.viewController.modalViewController;
+	AdminViewController *avc = nil;//(AdminViewController *) appDelegate.viewController.modalViewController;
 	UsersDAO *uDAO = [[UsersDAO alloc] init];
 	if (!editMode) {
 		User *newUser = [[User alloc] init];

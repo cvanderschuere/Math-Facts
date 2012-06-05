@@ -12,9 +12,9 @@
 @interface DAO : NSObject {
 
 	@private
-	NSString	*__weak databasePath;
+	NSString	* databasePath;
 }
 
-@property (weak, nonatomic) NSString	*databasePath;
+@property (strong, nonatomic) NSString	*databasePath;
 
 @end

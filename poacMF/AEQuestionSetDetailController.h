@@ -10,13 +10,14 @@
 
 
 @interface AEQuestionSetDetailController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource> {
-	
+	/*
     UITableView		*thisTableView;
 	UITextField		*xValueTF;
 	UITextField		*yValueTF;
 	UIPickerView	*questionSetPicker;
 	NSMutableArray	*listOfQuestionSets;
 	int				selectedSetIndex;
+     */
 	
 }
 

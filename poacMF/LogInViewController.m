@@ -28,13 +28,14 @@
 #pragma mark - Button Methods
 -(IBAction) cancelTapped {
 	PoacMFAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-	[appDelegate.viewController dismissThePopovers];
+	//[appDelegate.viewController dismissThePopovers];
 }//end method
 
 -(IBAction) loginTapped {
 	AppLibrary *al = [[AppLibrary alloc] init];
 	//check if username entered
-	if (nil == self.self.userNameTextField.text){
+	if (nil == self.userNameTextField.text){
+        NSLog(@"UserName: %@",self.userNameTextField);
 		NSString *msg = @"Username must be entered.";
 		[al showAlertFromDelegate:self withWarning:msg];
 		return;
@@ -54,7 +55,6 @@
 		PoacMFAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
 		appDelegate.loggedIn = TRUE;
 		appDelegate.currentUser = [uDAO getUserInformation:self.userNameTextField.text];
-		[appDelegate.viewController dismissThePopovers];
 		
 		if (ADMIN_USER_TYPE == appDelegate.currentUser.userType) {
             /*
@@ -98,8 +98,9 @@
 		(self.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown))
 		frame = CGRectMake(10, 6, 280, 30);
 	
+    /*
 	UITextField *foo = [[UITextField alloc] initWithFrame:frame];
-	self.self.userNameTextField = foo;
+	self.userNameTextField = foo;
 	self.userNameTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 	self.userNameTextField.textAlignment = UITextAlignmentCenter;
 	self.userNameTextField.returnKeyType = UIReturnKeyDone;
@@ -111,7 +112,7 @@
 	self.userNameTextField.placeholder = @"Please Enter Username";
 	
 	UITextField *foo2 = [[UITextField alloc] initWithFrame:frame];
-	self.self.passwordTextField = foo2;
+	self.passwordTextField = foo2;
 	self.passwordTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;	
 	self.passwordTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 	self.passwordTextField.textAlignment = UITextAlignmentCenter;
@@ -123,13 +124,12 @@
 	self.passwordTextField.autocorrectionType = FALSE;
 	self.passwordTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
 	self.passwordTextField.placeholder = @"Please Enter Password";
-	
+	*/
+    
 }//end method
 
 -(void) viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:YES];
-	self.userNameTextField.text = nil;
-	self.passwordTextField.text = nil;
 	self.userNameTextField.text = @"admin";
 	self.passwordTextField.text = @"poacmf";
 }//end method
@@ -139,10 +139,10 @@
     // Return YES for supported orientations
 	return YES;
 }
-#pragma mark UITableViewDelegate
+#pragma mark UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *) textField {
-	[self.userNameTextField resignFirstResponder];
-	[self.passwordTextField resignFirstResponder];
+	[textField resignFirstResponder];
+	//[self.passwordTextField resignFirstResponder];
 	return YES;
 }//end method
 

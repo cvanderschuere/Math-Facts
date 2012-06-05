@@ -10,6 +10,7 @@
 #import "Quiz.h"
 
 @interface AssignQuizViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource> {
+    /*
 	UILabel				*selectedStudent;
 	UILabel				*assignedSet;
 	NSMutableArray		*listOfUsers;
@@ -28,6 +29,7 @@
 	BOOL				updateMode;
 	
     UITableView			*ptrTableToRedraw;
+    */
 }
 
 @property (nonatomic, weak)	IBOutlet	UILabel				*selectedStudent;

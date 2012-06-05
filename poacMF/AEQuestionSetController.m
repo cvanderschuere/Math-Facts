@@ -30,7 +30,7 @@
 #pragma mark Button Methods
 -(IBAction) cancelClicked {
 	PoacMFAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-	AdminViewController *avc = (AdminViewController *) appDelegate.viewController.modalViewController;
+	AdminViewController *avc = nil;//(AdminViewController *) appDelegate.viewController.modalViewController;
 	[avc.questionSetsVC dismissPopovers];
 	[avc.questionSetsVC loadQuestionSets:ADDITION_MATH_TYPE];
 	[avc.questionSetsVC.thisTableView reloadData];
@@ -57,7 +57,7 @@
 	newQS.setId = [qsDAO addQuestionSet:newQS.questionSetName forMathType:newQS.mathType withSetOrder:0];
 	
 	PoacMFAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-	AdminViewController *avc = (AdminViewController *) appDelegate.viewController.modalViewController;
+	AdminViewController *avc = nil;//(AdminViewController *) appDelegate.viewController.modalViewController;
 	[avc.questionSetsVC dismissPopovers];
 	
 	[avc.questionSetsVC loadQuestionSets:newQS.mathType];

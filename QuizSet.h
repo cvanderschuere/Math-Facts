@@ -11,9 +11,9 @@
 #import "QuestionSet.h"
 
 @interface QuizSet : NSObject {
-	Quiz			*__weak assignedQuiz;
-	QuestionSet		*__weak assignedQuestionSet;
-	NSMutableArray	*__weak questionDetailsNSMA;
+	Quiz			* assignedQuiz;
+	QuestionSet		* assignedQuestionSet;
+	NSMutableArray	* questionDetailsNSMA;
 	
 	//Results
 	int				numberCorrect;
@@ -23,9 +23,9 @@
 }
 
 
-@property (weak, nonatomic)	Quiz			*assignedQuiz;
-@property (weak, nonatomic)	QuestionSet		*assignedQuestionSet;
-@property (weak, nonatomic)	NSMutableArray	*questionDetailsNSMA;
+@property (strong, nonatomic)	Quiz			*assignedQuiz;
+@property (strong, nonatomic)	QuestionSet		*assignedQuestionSet;
+@property (strong, nonatomic)	NSMutableArray	*questionDetailsNSMA;
 
 @property	int				numberCorrect;
 @property	int				numberIncorrect;

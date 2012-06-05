@@ -14,7 +14,7 @@
 @interface TesterViewController : POACDetailViewController <UIActionSheetDelegate, UIPopoverControllerDelegate> {
     
 	UIPopoverController		*loginPopoverController;
-	
+	/*
 	@private
 	UIToolbar				*thisToolBar;
 	UIView					*numberPadView;
@@ -58,6 +58,7 @@
 	UILabel					*answerDivValueLabel;
 	
 	UILabel					*buildLabel;
+     */
 	
 }
 
@@ -79,22 +80,22 @@
 @property (weak, nonatomic)	IBOutlet	UILabel			*usernameLabel;
 @property (weak, nonatomic)	IBOutlet	UIButton		*nextButton;
 
-@property (weak, nonatomic)				NSMutableArray	*availablePracticeQuizzesNSMA;
-@property (weak, nonatomic)				NSMutableArray	*availableTestQuizzesNSMA;
+@property (strong, nonatomic)				NSMutableArray	*availablePracticeQuizzesNSMA;
+@property (strong, nonatomic)				NSMutableArray	*availableTestQuizzesNSMA;
 @property (nonatomic, strong)				QuizSet			*studentQuizSet;
-@property (weak, nonatomic)				NSTimer			*testTimer;
-@property (weak, nonatomic)				NSMutableArray	*seededQuestionBankNSMA;
-@property (weak, nonatomic)				NSMutableArray	*errorQueueNSMA;
-@property (weak, nonatomic)				NSMutableArray	*lastQuestionNSMA;
+@property (strong, nonatomic)				NSTimer			*testTimer;
+@property (strong, nonatomic)				NSMutableArray	*seededQuestionBankNSMA;
+@property (strong, nonatomic)				NSMutableArray	*errorQueueNSMA;
+@property (strong, nonatomic)				NSMutableArray	*lastQuestionNSMA;
 @property (nonatomic)						BOOL			justMissed;
 
 //Division Items
-@property (nonatomic, strong)	IBOutlet	UIView			*divisionView;
-@property (nonatomic, strong)	IBOutlet	UILabel			*xDivValueLabel;
-@property (nonatomic, strong)	IBOutlet	UILabel			*yDivValueLabel;
-@property (nonatomic, strong)	IBOutlet	UILabel			*answerDivValueLabel;
+@property (nonatomic, weak)	IBOutlet	UIView			*divisionView;
+@property (nonatomic, weak)	IBOutlet	UILabel			*xDivValueLabel;
+@property (nonatomic, weak)	IBOutlet	UILabel			*yDivValueLabel;
+@property (nonatomic, weak)	IBOutlet	UILabel			*answerDivValueLabel;
 
-@property (nonatomic, strong)	IBOutlet	UILabel			*buildLabel;
+@property (nonatomic, weak)	IBOutlet	UILabel			*buildLabel;
 
 
 @property int xValue;

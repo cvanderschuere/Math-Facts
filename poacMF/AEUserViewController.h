@@ -10,6 +10,7 @@
 #import "User.h"
 
 @interface AEUserViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate> {
+    /*
     UITableView		*thisTableView;
 	UITextField		*usernameTF;
 	UITextField		*firstNameTF;
@@ -25,6 +26,7 @@
 	User			*updateUser;
 	
     UITableView			*ptrTableToRedraw;
+    */
 	
 }
 

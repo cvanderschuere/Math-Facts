@@ -13,7 +13,7 @@
 @implementation PoacMFAppDelegate
 
 
-@synthesize window = _window, viewController=_viewController;
+@synthesize window = _window;
 @synthesize databasePath = _databasePath, loggedIn = _loggedIn, currentUser = _currentUser;
 
 //end method
@@ -68,7 +68,6 @@
 	self.currentUser = [[User alloc] init];
 	
     // Override point for customization after application launch.
-    
 	[self.window makeKeyAndVisible];
 }//end method
 

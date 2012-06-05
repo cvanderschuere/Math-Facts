@@ -12,7 +12,7 @@
 #import "QuestionSetsViewController.h"
 #import "ResultsViewController.h"
 
-@interface AdminViewController : POACDetailViewController <UIActionSheetDelegate> {
+@interface AdminViewController : POACDetailViewController <UIActionSheetDelegate, UITableViewDataSource, UITableViewDelegate> {
 	
 }
 
@@ -23,6 +23,15 @@
 @property (nonatomic, strong) IBOutlet	UIView							*questionsView;
 @property BOOL usersViewable;
 @property BOOL questionSetsViewable;
+
+//ResultsView Properties
+@property (weak, nonatomic) IBOutlet	UITableView				*thisTableView;
+@property (strong, nonatomic)			NSMutableArray			*listOfUsersNSMA;
+@property (strong, nonatomic)			NSMutableArray			*listOfResultsNSMA;
+@property (strong, nonatomic)			NSDictionary			*detailsCountForUsersNSD;
+@property (strong, nonatomic)			NSMutableArray			*detailsForSelectedUserNSMA;
+@property (nonatomic)					BOOL					detailMode;
+@property (nonatomic)					int						selectedUserIndex;
 
 
 -(IBAction) logOut: (id) sender;

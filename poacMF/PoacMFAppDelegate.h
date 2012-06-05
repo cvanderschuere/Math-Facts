@@ -19,7 +19,6 @@
 }
 
 @property (strong, nonatomic)	IBOutlet	UIWindow *window;
-@property (weak, nonatomic)	IBOutlet	POACDetailViewController *viewController;
 
 @property (strong, nonatomic)	NSString	*databasePath;
 @property (nonatomic)	BOOL	loggedIn;

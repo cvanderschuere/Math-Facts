@@ -11,7 +11,7 @@
 
 @interface AEQuestionSetController : UIViewController <UITableViewDelegate, 
 	UITableViewDataSource, UITextFieldDelegate> {
-    
+    /*
 		UITableView		*thisTableView;
 		NSMutableArray	*listOfQuestionSets;
 		UITextField		*nameSetTF;
@@ -19,7 +19,7 @@
 		UISwitch		*subSwitch;
 		UISwitch		*multSwitch;
 		UISwitch		*divSwitch;
-		
+	*/	
 	}
 
 @property (nonatomic, weak)	IBOutlet	UITableView		*thisTableView;

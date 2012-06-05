@@ -1,5 +1,5 @@
 //
-//  UsersTableViewController.h
+//  LoginSegue.h
 //  poacMF
 //
 //  Created by Chris Vanderschuere on 05/06/2012.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UsersTableViewController : UITableViewController
+@interface LoginSegue : UIStoryboardSegue
 
 @end
