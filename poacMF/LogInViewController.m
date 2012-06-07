@@ -15,7 +15,7 @@
 #import "POACDetailViewController.h"
 #import "UsersDAO.h"
 #import "AdminViewController.h"
-#import "TesterViewController.h"
+#import "UserProgressViewController.h"
 
 
 @interface LoginViewController ()
@@ -57,20 +57,10 @@
 		appDelegate.currentUser = [uDAO getUserInformation:self.userNameTextField.text];
 		
 		if (ADMIN_USER_TYPE == appDelegate.currentUser.userType) {
-            /*
-			POACDetailViewController *newDVC = [[AdminViewController alloc] initWithNibName:ADMIN_VIEW_NIB bundle:nil];
-			newDVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-			newDVC.view.frame = CGRectMake(0, 0, 350, 365);
-			[appDelegate.viewController presentModalViewController: newDVC animated:YES];
-             */
             [self performSegueWithIdentifier:@"adminUserSegue" sender:self];
 		} 
         else {
-            /*
-			TesterViewController *testerView = (TesterViewController *) appDelegate.viewController;
-			[testerView setInitialStudentView];
-             */
-            [self performSegueWithIdentifier:@"studentUserSegue" sender:self];
+            [self performSegueWithIdentifier:@"studentUserSegue" sender:appDelegate.currentUser];
 		}//
 	} else {
 		NSString *msg = @"Incorrect username/password.";
@@ -83,8 +73,8 @@
         
     }
     else if ([segue.identifier isEqualToString:@"studentUserSegue"]) {
-        TesterViewController *testerView = (TesterViewController *) segue.destinationViewController;
-        [testerView setInitialStudentView];
+        UserProgressViewController *progressVC = (UserProgressViewController *) [[segue.destinationViewController viewControllers] lastObject];
+        progressVC.currentUser = sender;
     }
 }
 
@@ -130,8 +120,8 @@
 
 -(void) viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:YES];
-	self.userNameTextField.text = @"admin";
-	self.passwordTextField.text = @"poacmf";
+	self.userNameTextField.text = @"chris";//admin
+	self.passwordTextField.text = @"kipper";//poacmf
 }//end method
 
 #pragma mark Rotation

@@ -66,9 +66,7 @@
 	self.lastQuestionNSMA = [NSMutableArray array];
 	
 	[self hideMostThings];
-	
-	self.titleBarButton.title = @"";
-	
+		
 }//end method
 
 #pragma mark - Button Methods
@@ -126,7 +124,7 @@
 -(void) setInitialStudentView {
 	PoacMFAppDelegate *appDelegate = (PoacMFAppDelegate *)[[UIApplication sharedApplication] delegate];	
 	NSString *first = [appDelegate.currentUser.firstName stringByAppendingString:@" "];
-	self.titleBarButton.title = [first stringByAppendingString:appDelegate.currentUser.lastName];
+	self.title = [first stringByAppendingString:appDelegate.currentUser.lastName];
 	
 	availablePracticesButton.hidden = NO;
 	availableTestsButton.hidden = NO;	
