@@ -19,6 +19,12 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
+@protocol AdminSplitViewCommunicationDelegate <NSObject>
+
+-(void) didSelectObject: (id) aObject;
+
+@end
+
 @interface CoreDataTableViewController : UITableViewController <NSFetchedResultsControllerDelegate>
 
 // The controller (this class fetches nothing if this is not set).

@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "Administrator.h"
+#import "UsersTableViewController.h"
+#import "SetsTableViewController.h"
 
-@interface AdminSplitViewController : UISplitViewController <UISplitViewControllerDelegate>
+@interface AdminSplitViewController : UISplitViewController <UISplitViewControllerDelegate, AdminSplitViewCommunicationDelegate>
 
-@property (nonatomic, strong) Administrator* currentUser;
+@property (nonatomic, strong) Administrator* currentAdmin;
 
 @end

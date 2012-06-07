@@ -23,15 +23,15 @@
 @property (nonatomic, weak)	IBOutlet	UITextField		*userTimedTimeLimitTF;
 @property (nonatomic, weak)	IBOutlet	UITextField		*delayRetakeTF;
 @property (nonatomic, weak) IBOutlet    UISegmentedControl *userTypeSC;
-@property (nonatomic, strong)				User			*updateUser;
 
 
 @end
 
 @implementation AEUserTableViewController
 @synthesize usernameTF = _usernameTF, firstNameTF = _firstNameTF, lastNameTF = _lastNameTF, passwordTF = _passwordTF, emailAddressTF = _emailAddressTF, userTypeSC = _userTypeSC;
-@synthesize updateUser = _updateUser,userPracticeTimeLimitTF = _userPracticeTimeLimitTF;
+@synthesize userPracticeTimeLimitTF = _userPracticeTimeLimitTF;
 @synthesize userTimedTimeLimitTF = _userTimedTimeLimitTF, delayRetakeTF = _delayRetakeTF, editMode = _editMode;
+@synthesize studentToUpdate = _studentToUpdate, createdStudentsAdmin = _createdStudentsAdmin;
 
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -49,11 +49,11 @@
     
     //Configure for updatedUser if in edit mode
     if (self.editMode) {
-		self.usernameTF.text = self.updateUser.username;
-		self.passwordTF.text = self.updateUser.password;
-		self.firstNameTF.text = self.updateUser.firstName;
-		self.lastNameTF.text = self.updateUser.lastName;
-		self.emailAddressTF.text = self.updateUser.emailAddress;
+		self.usernameTF.text = self.studentToUpdate.username;
+		self.passwordTF.text = self.studentToUpdate.password;
+		self.firstNameTF.text = self.studentToUpdate.firstName;
+		self.lastNameTF.text = self.studentToUpdate.lastName;
+		self.emailAddressTF.text = self.studentToUpdate.emailAddress;
         /*
 		NSNumber *dutll = [NSNumber numberWithDouble:self.updateUser.defaultPracticeTimeLimit];
 		self.userPracticeTimeLimitTF.text = [dutll stringValue];
@@ -81,6 +81,10 @@
 }
 #pragma mark Button Methods
 -(IBAction) cancelClicked {
+    if (!self.editMode) {
+        //Delete new student if not editing
+        [self.studentToUpdate.managedObjectContext deleteObject:self.studentToUpdate];
+    }
     //Dismiss View
 	[self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
 }//end method
@@ -108,58 +112,22 @@
 		[al showAlertFromDelegate:self withWarning:msg];
 		return;
 	}//end if
+    if (!self.editMode) {
+        self.studentToUpdate = [NSEntityDescription insertNewObjectForEntityForName:@"Student" inManagedObjectContext:self.createdStudentsAdmin.managedObjectContext];
+        [self.createdStudentsAdmin addStudentsObject:self.studentToUpdate];
+    }
 	
-	//PoacMFAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-	//AdminViewController *avc = nil;//(AdminViewController *) appDelegate.viewController.modalViewController;
-	if (!self.editMode) {
-		User *newUser = [[User alloc] init];
-		newUser.username = self.usernameTF.text;
-		newUser.firstName = self.firstNameTF.text;
-		newUser.lastName = self.lastNameTF.text;
-		newUser.password = self.passwordTF.text;
-		newUser.emailAddress = self.emailAddressTF.text;
-        /*
-		newUser.defaultPracticeTimeLimit = [self.userPracticeTimeLimitTF.text doubleValue];
-		newUser.defaultTimedTimeLimit = [self.userTimedTimeLimitTF.text doubleValue];
-		newUser.delayRetake = [self.delayRetakeTF.text intValue];
-		if (0 == newUser.delayRetake)
-			newUser.delayRetake = 2;
-		if (0 == newUser.defaultPracticeTimeLimit)
-			newUser.defaultPracticeTimeLimit = 120;
-		if (0 == newUser.defaultTimedTimeLimit)
-			newUser.defaultTimedTimeLimit = 60;
-        
-        newUser.userType = self.userTypeSC.selectedSegmentIndex;
-        
-		newUser.userId = [uDAO addUser:newUser];
-         */
-		//[avc.usersVC.listOfUsers addObject:newUser];
-	} else {
-		self.updateUser.username = self.usernameTF.text;
-		self.updateUser.firstName = self.firstNameTF.text;
-		self.updateUser.lastName = self.lastNameTF.text;
-		self.updateUser.password = self.passwordTF.text;
-		self.updateUser.emailAddress = self.emailAddressTF.text;
-        /*
-		self.updateUser.defaultPracticeTimeLimit = [self.userPracticeTimeLimitTF.text doubleValue];
-		self.updateUser.defaultTimedTimeLimit = [self.userTimedTimeLimitTF.text doubleValue];
-		self.updateUser.delayRetake = [self.delayRetakeTF.text intValue];
-		
-		if (0 == self.updateUser.delayRetake)
-			self.updateUser.delayRetake = 2;
-		if (0 == self.updateUser.defaultPracticeTimeLimit)
-			self.updateUser.defaultPracticeTimeLimit = 60;
-		
-        self.updateUser.userType = self.userTypeSC.selectedSegmentIndex;
-		
-		[uDAO updateUser:self.updateUser];
-         */
-	}//end if-else
-	
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"usersUpdated" object:self.updateUser];
+    self.studentToUpdate.username = self.usernameTF.text;
+    self.studentToUpdate.firstName = self.firstNameTF.text;
+    self.studentToUpdate.lastName = self.lastNameTF.text;
+    self.studentToUpdate.password = self.passwordTF.text;
+    self.studentToUpdate.emailAddress = self.emailAddressTF.text;
     
+    NSLog(@"Updated User: %@", self.studentToUpdate);
+    
+    [self.studentToUpdate.managedObjectContext save:nil];
+   	    
 	[self dismissModalViewControllerAnimated:YES];
-	//[ptrTableToRedraw reloadData];
 }//end method
 
 

@@ -8,6 +8,7 @@
 
 #import "Student.h"
 #import "Administrator.h"
+#import "Result.h"
 #import "Test.h"
 
 
@@ -16,7 +17,7 @@
 @dynamic defaultDifficulty;
 @dynamic idNumber;
 @dynamic notes;
-@dynamic adminstrator;
+@dynamic administrator;
 @dynamic results;
 @dynamic tests;
 

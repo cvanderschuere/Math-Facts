@@ -10,73 +10,32 @@
 #import <QuartzCore/QuartzCore.h>
 #import "PoacMFAppDelegate.h"
 #import "AppConstants.h"
-#import "ResultsViewCell.h"
-#import "ResultsDAO.h"
-#import "SuperResults.h"
-#import "AppLibrary.h"
+#import "AdminSplitViewController.h"
 #import "UserDetailTableViewController.h"
+#import "Student.h"
+#import "AEUserTableViewController.h"
 
 //Private Interface
 @interface UsersTableViewController ()
 
-@property (strong, nonatomic)			NSMutableArray			*listOfUsersNSMA;
-@property (strong, nonatomic)			NSMutableArray			*listOfResultsNSMA;
-@property (strong, nonatomic)			NSDictionary			*detailsCountForUsersNSD;
-@property (strong, nonatomic)			NSMutableArray			*detailsForSelectedUserNSMA;
-@property (nonatomic)					BOOL					detailMode;
-@property (nonatomic)					int						selectedUserIndex;
-
-@property (nonatomic, weak)             UserDetailTableViewController   *userDetail;
-
 @end
 
 @implementation UsersTableViewController
-@synthesize listOfUsersNSMA = _listOfUsersNSMA, listOfResultsNSMA = _listOfResultsNSMA, detailsCountForUsersNSD = _detailsCountForUsersNSD, detailsForSelectedUserNSMA = _detailsForSelectedUserNSMA;
-@synthesize detailMode = _detailMode, selectedUserIndex = _selectedUserIndex;
-@synthesize userDetail = _userDetail;
 
--(UserDetailTableViewController*) userDetail{
-    NSLog(@"Present: %@",self.parentViewController.parentViewController);
-    return (UserDetailTableViewController*) [[[[(UISplitViewController*) self.parentViewController.parentViewController viewControllers] lastObject] viewControllers] lastObject];
-}
+@synthesize currentAdmin = _currentAdmin;
+@synthesize delegate = _delegate;
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
+-(void) setCurrentAdmin:(Administrator *)currentAdmin{
+    if (![_currentAdmin isEqual:currentAdmin]) {
+        _currentAdmin = currentAdmin;
+        [self setupFetchedResultsController];
     }
-    return self;
 }
--(void) refreshUserInformation{
-    //Load Users Information and store in array
-        
-    
-	NSLog(@"List of Users: %@",self.listOfUsersNSMA);
-	if (nil == self.listOfUsersNSMA)
-		self.listOfUsersNSMA = [NSMutableArray array];
-	
-	ResultsDAO *rDAO = [[ResultsDAO alloc] init];
-	self.listOfResultsNSMA = [rDAO getAllResults];
-	
-	if (nil == self.listOfResultsNSMA)
-		self.listOfResultsNSMA = [NSMutableArray array];
-	
-	AppLibrary *al = [[AppLibrary alloc] init];
-	self.detailsCountForUsersNSD = [al matchAndCountUsers: self.listOfUsersNSMA toDetails:self.listOfResultsNSMA];
-	
-	self.detailsForSelectedUserNSMA = [NSMutableArray array];
-    [self.tableView reloadData];
-}
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    //Update Information and register for change notifications
-    [self refreshUserInformation];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshUserInformation) name:@"usersUpdated" object:nil];
-    
     
     //Setup ViewController Switcher Toolbar
     UISegmentedControl *segControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Users",@"Sets", nil]];
@@ -107,20 +66,29 @@
 {
 	return YES;
 }
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"addStudentSegue"]) {
+        [segue.destinationViewController setEditMode:NO];
+        [segue.destinationViewController setCreatedStudentsAdmin:self.currentAdmin];
+    }
+    
+}
+
+#pragma mark - NSFetchedResultsController Methods
+- (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
+{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Student"];
+    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]];
+    request.predicate = [NSPredicate predicateWithFormat:@"administrator == %@",self.currentAdmin];
+    
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
+                                                                        managedObjectContext:self.currentAdmin.managedObjectContext
+                                                                          sectionNameKeyPath:nil
+                                                                                   cacheName:nil];
+}
+
 
 #pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    // Return the number of sections.
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    // Return the number of rows in the section.
-    return [self.listOfUsersNSMA count];
-}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -129,22 +97,14 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     NSString *titleString=@"";
-    User *u = [self.listOfUsersNSMA objectAtIndex:indexPath.row];
-    NSString *name = [u.firstName stringByAppendingString:@" "];
-    titleString = [name stringByAppendingString:u.lastName];
+    Student *student = [self.fetchedResultsController objectAtIndexPath:indexPath];
+
+    NSString *name = [student.firstName stringByAppendingString:@" "];
+    titleString = [name stringByAppendingString:student.lastName];
     cell.textLabel.text = titleString; 
     
     return cell;
 }
-
-
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-
 
 
 // Override to support editing the table view.
@@ -152,14 +112,7 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
-        User *deleteUser = [self.listOfUsersNSMA objectAtIndex:indexPath.row];
-        if ([self.userDetail.currentUser isEqual:deleteUser]) {
-            self.userDetail.currentUser = nil;
-        }
-		//[usDAO deleteUserById:deleteUser.userId];
-		[self.listOfUsersNSMA removeObjectAtIndex:indexPath.row];
-
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self.fetchedResultsController.managedObjectContext deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
     }   
 }
 
@@ -184,10 +137,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-        //Update Detail View controller with selected user
-    self.userDetail.currentUser = [self.listOfUsersNSMA objectAtIndex:indexPath.row];
+    //Update Detail View controller with selected user
+    [self.delegate didSelectObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
 }
+
 
 @end

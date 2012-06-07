@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Student.h"
+#import "Administrator.h"
 
 @interface AEUserTableViewController : UITableViewController <UITextFieldDelegate>
 
 @property (nonatomic) BOOL editMode;
+@property (nonatomic, strong) Student* studentToUpdate;
+@property (nonatomic, strong) Administrator* createdStudentsAdmin;
 @end

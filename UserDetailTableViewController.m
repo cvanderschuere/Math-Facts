@@ -32,18 +32,15 @@
 @end
 
 @implementation UserDetailTableViewController
-@synthesize currentUser = _currentUser;
+@synthesize student = _student;
 @synthesize results = _results, quizzes = _quizzes, tests = _tests, popover = _popover;
 @synthesize quizsDAO = _quizsDAO, qSetDAO = _qSetDAO, appLibrary = _appLibrary;
 
--(void) setCurrentUser:(User *)currentUser{
-    NSLog(@"Current User: %@",currentUser);
-    if (![_currentUser isEqual:currentUser]) {
-        _currentUser = currentUser;
-        //Nil Invalid data Corresponding data
-        self.results = self.quizzes = self.tests = nil;
-        self.title = _currentUser.firstName;
-        [self.tableView reloadData];
+-(void) setStudent:(Student *)student{
+    if (![_student isEqual:student]) {
+        _student = student;
+        
+        self.title = _student.firstName;
     }
 }
 -(NSMutableArray*) results{
@@ -68,9 +65,6 @@
 -(id) initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
     if (self) {
-        self.quizsDAO = [[QuizzesDAO alloc] init];
-        self.qSetDAO = [[QuestionSetsDAO alloc] init];
-        self.appLibrary = [[AppLibrary alloc] init];
     }
     return self;
 }
@@ -104,7 +98,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     //Results, Quizs, Tests
-    return self.currentUser?3:0;
+    return self.student?3:0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

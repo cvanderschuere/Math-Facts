@@ -10,22 +10,22 @@
 #import <CoreData/CoreData.h>
 #import "User.h"
 
-@class Administrator, Test;
+@class Administrator, Result, Test;
 
 @interface Student : User
 
 @property (nonatomic, retain) NSNumber * defaultDifficulty;
 @property (nonatomic, retain) NSNumber * idNumber;
 @property (nonatomic, retain) NSString * notes;
-@property (nonatomic, retain) Administrator *adminstrator;
+@property (nonatomic, retain) Administrator *administrator;
 @property (nonatomic, retain) NSSet *results;
 @property (nonatomic, retain) NSSet *tests;
 @end
 
 @interface Student (CoreDataGeneratedAccessors)
 
-- (void)addResultsObject:(NSManagedObject *)value;
-- (void)removeResultsObject:(NSManagedObject *)value;
+- (void)addResultsObject:(Result *)value;
+- (void)removeResultsObject:(Result *)value;
 - (void)addResults:(NSSet *)values;
 - (void)removeResults:(NSSet *)values;
 

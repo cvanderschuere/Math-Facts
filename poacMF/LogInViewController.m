@@ -15,6 +15,7 @@
 #import "POACDetailViewController.h"
 #import "Student.h"
 #import "Administrator.h"
+#import "AdminSplitViewController.h"
 #import "UserProgressViewController.h"
 
 
@@ -89,7 +90,7 @@
 #pragma mark - Storyboard Segues
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"adminUserSegue"]) {
-        
+        [segue.destinationViewController setCurrentAdmin:sender];
     }
     else if ([segue.identifier isEqualToString:@"studentUserSegue"]) {
         UserProgressViewController *progressVC = (UserProgressViewController *) [[segue.destinationViewController viewControllers] lastObject];
@@ -139,8 +140,8 @@
 
 -(void) viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:YES];
-	self.userNameTextField.text = @"chris";//admin
-	self.passwordTextField.text = @"kipper";//poacmf
+	self.userNameTextField.text = @"admin";
+	self.passwordTextField.text = @"poacmf";
 }//end method
 
 #pragma mark Rotation
