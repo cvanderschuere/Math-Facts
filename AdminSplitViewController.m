@@ -8,6 +8,7 @@
 
 #import "AdminSplitViewController.h"
 #import "UsersTableViewController.h"
+#import "UserDetailTableViewController.h"
 #import "Student.h"
 
 @interface AdminSplitViewController ()
@@ -43,8 +44,12 @@
 
 #pragma mark - AdminComDelegate
 -(void) didSelectObject:(id)aObject{
-    if ([aObject isKindOfClass:[Student class]]) {
-        
+    UINavigationController *navController = [self.viewControllers lastObject];
+    if ([aObject isKindOfClass:[Student class]] && ![[[navController.viewControllers lastObject] student] isEqual:aObject]) {
+        //Detail view should be userDetailView
+        UserDetailTableViewController *detailTVC = [self.storyboard instantiateViewControllerWithIdentifier:@"UserDetailTableViewController"];
+        [detailTVC setStudent:aObject];
+        [navController setViewControllers:[NSArray arrayWithObject:detailTVC] animated:NO];
     }
     
 }

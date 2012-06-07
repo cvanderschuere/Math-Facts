@@ -15,7 +15,7 @@
 @property (nonatomic, retain) NSString * emailAddress;
 @property (nonatomic, retain) NSString * firstName;
 @property (nonatomic, retain) NSString * lastName;
-@property (nonatomic, retain) NSString * password;
+@property (nonatomic, retain) NSString * password; //TODO: hash password
 @property (nonatomic, retain) NSString * username;
 
 @end

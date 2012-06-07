@@ -7,20 +7,11 @@
 //
 
 #import "UserDetailTableViewController.h"
-#import "Quiz.h"
-#import "QuestionSet.h"
-#import "QuizzesDAO.h"
-#import "QuestionSetsDAO.h"
-#import "AppLibrary.h"
 #import "AssignQuizPopoverViewController.h"
 #import "AppConstants.h"
+#import "Test.h"
 
 @interface UserDetailTableViewController ()
-
-//Utility
-@property (nonatomic, strong) QuizzesDAO *quizsDAO;
-@property (nonatomic, strong) QuestionSetsDAO *qSetDAO;
-@property (nonatomic, strong) AppLibrary *appLibrary;
 
 //Storage Arrays
 @property (nonatomic, strong) NSMutableArray *results;
@@ -34,8 +25,6 @@
 @implementation UserDetailTableViewController
 @synthesize student = _student;
 @synthesize results = _results, quizzes = _quizzes, tests = _tests, popover = _popover;
-@synthesize quizsDAO = _quizsDAO, qSetDAO = _qSetDAO, appLibrary = _appLibrary;
-
 -(void) setStudent:(Student *)student{
     if (![_student isEqual:student]) {
         _student = student;
@@ -45,19 +34,23 @@
 }
 -(NSMutableArray*) results{
     if (!_results) {
-        _results = [NSMutableArray array];
+        _results = self.student.results.allObjects;
     }
     return _results;
 }
 -(NSMutableArray*) quizzes{
     if (!_quizzes) {
-        _quizzes = nil;//[self.quizsDAO getAvailablePracticeQuizzesByUserId: self.currentUser.userId];
+        _quizzes = [NSMutableArray array];
+        for (Test* test in self.student.tests) {
+            [_quizzes addObject:test.practice];
+        }
+        
     }
     return _quizzes;
 }
 -(NSMutableArray*) tests{
     if (!_tests) {
-        _tests = nil;//[self.quizsDAO getAvailableTestQuizzesByUserId:self.currentUser.userId];
+        _tests = [NSMutableArray arrayWithArray:self.student.tests.allObjects];
     }
     return _tests;
 }
@@ -145,7 +138,7 @@
     }
     
     UITableViewCell *cell = nil;
-    Quiz *quiz;    
+    Test * test = nil;
     switch (indexPath.section) {
         case 0:
             //Results
@@ -154,29 +147,16 @@
         case 1:
             //Quizzes
             cell = [tableView dequeueReusableCellWithIdentifier:@"quizzesCell"];
-            quiz = [self.quizzes objectAtIndex:indexPath.row];
             break;
         case 2:
             //Tests
             cell = [tableView dequeueReusableCellWithIdentifier:@"testsCell"];
-            quiz = [self.tests objectAtIndex:indexPath.row];
+            test = (Test*) [self.tests objectAtIndex:indexPath.row];
+            cell.textLabel.text = test.questionSet.name;
             break;
         default:
             break;
     }
-    
-    // Configure the cell...
-    if (indexPath.section > 0) {
-        /*
-        QuestionSet *qSet = [self.qSetDAO getQuestionSetById:quiz.setId];
-        cell.textLabel.text = [NSString stringWithFormat: @"Timed: %s%s",
-                       [[self.appLibrary interpretMathTypeAsPhrase:qSet.mathType] UTF8String], [qSet.questionSetName UTF8String]];
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%d:%d",quiz.requiredCorrect,quiz.allowedIncorrect];
-         */
-    }
-
-    
-    
     return cell;
 }
 
@@ -201,19 +181,13 @@
                 break;
             case 1:
                 //Delete Quiz
-                if ([self.quizsDAO deleteQuizForUser:[self.quizzes objectAtIndex:indexPath.row]]) {
-                    [self.quizzes removeObjectAtIndex:indexPath.row];
-                }
-                else
                     return;
                 break;
             case 2:
                 //Delete Test
-                if ([self.quizsDAO deleteQuizForUser:[self.tests objectAtIndex:indexPath.row]]) {
-                    [self.tests removeObjectAtIndex:indexPath.row];
-                }
-                else
-                    return;
+                [self.student removeTestsObject:[self.tests objectAtIndex:indexPath.row]];
+                self.tests = nil;
+                return;
                 break;
             default:
                 break;
@@ -276,7 +250,7 @@
     if ([contentViewController isKindOfClass:[AssignQuizPopoverViewController class]]) {
         if ((-1 == [contentViewController selectedSet]))
             return; 
-        
+        /*
         if (![contentViewController updateMode]) {
             QuestionSet *qs = [[contentViewController listofQuestionSets] objectAtIndex:[contentViewController selectedSet]];
             Quiz *newQuiz = [[Quiz alloc] init];
@@ -306,7 +280,10 @@
         else
             self.tests = nil;
         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:[contentViewController testType]==QUIZ_PRACTICE_TYPE?1:2] withRowAnimation:UITableViewRowAnimationAutomatic];
+         
+         */
     }
+ 
 }
 
 @end

@@ -7,15 +7,14 @@
 //
 
 #import "QuestionSet.h"
-#import "Administrator.h"
 
 
 @implementation QuestionSet
 
+@dynamic details;
+@dynamic difficultyLevel;
 @dynamic name;
 @dynamic type;
-@dynamic difficultyLevel;
-@dynamic details;
 @dynamic administrator;
 @dynamic questions;
 

@@ -15,7 +15,6 @@
 #import "QuestionSet.h"
 #import "QuestionSetsDAO.h"
 #import "QuizSet.h"
-#import "QuizSetDAO.h"
 #import "QuestionSetDetail.h"
 #import "ResultsDAO.h"
 #import "Promotion.h"
@@ -98,8 +97,8 @@
 	studentQuizSet.assignedQuiz = firstQuiz;
 
 	//Using the Quiz, get the full QuizSet
-	QuizSetDAO *qsDAO = [[QuizSetDAO alloc] init];
-	self.studentQuizSet = [qsDAO getQuizSetDetails: studentQuizSet];
+	//QuizSetDAO *qsDAO = [[QuizSetDAO alloc] init];
+	//self.studentQuizSet = [qsDAO getQuizSetDetails: studentQuizSet];
 	
 	[self initiateScenario];
 }//end method

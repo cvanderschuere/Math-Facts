@@ -28,6 +28,7 @@
 -(void) setCurrentAdmin:(Administrator *)currentAdmin{
     if (![_currentAdmin isEqual:currentAdmin]) {
         _currentAdmin = currentAdmin;
+        NSLog(@"Admin: %@",_currentAdmin);
         [self setupFetchedResultsController];
     }
 }
@@ -113,6 +114,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
         [self.fetchedResultsController.managedObjectContext deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+        [self.fetchedResultsController.managedObjectContext save:nil];
     }   
 }
 
@@ -138,8 +140,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //Update Detail View controller with selected user
-    [self.delegate didSelectObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self.delegate didSelectObject:(Student*)[self.fetchedResultsController objectAtIndexPath:indexPath]];
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
 }
 

@@ -8,15 +8,14 @@
 
 #import "Test.h"
 
-
 @implementation Test
 
 @dynamic passCriteria;
-@dynamic testLength;
 @dynamic testDifficulty;
-@dynamic results;
-@dynamic questionSet;
+@dynamic testLength;
 @dynamic practice;
+@dynamic questionSet;
+@dynamic results;
 @dynamic student;
 
 @end

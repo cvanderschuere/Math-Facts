@@ -90,7 +90,7 @@
 }//end method
 
 -(IBAction) saveClicked {
-	//TODO: Need to check for valid values
+	//TODO: Need to check for valid values and unique username
 	AppLibrary *al = [[AppLibrary alloc] init];
 	if (nil == self.usernameTF.text){
 		NSString *msg = @"Username must be entered.";

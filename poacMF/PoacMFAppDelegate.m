@@ -10,6 +10,7 @@
 #import "LoginViewController.h"
 #import "Administrator.h"
 #import "AppConstants.h"
+#import "QuestionSet.h"
 
 
 @implementation PoacMFAppDelegate
@@ -99,9 +100,42 @@
     
     //Add inital users
     NSArray* seedUsers = [seedDict objectForKey:@"Users"];
+    NSMutableArray *createdUsers = [NSMutableArray arrayWithCapacity:seedUsers.count];
     for (NSDictionary* user in seedUsers) {
         Administrator * newAdmin = [NSEntityDescription insertNewObjectForEntityForName:@"Administrator" inManagedObjectContext:document.managedObjectContext];
         [newAdmin setValuesForKeysWithDictionary:user];
+        [createdUsers addObject:newAdmin];
+    }
+    
+    //Add inital question set to new admins
+    NSArray* seedQuestionSets = [seedDict objectForKey:@"Questions Sets"];
+    
+    //Step through each type
+    for (NSArray* setTypeArray in seedQuestionSets) {
+        NSNumber* setType = [setTypeArray objectAtIndex:0];
+        
+        //Step through each set
+        for (NSDictionary *questionSet in [setTypeArray objectAtIndex:1]) {
+            QuestionSet *qSet = [NSEntityDescription insertNewObjectForEntityForName:@"QuestionSet" inManagedObjectContext:document.managedObjectContext];
+            qSet.name = [questionSet objectForKey:@"name"];
+            qSet.type = setType;
+            
+            //Set through each question
+            for (NSArray* question in [questionSet objectForKey:@"questions"]) {
+                Question* newQuestion = [NSEntityDescription insertNewObjectForEntityForName:@"Question" inManagedObjectContext:document.managedObjectContext];
+                
+                // -1 signifies the black in the question
+                newQuestion.x = [[question objectAtIndex:0] intValue]>=0?[question objectAtIndex:0]:nil;
+                newQuestion.y = [[question objectAtIndex:1] intValue]>=0?[question objectAtIndex:1]:nil;
+                newQuestion.z = [[question objectAtIndex:2] intValue]>=0?[question objectAtIndex:2]:nil;
+                [qSet addQuestionsObject:newQuestion];
+            }
+            
+            //Add new question set to all new admins
+            for (Administrator* admin in createdUsers) {
+                [admin addQuestionSetsObject:qSet];
+            }
+        }
     }
 }
 
