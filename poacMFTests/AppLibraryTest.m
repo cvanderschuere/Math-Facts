@@ -7,7 +7,6 @@
 //
 
 #import "AppLibraryTest.h"
-#import "UsersDAO.h"
 #import "ResultsDAO.h"
 #import "AppLibrary.h"
 
@@ -26,8 +25,7 @@
 
 -(void)testMatchAndCountUsersToDetails {
     
-	UsersDAO *uDAO = [[UsersDAO alloc] init];
-	NSMutableArray *listOfUsers = [uDAO getAllUsers];
+	NSMutableArray *listOfUsers = nil;//[uDAO getAllUsers];
 	
 	if (nil == listOfUsers)
 		listOfUsers = [NSMutableArray array];

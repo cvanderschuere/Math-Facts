@@ -8,9 +8,7 @@
 
 #import "AEQuestionSetController.h"
 #import "PoacMFAppDelegate.h"
-#import "AdminViewController.h"
 #import "AppLibrary.h"
-#import "AdminViewController.h"
 #import "QuestionSetsDAO.h"
 #import "QuestionSet.h"
 #import "AppConstants.h"
@@ -30,10 +28,11 @@
 #pragma mark Button Methods
 -(IBAction) cancelClicked {
 	PoacMFAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-	AdminViewController *avc = nil;//(AdminViewController *) appDelegate.viewController.modalViewController;
+	/*AdminViewController *avc = nil;//(AdminViewController *) appDelegate.viewController.modalViewController;
 	[avc.questionSetsVC dismissPopovers];
 	[avc.questionSetsVC loadQuestionSets:ADDITION_MATH_TYPE];
 	[avc.questionSetsVC.thisTableView reloadData];
+     */
 }//end method
 
 -(IBAction) saveClicked {
@@ -41,7 +40,7 @@
 		[self cancelClicked];
 		return;
 	}//end if
-	
+	/*
 	QuestionSet *newQS = [[QuestionSet alloc] init];
 	newQS.questionSetName = self.nameSetTF.text;
 	if (YES == self.addSwitch.on)
@@ -57,11 +56,13 @@
 	newQS.setId = [qsDAO addQuestionSet:newQS.questionSetName forMathType:newQS.mathType withSetOrder:0];
 	
 	PoacMFAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    /*
 	AdminViewController *avc = nil;//(AdminViewController *) appDelegate.viewController.modalViewController;
 	[avc.questionSetsVC dismissPopovers];
 	
 	[avc.questionSetsVC loadQuestionSets:newQS.mathType];
 	[avc.questionSetsVC.thisTableView reloadData];
+     */
 	
 }//end method
 
@@ -204,8 +205,8 @@
 		if (nil != self.listOfQuestionSets){
 			AppLibrary *al = [[AppLibrary alloc] init];
 			QuestionSet *qs = [listOfQuestionSets objectAtIndex:indexPath.row];
-			NSString *backend = [NSString stringWithFormat:@"%i questions", [qs.setDetailsNSMA count]];
-			NSString *frontend = [[al interpretMathTypeAsPhrase:qs.mathType] stringByAppendingString:qs.questionSetName];
+			NSString *backend = nil;//[NSString stringWithFormat:@"%i questions", [qs.setDetailsNSMA count]];
+			NSString *frontend = nil;//[[al interpretMathTypeAsPhrase:qs.mathType] stringByAppendingString:qs.questionSetName];
 			
 			cell.textLabel.text = frontend;
 			cell.detailTextLabel.text = backend;
@@ -235,7 +236,7 @@
 	if (editingStyle == UITableViewCellEditingStyleDelete) { 
 		QuestionSet *qs = [self.listOfQuestionSets objectAtIndex:indexPath.row];
 		QuestionSetsDAO *qsDAO = [[QuestionSetsDAO alloc] init];
-		[qsDAO deleteQuestionSetById:qs.setId];
+		//[qsDAO deleteQuestionSetById:qs.setId];
 		
 		[self.listOfQuestionSets removeObjectAtIndex:indexPath.row];
 		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];		

@@ -11,7 +11,6 @@
 #import "PoacMFAppDelegate.h"
 #import "AppConstants.h"
 #import "ResultsViewCell.h"
-#import "UsersDAO.h"
 #import "ResultsDAO.h"
 #import "SuperResults.h"
 #import "AppLibrary.h"
@@ -51,8 +50,8 @@
 }
 -(void) refreshUserInformation{
     //Load Users Information and store in array
-    UsersDAO *uDAO = [[UsersDAO alloc] init];
-	self.listOfUsersNSMA = [uDAO getAllUsers];
+        
+    
 	NSLog(@"List of Users: %@",self.listOfUsersNSMA);
 	if (nil == self.listOfUsersNSMA)
 		self.listOfUsersNSMA = [NSMutableArray array];
@@ -157,8 +156,7 @@
         if ([self.userDetail.currentUser isEqual:deleteUser]) {
             self.userDetail.currentUser = nil;
         }
-		UsersDAO *usDAO = [[UsersDAO alloc] init];
-		[usDAO deleteUserById:deleteUser.userId];
+		//[usDAO deleteUserById:deleteUser.userId];
 		[self.listOfUsersNSMA removeObjectAtIndex:indexPath.row];
 
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];

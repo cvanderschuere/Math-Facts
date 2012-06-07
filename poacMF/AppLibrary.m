@@ -57,23 +57,4 @@
 	return dateStr;
 }//end method
 
--(NSDictionary *)	matchAndCountUsers: (NSMutableArray *)listOfUsers toDetails:(NSMutableArray *) listOfResults {
-	NSMutableDictionary *returnNSD = [NSMutableDictionary new];
-	
-	//cycle through the users
-	int recordCount=0;
-	for (User *u in listOfUsers) {
-		for (SuperResults *sr in listOfResults) {
-			if (u.userId == sr.userId)
-				recordCount++;
-		}//end for
-		NSNumber *nsn = [NSNumber numberWithInt:recordCount];
-		NSNumber *userKey = [NSNumber numberWithInt:u.userId];
-		[returnNSD setObject:nsn forKey:userKey];
-		recordCount=0;
-	}//end for
-	
-	return returnNSD;
-}//end method
-
 @end

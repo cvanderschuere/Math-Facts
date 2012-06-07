@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1171" systemVersion="11E53" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Administrator" representedClassName="Administrator" parentEntity="User" syncable="YES">
+        <relationship name="questionSets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="QuestionSet" inverseName="administrator" inverseEntity="QuestionSet" syncable="YES"/>
+        <relationship name="students" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Student" inverseName="adminstrator" inverseEntity="Student" syncable="YES"/>
+    </entity>
+    <entity name="Practice" representedClassName="Practice" syncable="YES">
+        <attribute name="maximumIncorrect" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="minimumCorrect" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="passed" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <relationship name="test" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Test" inverseName="practice" inverseEntity="Test" syncable="YES"/>
+    </entity>
+    <entity name="Question" representedClassName="Question" syncable="YES">
+        <attribute name="x" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="y" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="z" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="questionSet" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="QuestionSet" inverseName="questions" inverseEntity="QuestionSet" syncable="YES"/>
+    </entity>
+    <entity name="QuestionSet" representedClassName="QuestionSet" syncable="YES">
+        <attribute name="details" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="difficultyLevel" optional="YES" attributeType="Integer 16" defaultValueString="1" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="administrator" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Administrator" inverseName="questionSets" inverseEntity="Administrator" syncable="YES"/>
+        <relationship name="questions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Question" inverseName="questionSet" inverseEntity="Question" syncable="YES"/>
+    </entity>
+    <entity name="Result" representedClassName="Result" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="isPractice" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="questionsCorrect" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Question" syncable="YES"/>
+        <relationship name="questionsIncorrect" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Question" syncable="YES"/>
+        <relationship name="student" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Student" inverseName="results" inverseEntity="Student" syncable="YES"/>
+        <relationship name="test" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Test" inverseName="results" inverseEntity="Test" syncable="YES"/>
+    </entity>
+    <entity name="Student" representedClassName="Student" parentEntity="User" syncable="YES">
+        <attribute name="defaultDifficulty" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="100" defaultValueString="50" syncable="YES"/>
+        <attribute name="idNumber" optional="YES" attributeType="Integer 32" minValueString="0" syncable="YES"/>
+        <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="adminstrator" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Administrator" inverseName="students" inverseEntity="Administrator" syncable="YES"/>
+        <relationship name="results" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Result" inverseName="student" inverseEntity="Result" syncable="YES"/>
+        <relationship name="tests" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Test" inverseName="student" inverseEntity="Test" syncable="YES"/>
+    </entity>
+    <entity name="Test" representedClassName="Test" syncable="YES">
+        <attribute name="passCriteria" optional="YES" attributeType="Integer 16" defaultValueString="40" syncable="YES"/>
+        <attribute name="testDifficulty" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="100" syncable="YES"/>
+        <attribute name="testLength" optional="YES" attributeType="Integer 16" defaultValueString="60" syncable="YES"/>
+        <relationship name="practice" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Practice" inverseName="test" inverseEntity="Practice" syncable="YES"/>
+        <relationship name="questionSet" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="QuestionSet" syncable="YES"/>
+        <relationship name="results" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Result" inverseName="test" inverseEntity="Result" syncable="YES"/>
+        <relationship name="student" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Student" inverseName="tests" inverseEntity="Student" syncable="YES"/>
+    </entity>
+    <entity name="User" representedClassName="User" syncable="YES">
+        <attribute name="emailAddress" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="password" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <fetchRequest name="AdminLogin" entity="Administrator" predicateString="username == $USERNAME AND password == $PASSWORD"/>
+    <fetchRequest name="StudentLogin" entity="Student" predicateString="username == &quot;$USERNAME&quot; AND password == &quot;$PASSWORD&quot;"/>
+    <elements>
+        <element name="Administrator" positionX="-216" positionY="-288" width="128" height="75"/>
+        <element name="Practice" positionX="90" positionY="57" width="128" height="105"/>
+        <element name="Question" positionX="457" positionY="261" width="128" height="105"/>
+        <element name="QuestionSet" positionX="214" positionY="-315" width="128" height="135"/>
+        <element name="Result" positionX="-263" positionY="216" width="128" height="135"/>
+        <element name="Student" positionX="-443" positionY="-108" width="128" height="135"/>
+        <element name="Test" positionX="-81" positionY="-153" width="128" height="150"/>
+        <element name="User" positionX="-441" positionY="-306" width="128" height="120"/>
+    </elements>
+</model>

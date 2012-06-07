@@ -14,10 +14,13 @@
 
 @implementation AdminSplitViewController
 
+@synthesize currentUser = _currentUser;
+
 -(id) initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
     if (self) {
         self.delegate = self;
+        NSLog(@"VCS: %@",self.viewControllers);
     }
     return self;
 }

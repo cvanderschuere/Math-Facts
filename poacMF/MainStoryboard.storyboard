@@ -61,6 +61,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="9Sn-CC-W82"/>
                     <connections>
+                        <outlet property="loginButton" destination="qGg-uM-VKC" id="i6p-ro-3Yg"/>
                         <outlet property="passwordTextField" destination="4dt-7q-O5N" id="PfG-Q5-5cA"/>
                         <outlet property="userNameTextField" destination="o7a-z9-6pT" id="Xjf-Hv-Y03"/>
                         <segue destination="3ep-aq-AKb" kind="modal" identifier="studentUserSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="eOw-0P-hIT"/>
@@ -1592,7 +1593,6 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UserProgressViewController.h"/>
             <relationships>
                 <relationship kind="action" name="sliderChanged:"/>
-                <relationship kind="outlet" name="progressBar" candidateClass="CVPercentProgressBar"/>
                 <relationship kind="outlet" name="quizTableView" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="testTableView" candidateClass="UITableView"/>
             </relationships>

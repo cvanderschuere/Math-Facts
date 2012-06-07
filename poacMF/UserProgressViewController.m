@@ -9,7 +9,6 @@
 #import "UserProgressViewController.h"
 #import "AppConstants.h"
 #import "ResultsViewCell.h"
-#import "UsersDAO.h"
 #import "ResultsDAO.h"
 #import "SuperResults.h"
 #import "Quiz.h"
@@ -49,10 +48,10 @@
 -(NSMutableArray*) quizArray{
     if (!_quizArray) {
         //Get quiz arrar and sort by sort order
-        NSMutableArray* array = [self.quizsDAO getAvailablePracticeQuizzesByUserId: self.currentUser.userId];
+        NSMutableArray* array = nil;//[self.quizsDAO getAvailablePracticeQuizzesByUserId: self.currentUser.userId];
         [array sortUsingComparator:^NSComparisonResult(Quiz* quiz1, Quiz *quiz2){
-            int order1 = [self.qSetDAO getQuestionSetById:quiz1.setId].setOrder;
-            int order2 = [self.qSetDAO getQuestionSetById:quiz2.setId].setOrder;
+            int order1 = 0;//[self.qSetDAO getQuestionSetById:quiz1.setId].setOrder;
+            int order2 = 0;//[self.qSetDAO getQuestionSetById:quiz2.setId].setOrder;
             if (order1>order2)
                 return NSOrderedDescending;
             else if(order1<order2)
@@ -67,10 +66,10 @@
 -(NSMutableArray*) testArray{
     if (!_testArray) {
         //Get quiz arrar and sort by sort order
-        NSMutableArray* array = [self.quizsDAO getAvailableTestQuizzesByUserId:self.currentUser.userId];
+        NSMutableArray* array = nil;//[self.quizsDAO getAvailableTestQuizzesByUserId:self.currentUser.userId];
         [array sortUsingComparator:^NSComparisonResult(Quiz* quiz1, Quiz *quiz2){
-            int order1 = [self.qSetDAO getQuestionSetById:quiz1.setId].setOrder;
-            int order2 = [self.qSetDAO getQuestionSetById:quiz2.setId].setOrder;
+            int order1 = 0;//[self.qSetDAO getQuestionSetById:quiz1.setId].setOrder;
+            int order2 = 0;//[self.qSetDAO getQuestionSetById:quiz2.setId].setOrder;
             if (order1>order2)
                 return NSOrderedDescending;
             else if(order1<order2)
@@ -156,8 +155,6 @@
     // Configure the cell...
     Quiz * quiz = [[tableView isEqual:self.testTableView]?self.testArray:self.quizArray objectAtIndex:indexPath.row];
     QuestionSet *qSet = [self.qSetDAO getQuestionSetById:quiz.setId];
-    cell.textLabel.text = [NSString stringWithFormat: @"Timed: %s%s",
-                           [[self.appLibrary interpretMathTypeAsPhrase:qSet.mathType] UTF8String], [qSet.questionSetName UTF8String]];
     return cell;
 }
 

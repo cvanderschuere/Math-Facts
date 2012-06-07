@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface QuestionSet : NSObject {
+@interface QuestionSetOLD : NSObject {
 	int						setId;
 	NSString				* questionSetName;
 	int						mathType;

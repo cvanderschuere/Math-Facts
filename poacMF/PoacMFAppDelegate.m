@@ -7,13 +7,16 @@
 //
 
 #import "PoacMFAppDelegate.h"
-#import "TesterViewController.h"
+#import "LoginViewController.h"
+#import "Administrator.h"
 #import "AppConstants.h"
+
 
 @implementation PoacMFAppDelegate
 
 
 @synthesize window = _window;
+@synthesize database = _database;
 @synthesize databasePath = _databasePath, loggedIn = _loggedIn, currentUser = _currentUser;
 
 //end method
@@ -21,7 +24,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-	[self applicationPrep];
+    [self setupDatabase];
 	return YES;
 }//end method
 
@@ -37,7 +40,7 @@
 	 Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
 	 If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 	 */
-	self.loggedIn = NO;
+    [self saveDatabase];
 }//end method
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -59,46 +62,55 @@
 	 See also applicationDidEnterBackground:.
 	 */
 }//end method
+#pragma mark - Database methods
+-(void) setupDatabase{
+    NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    url = [url URLByAppendingPathComponent:@"database"];
+    self.database = [[UIManagedDocument alloc] initWithFileURL:url];
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[self.database.fileURL path]]) {
+        // does not exist on disk, so create it
+        [self.database saveToURL:self.database.fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:nil];
+        [self addInitalData:self.database];
+        [self setReadyToLogin:YES];
+    } 
+    else if (self.database.documentState == UIDocumentStateClosed) {
+        // exists on disk, but we need to open it
+        [self.database openWithCompletionHandler:^(BOOL success) {
+            NSLog(@"\nOpening Document %@\n",success?@"Succesful":@"Un Successful"); 
+            [self setReadyToLogin:success];
+        }];
+    } 
+    else if (self.database.documentState == UIDocumentStateNormal) {
+        // already open and ready to use
+        [self setReadyToLogin:YES];
+    }
 
--(void) applicationPrep { 
-	//create the database if it doesn't exist
-	[self checkAndCreateDatabase];
-	
-	self.loggedIn = NO;
-	self.currentUser = [[User alloc] init];
-	
-    // Override point for customization after application launch.
-	[self.window makeKeyAndVisible];
-}//end method
+}
+-(void) setReadyToLogin:(BOOL)ready{
+    if ([self.window.rootViewController respondsToSelector:@selector(setReadyToLogin:)]) {
+        LoginViewController* loginVC = (LoginViewController*) self.window.rootViewController;
+        loginVC.readyToLogin = ready;
+    } 
+}
+-(void) addInitalData:(UIManagedDocument*)document{
+    //Load information for plist
+    NSDictionary *seedDict = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"databaseSeed" ofType:@"plist"]];
+    
+    //Add inital users
+    NSArray* seedUsers = [seedDict objectForKey:@"Users"];
+    for (NSDictionary* user in seedUsers) {
+        Administrator * newAdmin = [NSEntityDescription insertNewObjectForEntityForName:@"Administrator" inManagedObjectContext:document.managedObjectContext];
+        [newAdmin setValuesForKeysWithDictionary:user];
+    }
+}
 
--(void) checkAndCreateDatabase {
-	// Get the path to the documents directory and append the databaseName
-	NSArray *documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	NSString *documentsDir = [documentPaths objectAtIndex:0];
-	self.databasePath = [documentsDir stringByAppendingPathComponent:DATABASE_NAME];
-	[[NSUserDefaults standardUserDefaults] setObject: self.databasePath forKey: DATABASE_PATH];
-	
-	// Check if the SQL database has already been saved to the users phone, if not then copy it over
-	BOOL success;
-	
-	// Create a FileManager object, we will use this to check the status
-	// of the database and to copy it over if required
-	NSFileManager *fileManager = [NSFileManager defaultManager];
-	
-	// Check if the database has already been created in the users filesystem
-	success = [fileManager fileExistsAtPath:self.databasePath];
-	
-	// If the database already exists then return without doing anything
-	if(success) return;
-	
-	// If not then proceed to copy the database from the application to the users filesystem
-	
-	// Get the path to the database in the application package
-	NSString *databasePathFromApp = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:DATABASE_NAME];
-	
-	// Copy the database from the package to the users filesystem
-	[fileManager copyItemAtPath:databasePathFromApp toPath:self.databasePath error:nil];
-}//end method
+-(void) saveDatabase{
+    NSLog(@"Saving Document");
+    [self.database saveToURL:self.database.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:^(BOOL success){
+        NSLog(@"Save (Save Document) %@",success?@"Successful":@"Unsuccessful");
+    }];
+}
 
 
 @end

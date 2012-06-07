@@ -22,6 +22,7 @@
 
 @property (strong, nonatomic)	NSString	*databasePath;
 @property (nonatomic)	BOOL	loggedIn;
+@property (nonatomic, strong) UIManagedDocument* database;
 @property (nonatomic, strong)	User		*currentUser;
 
 

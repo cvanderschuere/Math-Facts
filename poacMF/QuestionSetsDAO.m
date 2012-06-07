@@ -56,7 +56,9 @@
 
 
 -(NSMutableArray *) getAllSets {
+    
 	NSMutableArray *qsNSMA = [NSMutableArray array];
+    /*
 	QuestionSetDetailsDAO *qsdDAO = [[QuestionSetDetailsDAO alloc] init];
 	sqlite3 *database;
 	if(sqlite3_open([super.databasePath UTF8String], &database) == SQLITE_OK) {
@@ -82,13 +84,14 @@
 		}
 		sqlite3_finalize(compiledStatement);
 		sqlite3_close(database);
-	}//end if
+	}//end if*/
 	return qsNSMA;
 }//end method
 
 
 -(NSMutableArray *) getSetByMathType: (int) mathType {
 	NSMutableArray *qsNSMA = [NSMutableArray array];
+    /*
 	QuestionSetDetailsDAO *qsdDAO = [[QuestionSetDetailsDAO alloc] init];
 	sqlite3 *database;
 	if(sqlite3_open([super.databasePath UTF8String], &database) == SQLITE_OK) {
@@ -116,12 +119,14 @@
 		sqlite3_finalize(compiledStatement);
 		sqlite3_close(database);
 	}//end if
+     */
 	return qsNSMA;
 	
 }//end method
 
 
 -(QuestionSet *) getQuestionSetById: (int) setId {
+    /*
 	QuestionSet *qs = [[QuestionSet alloc] init];
 	QuestionSetDetailsDAO *qsdDAO = [[QuestionSetDetailsDAO alloc] init];
 	sqlite3 *database;
@@ -148,9 +153,11 @@
 		sqlite3_close(database);
 	}//end if
 	return qs;
+    */
 }//end method
 
 -(QuestionSet *) getQuestionSetBySetOrder: (int) nextSetOrder andMathType: (int) mathType {
+    /*
 	QuestionSet *qs = [[QuestionSet alloc] init];
 	QuestionSetDetailsDAO *qsdDAO = [[QuestionSetDetailsDAO alloc] init];
 	sqlite3 *database;
@@ -178,6 +185,7 @@
 		sqlite3_close(database);
 	}//end if
 	return qs;
+     */
 }//end method
 
 -(BOOL)	deleteQuestionSetById: (int) setId {

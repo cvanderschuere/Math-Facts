@@ -12,7 +12,7 @@
 
 @interface QuizSet : NSObject {
 	Quiz			* assignedQuiz;
-	QuestionSet		* assignedQuestionSet;
+	QuestionSetOLD		* assignedQuestionSet;
 	NSMutableArray	* questionDetailsNSMA;
 	
 	//Results
@@ -24,7 +24,7 @@
 
 
 @property (strong, nonatomic)	Quiz			*assignedQuiz;
-@property (strong, nonatomic)	QuestionSet		*assignedQuestionSet;
+@property (strong, nonatomic)	QuestionSetOLD	*assignedQuestionSet;
 @property (strong, nonatomic)	NSMutableArray	*questionDetailsNSMA;
 
 @property	int				numberCorrect;

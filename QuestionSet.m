@@ -9,10 +9,11 @@
 #import "QuestionSet.h"
 #import "AppConstants.h"
 
-@implementation QuestionSet
+@implementation QuestionSetOLD
 
 @synthesize setId,questionSetName,mathType,setOrder,setDetailsNSMA;
 
+/*
 #pragma mark Memory Management
 //end method
 
@@ -46,5 +47,5 @@
 							  setId, [questionSetName UTF8String], mathType, setOrder,[setDetailsNSMA count]];
 	return returnString;
 }//end
-
+*/
 @end

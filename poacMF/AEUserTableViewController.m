@@ -9,8 +9,6 @@
 #import "AEUserTableViewController.h"
 #import "User.h"
 #import "PoacMFAppDelegate.h"
-#import "AdminViewController.h"
-#import "UsersDAO.h"
 #import "AppConstants.h"
 #import "AppLibrary.h"
 
@@ -56,6 +54,7 @@
 		self.firstNameTF.text = self.updateUser.firstName;
 		self.lastNameTF.text = self.updateUser.lastName;
 		self.emailAddressTF.text = self.updateUser.emailAddress;
+        /*
 		NSNumber *dutll = [NSNumber numberWithDouble:self.updateUser.defaultPracticeTimeLimit];
 		self.userPracticeTimeLimitTF.text = [dutll stringValue];
 		dutll = [NSNumber numberWithDouble:self.updateUser.defaultTimedTimeLimit];
@@ -63,6 +62,7 @@
 		dutll = [NSNumber numberWithInt:self.updateUser.delayRetake];
 		self.delayRetakeTF.text = [dutll stringValue];
         self.userTypeSC.selectedSegmentIndex = self.updateUser.userType;
+        */
 	}//end editMode
 
 
@@ -111,7 +111,6 @@
 	
 	//PoacMFAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
 	//AdminViewController *avc = nil;//(AdminViewController *) appDelegate.viewController.modalViewController;
-    UsersDAO *uDAO = [[UsersDAO alloc] init];
 	if (!self.editMode) {
 		User *newUser = [[User alloc] init];
 		newUser.username = self.usernameTF.text;
@@ -119,6 +118,7 @@
 		newUser.lastName = self.lastNameTF.text;
 		newUser.password = self.passwordTF.text;
 		newUser.emailAddress = self.emailAddressTF.text;
+        /*
 		newUser.defaultPracticeTimeLimit = [self.userPracticeTimeLimitTF.text doubleValue];
 		newUser.defaultTimedTimeLimit = [self.userTimedTimeLimitTF.text doubleValue];
 		newUser.delayRetake = [self.delayRetakeTF.text intValue];
@@ -132,6 +132,7 @@
         newUser.userType = self.userTypeSC.selectedSegmentIndex;
         
 		newUser.userId = [uDAO addUser:newUser];
+         */
 		//[avc.usersVC.listOfUsers addObject:newUser];
 	} else {
 		self.updateUser.username = self.usernameTF.text;
@@ -139,6 +140,7 @@
 		self.updateUser.lastName = self.lastNameTF.text;
 		self.updateUser.password = self.passwordTF.text;
 		self.updateUser.emailAddress = self.emailAddressTF.text;
+        /*
 		self.updateUser.defaultPracticeTimeLimit = [self.userPracticeTimeLimitTF.text doubleValue];
 		self.updateUser.defaultTimedTimeLimit = [self.userTimedTimeLimitTF.text doubleValue];
 		self.updateUser.delayRetake = [self.delayRetakeTF.text intValue];
@@ -151,6 +153,7 @@
         self.updateUser.userType = self.userTypeSC.selectedSegmentIndex;
 		
 		[uDAO updateUser:self.updateUser];
+         */
 	}//end if-else
 	
     [[NSNotificationCenter defaultCenter] postNotificationName:@"usersUpdated" object:self.updateUser];

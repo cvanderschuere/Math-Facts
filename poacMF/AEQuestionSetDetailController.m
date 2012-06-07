@@ -8,11 +8,9 @@
 
 #import "AEQuestionSetDetailController.h"
 #import "PoacMFAppDelegate.h"
-#import "AdminViewController.h"
 #import "AppLibrary.h"
 #import "QuestionSetDetailsDAO.h"
 #import "QuestionSetDetail.h"
-#import "AdminViewController.h"
 #import "QuestionSetsDAO.h"
 #import "QuestionSet.h"
 
@@ -31,8 +29,10 @@
 #pragma mark Button Methods
 -(IBAction) cancelClicked {
 	PoacMFAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    /*
 	AdminViewController *avc = nil;//(AdminViewController *) appDelegate.viewController.modalViewController;
 	[avc.questionSetsVC dismissPopovers];
+     */
 }//end method
 
 -(IBAction) saveClicked {
@@ -53,17 +53,18 @@
 	QuestionSetDetail *qsd = [[QuestionSetDetail alloc] init];
 	qsd.xValue = [xValueTF.text intValue];
 	qsd.yValue = [yValueTF.text intValue];
-	qsd.setId = qs.setId;
 
 	qsd.detailId = [qsdDAO addDetailsById:qsd.setId andXValue:qsd.xValue andYValue:qsd.yValue];
 	
 	
 	PoacMFAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    /*
 	AdminViewController *avc = nil;//(AdminViewController *) appDelegate.viewController.modalViewController;
 	[avc.questionSetsVC dismissPopovers];
 	
 	[avc.questionSetsVC loadQuestionSets:qs.mathType];
 	[avc.questionSetsVC.thisTableView reloadData];
+     */
 }//end method
 
 #pragma mark - View lifecycle
@@ -153,9 +154,6 @@
 	if (nil != self.listOfQuestionSets){
 		AppLibrary *al = [[AppLibrary alloc] init];
 		QuestionSet *qs = [listOfQuestionSets objectAtIndex:row];
-		NSString *backend = [NSString stringWithFormat:@" - %i questions", [qs.setDetailsNSMA count]];
-		NSString *frontend = [[al interpretMathTypeAsPhrase:qs.mathType] stringByAppendingString:qs.questionSetName];
-		returnString = [frontend stringByAppendingString:backend];
 		return returnString;					  
 	}//end if
 	return returnString;

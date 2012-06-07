@@ -7,7 +7,6 @@
 //
 
 #import "AssignQuizViewController.h"
-#import "UsersDAO.h"
 #import "User.h"
 #import "QuestionSetsDAO.h"
 #import "QuestionSet.h"
@@ -39,8 +38,7 @@
 	self.modalPresentationStyle=UIModalPresentationFormSheet;
 	self.timeLimitTF.text=@"";
 	//load the users
-	UsersDAO *uDAO = [[UsersDAO alloc] init];
-	self.listOfUsers = [uDAO getAllUsers];
+	self.listOfUsers = nil;
 	
 	if (nil == self.listOfUsers)
 		self.listOfUsers = [NSMutableArray array];
@@ -98,7 +96,7 @@
 		//Loop through users, figure out which one we have and select it
 		int count = 0;
 		for (User *u in self.listOfUsers){
-			if (self.assignedQuiz.userId == u.userId) {
+			if (self.assignedQuiz.userId == -1) {
 				selectedStudentIndex = count;
 				[self.studentPicker selectRow:count inComponent:0 animated:YES];
 				[self pickerView:studentPicker didSelectRow:count	inComponent:0];
@@ -108,11 +106,13 @@
 		
 		count = 0;
 		for (QuestionSet *qs in self.listofQuestionSets){
-			if (self.assignedQuiz.setId == qs.setId) {
+            /*
+			if (self.assignedQuiz.objectID == 0/*qs.objectID) {
 				assignedSetIndex = count;
 				[self.quizSetPicker selectRow:count inComponent:0 animated:YES];
 				[self pickerView:quizSetPicker didSelectRow:count	inComponent:0];
 			}//end if
+            */
 			count++;
 		}//end for loop
 			
@@ -139,8 +139,8 @@
 		User *tempUser = [listOfUsers objectAtIndex:selectedStudentIndex];
 		QuestionSet *qs = [listofQuestionSets objectAtIndex:assignedSetIndex];
 		Quiz *newQuiz = [[Quiz alloc] init];
-		newQuiz.userId = tempUser.userId;
-		newQuiz.setId = qs.setId;
+		//newQuiz.userId = tempUser.userId;
+		//newQuiz.0/*qs.objectID*/ = qs.objectID;
 		newQuiz.timeLimit = [timeLimitTF.text intValue];
 		newQuiz.requiredCorrect = [requiredCorrectTF.text intValue];
 		newQuiz.allowedIncorrect = [allowedIncorrectTF.text intValue];
@@ -150,7 +150,7 @@
 		[qDAO addQuizForUser:newQuiz];
 	} else {
 		QuestionSet *qs = [listofQuestionSets objectAtIndex:assignedSetIndex];
-		assignedQuiz.setId = qs.setId;
+		//assignedQuiz.objectID = qs.objectID;
 		assignedQuiz.timeLimit = [timeLimitTF.text intValue];
 		assignedQuiz.requiredCorrect = [requiredCorrectTF.text intValue];
 		assignedQuiz.allowedIncorrect = [allowedIncorrectTF.text intValue];
@@ -194,8 +194,8 @@
 		if (nil != self.listofQuestionSets){
 			AppLibrary *al = [[AppLibrary alloc] init];
 			QuestionSet *qs = [listofQuestionSets objectAtIndex:row];
-			NSString *backend = [NSString stringWithFormat:@" - %i questions", [qs.setDetailsNSMA count]];
-			NSString *frontend = [[al interpretMathTypeAsPhrase:qs.mathType] stringByAppendingString:qs.questionSetName];
+			NSString *backend = nil;//[NSString stringWithFormat:@" - %i questions", [qs.setDetailsNSMA count]];
+			NSString *frontend = nil;//[[al interpretMathTypeAsPhrase:qs.mathType] stringByAppendingString:qs.questionSetName];
 			returnString = [frontend stringByAppendingString:backend];
 			return returnString;					  
 		}//end if
@@ -219,9 +219,9 @@
 			if (!updateMode) {
 				NSNumber *dtl;
 				if (QUIZ_PRACTICE_TYPE == testType)
-					dtl = [NSNumber numberWithInt:tempUser.defaultPracticeTimeLimit];
-				else
-					dtl = [NSNumber numberWithInt:tempUser.defaultTimedTimeLimit];
+					//dtl = [NSNumber numberWithInt:tempUser.defaultPracticeTimeLimit];
+				//else
+					//dtl = [NSNumber numberWithInt:tempUser.defaultTimedTimeLimit];
 				timeLimitTF.text = [dtl stringValue];
 			}//end
 		}//end if
@@ -229,8 +229,8 @@
 		if (nil != self.listofQuestionSets){
 			AppLibrary *al = [[AppLibrary alloc] init];
 			QuestionSet *qs = [listofQuestionSets objectAtIndex:row];
-			NSString *backend = [NSString stringWithFormat:@" - %i questions", [qs.setDetailsNSMA count]];
-			NSString *frontend = [[al interpretMathTypeAsPhrase:qs.mathType] stringByAppendingString:qs.questionSetName];
+			NSString *backend = nil;//[NSString stringWithFormat:@" - %i questions", [qs.setDetailsNSMA count]];
+			NSString *frontend = nil;//[[al interpretMathTypeAsPhrase:qs.mathType] stringByAppendingString:qs.questionSetName];
 			returnString = [frontend stringByAppendingString:backend];
 			self.assignedSet.text = returnString;
 			assignedSetIndex = row;

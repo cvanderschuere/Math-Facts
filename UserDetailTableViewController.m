@@ -54,13 +54,13 @@
 }
 -(NSMutableArray*) quizzes{
     if (!_quizzes) {
-        _quizzes = [self.quizsDAO getAvailablePracticeQuizzesByUserId: self.currentUser.userId];
+        _quizzes = nil;//[self.quizsDAO getAvailablePracticeQuizzesByUserId: self.currentUser.userId];
     }
     return _quizzes;
 }
 -(NSMutableArray*) tests{
     if (!_tests) {
-        _tests = [self.quizsDAO getAvailableTestQuizzesByUserId:self.currentUser.userId];
+        _tests = nil;//[self.quizsDAO getAvailableTestQuizzesByUserId:self.currentUser.userId];
     }
     return _tests;
 }
@@ -173,10 +173,12 @@
     
     // Configure the cell...
     if (indexPath.section > 0) {
+        /*
         QuestionSet *qSet = [self.qSetDAO getQuestionSetById:quiz.setId];
         cell.textLabel.text = [NSString stringWithFormat: @"Timed: %s%s",
                        [[self.appLibrary interpretMathTypeAsPhrase:qSet.mathType] UTF8String], [qSet.questionSetName UTF8String]];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%d:%d",quiz.requiredCorrect,quiz.allowedIncorrect];
+         */
     }
 
     
@@ -284,8 +286,8 @@
         if (![contentViewController updateMode]) {
             QuestionSet *qs = [[contentViewController listofQuestionSets] objectAtIndex:[contentViewController selectedSet]];
             Quiz *newQuiz = [[Quiz alloc] init];
-            newQuiz.userId = self.currentUser.userId;
-            newQuiz.setId = qs.setId;
+            //newQuiz.userId = self.currentUser.userId;
+            //newQuiz.setId = qs.setId;
            // newQuiz.timeLimit = [timeLimitTF.text intValue];
             newQuiz.requiredCorrect = [contentViewController numberCorrectStepper].value;
             newQuiz.allowedIncorrect = [contentViewController numberIncorrectStepper].value;
@@ -296,7 +298,7 @@
         } 
         else {
             QuestionSet *qs = [[contentViewController listofQuestionSets] objectAtIndex:[contentViewController selectedSet]];
-            [contentViewController assignedQuiz].setId = qs.setId;
+            //[contentViewController assignedQuiz].setId = qs.setId;
             //[contentViewController assignedQuiz].timeLimit = [timeLimitTF.text intValue];
             [contentViewController assignedQuiz].requiredCorrect = [contentViewController numberCorrectStepper].value;
             [contentViewController assignedQuiz].allowedIncorrect = [contentViewController numberIncorrectStepper].value;

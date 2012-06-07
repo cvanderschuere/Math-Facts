@@ -13,8 +13,8 @@
 #import "AppLibrary.h"
 #import "AppConstants.h"
 #import "POACDetailViewController.h"
-#import "UsersDAO.h"
-#import "AdminViewController.h"
+#import "Student.h"
+#import "Administrator.h"
 #import "UserProgressViewController.h"
 
 
@@ -23,13 +23,24 @@
 @end
 
 @implementation LoginViewController
-@synthesize userNameTextField = _userNameTextField, passwordTextField = _passwordTextField;
+@synthesize loginButton = _loginButton;
+@synthesize userNameTextField = _userNameTextField, passwordTextField = _passwordTextField, readyToLogin = _readyToLogin;
+
+-(void) setReadyToLogin:(BOOL)readyToLogin{
+    if (readyToLogin != _readyToLogin) {
+        _readyToLogin = readyToLogin;
+        if (_readyToLogin) {
+            //enableLogin
+            self.loginButton.enabled = YES;
+        }
+        else {
+            //DisableLogin
+            self.loginButton.enabled = NO;
+        }
+    }
+}
 
 #pragma mark - Button Methods
--(IBAction) cancelTapped {
-	PoacMFAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-	//[appDelegate.viewController dismissThePopovers];
-}//end method
 
 -(IBAction) loginTapped {
 	AppLibrary *al = [[AppLibrary alloc] init];
@@ -49,23 +60,31 @@
 	}//end if
 	
 	//log em in, swap the view
-	UsersDAO *uDAO = [[UsersDAO alloc] init];
-	BOOL success = [uDAO loginUserWithUserName:self.userNameTextField.text andPassword:self.passwordTextField.text];
-	if (success) {
-		PoacMFAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-		appDelegate.loggedIn = TRUE;
-		appDelegate.currentUser = [uDAO getUserInformation:self.userNameTextField.text];
-		
-		if (ADMIN_USER_TYPE == appDelegate.currentUser.userType) {
-            [self performSegueWithIdentifier:@"adminUserSegue" sender:self];
-		} 
+    PoacMFAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSDictionary* loginDict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:self.userNameTextField.text,self.passwordTextField.text, nil] forKeys:[NSArray arrayWithObjects:@"USERNAME",@"PASSWORD", nil]];
+    //Check if is student
+    NSFetchRequest *studentLogin = [appDelegate.database.managedObjectModel fetchRequestFromTemplateWithName:@"StudentLogin" substitutionVariables:loginDict];
+    NSArray *users = [appDelegate.database.managedObjectContext executeFetchRequest:studentLogin error:nil];
+    if (users.count == 1) {
+        Student* currentStudent = [users lastObject];
+        [self performSegueWithIdentifier:@"studentUserSegue" sender:currentStudent];
+    }//
+    else if(users.count == 0) {
+        //Check if is admin
+        NSFetchRequest *adminLogin = [appDelegate.database.managedObjectModel fetchRequestFromTemplateWithName:@"AdminLogin" substitutionVariables:loginDict];
+        users = [appDelegate.database.managedObjectContext executeFetchRequest:adminLogin error:nil];
+        if (users.count == 1) {
+            Administrator* admin = [users lastObject];
+            [self performSegueWithIdentifier:@"adminUserSegue" sender:admin];
+        }//
         else {
-            [self performSegueWithIdentifier:@"studentUserSegue" sender:appDelegate.currentUser];
-		}//
-	} else {
-		NSString *msg = @"Incorrect username/password.";
-		[al showAlertFromDelegate:self withWarning:msg];
+            NSLog(@"Does not match ANY user");
+        }
 	}
+    else {
+        NSLog(@"Error: Matches more than 1 student");
+    }
+
 }//end method
 #pragma mark - Storyboard Segues
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
@@ -136,4 +155,8 @@
 	return YES;
 }//end method
 
+- (void)viewDidUnload {
+    [self setLoginButton:nil];
+    [super viewDidUnload];
+}
 @end

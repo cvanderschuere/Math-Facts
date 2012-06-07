@@ -11,7 +11,6 @@
 #import "PoacMFAppDelegate.h"
 #import "AppConstants.h"
 #import "AppLibrary.h"
-#import "LoginPopoverViewController.h"
 #import "QuizzesDAO.h"
 #import "QuestionSet.h"
 #import "QuestionSetsDAO.h"
@@ -134,14 +133,14 @@
 	QuestionSetsDAO *qsDAO = [[QuestionSetsDAO alloc] init];
 	
 	//change the Practices Button Text
-	self.availablePracticeQuizzesNSMA = [qDAO getAvailablePracticeQuizzesByUserId:appDelegate.currentUser.userId];
+	self.availablePracticeQuizzesNSMA = nil;//[qDAO getAvailablePracticeQuizzesByUserId:appDelegate.currentUser.userId];
 	if (0 < [self.availablePracticeQuizzesNSMA count]){
 		Quiz *firstQuiz = [self.availablePracticeQuizzesNSMA objectAtIndex:0];
 		QuestionSet *qs = [qsDAO getQuestionSetById: firstQuiz.setId];
 		NSString *buttonText = @"Practice ";
-		buttonText = [buttonText stringByAppendingString:[al interpretMathTypeAsPhrase:qs.mathType]];
+		//buttonText = [buttonText stringByAppendingString:[al interpretMathTypeAsPhrase:qs.mathType]];
 		buttonText = [buttonText stringByAppendingString:@": "];
-		buttonText = [buttonText stringByAppendingString:qs.questionSetName];
+		//buttonText = [buttonText stringByAppendingString:qs.questionSetName];
 		availablePracticesButton.titleLabel.text = buttonText;
 	} else {
 		availablePracticesButton.titleLabel.text = @"0 Practices";
@@ -155,7 +154,7 @@
 		4) OR they haven't passed ANY practices yet. [per v56 Kathy comments]
 	 */
 	
-	self.availableTestQuizzesNSMA = [qDAO getAvailableTestQuizzesByUserId:appDelegate.currentUser.userId];
+	self.availableTestQuizzesNSMA = nil;//[qDAO getAvailableTestQuizzesByUserId:appDelegate.currentUser.userId];
 	if (0 < [self.availableTestQuizzesNSMA count]){
 		Quiz *firstQuiz = [self.availableTestQuizzesNSMA objectAtIndex:0];
 		QuestionSet *qs = [qsDAO getQuestionSetById: firstQuiz.setId];
@@ -165,24 +164,24 @@
 			firstPracticeQuiz = [self.availablePracticeQuizzesNSMA objectAtIndex:0];
 		
 		ResultsDAO *rdao = [[ResultsDAO alloc] init];
-		BOOL practicesPassed = [rdao haveAnyPracticesBeenPassedForThisUser:appDelegate.currentUser.userId];
+		BOOL practicesPassed = FALSE;//[rdao haveAnyPracticesBeenPassedForThisUser:appDelegate.currentUser.userId];
 		
 		//QuestionSet *qsP = [qsDAO getQuestionSetById: firstQuiz.setId];
 		ResultsDAO *rDAO = [[ResultsDAO alloc] init];
-		if (
+		if (TRUE){/*
 			(
 				(firstQuiz.setId == firstPracticeQuiz.setId) && 
 				//(firstQuiz.timeLimit == firstPracticeQuiz.timeLimit) &&
-				(![rDAO hasThisQuizBeenPassed:firstPracticeQuiz.quizId forThisUser:appDelegate.currentUser.userId forThisTestType:QUIZ_PRACTICE_TYPE])
+				(!TRUE//[rDAO hasThisQuizBeenPassed:firstPracticeQuiz.quizId forThisUser:appDelegate.currentUser.userId forThisTestType:QUIZ_PRACTICE_TYPE])
 			 ) ||
 				(!practicesPassed)
-			){
+			){*/
 				availableTestsButton.titleLabel.text = @"0 Tests";
 		} else {
 			NSString *buttonText = @"Test ";
-			buttonText = [buttonText stringByAppendingString:[al interpretMathTypeAsPhrase:qs.mathType]];
+			//buttonText = [buttonText stringByAppendingString:[al interpretMathTypeAsPhrase:qs.mathType]];
 			buttonText = [buttonText stringByAppendingString:@": "];
-			buttonText = [buttonText stringByAppendingString:qs.questionSetName];
+			//buttonText = [buttonText stringByAppendingString:qs.questionSetName];
 			availableTestsButton.titleLabel.text = buttonText;
 		}//
 	} else {
@@ -427,14 +426,13 @@
 		}
 		PoacMFAppDelegate *appDelegate = (PoacMFAppDelegate *)[[UIApplication sharedApplication] delegate];	
 		if (0 >= errorWaitCount)
-			errorWaitCount=appDelegate.currentUser.delayRetake;
-		NSString *missed;		
+			//errorWaitCount=appDelegate.currentUser.delayRetake;
 		if (3 == studentQuizSet.assignedQuestionSet.mathType) {
-			missed = [NSString stringWithFormat:@"%i %s %i = %i", xValue, [@"/" UTF8String], yValue, checkAnswer];
+			//missed = [NSString stringWithFormat:@"%i %s %i = %i", xValue, [@"/" UTF8String], yValue, checkAnswer];
 		} else {
-			missed = [NSString stringWithFormat:@"%i %s %i = %i", xValue, [mathSymbolLabel.text UTF8String], yValue, checkAnswer];
+			//missed = [NSString stringWithFormat:@"%i %s %i = %i", xValue, [mathSymbolLabel.text UTF8String], yValue, checkAnswer];
 		}
-		[self.errorQueueNSMA addObject:missed];
+		//[self.errorQueueNSMA addObject:missed];
 
 		successLabel.text = [NSString stringWithFormat:@"No, it was %i ", checkAnswer];
 		successLabel.textColor = [UIColor yellowColor];
@@ -527,7 +525,7 @@
 			[self.errorQueueNSMA removeObjectAtIndex:0];
 			//if there are other questions in the queue, set the Count back to 2
 			if (0 != [errorQueueNSMA count])
-				errorWaitCount = appDelegate.currentUser.delayRetake;
+				errorWaitCount = 0;//appDelegate.currentUser.delayRetake;
 		} else {
 			errorWaitCount--;
 			[self setFlashcardDigits];

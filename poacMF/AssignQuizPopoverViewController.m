@@ -7,7 +7,6 @@
 //
 
 #import "AssignQuizPopoverViewController.h"
-#import "UsersDAO.h"
 #import "User.h"
 #import "QuestionSetsDAO.h"
 #import "QuestionSet.h"
@@ -107,8 +106,8 @@
     if (nil != self.listofQuestionSets){
         AppLibrary *al = [[AppLibrary alloc] init];
         QuestionSet *qs = [self.listofQuestionSets objectAtIndex:row];
-        NSString *backend = [NSString stringWithFormat:@" - %i questions", [qs.setDetailsNSMA count]];
-        NSString *frontend = [[al interpretMathTypeAsPhrase:qs.mathType] stringByAppendingString:qs.questionSetName];
+        NSString *backend = nil;//[NSString stringWithFormat:@" - %i questions", [qs.setDetailsNSMA count]];
+        NSString *frontend = nil;//[[al interpretMathTypeAsPhrase:qs.mathType] stringByAppendingString:qs.questionSetName];
         returnString = [frontend stringByAppendingString:backend];
         return returnString;					  
     }//end if
@@ -123,7 +122,6 @@
 - (void) pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
 		if (nil != self.listofQuestionSets){
 			QuestionSet *qs = [self.listofQuestionSets objectAtIndex:row];
-            self.assignedQuiz.setId = qs.setId;
             self.selectedSet = row;
 		}//end if
     

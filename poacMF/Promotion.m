@@ -28,6 +28,7 @@
 	QuestionSet *nextQuestionSet = [qDAO getQuestionSetBySetOrder:nextSetOrder andMathType:studentQuizSet.assignedQuestionSet.mathType];
 	
 	//4) if not, move up a mathType and setId=0;
+    /*
 	int nextMathType = studentQuizSet.assignedQuestionSet.mathType;
 	if (INVALID_QUESTION_SET == nextQuestionSet.setId) {
 		nextMathType++;
@@ -35,13 +36,14 @@
 		nextQuestionSet.setOrder = 0;
 		nextQuestionSet = [qDAO getQuestionSetBySetOrder:nextQuestionSet.setOrder andMathType:nextQuestionSet.mathType];
 	}//end if
-	
+
 	//if we've passed all things, don't assign
 	if (nextMathType > DIVISION_MATH_TYPE)
 		return;
-	
+	*/
 	QuizzesDAO *quizDAO = [[QuizzesDAO alloc] init];
 	//5) if we passed a Practice
+    /*
 	if (QUIZ_PRACTICE_TYPE == studentQuizSet.assignedQuiz.testType) {
 		//	a) open up the same Test
 		Quiz *newTestQuiz = [studentQuizSet.assignedQuiz mutableCopyWithZone:nil];
@@ -79,14 +81,14 @@
 		//[quizDAO addQuizForUser:newPracticeQuiz];
 		
 	}//end if-else
-	
+	*/
 }//end method
 
 -(void) regressUser: (User *) user withQuizSet: (QuizSet *) studentQuizSet {
 		QuizzesDAO *quizDAO = [[QuizzesDAO alloc] init];
 		Quiz *newTestQuiz = [studentQuizSet.assignedQuiz mutableCopyWithZone:nil];
 		newTestQuiz.testType = QUIZ_PRACTICE_TYPE;
-		newTestQuiz.timeLimit = user.defaultPracticeTimeLimit;
+		//newTestQuiz.timeLimit = user.defaultPracticeTimeLimit;
 		newTestQuiz.quizId = -1;
 		[quizDAO addQuizForUser:newTestQuiz];
 }//end method

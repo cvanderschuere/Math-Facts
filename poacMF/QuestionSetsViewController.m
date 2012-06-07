@@ -103,7 +103,7 @@
 	int count = 0;
 	if (nil != listofQuestionSets) {
 		QuestionSet *qs = [listofQuestionSets objectAtIndex:section];
-		count = [qs.setDetailsNSMA count];
+		//count = [qs.setDetailsNSMA count];
 	}
     return count;
 }//end method
@@ -112,8 +112,8 @@
 	AppLibrary *al = [[AppLibrary alloc] init];
 	if (nil != listofQuestionSets) {
 		QuestionSet *qs = [listofQuestionSets objectAtIndex:section];
-		titleString = [al interpretMathTypeAsPhrase:qs.mathType];
-		titleString = [titleString stringByAppendingString:qs.questionSetName];
+		//titleString = [al interpretMathTypeAsPhrase:qs.mathType];
+		//titleString = [titleString stringByAppendingString:qs.questionSetName];
 	}//
 	return titleString;
 }//end method
@@ -125,7 +125,7 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-	
+	/*
 	AppLibrary *al = [[AppLibrary alloc] init];
 	if (nil != listofQuestionSets){
 		QuestionSet *qs = [listofQuestionSets objectAtIndex:indexPath.section];
@@ -151,7 +151,7 @@
 		
 		cell.textLabel.text = questionString;
 	}//end method
-	
+	*/
 	return cell;
 }//end method
 
@@ -170,14 +170,14 @@
 	if (editingStyle == UITableViewCellEditingStyleDelete) { 
 		//get VOs
 		QuestionSet *qs = [listofQuestionSets objectAtIndex:indexPath.section];
-		QuestionSetDetail *qsd = [qs.setDetailsNSMA objectAtIndex:indexPath.row];		
+		//QuestionSetDetail *qsd = [qs.setDetailsNSMA objectAtIndex:indexPath.row];		
 		//2) remove from DB
 	
 		QuestionSetDetailsDAO *qsdDAO = [[QuestionSetDetailsDAO alloc] init];
-		[qsdDAO deleteDetailSetForDetailId:qsd.detailId];
+		//[qsdDAO deleteDetailSetForDetailId:qsd.detailId];
 		
 		//3) remove from NSMA
-		[qs.setDetailsNSMA removeObjectAtIndex:indexPath.row];
+		//[qs.setDetailsNSMA removeObjectAtIndex:indexPath.row];
 		//4) reset cache
 		//rely on pointers
 		//5) update the View
