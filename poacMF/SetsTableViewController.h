@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AdminSplitViewController.h"
+#import "AdminMasterTableViewController.h"
+#import "Administrator.h"
 
-@interface SetsTableViewController : UITableViewController
+@interface SetsTableViewController : AdminMasterTableViewController
+
+@property (nonatomic,strong) Administrator *currentAdmin;
 
 @end

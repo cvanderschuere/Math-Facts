@@ -36,8 +36,8 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         self.delegate = self;
-        UsersTableViewController *usersVC = [[[self.viewControllers objectAtIndex:0] viewControllers] lastObject];
-        usersVC.delegate = self;
+        AdminMasterTableViewController *adminMaster = [[[self.viewControllers objectAtIndex:0] viewControllers] lastObject];
+        adminMaster.delegate = self;
     }
     return self;
 }

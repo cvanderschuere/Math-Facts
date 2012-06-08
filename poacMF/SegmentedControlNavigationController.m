@@ -7,6 +7,9 @@
 //
 
 #import "SegmentedControlNavigationController.h"
+#import "AdminSplitViewController.h"
+#import "UsersTableViewController.h"
+#import "SetsTableViewController.h"
 
 @interface SegmentedControlNavigationController ()
 
@@ -43,6 +46,12 @@
             break;
         default:
             break;
+    }
+    
+    //Setup currentAdmin and delegate
+    if ([self.parentViewController respondsToSelector:@selector(currentAdmin)] && [self.viewControllers.lastObject respondsToSelector:@selector(setCurrentAdmin:)]) {
+        [self.viewControllers.lastObject setCurrentAdmin:[self.parentViewController performSelector:@selector(currentAdmin)]];
+        [self.viewControllers.lastObject setDelegate:self.parentViewController];
     }
 }
 

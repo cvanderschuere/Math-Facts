@@ -28,40 +28,10 @@
 -(void) setStudent:(Student *)student{
     if (![_student isEqual:student]) {
         _student = student;
-        
         self.title = _student.firstName;
+        [self setupFetchedResultsController];
     }
 }
--(NSMutableArray*) results{
-    if (!_results) {
-        _results = self.student.results.allObjects;
-    }
-    return _results;
-}
--(NSMutableArray*) quizzes{
-    if (!_quizzes) {
-        _quizzes = [NSMutableArray array];
-        for (Test* test in self.student.tests) {
-            [_quizzes addObject:test.practice];
-        }
-        
-    }
-    return _quizzes;
-}
--(NSMutableArray*) tests{
-    if (!_tests) {
-        _tests = [NSMutableArray arrayWithArray:self.student.tests.allObjects];
-    }
-    return _tests;
-}
-
--(id) initWithCoder:(NSCoder *)aDecoder{
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -85,120 +55,94 @@
 {
 	return YES;
 }
-
+#pragma mark - NSFetchedResultsController Methods
+- (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
+{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Test"];
+    request.sortDescriptors = [NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:@"questionSet.type" ascending:YES selector:@selector(compare:)],[NSSortDescriptor sortDescriptorWithKey:@"questionSet.name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)],nil];
+    request.predicate = [NSPredicate predicateWithFormat:@"student == %@",self.student];
+    
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
+                                                                        managedObjectContext:self.student.managedObjectContext
+                                                                          sectionNameKeyPath:@"questionSet.typeName"
+                                                                                   cacheName:nil];
+}
 #pragma mark - Table view data source
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    //Results, Quizs, Tests
-    return self.student?3:0;
+    //Include insert category cell
+    return [super numberOfSectionsInTableView:tableView] + 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    //Include insert row if not add category cell
+    if (section!=[self numberOfSectionsInTableView:tableView]-1) {
+        return [super tableView:tableView numberOfRowsInSection:section] + 1;
+    }
+    return self.student?1:0;
+}
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    //Number of items plus "Insert" row
-    switch (section) {
-        case 0:
-            return self.results.count ;
-            break;
-        case 1:
-            return self.quizzes.count + 1;
-            break;
-        case 2:
-            return self.tests.count + 1;
-            break;
-        default:
-            return 0;
-            break;
-    }
-}
--(NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    switch (section) {
-        case 0:
-            return @"Results";
-            break;
-        case 1:
-            return @"Quizzes";
-            break;
-        case 2:
-            return @"Tests";
-            break;
-        default:
-            return nil;
-            break;
-    }
+	return section!=[self numberOfSectionsInTableView:tableView]-1?[[[self.fetchedResultsController sections] objectAtIndex:section] name]:nil;
 }
 
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+{
+	return [self.fetchedResultsController sectionForSectionIndexTitle:title atIndex:index];
+}
+
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the row from the data source
+        [self.fetchedResultsController.managedObjectContext deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+        [self.fetchedResultsController.managedObjectContext save:nil];
+    }   
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //Check if last row... should include insert row
-    if (indexPath.row == [tableView.dataSource tableView:tableView numberOfRowsInSection:indexPath.section]-1 && indexPath.section>0) {
+    //Check if last row and not last section... should include insert row
+    if (indexPath.section == [self numberOfSectionsInTableView:tableView]-1) {
+        return [tableView dequeueReusableCellWithIdentifier:@"addTestCategoryCell"];
+    }
+    else if (indexPath.row == [tableView.dataSource tableView:tableView numberOfRowsInSection:indexPath.section]-1) {
         //Include Insert Row
-        return [tableView dequeueReusableCellWithIdentifier:@"insertCell"];
+        return [tableView dequeueReusableCellWithIdentifier:@"addTestCell"];
     }
     
     UITableViewCell *cell = nil;
     Test * test = nil;
-    switch (indexPath.section) {
-        case 0:
-            //Results
-            cell = [tableView dequeueReusableCellWithIdentifier:@"resultsCell"];
-            break;
-        case 1:
-            //Quizzes
-            cell = [tableView dequeueReusableCellWithIdentifier:@"quizzesCell"];
-            break;
-        case 2:
-            //Tests
-            cell = [tableView dequeueReusableCellWithIdentifier:@"testsCell"];
-            test = (Test*) [self.tests objectAtIndex:indexPath.row];
-            cell.textLabel.text = test.questionSet.name;
-            break;
-        default:
-            break;
-    }
+    
+    cell = [tableView dequeueReusableCellWithIdentifier:@"testCell"];
+    test = (Test*) [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.text = test.questionSet.name;
+    
     return cell;
 }
 
+
+/*
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+ {
+ }
+ */
+
+/*
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
 
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
     return ![[tableView cellForRowAtIndexPath:indexPath].reuseIdentifier isEqualToString:@"insertCell"];
-}
-
-
-
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        switch (indexPath.section) {
-            case 0:
-                //Delete Results
-                return;
-                break;
-            case 1:
-                //Delete Quiz
-                    return;
-                break;
-            case 2:
-                //Delete Test
-                [self.student removeTestsObject:[self.tests objectAtIndex:indexPath.row]];
-                self.tests = nil;
-                return;
-                break;
-            default:
-                break;
-        }
-        
-        //Update UI
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
 }
 
 

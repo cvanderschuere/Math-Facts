@@ -20,7 +20,8 @@
         <attribute name="details" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="difficultyLevel" optional="YES" attributeType="Integer 16" defaultValueString="1" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="type" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="typeName" transient="YES" attributeType="String" defaultValueString="Unknown Type" syncable="YES"/>
         <relationship name="administrator" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Administrator" inverseName="questionSets" inverseEntity="Administrator" syncable="YES"/>
         <relationship name="questions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Question" inverseName="questionSet" inverseEntity="Question" syncable="YES"/>
     </entity>
@@ -65,7 +66,7 @@
         <element name="QuestionSet" positionX="214" positionY="-315" width="128" height="135"/>
         <element name="Result" positionX="-263" positionY="216" width="128" height="135"/>
         <element name="Student" positionX="-443" positionY="-108" width="128" height="135"/>
-        <element name="Test" positionX="-81" positionY="-153" width="128" height="150"/>
+        <element name="Test" positionX="-155" positionY="-171" width="128" height="150"/>
         <element name="User" positionX="-441" positionY="-306" width="128" height="120"/>
     </elements>
 </model>

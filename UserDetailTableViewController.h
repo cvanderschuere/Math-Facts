@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CoreDataTableViewController.h"
 #import "Student.h"
 
 
-@interface UserDetailTableViewController : UITableViewController <UIPopoverControllerDelegate>
+@interface UserDetailTableViewController : CoreDataTableViewController <UIPopoverControllerDelegate>
 
 @property (nonatomic, strong) Student* student;
 @property (nonatomic, strong) UIPopoverController *popover;

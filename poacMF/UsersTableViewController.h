@@ -7,13 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CoreDataTableViewController.h"
+#import "AdminSplitViewController.h"
+#import "AdminMasterTableViewController.h"
 #import "Administrator.h"
 
-@interface UsersTableViewController : CoreDataTableViewController
+
+@interface UsersTableViewController : AdminMasterTableViewController
 
 @property (nonatomic,strong) Administrator *currentAdmin;
-@property (nonatomic, weak) id<AdminSplitViewCommunicationDelegate> delegate;
+
 
 
 @end

@@ -11,6 +11,7 @@
 #import "UsersTableViewController.h"
 #import "SetsTableViewController.h"
 
+
 @interface AdminSplitViewController : UISplitViewController <UISplitViewControllerDelegate, AdminSplitViewCommunicationDelegate>
 
 @property (nonatomic, strong) Administrator* currentAdmin;

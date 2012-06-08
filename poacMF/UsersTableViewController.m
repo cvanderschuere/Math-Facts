@@ -10,7 +10,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import "PoacMFAppDelegate.h"
 #import "AppConstants.h"
-#import "AdminSplitViewController.h"
 #import "UserDetailTableViewController.h"
 #import "Student.h"
 #import "AEUserTableViewController.h"
@@ -23,7 +22,6 @@
 @implementation UsersTableViewController
 
 @synthesize currentAdmin = _currentAdmin;
-@synthesize delegate = _delegate;
 
 -(void) setCurrentAdmin:(Administrator *)currentAdmin{
     if (![_currentAdmin isEqual:currentAdmin]) {
@@ -90,7 +88,6 @@
 
 
 #pragma mark - Table view data source
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"defaultCell";

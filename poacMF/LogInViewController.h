@@ -14,6 +14,7 @@
 @property (nonatomic, weak) IBOutlet	UITextField				*passwordTextField;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (nonatomic) BOOL readyToLogin;
+@property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 
 -(IBAction) loginTapped;
 
