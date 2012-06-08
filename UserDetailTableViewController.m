@@ -10,6 +10,8 @@
 #import "AssignQuizPopoverViewController.h"
 #import "AppConstants.h"
 #import "Test.h"
+#import "Administrator.h"
+#import "AEUserTableViewController.h"
 
 @interface UserDetailTableViewController ()
 
@@ -23,19 +25,34 @@
 @end
 
 @implementation UserDetailTableViewController
+@synthesize editButton = _editButton;
+@synthesize shareButton = _shareButton;
 @synthesize student = _student;
 @synthesize results = _results, quizzes = _quizzes, tests = _tests, popover = _popover;
 -(void) setStudent:(Student *)student{
     if (![_student isEqual:student]) {
         _student = student;
+        
+        //Set Title and setup observer
         self.title = _student.firstName;
-        [self setupFetchedResultsController];
+        
+        
+        if (_student){   //Enable Button Segues
+            self.shareButton.enabled = self.editButton.enabled = YES;
+            [self setupFetchedResultsController];
+        }
+        else    //Disable
+            self.shareButton.enabled = self.editButton.enabled = NO;
     }
 }
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    if (_student)   //Enable Button Segues
+        self.shareButton.enabled = self.editButton.enabled = YES;
+    else    //Disable
+        self.shareButton.enabled = self.editButton.enabled = NO;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -46,7 +63,10 @@
 
 - (void)viewDidUnload
 {
+    [self setEditButton:nil];
+    [self setShareButton:nil];
     [super viewDidUnload];
+    
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
@@ -55,6 +75,22 @@
 {
 	return YES;
 }
+
+#pragma mark - Storyboard
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"showTestSegue"]) {
+        //Get selected test from frc and pass it along
+        Test* selectedTest = [self.fetchedResultsController objectAtIndexPath:[self.tableView indexPathForCell:sender]];
+        [segue.destinationViewController setTest:selectedTest];
+    }
+    else if ([segue.identifier isEqualToString:@"editStudentSegue"]) {
+        [[[segue.destinationViewController viewControllers] lastObject] setEditMode:YES];
+        [[[segue.destinationViewController viewControllers] lastObject] setCreatedStudentsAdmin:self.student.administrator];
+        [[[segue.destinationViewController viewControllers] lastObject] setStudentToUpdate:self.student];
+
+    }
+}
+
 #pragma mark - NSFetchedResultsController Methods
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
@@ -85,10 +121,9 @@
 {
 	return section!=[self numberOfSectionsInTableView:tableView]-1?[[[self.fetchedResultsController sections] objectAtIndex:section] name]:nil;
 }
-
-- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
-	return [self.fetchedResultsController sectionForSectionIndexTitle:title atIndex:index];
+    return nil;
 }
 
 // Override to support editing the table view.
@@ -110,13 +145,10 @@
         //Include Insert Row
         return [tableView dequeueReusableCellWithIdentifier:@"addTestCell"];
     }
-    
-    UITableViewCell *cell = nil;
-    Test * test = nil;
-    
-    cell = [tableView dequeueReusableCellWithIdentifier:@"testCell"];
-    test = (Test*) [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = test.questionSet.name;
+        
+    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"testCell"];
+    Test *test = (Test*) [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.text = [@"Test: " stringByAppendingString:test.questionSet.name];
     
     return cell;
 }
@@ -142,7 +174,7 @@
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
-    return ![[tableView cellForRowAtIndexPath:indexPath].reuseIdentifier isEqualToString:@"insertCell"];
+    return ![[tableView cellForRowAtIndexPath:indexPath].reuseIdentifier isEqualToString:@"addTestCategoryCell"] && ![[tableView cellForRowAtIndexPath:indexPath].reuseIdentifier isEqualToString:@"addTestCell"];
 }
 
 
@@ -168,13 +200,37 @@
 {
     // Navigation logic may go here. Create and push another view controller.
     UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
-    if ([selectedCell.reuseIdentifier isEqualToString:@"insertCell"]) {
+    if ([selectedCell.reuseIdentifier isEqualToString:@"addTest"]) {
         AssignQuizPopoverViewController* assignVC = [self.storyboard instantiateViewControllerWithIdentifier:@"assignQuizViewController"];
         assignVC.testType = indexPath.section == 1?QUIZ_PRACTICE_TYPE:QUIZ_TIMED_TYPE;
         self.popover = [[UIPopoverController alloc] initWithContentViewController:assignVC];
         self.popover.delegate = self;
         [self.popover presentPopoverFromRect:selectedCell.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
+    else if ([selectedCell.reuseIdentifier isEqualToString:@"addTestCategoryCell"]) {
+        AddCategoryPopoverController *addVC = [self.storyboard instantiateViewControllerWithIdentifier:@"addCategoryPopoverController"];
+        //Find categorys that student doesnt have yet
+        NSMutableArray *availableCategories = [NSMutableArray array];
+        for (QuestionSet* questionSet in self.student.administrator.questionSets) {
+            if (![availableCategories containsObject:questionSet.type]) {
+                [availableCategories addObject:questionSet.type];
+            }
+        }
+        NSMutableArray *currentCategories = [NSMutableArray array];
+        for (Test* test in self.student.tests) {
+            if (![currentCategories containsObject:test.questionSet.type]) {
+                [currentCategories addObject:test.questionSet.type];
+            }
+        }
+        [availableCategories removeObjectsInArray:currentCategories];
+        addVC.categoriesToChoose = availableCategories;
+        addVC.delegate = self;
+        if (availableCategories.count>0) {
+            self.popover = [[UIPopoverController alloc] initWithContentViewController:addVC];
+            [self.popover presentPopoverFromRect:selectedCell.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        }
+    }
+    /*
     else if (indexPath.section >0) {
         AssignQuizPopoverViewController* assignVC = [self.storyboard instantiateViewControllerWithIdentifier:@"assignQuizViewController"];
         assignVC.testType = indexPath.section == 1?QUIZ_PRACTICE_TYPE:QUIZ_TIMED_TYPE;
@@ -184,7 +240,7 @@
         self.popover.delegate = self;
         [self.popover presentPopoverFromRect:selectedCell.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 
-    }
+    }*/
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -227,7 +283,27 @@
          
          */
     }
+    else if ([contentViewController isKindOfClass:[AddCategoryPopoverController class]]) {
+        
+    }
  
+}
+-(void) didAddCategoryType:(NSNumber *)categoryType{
+    //Fetch all question sets of this category type from admin
+    NSFetchRequest* questionSetRequest = [NSFetchRequest fetchRequestWithEntityName:@"QuestionSet"];
+    questionSetRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"difficultyLevel" ascending:YES]];
+    questionSetRequest.predicate = [NSPredicate predicateWithFormat:@"administrator == %@ AND type == %@",self.student.administrator,categoryType];
+    NSArray* questionSetResults = [self.student.managedObjectContext executeFetchRequest:questionSetRequest error:NULL];
+    
+    [self.popover dismissPopoverAnimated:YES];
+    
+    //Create a test for each set and add it to student
+    for (QuestionSet * qSet in questionSetResults) {
+        Test* newTest = [NSEntityDescription insertNewObjectForEntityForName:@"Test" inManagedObjectContext:self.student.managedObjectContext];
+        newTest.questionSet = qSet;
+        [self.student addTestsObject:newTest];
+    }
+    
 }
 
 @end

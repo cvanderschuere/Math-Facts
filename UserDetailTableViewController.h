@@ -8,13 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "CoreDataTableViewController.h"
+#import "AddCategoryPopoverController.h"
 #import "Student.h"
 
 
-@interface UserDetailTableViewController : CoreDataTableViewController <UIPopoverControllerDelegate>
+@interface UserDetailTableViewController : CoreDataTableViewController <UIPopoverControllerDelegate, AddCategoryDelegate>
 
 @property (nonatomic, strong) Student* student;
 @property (nonatomic, strong) UIPopoverController *popover;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *editButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
 
 
 @end

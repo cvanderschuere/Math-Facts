@@ -11,6 +11,7 @@
 @protocol AdminSplitViewCommunicationDelegate <NSObject>
 
 -(void) didSelectObject: (id) aObject;
+-(void) didDeleteObject: (id) aObject;
 
 @end
 

@@ -2,7 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Users</key>
+	<key>Administrators</key>
 	<array>
 		<dict>
 			<key>firstName</key>
@@ -15,10 +15,23 @@
 			<string>poacmf</string>
 		</dict>
 	</array>
+	<key>Students</key>
+	<array>
+		<dict>
+			<key>firstName</key>
+			<string>Chris</string>
+			<key>lastName</key>
+			<string>Vanderschuere</string>
+			<key>username</key>
+			<string>chris</string>
+			<key>password</key>
+			<string>kipper</string>
+		</dict>
+	</array>
 	<key>Questions Sets</key>
 	<array>
 		<array>
-			<real>0</real>
+			<integer>0</integer>
 			<array>
 				<dict>
 					<key>name</key>

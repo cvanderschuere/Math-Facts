@@ -24,20 +24,19 @@
 @end
 
 @implementation LoginViewController
+@synthesize errorLabel = _errorLabel;
 @synthesize loginButton = _loginButton;
 @synthesize userNameTextField = _userNameTextField, passwordTextField = _passwordTextField, readyToLogin = _readyToLogin;
 
 -(void) setReadyToLogin:(BOOL)readyToLogin{
-    if (readyToLogin != _readyToLogin) {
-        _readyToLogin = readyToLogin;
-        if (_readyToLogin) {
-            //enableLogin
-            self.loginButton.enabled = YES;
-        }
-        else {
-            //DisableLogin
-            self.loginButton.enabled = NO;
-        }
+    _readyToLogin = readyToLogin;
+    if (_readyToLogin) {
+        //enableLogin
+        self.loginButton.enabled = YES;
+    }
+    else {
+        //DisableLogin
+        self.loginButton.enabled = NO;
     }
 }
 
@@ -78,8 +77,11 @@
             Administrator* admin = [users lastObject];
             [self performSegueWithIdentifier:@"adminUserSegue" sender:admin];
         }//
-        else {
+        else if(users.count == 1){
             NSLog(@"Does not match ANY user");
+        }
+        else {
+            NSLog(@"Error: Matches more than 1 admin");
         }
 	}
     else {
@@ -158,6 +160,7 @@
 
 - (void)viewDidUnload {
     [self setLoginButton:nil];
+    [self setErrorLabel:nil];
     [super viewDidUnload];
 }
 @end

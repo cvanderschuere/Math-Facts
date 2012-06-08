@@ -48,12 +48,14 @@
     [super viewDidLoad];
     
     //Configure for updatedUser if in edit mode
-    if (self.editMode) {
+    if (self.studentToUpdate) {
 		self.usernameTF.text = self.studentToUpdate.username;
 		self.passwordTF.text = self.studentToUpdate.password;
 		self.firstNameTF.text = self.studentToUpdate.firstName;
 		self.lastNameTF.text = self.studentToUpdate.lastName;
 		self.emailAddressTF.text = self.studentToUpdate.emailAddress;
+        
+        self.title = @"Update Student";
         /*
 		NSNumber *dutll = [NSNumber numberWithDouble:self.updateUser.defaultPracticeTimeLimit];
 		self.userPracticeTimeLimitTF.text = [dutll stringValue];
@@ -64,7 +66,8 @@
         self.userTypeSC.selectedSegmentIndex = self.updateUser.userType;
         */
 	}//end editMode
-
+    else 
+        self.title = @"Create Student";
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -81,10 +84,6 @@
 }
 #pragma mark Button Methods
 -(IBAction) cancelClicked {
-    if (!self.editMode) {
-        //Delete new student if not editing
-        [self.studentToUpdate.managedObjectContext deleteObject:self.studentToUpdate];
-    }
     //Dismiss View
 	[self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
 }//end method
@@ -112,7 +111,7 @@
 		[al showAlertFromDelegate:self withWarning:msg];
 		return;
 	}//end if
-    if (!self.editMode) {
+    if (!self.studentToUpdate) {
         self.studentToUpdate = [NSEntityDescription insertNewObjectForEntityForName:@"Student" inManagedObjectContext:self.createdStudentsAdmin.managedObjectContext];
         [self.createdStudentsAdmin addStudentsObject:self.studentToUpdate];
     }

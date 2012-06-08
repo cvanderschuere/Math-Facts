@@ -9,6 +9,7 @@
 #import "PoacMFAppDelegate.h"
 #import "LoginViewController.h"
 #import "Administrator.h"
+#import "Student.h"
 #import "AppConstants.h"
 #import "QuestionSet.h"
 #import "Question.h"
@@ -99,14 +100,24 @@
     //Load information for plist
     NSDictionary *seedDict = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"databaseSeed" ofType:@"plist"]];
     
-    //Add inital users
-    NSArray* seedUsers = [seedDict objectForKey:@"Users"];
-    NSMutableArray *createdUsers = [NSMutableArray arrayWithCapacity:seedUsers.count];
-    for (NSDictionary* user in seedUsers) {
+    //Add inital Administrators
+    NSArray* seedAdmins = [seedDict objectForKey:@"Administrators"];
+    NSMutableArray *createdAdmins = [NSMutableArray arrayWithCapacity:seedAdmins.count];
+    for (NSDictionary* user in seedAdmins) {
         Administrator * newAdmin = [NSEntityDescription insertNewObjectForEntityForName:@"Administrator" inManagedObjectContext:document.managedObjectContext];
         [newAdmin setValuesForKeysWithDictionary:user];
-        [createdUsers addObject:newAdmin];
+        [createdAdmins addObject:newAdmin];
     }
+    //Add inital Students
+    NSArray* seedStudents = [seedDict objectForKey:@"Students"];
+    NSMutableArray *createdStudents = [NSMutableArray arrayWithCapacity:seedStudents.count];
+    for (NSDictionary* user in seedStudents) {
+        Student * newStudent = [NSEntityDescription insertNewObjectForEntityForName:@"Student" inManagedObjectContext:document.managedObjectContext];
+        [newStudent setValuesForKeysWithDictionary:user];
+        [newStudent setAdministrator:[createdAdmins lastObject]];
+        [createdStudents addObject:newStudent];
+    }
+
     
     //Add inital question set to new admins
     NSArray* seedQuestionSets = [seedDict objectForKey:@"Questions Sets"];
@@ -133,11 +144,15 @@
             }
             
             //Add new question set to all new admins
-            for (Administrator* admin in createdUsers) {
+            for (Administrator* admin in createdAdmins) {
                 [admin addQuestionSetsObject:qSet];
             }
         }
     }
+    
+    //Save
+    [self saveDatabase];
+    
 }
 
 -(void) saveDatabase{

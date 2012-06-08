@@ -47,7 +47,7 @@
         <attribute name="testLength" optional="YES" attributeType="Integer 16" defaultValueString="60" syncable="YES"/>
         <relationship name="practice" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Practice" inverseName="test" inverseEntity="Practice" syncable="YES"/>
         <relationship name="questionSet" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="QuestionSet" syncable="YES"/>
-        <relationship name="results" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Result" inverseName="test" inverseEntity="Result" syncable="YES"/>
+        <relationship name="results" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Result" inverseName="test" inverseEntity="Result" syncable="YES"/>
         <relationship name="student" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Student" inverseName="tests" inverseEntity="Student" syncable="YES"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES">
@@ -66,7 +66,7 @@
         <element name="QuestionSet" positionX="214" positionY="-315" width="128" height="135"/>
         <element name="Result" positionX="-263" positionY="216" width="128" height="135"/>
         <element name="Student" positionX="-443" positionY="-108" width="128" height="135"/>
-        <element name="Test" positionX="-155" positionY="-171" width="128" height="150"/>
+        <element name="Test" positionX="-83" positionY="-171" width="128" height="150"/>
         <element name="User" positionX="-441" positionY="-306" width="128" height="120"/>
     </elements>
 </model>

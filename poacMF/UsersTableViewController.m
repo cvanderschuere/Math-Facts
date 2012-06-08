@@ -28,6 +28,9 @@
         _currentAdmin = currentAdmin;
         NSLog(@"Admin: %@",_currentAdmin);
         [self setupFetchedResultsController];
+        if (self.fetchedResultsController.fetchedObjects.count>0) {
+            [self.delegate didSelectObject:[self.fetchedResultsController.fetchedObjects objectAtIndex:0]];
+        }
     }
 }
 
@@ -67,8 +70,8 @@
 }
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"addStudentSegue"]) {
-        [segue.destinationViewController setEditMode:NO];
-        [segue.destinationViewController setCreatedStudentsAdmin:self.currentAdmin];
+        [[[segue.destinationViewController viewControllers] lastObject] setEditMode:NO];
+        [[[segue.destinationViewController viewControllers] lastObject] setCreatedStudentsAdmin:self.currentAdmin];
     }
     
 }
@@ -110,6 +113,7 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
+        [self.delegate didDeleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
         [self.fetchedResultsController.managedObjectContext deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
         [self.fetchedResultsController.managedObjectContext save:nil];
     }   

@@ -22,7 +22,18 @@
 @property (nonatomic, retain) NSNumber * testLength;
 @property (nonatomic, retain) Practice *practice;
 @property (nonatomic, retain) QuestionSet *questionSet;
-@property (nonatomic, retain) Result *results;
+@property (nonatomic, retain) NSSet *results;
 @property (nonatomic, retain) Student *student;
 
 @end
+
+@interface Test (CoreDataGeneratedAccessors)
+
+- (void)addResultsObject:(Result *)value;
+- (void)removeResultsObject:(Result *)object;
+- (void)addResults:(NSSet *)values;
+- (void)removeResults:(NSSet *)values;
+
+@end
+
+

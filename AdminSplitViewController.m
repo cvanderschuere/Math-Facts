@@ -45,13 +45,30 @@
 #pragma mark - AdminComDelegate
 -(void) didSelectObject:(id)aObject{
     UINavigationController *navController = [self.viewControllers lastObject];
-    if ([aObject isKindOfClass:[Student class]] && ![[[navController.viewControllers lastObject] student] isEqual:aObject]) {
+    if ([aObject isKindOfClass:[Student class]]) {
+        //![[[navController.viewControllers fir] student] isEqual:aObject]
         //Detail view should be userDetailView
         UserDetailTableViewController *detailTVC = [self.storyboard instantiateViewControllerWithIdentifier:@"UserDetailTableViewController"];
         [detailTVC setStudent:aObject];
         [navController setViewControllers:[NSArray arrayWithObject:detailTVC] animated:NO];
     }
     
+}
+-(void) didDeleteObject:(id)aObject{
+    UINavigationController *navController = [self.viewControllers lastObject];
+    if (navController.viewControllers.count==0)
+        return;
+    
+    id currentVC = [navController.viewControllers objectAtIndex:0];
+    
+    if ([aObject isKindOfClass:[Student class]] && [currentVC isKindOfClass:[UserDetailTableViewController class]]) {
+        //Check to see if object currently being shown was deleted
+        if ([[currentVC student] isEqual:aObject]) {
+            [currentVC setStudent:nil];
+        }
+    
+    }
+
 }
 
 #pragma mark - UISplitViewDelegate Methods
