@@ -57,7 +57,7 @@
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <fetchRequest name="AdminLogin" entity="Administrator" predicateString="username == $USERNAME AND password == $PASSWORD"/>
-    <fetchRequest name="StudentLogin" entity="Student" predicateString="username == &quot;$USERNAME&quot; AND password == &quot;$PASSWORD&quot;"/>
+    <fetchRequest name="StudentLogin" entity="Student" predicateString="username == $USERNAME AND password == $PASSWORD"/>
     <elements>
         <element name="Administrator" positionX="-216" positionY="-288" width="128" height="75"/>
         <element name="Practice" positionX="90" positionY="57" width="128" height="105"/>
