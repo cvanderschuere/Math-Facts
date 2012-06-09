@@ -10,7 +10,11 @@
 
 // cocos2d import
 #import "cocos2d.h"
+#import "LaunchRocketScene.h"
 
 @interface CVCocosViewController : UIViewController
+
+@property (nonatomic, strong) LaunchRocketScene *scene;
+@property (nonatomic, strong) CCDirector *director;
 
 @end

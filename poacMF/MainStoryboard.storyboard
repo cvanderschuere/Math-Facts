@@ -1445,6 +1445,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rNr-KA-tVV" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="3ep-aq-AKb" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="GZY-cl-IJQ">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1463,23 +1464,23 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D77-KI-kYe" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="jbB-Kf-6Or" customClass="UserProgressViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RSh-sP-btw">
-                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="YvN-nY-OMh">
-                                <rect key="frame" x="315" y="218" width="411" height="327"/>
+                                <rect key="frame" x="426" y="159" width="556" height="239"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="quizCell" textLabel="yAr-2b-rHh" style="IBUITableViewCellStyleDefault" id="BZM-Xp-myH">
-                                        <rect key="frame" x="0.0" y="22" width="411" height="44"/>
+                                        <rect key="frame" x="0.0" y="22" width="556" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="411" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="556" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yAr-2b-rHh">
-                                                    <rect key="frame" x="10" y="0.0" width="391" height="43"/>
+                                                    <rect key="frame" x="10" y="0.0" width="536" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -1496,7 +1497,7 @@
                                 </connections>
                             </tableView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="EoU-Lz-rNp">
-                                <rect key="frame" x="315" y="173" width="411" height="44"/>
+                                <rect key="frame" x="426" y="124" width="556" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="hF4-uP-WFD"/>
@@ -1505,19 +1506,19 @@
                                 </items>
                             </toolbar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="iwb-fF-yPV">
-                                <rect key="frame" x="315" y="623" width="411" height="327"/>
+                                <rect key="frame" x="426" y="456" width="556" height="239"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="testCell" textLabel="B3x-jo-ERH" style="IBUITableViewCellStyleDefault" id="mMm-Np-duJ">
-                                        <rect key="frame" x="0.0" y="22" width="411" height="44"/>
+                                        <rect key="frame" x="0.0" y="22" width="556" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="411" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="556" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="B3x-jo-ERH">
-                                                    <rect key="frame" x="10" y="0.0" width="391" height="43"/>
+                                                    <rect key="frame" x="10" y="0.0" width="536" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -1534,7 +1535,7 @@
                                 </connections>
                             </tableView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="VPh-Lt-r26">
-                                <rect key="frame" x="315" y="578" width="411" height="44"/>
+                                <rect key="frame" x="426" y="416" width="556" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="rcq-A1-lIe"/>
@@ -1544,6 +1545,7 @@
                             </toolbar>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <navigationItem key="navigationItem" title="User Name" id="JLo-bP-nDa">
                         <barButtonItem key="leftBarButtonItem" title="Logout" id="UkA-lo-BMb">
@@ -1557,6 +1559,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <outlet property="quizTableView" destination="YvN-nY-OMh" id="Ae3-GI-Sru"/>
                         <outlet property="testTableView" destination="iwb-fF-yPV" id="LqN-qP-uaY"/>
@@ -1571,14 +1574,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jm9-sh-ggp" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="q0p-AN-Wno" customClass="CVCocosViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CTf-NX-p36">
-                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <navigationItem key="navigationItem" id="ZVX-2T-XDi"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="-415" y="1636"/>
+            <point key="canvasLocation" x="-305" y="1952"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="XJI-TJ-vok">

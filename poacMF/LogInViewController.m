@@ -16,7 +16,7 @@
 #import "Student.h"
 #import "Administrator.h"
 #import "AdminSplitViewController.h"
-#import "UserProgressViewController.h"
+#import "StudentMainViewController.h"
 
 
 @interface LoginViewController ()
@@ -95,8 +95,8 @@
         [segue.destinationViewController setCurrentAdmin:sender];
     }
     else if ([segue.identifier isEqualToString:@"studentUserSegue"]) {
-        UserProgressViewController *progressVC = (UserProgressViewController *) [[segue.destinationViewController viewControllers] lastObject];
-        progressVC.currentUser = sender;
+        StudentMainViewController *progressVC = (StudentMainViewController *) [[segue.destinationViewController viewControllers] lastObject];
+        progressVC.currentStudent = sender;
     }
 }
 
@@ -142,8 +142,8 @@
 
 -(void) viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:YES];
-	self.userNameTextField.text = @"admin";
-	self.passwordTextField.text = @"poacmf";
+	self.userNameTextField.text = @"chris";
+	self.passwordTextField.text = @"kipper";
 }//end method
 
 #pragma mark Rotation
