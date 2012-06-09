@@ -51,6 +51,8 @@
 }
 #pragma mark Button Methods
 -(IBAction) logOut: (id) sender {
+    [self.parentViewController dismissModalViewControllerAnimated:YES];
+    return;
     //2) confirmatory logout prompt if they are logged in
     UIActionSheet *popupQuery = [[UIActionSheet alloc] initWithTitle:@"Logout?" 
                                                             delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"Logout" 

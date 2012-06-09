@@ -239,9 +239,7 @@
 	
 	// Move projectile to actual endpoint
 	[projectile runAction:[CCSequence actions:
-						   [CCMoveTo actionWithDuration:realMoveDuration position:realDest],
-						   [CCCallFuncN actionWithTarget:self selector:@selector(spriteMoveFinished:)],
-						   nil]];
+						   [CCMoveTo actionWithDuration:realMoveDuration position:realDest], nil]];
 	
 	// Add to projectiles array
 	projectile.tag = 2;
