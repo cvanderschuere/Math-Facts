@@ -1248,7 +1248,7 @@
         <scene sceneID="QiH-bb-fNb">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aS9-JZ-8YX" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController storyboardIdentifier="addCategoryViewController" id="UJh-U3-gnp" customClass="AddCategoryPopoverController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="addCategoryPopoverController" id="UJh-U3-gnp" customClass="AddCategoryPopoverController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Vhe-Qi-97g">
                         <rect key="frame" x="0.0" y="20" width="300" height="250"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1256,6 +1256,10 @@
                             <pickerView contentMode="scaleToFill" id="Rml-2Z-2l8">
                                 <rect key="frame" x="-10" y="35" width="320" height="216"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="UJh-U3-gnp" id="7IC-TW-1cm"/>
+                                    <outlet property="delegate" destination="UJh-U3-gnp" id="9O5-9k-hhV"/>
+                                </connections>
                             </pickerView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Lye-Ob-LQF">
                                 <rect key="frame" x="0.0" y="0.0" width="300" height="44"/>
@@ -1630,6 +1634,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="PEO-JF-KbV"/>
-        <segue reference="jnl-1r-efU"/>
+        <segue reference="Cls-HQ-4Ry"/>
     </inferredMetricsTieBreakers>
 </document>
