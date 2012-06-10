@@ -7,6 +7,7 @@
 //
 
 #import "StudentMainViewController.h"
+#import "CVCocosViewController.h"
 
 
 @interface StudentMainViewController ()
@@ -31,6 +32,12 @@
     
     }
     return self;
+}
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"startTestSegue"]) {
+        [segue.destinationViewController setTest:[self.currentStudent.tests anyObject]];
+    }
+    
 }
 
 - (void)viewDidLoad

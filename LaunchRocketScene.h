@@ -19,6 +19,8 @@
     int _projectilesDestroyed;
 }
 
+@property (nonatomic, strong) NSMutableArray *rockets;
+
 @end
 
 

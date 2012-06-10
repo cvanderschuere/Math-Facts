@@ -15,19 +15,25 @@
 
 @implementation CVCocosViewController
 
-@synthesize scene = _scene, director = _director;
+@synthesize scene = _scene;
+@synthesize test = _test;
+
+-(void) setTest:(Test *)test{
+    _test = test;
+}
 
 - (void)setupCocos2D {    
-    self.director = [CCDirector sharedDirector];
+    CCDirector* director = [CCDirector sharedDirector];
     CCGLView *glview = [CCGLView viewWithFrame:CGRectMake(0, 0, self.view.bounds.size.height, self.view.bounds.size.width)];
     
-    [self.director setView:glview];
+    [director setView:glview];
     
     [self.view addSubview:glview];
     
     self.scene = [LaunchRocketScene node];
-    [self.director runWithScene:self.scene];
-    [self.director startAnimation];
+    [director pushScene:self.scene];
+    [director startAnimation];
+    
 }
 -(void) tearDownCocos2D{
     CCDirector* director = [CCDirector sharedDirector];

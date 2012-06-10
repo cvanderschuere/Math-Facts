@@ -16,7 +16,7 @@
 
 -(id) init
 {
-	if( (self=[super initWithColor:ccc4(255,255,255,255)] ))
+	if( (self=[super initWithColor:ccc4(0,0,0,255)] ))
     {
         self.isTouchEnabled = YES;
         
@@ -59,6 +59,8 @@
 
 @implementation LaunchRocketLayer
 
+@synthesize rockets = _rockets;
+
 // on "init" you need to initialize your instance
 -(id) init
 {
@@ -71,16 +73,18 @@
 		
 		// Get the dimensions of the window for calculation purposes
 		CGSize winSize = [[CCDirector sharedDirector] winSize];
-        NSLog(@"Size: %f, %f",winSize.width,winSize.height);
-		
-		// Add the player to the middle of the screen along the y-axis, 
-		// and as close to the left side edge as we can get
-		// Remember that position is based on the anchor point, and by default the anchor
-		// point is the middle of the object.
-		CCSprite *player = [CCSprite spriteWithFile:@"Player.png" rect:CGRectMake(0, 0, 27, 40)];
-		player.position = ccp(player.contentSize.width/2, winSize.height/2);
-		[self addChild:player];
         
+        //Create Rocket array
+        self.rockets = [NSMutableArray arrayWithCapacity:10];
+        
+        //Add 10 Rockets to bottom of screen
+        for (int i = 0; i<10; i++) {
+            CCSprite *rocket = [CCSprite spriteWithFile:@"rocket.png" rect:CGRectMake(0, 0, 80, 163)];
+            rocket.position = ccp(i*(winSize.width/10) + rocket.contentSize.width/2, rocket.contentSize.height);
+            [self.rockets addObject:rocket];
+            [self addChild:rocket];
+        }
+		
 		// Call game logic about every second
         [self schedule:@selector(gameLogic:) interval:1];
         [self schedule:@selector(update:) interval:1.0/60.0];
@@ -201,9 +205,30 @@
 
 - (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     
+    //Detech rocket pressed
+    CGPoint location = [self convertTouchToNodeSpace:[touches anyObject]];
+    
+    for (CCSprite *rocket in self.rockets)
+    {
+        if (CGRectContainsPoint(rocket.boundingBox, location))
+        {
+            NSLog(@"Touched Rocket: %@", rocket);
+            CGSize winSize = [[CCDirector sharedDirector] winSize];
+            ccBezierConfig bezier;
+            bezier.controlPoint_1 = ccp(0, winSize.height/2);
+            bezier.controlPoint_2 = ccp(winSize.width, winSize.height);
+            bezier.endPosition = ccp(winSize.width/2,winSize.height);
+            
+            id bezierForward = [CCBezierBy actionWithDuration:2 bezier:bezier];
+            [rocket runAction:bezierForward];
+            
+            [rocket setRotation:-45];
+            [rocket runAction:[CCRotateTo actionWithDuration:2 angle:45]];        }
+    }
+    
 	// Choose one of the touches to work with
 	UITouch *touch = [touches anyObject];
-	CGPoint location = [touch locationInView:[touch view]];
+    location = [touch locationInView:[touch view]];
 	location = [[CCDirector sharedDirector] convertToGL:location];
 	
 	// Set up initial location of projectile

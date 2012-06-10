@@ -1411,7 +1411,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Start" id="lv5-Rb-DZB">
                             <connections>
-                                <segue destination="q0p-AN-Wno" kind="push" id="EpY-eN-bU9"/>
+                                <segue destination="q0p-AN-Wno" kind="push" identifier="startTestSegue" id="EpY-eN-bU9"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
