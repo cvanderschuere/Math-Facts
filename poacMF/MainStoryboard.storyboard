@@ -1418,7 +1418,7 @@
             </objects>
             <point key="canvasLocation" x="-1867" y="1994"/>
         </scene>
-        <!--Cocos View Controller-->
+        <!--Cocos View Controller - In Game-->
         <scene sceneID="qPk-yu-cqQ">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jm9-sh-ggp" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1428,7 +1428,8 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="ZVX-2T-XDi"/>
+                    <navigationItem key="navigationItem" title="In Game" id="ZVX-2T-XDi"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="-375" y="2148"/>
@@ -1545,6 +1546,9 @@
         </class>
         <class className="CVCocosViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CVCocosViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="background" candidateClass="UIImageView"/>
+            </relationships>
         </class>
         <class className="CoreDataTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataTableViewController.h"/>

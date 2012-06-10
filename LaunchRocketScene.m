@@ -16,9 +16,12 @@
 
 -(id) init
 {
-	if( (self=[super initWithColor:ccc4(0,0,0,255)] ))
+	if( (self=[super initWithColor:ccc4(0,0,0,0)] ))
     {
-        self.isTouchEnabled = YES;
+        CCSprite *background = [CCSprite spriteWithFile:@"LaunchSceneBackground.png"];  
+        background.position = CGPointMake(background.contentSize.width/2, background.contentSize.height/2);
+        background.blendFunc = (ccBlendFunc){GL_ONE, GL_ZERO};
+        [self addChild:background];
         
     }
     return self;
@@ -27,29 +30,16 @@
 @end
 
 @implementation LaunchRocketScene
-@synthesize backgroundLayer = _backgroundLayer, mainLayer = _mainLayer;
+@synthesize mainLayer = _mainLayer;
 
--(id) initWithTest:(Test*)test containingViewController:(UIViewController*)controller{
-    self = [super init];
-    if (self) {
-        self.backgroundLayer = [Background node];
-        self.mainLayer = [LaunchRocketLayer node];
-        
-        //Add child
-        [self addChild:self.backgroundLayer];
-        [self addChild:self.mainLayer];
-        
-    }
-    return self;
-}
 -(id) init{
     self = [super init];
     if (self) {
-        self.backgroundLayer = [Background node];
+        //self.backgroundLayer = [Background node];
         self.mainLayer = [LaunchRocketLayer node];
         
         //Add child
-        [self addChild:self.backgroundLayer];
+        [self addChild:[Background node]];
         [self addChild:self.mainLayer];
         
     }
@@ -60,19 +50,39 @@
 @implementation LaunchRocketLayer
 
 @synthesize rockets = _rockets;
+@synthesize labelX = _labelX, labelY = _labelY, labelZ = _labelZ;
 
 // on "init" you need to initialize your instance
 -(id) init
 {
 	// always call "super" init
 	// Apple recommends to re-assign "self" with the "super" return value
-	if( (self=[super init])) {
+	if( (self=[super initWithColor:ccc4(255,255,255,0)])) {
         
 		// Enable touch events
 		self.isTouchEnabled = YES;
 		
 		// Get the dimensions of the window for calculation purposes
 		CGSize winSize = [[CCDirector sharedDirector] winSize];
+        
+        //Add Number Labels
+        self.labelX = [CCLabelTTF labelWithString:@"10" fontName:@"Marker Felt" fontSize:60];
+        self.labelX.position = CGPointMake(winSize.width/2, winSize.height - self.labelX.contentSize.height/2);
+        self.labelY = [CCLabelTTF labelWithString:@"15" fontName:@"Marker Felt" fontSize:60];
+        self.labelY.position = CGPointMake(winSize.width/2, winSize.height - self.labelX.contentSize.height - self.labelY.contentSize.height/2);
+        self.labelZ = [CCLabelTTF labelWithString:@"25" fontName:@"Marker Felt" fontSize:60];
+        self.labelZ.position = CGPointMake(winSize.width/2,  winSize.height - self.labelX.contentSize.height - self.labelY.contentSize.height - self.labelZ.contentSize.height/2 - 10);
+
+        
+        [self addChild:self.labelX z:1 tag:2];
+        [self addChild:self.labelY z:1 tag:2];
+        [self addChild:self.labelZ z:1 tag:2];
+        
+        //Add = line and operator symbol
+        CCLabelTTF *equalSymbol = [CCLabelTTF labelWithString:@"—————————" fontName:@"Marker Felt" fontSize:40];
+        equalSymbol.position = CGPointMake(winSize.width/2, winSize.height - self.labelX.contentSize.height - self.labelY.contentSize.height/2 - 10);
+        [self addChild:equalSymbol z:1 tag:100];
+        
         
         //Create Rocket array
         self.rockets = [NSMutableArray arrayWithCapacity:10];
@@ -208,23 +218,20 @@
     //Detech rocket pressed
     CGPoint location = [self convertTouchToNodeSpace:[touches anyObject]];
     
-    for (CCSprite *rocket in self.rockets)
-    {
+    [self.rockets enumerateObjectsUsingBlock:^(CCSprite* rocket,NSUInteger idx,BOOL *stop){
         if (CGRectContainsPoint(rocket.boundingBox, location))
         {
             NSLog(@"Touched Rocket: %@", rocket);
             CGSize winSize = [[CCDirector sharedDirector] winSize];
             ccBezierConfig bezier;
-            bezier.controlPoint_1 = ccp(0, winSize.height/2);
-            bezier.controlPoint_2 = ccp(winSize.width, winSize.height);
-            bezier.endPosition = ccp(winSize.width/2,winSize.height);
+            bezier.endPosition = self.labelZ.position;
             
-            id bezierForward = [CCBezierBy actionWithDuration:2 bezier:bezier];
+            id bezierForward = [CCBezierTo actionWithDuration:2 bezier:bezier];
             [rocket runAction:bezierForward];
             
-            [rocket setRotation:-45];
-            [rocket runAction:[CCRotateTo actionWithDuration:2 angle:45]];        }
-    }
+        }
+
+    }];
     
 	// Choose one of the touches to work with
 	UITouch *touch = [touches anyObject];

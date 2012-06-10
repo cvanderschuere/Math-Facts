@@ -16,6 +16,7 @@
 @implementation CVCocosViewController
 
 @synthesize scene = _scene;
+@synthesize background = _background;
 @synthesize test = _test;
 
 -(void) setTest:(Test *)test{
@@ -25,15 +26,12 @@
 - (void)setupCocos2D {    
     CCDirector* director = [CCDirector sharedDirector];
     CCGLView *glview = [CCGLView viewWithFrame:CGRectMake(0, 0, self.view.bounds.size.height, self.view.bounds.size.width)];
-    
     [director setView:glview];
     
     [self.view addSubview:glview];
     
     self.scene = [LaunchRocketScene node];
-    [director pushScene:self.scene];
-    [director startAnimation];
-    
+    [director pushScene:self.scene];    
 }
 -(void) tearDownCocos2D{
     CCDirector* director = [CCDirector sharedDirector];
@@ -53,10 +51,12 @@
     [self setupCocos2D];
 	// Do any additional setup after loading the view.
 }
-
-- (void)viewWillDisappear:(BOOL)animated
+-(void) viewDidAppear:(BOOL)animated{
+    [[CCDirector sharedDirector] startAnimation];
+}
+- (void)viewDidDisappear:(BOOL)animated
 {
-    [super viewWillDisappear:animated];
+    [super viewDidDisappear:animated];
     [self tearDownCocos2D];
     // Release any retained subviews of the main view.
 }
@@ -70,6 +70,7 @@
 }
 
 - (void)viewDidUnload {
+    [self setBackground:nil];
     [super viewDidUnload];
 }
 @end

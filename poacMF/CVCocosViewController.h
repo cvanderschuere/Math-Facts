@@ -17,5 +17,6 @@
 
 @property (nonatomic, strong) Test *test;
 @property (nonatomic, strong) LaunchRocketScene *scene;
+@property (weak, nonatomic) IBOutlet UIImageView *background;
 
 @end

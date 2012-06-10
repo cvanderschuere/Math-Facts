@@ -12,12 +12,17 @@
 
 @end
 
-@interface LaunchRocketLayer : CCLayer
+@interface LaunchRocketLayer : CCLayerColor
 {
     NSMutableArray *_targets;
     NSMutableArray *_projectiles;
     int _projectilesDestroyed;
 }
+
+@property (nonatomic, strong) CCLabelTTF *labelX;
+@property (nonatomic, strong) CCLabelTTF *labelY;
+@property (nonatomic, strong) CCLabelTTF *labelZ;
+
 
 @property (nonatomic, strong) NSMutableArray *rockets;
 
@@ -26,7 +31,6 @@
 
 @interface LaunchRocketScene : CCScene
 
-@property (nonatomic, strong) Background *backgroundLayer;
 @property (nonatomic, strong) LaunchRocketLayer *mainLayer;
 
 @end
