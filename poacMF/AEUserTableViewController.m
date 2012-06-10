@@ -55,7 +55,7 @@
 		self.lastNameTF.text = self.studentToUpdate.lastName;
 		self.emailAddressTF.text = self.studentToUpdate.emailAddress;
         
-        self.title = @"Update Student";
+        self.title = [@"Edit " stringByAppendingString:self.studentToUpdate.firstName];
         /*
 		NSNumber *dutll = [NSNumber numberWithDouble:self.updateUser.defaultPracticeTimeLimit];
 		self.userPracticeTimeLimitTF.text = [dutll stringValue];

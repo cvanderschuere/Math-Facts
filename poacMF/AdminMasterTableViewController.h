@@ -16,7 +16,10 @@
 @end
 
 
-@interface AdminMasterTableViewController : CoreDataTableViewController
+@interface AdminMasterTableViewController : CoreDataTableViewController <UIActionSheetDelegate>
+
+-(IBAction)logout:(id)sender;
+
 
 @property (nonatomic, weak) id<AdminSplitViewCommunicationDelegate> delegate;
 

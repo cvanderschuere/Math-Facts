@@ -15,6 +15,18 @@
 @implementation AdminMasterTableViewController
 @synthesize delegate = _delegate;
 
-
+-(IBAction)logout:(id)sender{
+    //Show action sheet to confrim logout
+    UIActionSheet *popupQuery = [[UIActionSheet alloc] initWithTitle:@"Logout?" 
+                                                            delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"Logout" 
+                                                   otherButtonTitles:@"Cancel", nil, nil];
+    popupQuery.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+    [popupQuery showFromBarButtonItem:sender animated:YES];
+}
+-(void) actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
+        [self.parentViewController.parentViewController performSegueWithIdentifier:@"logoutSegue" sender:self];
+    }
+}
 
 @end
