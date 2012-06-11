@@ -8,6 +8,7 @@
         <attribute name="maximumIncorrect" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="minimumCorrect" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="passed" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <relationship name="results" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Result" syncable="YES"/>
         <relationship name="test" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Test" inverseName="practice" inverseEntity="Test" syncable="YES"/>
     </entity>
     <entity name="Question" representedClassName="Question" syncable="YES">
@@ -26,8 +27,9 @@
         <relationship name="questions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Question" inverseName="questionSet" inverseEntity="Question" syncable="YES"/>
     </entity>
     <entity name="Result" representedClassName="Result" syncable="YES">
-        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="isPractice" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="questionsCorrect" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Question" syncable="YES"/>
         <relationship name="questionsIncorrect" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Question" syncable="YES"/>
         <relationship name="student" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Student" inverseName="results" inverseEntity="Student" syncable="YES"/>
@@ -64,7 +66,7 @@
         <element name="Practice" positionX="90" positionY="57" width="128" height="105"/>
         <element name="Question" positionX="457" positionY="261" width="128" height="105"/>
         <element name="QuestionSet" positionX="214" positionY="-315" width="128" height="135"/>
-        <element name="Result" positionX="-263" positionY="216" width="128" height="135"/>
+        <element name="Result" positionX="-263" positionY="216" width="128" height="150"/>
         <element name="Student" positionX="-443" positionY="-108" width="128" height="135"/>
         <element name="Test" positionX="-83" positionY="-171" width="128" height="150"/>
         <element name="User" positionX="-441" positionY="-306" width="128" height="120"/>

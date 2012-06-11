@@ -7,6 +7,7 @@
 //
 
 #import "SubjectDetailViewController.h"
+#import "TestViewController.h"
 #import "Test.h"
 
 @interface SubjectDetailViewController ()
@@ -96,9 +97,17 @@
                                      reuseIdentifier: CellIdentifier];
         UIView *colorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 120, 120)];
         colorView.backgroundColor = [UIColor blackColor];
+        UILabel *levelLabel = [[UILabel alloc] initWithFrame:colorView.frame];
+        levelLabel.backgroundColor = [UIColor clearColor];
+        levelLabel.font = [UIFont systemFontOfSize:40];
+        levelLabel.textAlignment = UITextAlignmentCenter;
+        levelLabel.textColor = [UIColor whiteColor];
+        levelLabel.tag = 2;
+        [colorView addSubview:levelLabel];
         [cell.contentView addSubview:colorView];
     }
-    
+    UILabel *label = [cell.contentView viewWithTag:2];
+    label.text = [NSString stringWithFormat:@"%d", index+1];
     
     return ( cell );
 }
@@ -107,8 +116,30 @@
 {
     return ( CGSizeMake(142.0, 142.0) );
 }
-
-
+#pragma mark - AQGridView Delegate
+-(void) gridView:(AQGridView *)gridView didSelectItemAtIndex:(NSUInteger)index{
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil  delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Practice",@"Test", nil];
+    [actionSheet showFromRect:[gridView rectForItemAtIndex:index]  inView:self.view animated:YES];
+}
+#pragma mark - UIActionSheet Delegate
+-(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    //Test: 1 Practice: 0
+    if (buttonIndex == 1) {
+        //Launch Test
+        [self performSegueWithIdentifier:@"startTestSegue" sender:self.gridView];
+    }
+    else if (buttonIndex == 0) {
+        //Launch Practice
+    }
+    
+    [self.gridView deselectItemAtIndex:self.gridView.selectedIndex animated:YES];
+}
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"startTestSegue"]) {
+        //Pass test to TestVC
+        [segue.destinationViewController setTest:[self.subjectTests objectAtIndex:[sender selectedIndex]]];
+    }
+}
 - (void)viewDidUnload
 {
     [super viewDidUnload];

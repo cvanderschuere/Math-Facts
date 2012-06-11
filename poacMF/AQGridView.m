@@ -94,6 +94,7 @@ NSString * const AQGridViewSelectionDidChangeNotification = @"AQGridViewSelectio
 @implementation AQGridView
 
 @synthesize dataSource=_dataSource, backgroundView=_backgroundView, separatorColor=_separatorColor, animatingCells=_animatingCells, animatingIndices=_animatingIndices;
+@synthesize selectedIndex = _selectedIndex;
 
 - (void) _sharedGridViewInit
 {

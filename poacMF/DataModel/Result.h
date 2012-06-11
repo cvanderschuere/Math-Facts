@@ -13,7 +13,8 @@
 
 @interface Result : NSManagedObject
 
-@property (nonatomic, retain) NSDate * date;
+@property (nonatomic, retain) NSDate * startDate;
+@property (nonatomic, retain) NSDate * endDate;
 @property (nonatomic, retain) NSNumber * isPractice;
 @property (nonatomic, retain) Test *test;
 @property (nonatomic, retain) NSSet *questionsCorrect;

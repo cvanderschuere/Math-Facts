@@ -10,7 +10,7 @@
 #import "AQGridView.h"
 
 
-@interface SubjectDetailViewController : UIViewController <AQGridViewDataSource, AQGridViewDelegate>{
+@interface SubjectDetailViewController : UIViewController <AQGridViewDataSource, AQGridViewDelegate, UIActionSheetDelegate>{
     NSUInteger _emptyCellIndex;
     
 }

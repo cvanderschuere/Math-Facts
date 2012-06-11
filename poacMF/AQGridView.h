@@ -43,7 +43,6 @@ typedef enum {
 	AQGridViewScrollPositionMiddle,
 	AQGridViewScrollPositionBottom
 } AQGridViewScrollPosition;
-
 typedef enum {
 	AQGridViewItemAnimationFade,
 	AQGridViewItemAnimationRight,
@@ -182,6 +181,8 @@ extern NSString * const AQGridViewSelectionDidChangeNotification;
 @property (nonatomic, readonly) NSUInteger numberOfItems;
 @property (nonatomic, readonly) NSUInteger numberOfColumns;
 @property (nonatomic, readonly) NSUInteger numberOfRows;
+
+@property (nonatomic, readonly) NSUInteger selectedIndex;
 
 @property (nonatomic, readonly) CGSize gridCellSize;
 

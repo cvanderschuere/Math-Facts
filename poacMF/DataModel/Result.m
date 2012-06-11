@@ -14,7 +14,8 @@
 
 @implementation Result
 
-@dynamic date;
+@dynamic startDate;
+@dynamic endDate;
 @dynamic isPractice;
 @dynamic test;
 @dynamic questionsCorrect;

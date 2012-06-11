@@ -8,6 +8,7 @@
 
 #import "Practice.h"
 #import "Test.h"
+#import "Result.h"
 
 
 @implementation Practice
@@ -16,5 +17,6 @@
 @dynamic minimumCorrect;
 @dynamic passed;
 @dynamic test;
+@dynamic results;
 
 @end
