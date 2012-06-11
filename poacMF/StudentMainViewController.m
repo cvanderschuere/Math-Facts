@@ -8,6 +8,7 @@
 
 #import "StudentMainViewController.h"
 #import "CVCocosViewController.h"
+#import "SubjectDetailViewController.h"
 #import "Test.h"
 
 
@@ -66,7 +67,10 @@
     return self;
 }
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-        
+    if ([segue.identifier isEqualToString:@"subjectDetailSegue"]) {
+        //Get tag from uibutton to deterine what subject array to send
+        [segue.destinationViewController setSubjectTests:[self.subjects2DArray objectAtIndex:[sender tag]]];
+    }
 }
 
 - (void)viewDidLoad
@@ -106,8 +110,6 @@
     //Update ContentSize
     self.subjectScrollView.contentSize = CGSizeMake(self.subjectScrollView.bounds.size.width * indexOfAdded, 0);
     self.pageControl.numberOfPages = indexOfAdded;
-    NSLog(@"Scroll View: %@", self.subjectScrollView.subviews);
-
 }
 
 - (void)viewDidUnload
