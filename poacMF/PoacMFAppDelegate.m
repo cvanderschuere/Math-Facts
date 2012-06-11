@@ -127,10 +127,12 @@
         NSNumber* setType = [setTypeArray objectAtIndex:0];
         
         //Step through each set
-        for (NSDictionary *questionSet in [setTypeArray objectAtIndex:1]) {
+        [[setTypeArray objectAtIndex:1] enumerateObjectsUsingBlock:^(NSDictionary *questionSet,NSUInteger idx, BOOL *stop){
+            //Create QuestionSet
             QuestionSet *qSet = [NSEntityDescription insertNewObjectForEntityForName:@"QuestionSet" inManagedObjectContext:document.managedObjectContext];
             qSet.name = [questionSet objectForKey:@"name"];
             qSet.type = setType;
+            qSet.difficultyLevel = [NSNumber numberWithInt:idx];
             
             //Set through each question
             for (NSArray* question in [questionSet objectForKey:@"questions"]) {
@@ -147,7 +149,7 @@
             for (Administrator* admin in createdAdmins) {
                 [admin addQuestionSetsObject:qSet];
             }
-        }
+        }];
     }
     
     //Save

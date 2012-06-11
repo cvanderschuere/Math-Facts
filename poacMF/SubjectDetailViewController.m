@@ -25,6 +25,10 @@
             //Sort by difficulty of question set
             return [test1.questionSet.difficultyLevel compare:test2.questionSet.difficultyLevel];            
         }];
+        for (Test* test in subjectTests) {
+            NSLog(@"Test: %@",test.questionSet.difficultyLevel);
+        }
+        
         //Set value and reload data
         _subjectTests = subjectTests;
         self.title = [[[_subjectTests objectAtIndex:0] questionSet] typeName];
@@ -137,7 +141,9 @@
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"startTestSegue"]) {
         //Pass test to TestVC
-        [segue.destinationViewController setTest:[self.subjectTests objectAtIndex:[sender selectedIndex]]];
+        Test *selectedTest = [self.subjectTests objectAtIndex:[sender selectedIndex]];
+        NSLog(@"Selected Test: %@",selectedTest.questionSet.name);
+        [segue.destinationViewController setTest:selectedTest];
     }
 }
 - (void)viewDidUnload

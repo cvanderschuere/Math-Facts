@@ -7,14 +7,18 @@
 //
 
 #import "TestDetailViewController.h"
+#import "Result.h"
 
 @interface TestDetailViewController ()
+
+@property (nonatomic, strong) NSMutableArray* results;
 
 @end
 
 @implementation TestDetailViewController
 @synthesize test = _test;
 @synthesize resultsTableView = _resultsTableView;
+@synthesize results = _results;
 
 
 -(void) setTest:(Test *)test{
@@ -22,6 +26,12 @@
         _test = test;
         
         self.title = _test.questionSet.name;
+        
+        self.results = _test.results.allObjects.mutableCopy;
+        
+        [self.results sortUsingComparator:^NSComparisonResult(Result *obj1, Result *obj2){
+            return [obj1.startDate compare:obj2.startDate];
+        }];
         
         //Update Results
         [self.resultsTableView reloadData];
@@ -53,11 +63,12 @@
 }
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.test.results.count;
+    return self.results.count;
 }
 -(UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"resultCell"]; 
+    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"resultCell"];
+    cell.textLabel.text = [NSDateFormatter localizedStringFromDate:[[self.results objectAtIndex:indexPath.row] startDate]  dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterShortStyle];
     return cell;
 }
 -(NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
