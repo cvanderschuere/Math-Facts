@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "Test.h"
 
-@interface TestDetailViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface TestDetailViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, CPTBarPlotDataSource, CPTBarPlotDelegate>
 
 @property (nonatomic, strong) Test* test;
 @property (nonatomic, weak) IBOutlet UITableView* resultsTableView;
+@property (nonatomic, weak) IBOutlet CPTGraphHostingView *graphView;
 
 @end

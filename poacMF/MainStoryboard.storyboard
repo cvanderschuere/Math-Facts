@@ -399,7 +399,7 @@
                     </navigationItem>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1492" y="1975"/>
+            <point key="canvasLocation" x="1740" y="1959"/>
         </scene>
         <!--Admin Split View Controller-->
         <scene sceneID="LND-OX-TIs">
@@ -1211,7 +1211,7 @@
                                     <outlet property="delegate" destination="uB6-5h-3c5" id="Ji1-Et-cua"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" id="d1d-e1-vIy">
+                            <view contentMode="scaleToFill" id="d1d-e1-vIy" customClass="CPTGraphHostingView">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="279"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -1221,11 +1221,12 @@
                     </view>
                     <navigationItem key="navigationItem" id="ENA-hA-1lV"/>
                     <connections>
+                        <outlet property="graphView" destination="d1d-e1-vIy" id="RGW-HH-141"/>
                         <outlet property="resultsTableView" destination="TJZ-1x-cHO" id="ioe-0X-EtH"/>
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1721" y="-3046"/>
+            <point key="canvasLocation" x="1705" y="-2958"/>
         </scene>
         <!--Assign Quiz Popover View Controller-->
         <scene sceneID="CXX-JO-Otp">
@@ -1338,7 +1339,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="285" y="-3447"/>
+            <point key="canvasLocation" x="547" y="-3422"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="OI6-Py-oVN">
@@ -1861,6 +1862,9 @@
                 <relationship kind="outlet" name="totalQuestionsTF" candidateClass="UITextField"/>
             </relationships>
         </class>
+        <class className="CPTGraphHostingView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CPTGraphHostingView.h"/>
+        </class>
         <class className="CoreDataTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataTableViewController.h"/>
         </class>
@@ -1912,6 +1916,7 @@
         <class className="TestDetailViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TestDetailViewController.h"/>
             <relationships>
+                <relationship kind="outlet" name="graphView" candidateClass="CPTGraphHostingView"/>
                 <relationship kind="outlet" name="resultsTableView" candidateClass="UITableView"/>
             </relationships>
         </class>

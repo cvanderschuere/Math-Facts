@@ -73,9 +73,13 @@
     
     if (![[NSFileManager defaultManager] fileExistsAtPath:[self.database.fileURL path]]) {
         // does not exist on disk, so create it
-        [self.database saveToURL:self.database.fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:nil];
-        [self addInitalData:self.database];
-        [self setReadyToLogin:YES];
+        [self.database saveToURL:self.database.fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL succeed){
+            if (succeed) {
+                [self addInitalData:self.database];
+            }
+            [self setReadyToLogin:succeed];
+
+        }];
     } 
     else if (self.database.documentState == UIDocumentStateClosed) {
         // exists on disk, but we need to open it
@@ -153,6 +157,7 @@
     }
     
     //Save
+    [self.database.managedObjectContext save:NULL];
     [self saveDatabase];
     
 }
