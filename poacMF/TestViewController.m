@@ -10,6 +10,7 @@
 #import "QuestionSet.h"
 #import "Question.h"
 #import "Result.h"
+#import "PoacMFAppDelegate.h"
 
 @interface TestViewController ()
 
@@ -25,6 +26,8 @@
 @synthesize yLabel = _yLabel;
 @synthesize zLabel = _zLabel;
 @synthesize mathOperatorSymbol = _mathOperatorSymbol;
+@synthesize horizontalLine = _horizontalLine;
+@synthesize verticalLine = _verticalLine;
 
 @synthesize test = _test, questionsToAsk = _questionsToAsk, result = _result;
 @synthesize updateTimer = _updateTimer;;
@@ -47,7 +50,6 @@
                 [self.questionsToAsk addObject:q];
             }
         }
-        NSLog(@"Questions: %@", self.questionsToAsk);
     }
 }
 
@@ -58,10 +60,52 @@
     //Setup for question type
     if (self.test.questionSet.type.intValue == QUESTION_TYPE_MATH_DIVISION) {
         //Setup for divsion symbol
+        //Setup for vertical problem
+        if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
+            self.xLabel.center = CGPointMake(524, 235);
+            self.yLabel.center = CGPointMake(300, 233);
+            self.zLabel.center = CGPointMake(524, 116);
+            self.horizontalLine.center = CGPointMake(524, 174);
+        }
+        else if(UIInterfaceOrientationIsPortrait(self.interfaceOrientation)){
+            self.xLabel.center = CGPointMake(400, 152);
+            self.yLabel.center = CGPointMake(400, 218);
+            self.zLabel.center = CGPointMake(400, 318);
+            self.horizontalLine.center = CGPointMake(400, 266);
+        }
+        self.verticalLine.hidden = NO;
+        self.mathOperatorSymbol.hidden = YES;
         
     }
     else {
         //Setup for vertical problem
+        if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
+            self.xLabel.center = CGPointMake(385, 152);
+            self.yLabel.center = CGPointMake(385, 218);
+            self.zLabel.center = CGPointMake(385, 318);
+            self.horizontalLine.center = CGPointMake(385, 266);
+        }
+        else if(UIInterfaceOrientationIsPortrait(self.interfaceOrientation)){
+            self.xLabel.center = CGPointMake(400, 152);
+            self.yLabel.center = CGPointMake(400, 218);
+            self.zLabel.center = CGPointMake(400, 318);
+            self.horizontalLine.center = CGPointMake(400, 266);
+        }
+        self.verticalLine.hidden = YES;
+        self.mathOperatorSymbol.hidden = NO;
+        switch (self.test.questionSet.type.intValue) {
+            case QUESTION_TYPE_MATH_ADDITION:
+                self.mathOperatorSymbol.text = @"+";
+                break;
+            case QUESTION_TYPE_MATH_SUBTRACTION:
+                self.mathOperatorSymbol.text = @"-";
+                break;
+            case QUESTION_TYPE_MATH_MULTIPLICATION:
+                self.mathOperatorSymbol.text = @"X";
+                break;
+            default:
+                break;
+        }        
     }
     
 }
@@ -94,6 +138,7 @@
     if (interval<=0) {
         //Test has finished
         [self.updateTimer invalidate];
+        [self endSessionWithTimer:YES];
     }
     else {
         //Update time label with seconds remaining
@@ -106,15 +151,23 @@
         [self.questionsToAsk insertObject:[self.questionsToAsk lastObject] atIndex:0];
         [self.questionsToAsk removeLastObject];
         
+        //Pick a random question and exchange it with the last object
+        //[self.questionsToAsk exchangeObjectAtIndex:arc4random()%(self.questionsToAsk.count)  withObjectAtIndex:self.questionsToAsk.count-1];
+        
         //Load new first question
         [self prepareForQuestion:[self.questionsToAsk lastObject]];
     }
 }
 -(void) prepareForQuestion:(Question*)question{
     if (question) {
+        //Setup text
         self.xLabel.text = question.x?[NSNumberFormatter localizedStringFromNumber:question.x numberStyle:NSNumberFormatterBehavior10_4]:nil;
         self.yLabel.text = question.y?[NSNumberFormatter localizedStringFromNumber:question.y numberStyle:NSNumberFormatterBehavior10_4]:nil;
         self.zLabel.text = question.z?[NSNumberFormatter localizedStringFromNumber:question.z numberStyle:NSNumberFormatterBehavior10_4]:nil;
+        //Setup Format
+        self.xLabel.backgroundColor = question.x?[UIColor clearColor]:[UIColor lightGrayColor];
+        self.yLabel.backgroundColor = question.y?[UIColor clearColor]:[UIColor lightGrayColor];
+        self.zLabel.backgroundColor = question.z?[UIColor clearColor]:[UIColor lightGrayColor];
     }
 }
 -(NSNumber*) getAnswerForQuestion:(Question*)question{
@@ -201,11 +254,22 @@
 
     }
     
+    [self checkPassConditions];
+    
     [self performSelector:@selector(loadNextQuestion) withObject:nil afterDelay:.2]; //Add delay for effect
     
 }
 -(void) checkPassConditions{
     
+}
+-(void) endSessionWithTimer:(BOOL)endedWithTimer{
+    if (!endedWithTimer) {
+        self.result.endDate = [NSDate date]; //Used if test is stopped short
+    }
+    //Save
+    [[UIApplication sharedApplication].delegate performSelector:@selector(saveDatabase)];    
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark - IBActions
 -(IBAction)digitPressed:(id)sender{
@@ -218,7 +282,7 @@
     if (!currentQuestion.x)
         answerLabel = self.xLabel;
     else if (!currentQuestion.y)
-        answerLabel = self.xLabel;
+        answerLabel = self.yLabel;
     else if(!currentQuestion.z)
         answerLabel = self.zLabel;
     
@@ -246,8 +310,7 @@
     }
     else {
         //Quit test
-        self.result.endDate = [NSDate date]; //Used if test is stopped short
-        [self.navigationController popViewControllerAnimated:YES];
+        [self endSessionWithTimer:NO];
     }
 }
 - (void)viewDidUnload
@@ -258,6 +321,8 @@
     [self setYLabel:nil];
     [self setZLabel:nil];
     [self setMathOperatorSymbol:nil];
+    [self setHorizontalLine:nil];
+    [self setVerticalLine:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }

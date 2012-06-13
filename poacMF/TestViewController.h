@@ -21,6 +21,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *yLabel;
 @property (weak, nonatomic) IBOutlet UILabel *zLabel;
 @property (weak, nonatomic) IBOutlet UILabel *mathOperatorSymbol;
+@property (weak, nonatomic) IBOutlet UIView *horizontalLine;
+@property (weak, nonatomic) IBOutlet UIView *verticalLine;
 
 @end
 

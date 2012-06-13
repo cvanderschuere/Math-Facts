@@ -28,5 +28,6 @@
 
 -(void) checkAndCreateDatabase;
 -(void) applicationPrep;
+-(void) saveDatabase;
 
 @end

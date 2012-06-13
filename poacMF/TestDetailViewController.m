@@ -68,7 +68,7 @@
     
 
     barChart.paddingLeft   = 60;
-    barChart.paddingTop    = 10;
+    barChart.paddingTop    = 0;
     barChart.paddingRight  = 0;
     barChart.paddingBottom = 30;
     
@@ -76,8 +76,8 @@
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)barChart.defaultPlotSpace;
     plotSpace.allowsUserInteraction = YES;
     plotSpace.delegate = self;
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(110.0f)];
-    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(self.results.count*5)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(115.0f)];
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(7.0f)];
     
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)barChart.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
@@ -85,13 +85,12 @@
     x.majorTickLineStyle          = nil;
     x.minorTickLineStyle          = nil;
     x.majorIntervalLength = CPTDecimalFromString(@"1");
-    x.labelingPolicy = CPTAxisLabelingPolicyNone;
     // Define some custom labels for the data elements
 	x.labelingPolicy = CPTAxisLabelingPolicyNone;
 	NSMutableArray *customLabels = [NSMutableArray arrayWithCapacity:self.results.count];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"mm/dd";
+    dateFormatter.dateFormat = @"MM/dd";
     
 	[self.results enumerateObjectsUsingBlock:^(Result* result, NSUInteger idx, BOOL *stop){
         //Use Date formatter to make date
@@ -115,7 +114,7 @@
     y.title                       = @"Correct %";
     y.titleOffset                 = 40.0f;
     y.titleLocation               = CPTDecimalFromFloat(50.0f);
-    y.visibleRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(100.0f)];
+    y.visibleRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(115.0f)];
     
     // First bar plot
     CPTBarPlot *barPlot = [CPTBarPlot tubularBarPlotWithColor:[CPTColor darkGrayColor] horizontalBars:NO];
@@ -135,7 +134,6 @@
     [self.resultsTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];;
 }
 -(float) percentageCorrectForResult:(Result*)result{
-    NSLog(@"Result: C:%d I:%d", result.questionsCorrect.count,result.questionsIncorrect.count);
     float correct = result.questionsCorrect.count;
     float incorrect = result.questionsIncorrect.count;
     float percentageCorrect = correct/(correct + incorrect);
@@ -186,9 +184,9 @@
     
     CPTTextLayer *newLayer = nil;
     int percentageCorrect = (int)  [self percentageCorrectForResult:[self.results objectAtIndex:index]];
-    newLayer = [[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%d", index] style:whiteText];   
+    newLayer = [[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%d%%", percentageCorrect] style:whiteText];   
     
-    return nil;
+    return newLayer;
 }
 #pragma mark -
 #pragma mark Plot Space Delegate Methods
