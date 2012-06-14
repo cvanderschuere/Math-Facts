@@ -14,11 +14,12 @@
 
 @implementation Student
 
-@dynamic defaultDifficulty;
+@dynamic defaultPassCriteria;
 @dynamic idNumber;
 @dynamic notes;
 @dynamic administrator;
 @dynamic results;
 @dynamic tests;
+@dynamic defaultTestLength;
 
 @end

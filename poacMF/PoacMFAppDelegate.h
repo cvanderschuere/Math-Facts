@@ -13,21 +13,16 @@
 #import <UIKit/UIKit.h>
 #import "User.h"
 #import "POACDetailViewController.h"
+#import "SPManagedDocument.h"
 
 @interface PoacMFAppDelegate : NSObject <UIApplicationDelegate> {	
 
 }
-
-@property (strong, nonatomic)	IBOutlet	UIWindow *window;
-
-@property (strong, nonatomic)	NSString	*databasePath;
-@property (nonatomic)	BOOL	loggedIn;
-@property (nonatomic, strong) UIManagedDocument* database;
+@property (nonatomic, strong) UIWindow *window;
+@property (nonatomic, strong)  UIManagedDocument* database;
 @property (nonatomic, strong)	User		*currentUser;
 
 
--(void) checkAndCreateDatabase;
--(void) applicationPrep;
 -(void) saveDatabase;
 
 @end

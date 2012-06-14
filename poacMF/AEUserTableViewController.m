@@ -123,9 +123,7 @@
     self.studentToUpdate.emailAddress = self.emailAddressTF.text;
     
     NSLog(@"Updated User: %@", self.studentToUpdate);
-    
-    [self.studentToUpdate.managedObjectContext save:nil];
-   	    
+        
 	[self dismissModalViewControllerAnimated:YES];
 }//end method
 

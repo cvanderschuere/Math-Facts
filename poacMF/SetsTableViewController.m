@@ -106,7 +106,6 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
         [self.fetchedResultsController.managedObjectContext deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
-        [self.fetchedResultsController.managedObjectContext save:nil];
     }   
 }
 

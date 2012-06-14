@@ -132,7 +132,6 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
         [self.fetchedResultsController.managedObjectContext deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
-        [self.fetchedResultsController.managedObjectContext save:nil];
     }   
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -216,6 +215,8 @@
         QuestionSet *questionSet = [sectionArray lastObject];
         questionSetRequest.predicate = [NSPredicate predicateWithFormat:@"type == %@ AND NOT(SELF in %@)", questionSet.type, sectionArray];
         addTest.questionSetsToChoose = [self.student.managedObjectContext executeFetchRequest:questionSetRequest error:nil].mutableCopy;
+        addTest.minCorrectStepper.value = [self.student.defaultPassCriteria doubleValue];
+        addTest.testLengthStepper.value = [self.student.defaultTestLength doubleValue];
         
         self.popover = [[UIPopoverController alloc] initWithContentViewController:addTest];
         [self.popover presentPopoverFromRect:selectedCell.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
@@ -238,10 +239,9 @@
         [availableCategories removeObjectsInArray:currentCategories];
         addVC.categoriesToChoose = availableCategories;
         addVC.delegate = self;
-        if (availableCategories.count>0) {
-            self.popover = [[UIPopoverController alloc] initWithContentViewController:addVC];
-            [self.popover presentPopoverFromRect:selectedCell.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-        }
+        
+        self.popover = [[UIPopoverController alloc] initWithContentViewController:addVC];
+        [self.popover presentPopoverFromRect:selectedCell.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -259,6 +259,8 @@
     for (QuestionSet * qSet in questionSetResults) {
         Test* newTest = [NSEntityDescription insertNewObjectForEntityForName:@"Test" inManagedObjectContext:self.student.managedObjectContext];
         newTest.questionSet = qSet;
+        newTest.testLength = self.student.defaultTestLength;
+        newTest.passCriteria = self.student.defaultPassCriteria;
         [self.student addTestsObject:newTest];
     }
 }

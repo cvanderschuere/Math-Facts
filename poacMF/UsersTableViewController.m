@@ -87,6 +87,8 @@
                                                                         managedObjectContext:self.currentAdmin.managedObjectContext
                                                                           sectionNameKeyPath:nil
                                                                                    cacheName:nil];
+    
+    NSLog(@"Any Student Admin: %@", self.currentAdmin.managedObjectContext.description);
 }
 
 
@@ -115,7 +117,6 @@
         // Delete the row from the data source
         [self.delegate didDeleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
         [self.fetchedResultsController.managedObjectContext deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
-        [self.fetchedResultsController.managedObjectContext save:nil];
     }   
 }
 

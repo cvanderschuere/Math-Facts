@@ -1271,7 +1271,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                 <connections>
                                     <action selector="stepperUpdated:" destination="zpH-Po-kHp" eventType="valueChanged" id="kUk-lP-7Xr"/>
-                                    <action selector="stepperValueChanged:" destination="zpH-Po-kHp" eventType="valueChanged" id="Fx8-EV-8Cq"/>
                                 </connections>
                             </stepper>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="40" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="hmk-Hf-b8i">
@@ -1286,7 +1285,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                 <connections>
                                     <action selector="stepperUpdated:" destination="zpH-Po-kHp" eventType="valueChanged" id="5IT-9b-czD"/>
-                                    <action selector="stepperValueChanged:" destination="zpH-Po-kHp" eventType="valueChanged" id="Xii-p9-xB8"/>
                                 </connections>
                             </stepper>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="omS-Na-wMQ">
@@ -1316,7 +1314,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="952" y="-3486"/>
+            <point key="canvasLocation" x="854" y="-3472"/>
         </scene>
         <!--Add Category Popover Controller-->
         <scene sceneID="QiH-bb-fNb">
@@ -1354,7 +1352,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="527" y="-3379"/>
+            <point key="canvasLocation" x="472" y="-3378"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="OI6-Py-oVN">

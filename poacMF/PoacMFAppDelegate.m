@@ -17,10 +17,9 @@
 
 @implementation PoacMFAppDelegate
 
-
 @synthesize window = _window;
 @synthesize database = _database;
-@synthesize databasePath = _databasePath, loggedIn = _loggedIn, currentUser = _currentUser;
+@synthesize currentUser = _currentUser;
 
 //end method
 
@@ -71,14 +70,32 @@
     url = [url URLByAppendingPathComponent:@"database"];
     self.database = [[UIManagedDocument alloc] initWithFileURL:url];
     
+    // Set the persistent store options to point to the cloud
+    //Things to add for iCloud:  PrivateName, NSPersistentStoreUbiquitousContentNameKey,cloudURL, NSPersistentStoreUbiquitousContentURLKey,
+
+    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES],
+                             NSMigratePersistentStoresAutomaticallyOption,
+                             [NSNumber numberWithBool:YES],
+                             NSInferMappingModelAutomaticallyOption,
+                             nil];
+    self.database.persistentStoreOptions = options;
+    
+    
     if (![[NSFileManager defaultManager] fileExistsAtPath:[self.database.fileURL path]]) {
         // does not exist on disk, so create it
         [self.database saveToURL:self.database.fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL succeed){
+            [self setReadyToLogin:NO];
             if (succeed) {
-                [self addInitalData:self.database];
+                [self.database closeWithCompletionHandler:^(BOOL success){
+                    if (succeed)
+                        [self.database openWithCompletionHandler:^(BOOL success){
+                            if (succeed) {
+                                [self addInitalData:self.database];
+                                [self setReadyToLogin:YES];
+                            }
+                        }];
+                }];
             }
-            [self setReadyToLogin:succeed];
-
         }];
     } 
     else if (self.database.documentState == UIDocumentStateClosed) {
@@ -101,65 +118,67 @@
     } 
 }
 -(void) addInitalData:(UIManagedDocument*)document{
-    //Load information for plist
-    NSDictionary *seedDict = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"databaseSeed" ofType:@"plist"]];
+    [document.managedObjectContext performBlockAndWait:^{
     
-    //Add inital Administrators
-    NSArray* seedAdmins = [seedDict objectForKey:@"Administrators"];
-    NSMutableArray *createdAdmins = [NSMutableArray arrayWithCapacity:seedAdmins.count];
-    for (NSDictionary* user in seedAdmins) {
-        Administrator * newAdmin = [NSEntityDescription insertNewObjectForEntityForName:@"Administrator" inManagedObjectContext:document.managedObjectContext];
-        [newAdmin setValuesForKeysWithDictionary:user];
-        [createdAdmins addObject:newAdmin];
-    }
-    //Add inital Students
-    NSArray* seedStudents = [seedDict objectForKey:@"Students"];
-    NSMutableArray *createdStudents = [NSMutableArray arrayWithCapacity:seedStudents.count];
-    for (NSDictionary* user in seedStudents) {
-        Student * newStudent = [NSEntityDescription insertNewObjectForEntityForName:@"Student" inManagedObjectContext:document.managedObjectContext];
-        [newStudent setValuesForKeysWithDictionary:user];
-        [newStudent setAdministrator:[createdAdmins lastObject]];
-        [createdStudents addObject:newStudent];
-    }
-
-    
-    //Add inital question set to new admins
-    NSArray* seedQuestionSets = [seedDict objectForKey:@"Questions Sets"];
-    
-    //Step through each type
-    for (NSArray* setTypeArray in seedQuestionSets) {
-        NSNumber* setType = [setTypeArray objectAtIndex:0];
+        //Load information for plist
+        NSDictionary *seedDict = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"databaseSeed" ofType:@"plist"]];
         
-        //Step through each set
-        [[setTypeArray objectAtIndex:1] enumerateObjectsUsingBlock:^(NSDictionary *questionSet,NSUInteger idx, BOOL *stop){
-            //Create QuestionSet
-            QuestionSet *qSet = [NSEntityDescription insertNewObjectForEntityForName:@"QuestionSet" inManagedObjectContext:document.managedObjectContext];
-            qSet.name = [questionSet objectForKey:@"name"];
-            qSet.type = setType;
-            qSet.difficultyLevel = [NSNumber numberWithInt:idx];
+        //Add inital Administrators
+        NSArray* seedAdmins = [seedDict objectForKey:@"Administrators"];
+        NSMutableArray *createdAdmins = [NSMutableArray arrayWithCapacity:seedAdmins.count];
+        for (NSDictionary* user in seedAdmins) {
+            if ([User isUserNameUnique:[user objectForKey:@"username"] inContext:document.managedObjectContext]) {
+                Administrator * newAdmin = [NSEntityDescription insertNewObjectForEntityForName:@"Administrator" inManagedObjectContext:document.managedObjectContext];
+                [newAdmin setValuesForKeysWithDictionary:user];
+                [createdAdmins addObject:newAdmin];
+            }
+        }
+        //Add inital Students
+        NSArray* seedStudents = [seedDict objectForKey:@"Students"];
+        NSMutableArray *createdStudents = [NSMutableArray arrayWithCapacity:seedStudents.count];
+        for (NSDictionary* user in seedStudents) {
+            if ([User isUserNameUnique:[user objectForKey:@"username"] inContext:document.managedObjectContext]) {
+                Student * newStudent = [NSEntityDescription insertNewObjectForEntityForName:@"Student" inManagedObjectContext:document.managedObjectContext];
+                [newStudent setValuesForKeysWithDictionary:user];
+                newStudent.administrator = [createdAdmins lastObject];
+                [createdStudents addObject:newStudent];
+            }
+        }
+        
+        
+        //Add inital question set to new admins
+        NSArray* seedQuestionSets = [seedDict objectForKey:@"Questions Sets"];
+        
+        //Step through each type
+        for (NSArray* setTypeArray in seedQuestionSets) {
+            NSNumber* setType = [setTypeArray objectAtIndex:0];
             
-            //Set through each question
-            for (NSArray* question in [questionSet objectForKey:@"questions"]) {
-                Question* newQuestion = [NSEntityDescription insertNewObjectForEntityForName:@"Question" inManagedObjectContext:document.managedObjectContext];
+            //Step through each set
+            [[setTypeArray objectAtIndex:1] enumerateObjectsUsingBlock:^(NSDictionary *questionSet,NSUInteger idx, BOOL *stop){
+                //Create QuestionSet
+                QuestionSet *qSet = [NSEntityDescription insertNewObjectForEntityForName:@"QuestionSet" inManagedObjectContext:document.managedObjectContext];
+                qSet.name = [questionSet objectForKey:@"name"];
+                qSet.type = setType;
+                qSet.difficultyLevel = [NSNumber numberWithInt:idx];
                 
-                // -1 signifies the black in the question
-                newQuestion.x = [[question objectAtIndex:0] intValue]>=0?[question objectAtIndex:0]:nil;
-                newQuestion.y = [[question objectAtIndex:1] intValue]>=0?[question objectAtIndex:1]:nil;
-                newQuestion.z = [[question objectAtIndex:2] intValue]>=0?[question objectAtIndex:2]:nil;
-                [qSet addQuestionsObject:newQuestion];
-            }
-            
-            //Add new question set to all new admins
-            for (Administrator* admin in createdAdmins) {
-                [admin addQuestionSetsObject:qSet];
-            }
-        }];
-    }
-    
-    //Save
-    [self.database.managedObjectContext save:NULL];
-    [self saveDatabase];
-    
+                //Set through each question
+                for (NSArray* question in [questionSet objectForKey:@"questions"]) {
+                    Question* newQuestion = [NSEntityDescription insertNewObjectForEntityForName:@"Question" inManagedObjectContext:document.managedObjectContext];
+                    
+                    // -1 signifies the black in the question
+                    newQuestion.x = [[question objectAtIndex:0] intValue]>=0?[question objectAtIndex:0]:nil;
+                    newQuestion.y = [[question objectAtIndex:1] intValue]>=0?[question objectAtIndex:1]:nil;
+                    newQuestion.z = [[question objectAtIndex:2] intValue]>=0?[question objectAtIndex:2]:nil;
+                    [qSet addQuestionsObject:newQuestion];
+                }
+                
+                //Add new question set to all new admins
+                for (Administrator* admin in createdAdmins) {
+                    [admin addQuestionSetsObject:qSet];
+                }
+            }];
+        }
+    }];
 }
 
 -(void) saveDatabase{

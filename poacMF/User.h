@@ -16,6 +16,7 @@
 @property (nonatomic, retain) NSString * firstName;
 @property (nonatomic, retain) NSString * lastName;
 @property (nonatomic, retain) NSString * password; //TODO: hash password
-@property (nonatomic, retain) NSString * username;
+@property (nonatomic, retain) NSString * username; //TODO: Unique username
 
++(BOOL) isUserNameUnique:(NSString*)username inContext:(NSManagedObjectContext*)context;
 @end

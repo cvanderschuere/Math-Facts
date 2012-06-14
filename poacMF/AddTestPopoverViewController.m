@@ -54,6 +54,10 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    //Update Stepper Labels
+    [self stepperUpdated:self.testLengthStepper];
+    [self stepperUpdated:self.minCorrectStepper];
 }
 
 - (void)viewDidUnload
@@ -74,20 +78,15 @@
     [self.delegate didAddTestForQuestionSet:self.selectedQuestionSet minCorrect:self.minCorrectStepper.value length:self.testLengthStepper.value];
     [self.questionSetsToChoose removeObject:self.selectedQuestionSet];
     [self.questionSetPicker reloadComponent:0];
-    if (self.questionSetsToChoose.count>0) {
-        self.selectedQuestionSet = [self.questionSetsToChoose objectAtIndex:0];
-    }
-    else {
-        self.selectedQuestionSet = nil;
-    }
+    self.selectedQuestionSet = self.questionSetsToChoose.count>0?[self.questionSetsToChoose objectAtIndex:0]:nil;
     [self.questionSetPicker selectRow:0 inComponent:0 animated:YES];
 }
 - (IBAction)stepperUpdated:(UIStepper*)sender{
     if ([sender isEqual:self.minCorrectStepper]) {
-        self.minCorrectLabel = [NSString stringWithFormat:@"%.0f",sender.value];
+        self.minCorrectLabel.text = [NSString stringWithFormat:@"%.0f",sender.value];
     }
     else {
-        self.testLengthStepper = [NSString stringWithFormat:@"%.0f",sender.value];
+        self.testLengthLabel.text = [NSString stringWithFormat:@"%.0f",sender.value];
     }
 }
 

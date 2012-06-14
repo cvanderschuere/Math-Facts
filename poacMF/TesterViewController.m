@@ -107,7 +107,7 @@
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
 	PoacMFAppDelegate *appDelegate = (PoacMFAppDelegate *)[[UIApplication sharedApplication] delegate];	
     if (buttonIndex == 0) {
-        appDelegate.loggedIn = NO;
+        //appDelegate.loggedIn = NO;
 		self.usernameLabel.text = @"";
 		[self hideMostThings];
 		if (nil != testTimer) {

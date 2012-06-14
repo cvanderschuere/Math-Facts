@@ -19,7 +19,7 @@
 @synthesize categoryPicker = _categoryPicker;
 @synthesize delegate = _delegate;
 
--(void) setCategoriesToChoose:(NSArray *)categoriesToChoose{
+-(void) setCategoriesToChoose:(NSMutableArray *)categoriesToChoose{
     _categoriesToChoose = categoriesToChoose;
     [self.categoryPicker reloadAllComponents];
     if (_categoriesToChoose.count>0) {
@@ -61,7 +61,9 @@
 
 #pragma mark Picker Delegate Methods
 - (void) pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-        self.selectedCategory = [self.categoriesToChoose objectAtIndex:row];    
+    if (self.categoriesToChoose.count>0) {
+        self.selectedCategory = [self.categoriesToChoose objectAtIndex:row];  
+    }
 }//end method
 
 
@@ -83,8 +85,13 @@
 }
 
 - (IBAction)addCategoryPressed:(id)sender {
-    [self.delegate didAddCategoryType:self.selectedCategory];
-    [self.categoriesToChoose removeObject:self.selectedCategory];
-    [self.categoryPicker reloadComponent:0];
+    if (self.selectedCategory) {
+        //Inform delegate
+        [self.delegate didAddCategoryType:self.selectedCategory];
+        //Update UI
+        [self.categoriesToChoose removeObject:self.selectedCategory];
+        [self.categoryPicker reloadComponent:0];
+        self.selectedCategory = self.categoriesToChoose.count>0?[self.categoriesToChoose objectAtIndex:0]:nil;
+    }
 }
 @end
