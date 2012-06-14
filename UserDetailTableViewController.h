@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "CoreDataTableViewController.h"
 #import "AddCategoryPopoverController.h"
+#import "AddTestPopoverViewController.h"
 #import "Student.h"
 
 
-@interface UserDetailTableViewController : CoreDataTableViewController <UIPopoverControllerDelegate, AddCategoryDelegate>
+@interface UserDetailTableViewController : CoreDataTableViewController <UIPopoverControllerDelegate, AddCategoryDelegate,AddTestDelegate>
 
 @property (nonatomic, strong) Student* student;
 @property (nonatomic, strong) UIPopoverController *popover;

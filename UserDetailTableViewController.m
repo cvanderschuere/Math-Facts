@@ -7,9 +7,9 @@
 //
 
 #import "UserDetailTableViewController.h"
-#import "AssignQuizPopoverViewController.h"
 #import "AppConstants.h"
 #import "Test.h"
+#import "QuestionSet.h"
 #import "Administrator.h"
 #import "AEUserTableViewController.h"
 
@@ -201,11 +201,23 @@
 {
     // Navigation logic may go here. Create and push another view controller.
     UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
-    if ([selectedCell.reuseIdentifier isEqualToString:@"addTest"]) {
-        AssignQuizPopoverViewController* assignVC = [self.storyboard instantiateViewControllerWithIdentifier:@"assignQuizViewController"];
-        assignVC.testType = indexPath.section == 1?QUIZ_PRACTICE_TYPE:QUIZ_TIMED_TYPE;
-        self.popover = [[UIPopoverController alloc] initWithContentViewController:assignVC];
-        self.popover.delegate = self;
+    if ([selectedCell.reuseIdentifier isEqualToString:@"addTestCell"]) {
+        AddTestPopoverViewController* addTest = [self.storyboard instantiateViewControllerWithIdentifier:@"addTestPopoverViewController"];
+        addTest.delegate = self;
+        
+        //Load all questionSets from section
+        NSMutableArray *sectionArray = [NSMutableArray array];
+        for (int index = 0; index<indexPath.row; index++) {
+            [sectionArray addObject:[[self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:index inSection:indexPath.section]] questionSet]];
+        }
+        //Fetch all questionSets of same type and are not these
+        NSFetchRequest *questionSetRequest = [NSFetchRequest fetchRequestWithEntityName:@"QuestionSet"];
+        questionSetRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"difficultyLevel" ascending:YES]];
+        QuestionSet *questionSet = [sectionArray lastObject];
+        questionSetRequest.predicate = [NSPredicate predicateWithFormat:@"type == %@ AND NOT(SELF in %@)", questionSet.type, sectionArray];
+        addTest.questionSetsToChoose = [self.student.managedObjectContext executeFetchRequest:questionSetRequest error:nil].mutableCopy;
+        
+        self.popover = [[UIPopoverController alloc] initWithContentViewController:addTest];
         [self.popover presentPopoverFromRect:selectedCell.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
     else if ([selectedCell.reuseIdentifier isEqualToString:@"addTestCategoryCell"]) {
@@ -231,64 +243,9 @@
             [self.popover presentPopoverFromRect:selectedCell.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         }
     }
-    /*
-    else if (indexPath.section >0) {
-        AssignQuizPopoverViewController* assignVC = [self.storyboard instantiateViewControllerWithIdentifier:@"assignQuizViewController"];
-        assignVC.testType = indexPath.section == 1?QUIZ_PRACTICE_TYPE:QUIZ_TIMED_TYPE;
-        assignVC.assignedQuiz = [indexPath.section == 1?self.quizzes:self.tests objectAtIndex:indexPath.row];
-        assignVC.updateMode = YES;
-        self.popover = [[UIPopoverController alloc] initWithContentViewController:assignVC];
-        self.popover.delegate = self;
-        [self.popover presentPopoverFromRect:selectedCell.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-
-    }*/
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-#pragma mark - UIPopoverController Delegate
--(void) popoverControllerDidDismissPopover:(UIPopoverController *)popoverController{
-    id contentViewController = popoverController.contentViewController;
-    if ([contentViewController isKindOfClass:[AssignQuizPopoverViewController class]]) {
-        if ((-1 == [contentViewController selectedSet]))
-            return; 
-        /*
-        if (![contentViewController updateMode]) {
-            QuestionSet *qs = [[contentViewController listofQuestionSets] objectAtIndex:[contentViewController selectedSet]];
-            Quiz *newQuiz = [[Quiz alloc] init];
-            //newQuiz.userId = self.currentUser.userId;
-            //newQuiz.setId = qs.setId;
-           // newQuiz.timeLimit = [timeLimitTF.text intValue];
-            newQuiz.requiredCorrect = [contentViewController numberCorrectStepper].value;
-            newQuiz.allowedIncorrect = [contentViewController numberIncorrectStepper].value;
-            newQuiz.totalQuestions = INT16_MAX;
-            newQuiz.testType = [contentViewController testType];
-            QuizzesDAO *qDAO = [[QuizzesDAO alloc] init];
-            [qDAO addQuizForUser:newQuiz];
-        } 
-        else {
-            QuestionSet *qs = [[contentViewController listofQuestionSets] objectAtIndex:[contentViewController selectedSet]];
-            //[contentViewController assignedQuiz].setId = qs.setId;
-            //[contentViewController assignedQuiz].timeLimit = [timeLimitTF.text intValue];
-            [contentViewController assignedQuiz].requiredCorrect = [contentViewController numberCorrectStepper].value;
-            [contentViewController assignedQuiz].allowedIncorrect = [contentViewController numberIncorrectStepper].value;
-            [contentViewController assignedQuiz].totalQuestions = INT16_MAX;
-            [contentViewController assignedQuiz].testType = [contentViewController testType];
-            QuizzesDAO *qDAO = [[QuizzesDAO alloc] init];
-            [qDAO updateQuizForUser: [contentViewController assignedQuiz]];
-        }
-        if ([contentViewController testType]== QUIZ_PRACTICE_TYPE)
-            self.quizzes = nil;
-        else
-            self.tests = nil;
-        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:[contentViewController testType]==QUIZ_PRACTICE_TYPE?1:2] withRowAnimation:UITableViewRowAnimationAutomatic];
-         
-         */
-    }
-    else if ([contentViewController isKindOfClass:[AddCategoryPopoverController class]]) {
-        
-    }
- 
-}
 -(void) didAddCategoryType:(NSNumber *)categoryType{
     //Fetch all question sets of this category type from admin
     NSFetchRequest* questionSetRequest = [NSFetchRequest fetchRequestWithEntityName:@"QuestionSet"];
@@ -304,7 +261,15 @@
         newTest.questionSet = qSet;
         [self.student addTestsObject:newTest];
     }
-    
+}
+-(void) didAddTestForQuestionSet:(QuestionSet *)qSet minCorrect:(int)minCorrect length:(NSTimeInterval)length{
+    [self.popover dismissPopoverAnimated:YES];
+
+    Test* newTest = [NSEntityDescription insertNewObjectForEntityForName:@"Test" inManagedObjectContext:self.student.managedObjectContext];
+    newTest.questionSet = qSet;
+    newTest.testLength = [NSNumber numberWithDouble:length];
+    newTest.passCriteria = [NSNumber numberWithInt:minCorrect];
+    [self.student addTestsObject:newTest];
 }
 
 @end
