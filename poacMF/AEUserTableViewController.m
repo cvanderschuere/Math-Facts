@@ -96,6 +96,14 @@
 		[al showAlertFromDelegate:self withWarning:msg];
 		return;
 	}//end if
+    else {
+        //Check if username is unique or the same username as before
+        if (![Student isUserNameUnique:self.usernameTF.text inContext:self.studentToUpdate?self.studentToUpdate.managedObjectContext:self.createdStudentsAdmin.managedObjectContext] && ![self.studentToUpdate.username isEqualToString:self.usernameTF.text]) {
+            NSString *msg = @"Username already used.";
+            [al showAlertFromDelegate:self withWarning:msg];
+            return;
+        }
+    }
 	if (nil == self.passwordTF.text){
 		NSString *msg = @"Password must be entered.";
 		[al showAlertFromDelegate:self withWarning:msg];
@@ -111,6 +119,8 @@
 		[al showAlertFromDelegate:self withWarning:msg];
 		return;
 	}//end if
+    
+    //Create new student if necessary
     if (!self.studentToUpdate) {
         self.studentToUpdate = [NSEntityDescription insertNewObjectForEntityForName:@"Student" inManagedObjectContext:self.createdStudentsAdmin.managedObjectContext];
         [self.createdStudentsAdmin addStudentsObject:self.studentToUpdate];

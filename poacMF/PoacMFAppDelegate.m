@@ -127,7 +127,7 @@
         NSArray* seedAdmins = [seedDict objectForKey:@"Administrators"];
         NSMutableArray *createdAdmins = [NSMutableArray arrayWithCapacity:seedAdmins.count];
         for (NSDictionary* user in seedAdmins) {
-            if ([User isUserNameUnique:[user objectForKey:@"username"] inContext:document.managedObjectContext]) {
+            if ([Administrator isUserNameUnique:[user objectForKey:@"username"] inContext:document.managedObjectContext]) {
                 Administrator * newAdmin = [NSEntityDescription insertNewObjectForEntityForName:@"Administrator" inManagedObjectContext:document.managedObjectContext];
                 [newAdmin setValuesForKeysWithDictionary:user];
                 [createdAdmins addObject:newAdmin];
@@ -137,7 +137,7 @@
         NSArray* seedStudents = [seedDict objectForKey:@"Students"];
         NSMutableArray *createdStudents = [NSMutableArray arrayWithCapacity:seedStudents.count];
         for (NSDictionary* user in seedStudents) {
-            if ([User isUserNameUnique:[user objectForKey:@"username"] inContext:document.managedObjectContext]) {
+            if ([Student isUserNameUnique:[user objectForKey:@"username"] inContext:document.managedObjectContext]) {
                 Student * newStudent = [NSEntityDescription insertNewObjectForEntityForName:@"Student" inManagedObjectContext:document.managedObjectContext];
                 [newStudent setValuesForKeysWithDictionary:user];
                 newStudent.administrator = [createdAdmins lastObject];
