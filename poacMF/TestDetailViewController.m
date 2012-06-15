@@ -9,6 +9,7 @@
 #import "TestDetailViewController.h"
 #import "Result.h"
 #import "AdjustTestPopoverViewController.h"
+#import "ResultDetailViewController.h"
 
 @interface TestDetailViewController ()
 
@@ -63,6 +64,14 @@
 	return YES;
 
 }
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"resultDetailSegue"]) {
+        //Find index path of sender
+        [segue.destinationViewController setResult:(Result*)[self.results objectAtIndex:[self.resultsTableView indexPathForCell:sender].row]];
+        [self.resultsTableView deselectRowAtIndexPath:[self.resultsTableView indexPathForCell:sender] animated:NO];
+    }
+}
+
 -(void)constructBarChart
 {
     // Create barChart from theme
