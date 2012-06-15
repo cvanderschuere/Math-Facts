@@ -63,12 +63,12 @@
     <fetchRequest name="StudentLogin" entity="Student" predicateString="username == $USERNAME AND password == $PASSWORD"/>
     <elements>
         <element name="Administrator" positionX="-216" positionY="-288" width="128" height="75"/>
-        <element name="Practice" positionX="90" positionY="57" width="128" height="105"/>
-        <element name="Question" positionX="162" positionY="270" width="128" height="105"/>
+        <element name="Practice" positionX="117" positionY="120" width="128" height="105"/>
+        <element name="Question" positionX="574" positionY="282" width="128" height="105"/>
         <element name="QuestionSet" positionX="214" positionY="-315" width="128" height="135"/>
-        <element name="Result" positionX="-263" positionY="216" width="128" height="150"/>
-        <element name="Student" positionX="-443" positionY="-108" width="128" height="150"/>
-        <element name="Test" positionX="-92" positionY="-108" width="128" height="135"/>
-        <element name="User" positionX="-441" positionY="-306" width="128" height="120"/>
+        <element name="Result" positionX="-351" positionY="237" width="128" height="150"/>
+        <element name="Student" positionX="-443" positionY="-108" width="128" height="135"/>
+        <element name="Test" positionX="-45" positionY="-117" width="128" height="150"/>
+        <element name="User" positionX="-443" positionY="-300" width="128" height="120"/>
     </elements>
 </model>

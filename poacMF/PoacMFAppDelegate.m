@@ -166,7 +166,7 @@
                 for (NSArray* question in [questionSet objectForKey:@"questions"]) {
                     Question* newQuestion = [NSEntityDescription insertNewObjectForEntityForName:@"Question" inManagedObjectContext:document.managedObjectContext];
                     
-                    // nil signifies the blank in the question
+                    // -1 signifies the blank in the question
                     newQuestion.x = [[question objectAtIndex:0] intValue]>=0?[question objectAtIndex:0]:nil;
                     newQuestion.y = [[question objectAtIndex:1] intValue]>=0?[question objectAtIndex:1]:nil;
                     newQuestion.z = [[question objectAtIndex:2] intValue]>=0?[question objectAtIndex:2]:nil;
