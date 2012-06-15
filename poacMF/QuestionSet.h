@@ -24,6 +24,7 @@
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSNumber * type;
 @property (nonatomic, retain) NSString * typeName;
+@property (nonatomic, retain) NSString * typeSymbol;
 @property (nonatomic, retain) Administrator *administrator;
 @property (nonatomic, retain) NSSet *questions;
 @end

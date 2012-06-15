@@ -97,30 +97,9 @@
     
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"questionCell"];
     Question *question = (Question*) [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ %@ %@ = %@",question.x?question.x.stringValue:@"__",[self stringForType:self.questionSet.type],question.y?question.y.stringValue:@"__",question.z?question.z.stringValue:@"__"];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ %@ %@ = %@",question.x?question.x.stringValue:@"__",self.questionSet.typeSymbol,question.y?question.y.stringValue:@"__",question.z?question.z.stringValue:@"__"];
     
     return cell;
-}
--(NSString*) stringForType:(NSNumber*)type{
-    NSString *returnString = nil;
-    switch (type.intValue) {
-        case QUESTION_TYPE_MATH_ADDITION:
-            returnString = @"+";
-            break;
-        case QUESTION_TYPE_MATH_SUBTRACTION:
-            returnString = @"-";
-            break;
-        case QUESTION_TYPE_MATH_MULTIPLICATION:
-            returnString = @"x";
-            break;
-        case QUESTION_TYPE_MATH_DIVISION:
-            returnString = @"/";
-            break;
-        default:
-            break;
-    }
-    
-    return returnString;
 }
 
 #pragma mark - Table view delegate

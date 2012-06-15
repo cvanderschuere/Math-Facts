@@ -40,12 +40,15 @@
         [self stepperUpdate:self.yStepper];
         [self stepperUpdate:self.zStepper];
         
+        self.operatorLabel.text = self.questionToUpdate.questionSet.typeSymbol;
+        
         self.title = [@"Edit Question " stringByAppendingString:self.questionToUpdate.questionOrder.stringValue];
 
 	}//end
     else{
         self.title = @"Create Question";
         self.zStepper.value = -1;
+        self.operatorLabel.text = self.questionSetToCreateIn.typeSymbol;
     }
     
 }
