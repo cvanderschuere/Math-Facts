@@ -81,7 +81,7 @@
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Student"];
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]];
-    //request.predicate = [NSPredicate predicateWithFormat:@"administrator == %@ OR SELF in %@",self.currentAdmin,self.currentAdmin.students];
+    request.predicate = [NSPredicate predicateWithFormat:@"administrator.username == %@",self.currentAdmin.username];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.currentAdmin.managedObjectContext

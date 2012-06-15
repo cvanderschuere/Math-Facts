@@ -11,7 +11,6 @@
 @implementation Test
 
 @dynamic passCriteria;
-@dynamic testDifficulty;
 @dynamic testLength;
 @dynamic practice;
 @dynamic questionSet;

@@ -36,8 +36,8 @@
         <relationship name="test" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Test" inverseName="results" inverseEntity="Test" syncable="YES"/>
     </entity>
     <entity name="Student" representedClassName="Student" parentEntity="User" syncable="YES">
-        <attribute name="defaultPassCriteria" optional="YES" attributeType="Integer 16" minValueString="0" syncable="YES"/>
-        <attribute name="defaultTestLength" optional="YES" attributeType="Integer 16" minValueString="0" syncable="YES"/>
+        <attribute name="defaultPassCriteria" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="40" syncable="YES"/>
+        <attribute name="defaultTestLength" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="60" syncable="YES"/>
         <attribute name="idNumber" optional="YES" attributeType="Integer 32" minValueString="0" syncable="YES"/>
         <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="administrator" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Administrator" inverseName="students" inverseEntity="Administrator" syncable="YES"/>
@@ -45,9 +45,8 @@
         <relationship name="tests" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Test" inverseName="student" inverseEntity="Test" syncable="YES"/>
     </entity>
     <entity name="Test" representedClassName="Test" syncable="YES">
-        <attribute name="passCriteria" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="40" syncable="YES"/>
-        <attribute name="testDifficulty" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="100" syncable="YES"/>
-        <attribute name="testLength" optional="YES" attributeType="Integer 16" minValueString="0" syncable="YES"/>
+        <attribute name="passCriteria" attributeType="Integer 16" minValueString="0" syncable="YES"/>
+        <attribute name="testLength" attributeType="Integer 16" minValueString="0" syncable="YES"/>
         <relationship name="practice" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Practice" inverseName="test" inverseEntity="Practice" syncable="YES"/>
         <relationship name="questionSet" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="QuestionSet" syncable="YES"/>
         <relationship name="results" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Result" inverseName="test" inverseEntity="Result" syncable="YES"/>
@@ -68,8 +67,8 @@
         <element name="Question" positionX="162" positionY="270" width="128" height="105"/>
         <element name="QuestionSet" positionX="214" positionY="-315" width="128" height="135"/>
         <element name="Result" positionX="-263" positionY="216" width="128" height="150"/>
-        <element name="Student" positionX="-443" positionY="-108" width="128" height="135"/>
-        <element name="Test" positionX="-45" positionY="-123" width="128" height="150"/>
+        <element name="Student" positionX="-443" positionY="-108" width="128" height="150"/>
+        <element name="Test" positionX="-92" positionY="-108" width="128" height="135"/>
         <element name="User" positionX="-441" positionY="-306" width="128" height="120"/>
     </elements>
 </model>

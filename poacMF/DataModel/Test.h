@@ -18,7 +18,6 @@
 @interface Test : NSManagedObject
 
 @property (nonatomic, retain) NSNumber * passCriteria;
-@property (nonatomic, retain) NSNumber * testDifficulty;
 @property (nonatomic, retain) NSNumber * testLength;
 @property (nonatomic, retain) Practice *practice;
 @property (nonatomic, retain) QuestionSet *questionSet;

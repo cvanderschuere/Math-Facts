@@ -96,7 +96,7 @@
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Test"];
     request.sortDescriptors = [NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:@"questionSet.type" ascending:YES selector:@selector(compare:)],[NSSortDescriptor sortDescriptorWithKey:@"questionSet.difficultyLevel" ascending:YES selector:@selector(compare:)],[NSSortDescriptor sortDescriptorWithKey:@"questionSet.name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)],nil];
-    request.predicate = [NSPredicate predicateWithFormat:@"student == %@",self.student];
+    request.predicate = [NSPredicate predicateWithFormat:@"student.username == %@",self.student.username];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.student.managedObjectContext
@@ -250,10 +250,12 @@
     //Fetch all question sets of this category type from admin
     NSFetchRequest* questionSetRequest = [NSFetchRequest fetchRequestWithEntityName:@"QuestionSet"];
     questionSetRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"difficultyLevel" ascending:YES]];
-    questionSetRequest.predicate = [NSPredicate predicateWithFormat:@"administrator == %@ AND type == %@",self.student.administrator,categoryType];
+    questionSetRequest.predicate = [NSPredicate predicateWithFormat:@"administrator.username == %@ AND type == %@",self.student.administrator.username,categoryType];
     NSArray* questionSetResults = [self.student.managedObjectContext executeFetchRequest:questionSetRequest error:NULL];
     
     [self.popover dismissPopoverAnimated:YES];
+    
+    NSLog(@"Student: %@", self.student);
     
     //Create a test for each set and add it to student
     for (QuestionSet * qSet in questionSetResults) {

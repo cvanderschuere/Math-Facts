@@ -128,12 +128,11 @@
         //Add inital Administrators
         NSArray* seedAdmins = [seedDict objectForKey:@"Administrators"];
         NSMutableArray *createdAdmins = [NSMutableArray arrayWithCapacity:seedAdmins.count];
-        for (NSDictionary* user in seedAdmins) {
-            if ([Administrator isUserNameUnique:[user objectForKey:@"username"] inContext:document.managedObjectContext]) {
-                Administrator * newAdmin = [NSEntityDescription insertNewObjectForEntityForName:@"Administrator" inManagedObjectContext:document.managedObjectContext];
-                [newAdmin setValuesForKeysWithDictionary:user];
-                [createdAdmins addObject:newAdmin];
-            }
+        Administrator * newAdmin = nil;
+        if ([Administrator isUserNameUnique:[[seedAdmins lastObject] objectForKey:@"username"] inContext:document.managedObjectContext]) {
+            newAdmin = [NSEntityDescription insertNewObjectForEntityForName:@"Administrator" inManagedObjectContext:document.managedObjectContext];
+            [newAdmin setValuesForKeysWithDictionary:[seedAdmins lastObject]];
+            [createdAdmins addObject:newAdmin];
         }
         
         //Add inital Students
@@ -143,7 +142,7 @@
             if ([Student isUserNameUnique:[user objectForKey:@"username"] inContext:document.managedObjectContext]) {
                 Student * newStudent = [NSEntityDescription insertNewObjectForEntityForName:@"Student" inManagedObjectContext:document.managedObjectContext];
                 [newStudent setValuesForKeysWithDictionary:user];
-                newStudent.administrator = [createdAdmins lastObject];
+                newStudent.administrator = newAdmin;
                 [createdStudents addObject:newStudent];
             }
         }
@@ -175,9 +174,7 @@
                 }
                 
                 //Add new question set to all new admins
-                for (Administrator* admin in createdAdmins) {
-                    [admin addQuestionSetsObject:qSet];
-                }
+                [newAdmin addQuestionSetsObject:qSet];
             }];
         }
     }];
