@@ -29,4 +29,8 @@
     }
 }
 
+-(IBAction)toggleEditMode:(id)sender{
+    self.tableView.editing = !self.tableView.editing;
+}
+
 @end

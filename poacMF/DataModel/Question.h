@@ -16,14 +16,6 @@
 @property (nonatomic, retain) NSNumber * x;
 @property (nonatomic, retain) NSNumber * z;
 @property (nonatomic, retain) NSNumber * y;
-@property (nonatomic, retain) NSSet *questionSet;
-@end
-
-@interface Question (CoreDataGeneratedAccessors)
-
-- (void)addQuestionSetObject:(QuestionSet *)value;
-- (void)removeQuestionSetObject:(QuestionSet *)value;
-- (void)addQuestionSet:(NSSet *)values;
-- (void)removeQuestionSet:(NSSet *)values;
-
+@property (nonatomic, strong) NSNumber * questionOrder;
+@property (nonatomic, retain) QuestionSet *questionSet;
 @end

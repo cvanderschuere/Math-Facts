@@ -9,6 +9,7 @@
 #import "AdminSplitViewController.h"
 #import "UsersTableViewController.h"
 #import "UserDetailTableViewController.h"
+#import "QuestionSetDetailTableViewController.h"
 #import "Student.h"
 
 @interface AdminSplitViewController ()
@@ -46,10 +47,15 @@
 -(void) didSelectObject:(id)aObject{
     UINavigationController *navController = [self.viewControllers lastObject];
     if ([aObject isKindOfClass:[Student class]]) {
-        //![[[navController.viewControllers fir] student] isEqual:aObject]
         //Detail view should be userDetailView
         UserDetailTableViewController *detailTVC = [self.storyboard instantiateViewControllerWithIdentifier:@"UserDetailTableViewController"];
         [detailTVC setStudent:aObject];
+        [navController setViewControllers:[NSArray arrayWithObject:detailTVC] animated:NO];
+    }
+    else if ([aObject isKindOfClass:[QuestionSet class]]) {
+        //Detail view should be userDetailView
+        QuestionSetDetailTableViewController *detailTVC = [self.storyboard instantiateViewControllerWithIdentifier:@"QuestionSetDetailTableViewController"];
+        [detailTVC setQuestionSet:aObject];
         [navController setViewControllers:[NSArray arrayWithObject:detailTVC] animated:NO];
     }
     

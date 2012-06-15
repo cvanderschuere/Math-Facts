@@ -16,5 +16,6 @@
 @dynamic z;
 @dynamic y;
 @dynamic questionSet;
+@dynamic questionOrder;
 
 @end

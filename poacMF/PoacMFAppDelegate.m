@@ -163,15 +163,16 @@
                 qSet.difficultyLevel = [NSNumber numberWithInt:idx];
                 
                 //Set through each question
-                for (NSArray* question in [questionSet objectForKey:@"questions"]) {
+                [[questionSet objectForKey:@"questions"] enumerateObjectsUsingBlock:^(NSArray* question, NSUInteger idx, BOOL *stop){
                     Question* newQuestion = [NSEntityDescription insertNewObjectForEntityForName:@"Question" inManagedObjectContext:document.managedObjectContext];
                     
                     // -1 signifies the blank in the question
                     newQuestion.x = [[question objectAtIndex:0] intValue]>=0?[question objectAtIndex:0]:nil;
                     newQuestion.y = [[question objectAtIndex:1] intValue]>=0?[question objectAtIndex:1]:nil;
                     newQuestion.z = [[question objectAtIndex:2] intValue]>=0?[question objectAtIndex:2]:nil;
+                    newQuestion.questionOrder = [NSNumber numberWithInt:idx];
                     [qSet addQuestionsObject:newQuestion];
-                }
+                }];
                 
                 //Add new question set to all new admins
                 [newAdmin addQuestionSetsObject:qSet];

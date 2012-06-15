@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CoreDataTableViewController.h"
+#import "QuestionSet.h"
 
-@interface QuestionSetDetailTableViewController : UITableViewController
+@interface QuestionSetDetailTableViewController : CoreDataTableViewController
+
+@property (nonatomic, strong) QuestionSet *questionSet;
 
 @end

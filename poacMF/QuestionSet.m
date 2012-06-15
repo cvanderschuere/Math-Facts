@@ -8,8 +8,6 @@
 
 #import "QuestionSet.h"
 #import "Administrator.h"
-#import "Question.h"
-
 
 @implementation QuestionSet
 
