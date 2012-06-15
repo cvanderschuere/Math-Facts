@@ -70,7 +70,6 @@
 }
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"addStudentSegue"]) {
-        [[[segue.destinationViewController viewControllers] lastObject] setEditMode:NO];
         [[[segue.destinationViewController viewControllers] lastObject] setCreatedStudentsAdmin:self.currentAdmin];
     }
     

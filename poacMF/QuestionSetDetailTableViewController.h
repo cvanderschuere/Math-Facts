@@ -13,5 +13,6 @@
 @interface QuestionSetDetailTableViewController : CoreDataTableViewController
 
 @property (nonatomic, strong) QuestionSet *questionSet;
+@property (nonatomic, strong) UIPopoverController *popover;
 
 @end

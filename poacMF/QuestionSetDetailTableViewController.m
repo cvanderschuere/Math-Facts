@@ -7,6 +7,7 @@
 //
 
 #import "QuestionSetDetailTableViewController.h"
+#import "AEQuestionViewController.h"
 
 @interface QuestionSetDetailTableViewController ()
 
@@ -14,7 +15,7 @@
 
 @implementation QuestionSetDetailTableViewController
 
-@synthesize questionSet = _questionSet;
+@synthesize questionSet = _questionSet, popover = _popover;
 
 -(void) setQuestionSet:(QuestionSet *)questionSet{
     if (![_questionSet isEqual:questionSet]) {
@@ -57,7 +58,7 @@
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Question"];
-    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"questionOrder" ascending:NO]];
+    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"questionOrder" ascending:YES]];
     request.predicate = [NSPredicate predicateWithFormat:@"questionSet.name == %@ AND questionSet.type == %@ AND questionSet.difficultyLevel == %@",self.questionSet.name, self.questionSet.type,self.questionSet.difficultyLevel];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
@@ -126,13 +127,27 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
+    if ([selectedCell.reuseIdentifier isEqualToString:@"addQuestionCell"]) {
+        AEQuestionViewController *aeQuestion = [self.storyboard instantiateViewControllerWithIdentifier:@"AEQuestionViewController"];
+        aeQuestion.questionSetToCreateIn = self.questionSet;
+        
+        
+        self.popover = [[UIPopoverController alloc] initWithContentViewController:aeQuestion];
+        [self.popover presentPopoverFromRect:selectedCell.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
+    else if ([selectedCell.reuseIdentifier isEqualToString:@"questionCell"]) {
+        AEQuestionViewController *aeQuestion = [self.storyboard instantiateViewControllerWithIdentifier:@"AEQuestionViewController"];
+        aeQuestion.questionToUpdate = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        
+        
+        self.popover = [[UIPopoverController alloc] initWithContentViewController:aeQuestion];
+        [self.popover presentPopoverFromRect:selectedCell.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+
+    }
+
+
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 @end

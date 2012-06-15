@@ -84,7 +84,6 @@
         [segue.destinationViewController setTest:selectedTest];
     }
     else if ([segue.identifier isEqualToString:@"editStudentSegue"]) {
-        [[[segue.destinationViewController viewControllers] lastObject] setEditMode:YES];
         [[[segue.destinationViewController viewControllers] lastObject] setCreatedStudentsAdmin:self.student.administrator];
         [[[segue.destinationViewController viewControllers] lastObject] setStudentToUpdate:self.student];
 

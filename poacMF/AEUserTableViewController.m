@@ -30,7 +30,7 @@
 @implementation AEUserTableViewController
 @synthesize usernameTF = _usernameTF, firstNameTF = _firstNameTF, lastNameTF = _lastNameTF, passwordTF = _passwordTF, emailAddressTF = _emailAddressTF, userTypeSC = _userTypeSC;
 @synthesize userPracticeTimeLimitTF = _userPracticeTimeLimitTF;
-@synthesize userTimedTimeLimitTF = _userTimedTimeLimitTF, delayRetakeTF = _delayRetakeTF, editMode = _editMode;
+@synthesize userTimedTimeLimitTF = _userTimedTimeLimitTF, delayRetakeTF = _delayRetakeTF;
 @synthesize studentToUpdate = _studentToUpdate, createdStudentsAdmin = _createdStudentsAdmin;
 
 
