@@ -103,7 +103,6 @@
 #pragma mark - View lifecycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
 	
 	CGRect frame = CGRectMake(10, 6, 280, 30);
 	if ((self.interfaceOrientation == UIInterfaceOrientationPortrait) || 

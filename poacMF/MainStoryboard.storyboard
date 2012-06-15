@@ -414,7 +414,7 @@
                     </connections>
                 </splitViewController>
             </objects>
-            <point key="canvasLocation" x="-2237" y="-1602"/>
+            <point key="canvasLocation" x="-2749" y="-2130"/>
         </scene>
         <!--Users Table View Controller - Users-->
         <scene sceneID="Foe-lt-VFm">
@@ -453,6 +453,9 @@
                     <toolbarItems>
                         <barButtonItem title="Logout" id="rnz-mR-upL">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="logout:" destination="m3L-O9-a6Q" id="139-4v-T1L"/>
+                            </connections>
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Users" id="m8M-L2-WXz">
@@ -509,6 +512,9 @@
                     <toolbarItems>
                         <barButtonItem title="Logout" id="bnp-th-QxL">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="logout:" destination="Yf9-Wp-TaX" id="D9R-Ma-GfP"/>
+                            </connections>
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Sets" id="2f4-lo-iiM">
@@ -1090,10 +1096,11 @@
                     </toolbar>
                     <connections>
                         <segue destination="m3L-O9-a6Q" kind="relationship" relationship="rootViewController" id="zJj-Hv-JUU"/>
+                        <segue destination="rPp-Vw-Shc" kind="custom" identifier="logoutSegue" customClass="LogoutSegue" id="y5p-rL-teL"/>
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="-1063" y="-1166"/>
+            <point key="canvasLocation" x="-999" y="-1458"/>
         </scene>
         <!--User Detail Table View Controller-->
         <scene sceneID="10u-Wp-MSD">
@@ -2082,7 +2089,4 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
-    <inferredMetricsTieBreakers>
-        <segue reference="jnl-1r-efU"/>
-    </inferredMetricsTieBreakers>
 </document>

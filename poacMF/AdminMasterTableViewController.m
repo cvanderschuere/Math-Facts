@@ -25,7 +25,7 @@
 }
 -(void) actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 0) {
-        [self.parentViewController.parentViewController performSegueWithIdentifier:@"logoutSegue" sender:self];
+        [self.parentViewController performSegueWithIdentifier:@"logoutSegue" sender:self];
     }
 }
 
