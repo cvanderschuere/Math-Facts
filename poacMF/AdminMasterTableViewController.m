@@ -25,7 +25,8 @@
 }
 -(void) actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 0) {
-        [self.parentViewController performSegueWithIdentifier:@"logoutSegue" sender:self];
+        UIViewController *loginVC = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
+        [[[UIApplication sharedApplication] keyWindow] setRootViewController:loginVC];
     }
 }
 

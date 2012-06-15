@@ -1095,8 +1095,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
-                        <segue destination="m3L-O9-a6Q" kind="relationship" relationship="rootViewController" id="zJj-Hv-JUU"/>
-                        <segue destination="rPp-Vw-Shc" kind="custom" identifier="logoutSegue" customClass="LogoutSegue" id="y5p-rL-teL"/>
+                        <segue destination="m3L-O9-a6Q" kind="relationship" relationship="rootViewController" id="5pm-D8-uZO"/>
                     </connections>
                 </navigationController>
             </objects>
@@ -2184,4 +2183,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="Cls-HQ-4Ry"/>
+    </inferredMetricsTieBreakers>
 </document>
