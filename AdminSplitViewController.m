@@ -28,6 +28,9 @@
             if ([[[vc viewControllers] lastObject] respondsToSelector:@selector(setCurrentAdmin:)]) {
                 [[[vc viewControllers] lastObject] performSelector:@selector(setCurrentAdmin:) withObject:_currentAdmin];
             }
+            if ([vc.viewControllers.lastObject respondsToSelector:@selector(setDelegate:)]) {
+                [vc.viewControllers.lastObject performSelector:@selector(setDelegate:) withObject:self];
+            }
         }
     }
 }
@@ -45,6 +48,7 @@
 
 #pragma mark - AdminComDelegate
 -(void) didSelectObject:(id)aObject{
+    NSLog(@"Object: %@",aObject);
     UINavigationController *navController = [self.viewControllers lastObject];
     if ([aObject isKindOfClass:[Student class]]) {
         //Detail view should be userDetailView

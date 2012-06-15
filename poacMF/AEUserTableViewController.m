@@ -19,18 +19,21 @@
 @property (nonatomic, weak)	IBOutlet	UITextField		*lastNameTF;
 @property (nonatomic, weak)	IBOutlet	UITextField		*passwordTF;
 @property (nonatomic, weak)	IBOutlet	UITextField		*emailAddressTF;
-@property (nonatomic, weak)	IBOutlet	UITextField		*userPracticeTimeLimitTF;
-@property (nonatomic, weak)	IBOutlet	UITextField		*userTimedTimeLimitTF;
-@property (nonatomic, weak)	IBOutlet	UITextField		*delayRetakeTF;
-@property (nonatomic, weak) IBOutlet    UISegmentedControl *userTypeSC;
+@property (weak, nonatomic) IBOutlet UIStepper *testLengthStepper;
+@property (weak, nonatomic) IBOutlet UIStepper *passCriteriaStepper;
+@property (weak, nonatomic) IBOutlet UILabel *testLengthLabel;
+@property (weak, nonatomic) IBOutlet UILabel *passCriteriaLabel;
 
+- (IBAction)stepperUpdated:(id)sender;
 
 @end
 
 @implementation AEUserTableViewController
-@synthesize usernameTF = _usernameTF, firstNameTF = _firstNameTF, lastNameTF = _lastNameTF, passwordTF = _passwordTF, emailAddressTF = _emailAddressTF, userTypeSC = _userTypeSC;
-@synthesize userPracticeTimeLimitTF = _userPracticeTimeLimitTF;
-@synthesize userTimedTimeLimitTF = _userTimedTimeLimitTF, delayRetakeTF = _delayRetakeTF;
+@synthesize testLengthStepper = _testLengthStepper;
+@synthesize passCriteriaStepper = _passCriteriaStepper;
+@synthesize testLengthLabel = _testLengthLabel;
+@synthesize passCriteriaLabel = _passCriteriaLabel;
+@synthesize usernameTF = _usernameTF, firstNameTF = _firstNameTF, lastNameTF = _lastNameTF, passwordTF = _passwordTF, emailAddressTF = _emailAddressTF;
 @synthesize studentToUpdate = _studentToUpdate, createdStudentsAdmin = _createdStudentsAdmin;
 
 
@@ -55,16 +58,13 @@
 		self.lastNameTF.text = self.studentToUpdate.lastName;
 		self.emailAddressTF.text = self.studentToUpdate.emailAddress;
         
+        self.testLengthStepper.value = self.studentToUpdate.defaultTestLength.doubleValue;
+        [self stepperUpdated:self.testLengthStepper];
+        self.passCriteriaStepper.value = self.studentToUpdate.defaultPassCriteria.doubleValue;
+        [self stepperUpdated:self.passCriteriaStepper];
+        
         self.title = [@"Edit " stringByAppendingString:self.studentToUpdate.firstName];
-        /*
-		NSNumber *dutll = [NSNumber numberWithDouble:self.updateUser.defaultPracticeTimeLimit];
-		self.userPracticeTimeLimitTF.text = [dutll stringValue];
-		dutll = [NSNumber numberWithDouble:self.updateUser.defaultTimedTimeLimit];
-		self.userTimedTimeLimitTF.text = [dutll stringValue];
-		dutll = [NSNumber numberWithInt:self.updateUser.delayRetake];
-		self.delayRetakeTF.text = [dutll stringValue];
-        self.userTypeSC.selectedSegmentIndex = self.updateUser.userType;
-        */
+
 	}//end editMode
     else 
         self.title = @"Create Student";
@@ -78,6 +78,10 @@
 
 - (void)viewDidUnload
 {
+    [self setTestLengthStepper:nil];
+    [self setPassCriteriaStepper:nil];
+    [self setTestLengthLabel:nil];
+    [self setPassCriteriaLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -131,6 +135,9 @@
     self.studentToUpdate.lastName = self.lastNameTF.text;
     self.studentToUpdate.password = self.passwordTF.text;
     self.studentToUpdate.emailAddress = self.emailAddressTF.text;
+    
+    self.studentToUpdate.defaultTestLength = [NSNumber numberWithDouble:self.testLengthStepper.value];
+    self.studentToUpdate.defaultPassCriteria = [NSNumber numberWithDouble:self.passCriteriaStepper.value];
     
     NSLog(@"Updated User: %@", self.studentToUpdate);
         
@@ -190,4 +197,12 @@
     return YES;
 }
 
+- (IBAction)stepperUpdated:(UIStepper*)sender {
+    if([sender isEqual:self.testLengthStepper]){
+        self.testLengthLabel.text = [NSNumber numberWithDouble:sender.value].stringValue;
+    }
+    else if([sender isEqual:self.passCriteriaStepper]){
+        self.passCriteriaLabel.text = [NSNumber numberWithDouble:sender.value].stringValue;
+    }
+}
 @end

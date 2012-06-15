@@ -41,8 +41,11 @@
             self.shareButton.enabled = self.editButton.enabled = YES;
             [self setupFetchedResultsController];
         }
-        else    //Disable
+        else {   //Disable and clear tableview
+            self.fetchedResultsController = nil;
+            [self.tableView reloadData];
             self.shareButton.enabled = self.editButton.enabled = NO;
+        }
     }
 }
 - (void)viewDidLoad
@@ -214,8 +217,10 @@
         QuestionSet *questionSet = [sectionArray lastObject];
         questionSetRequest.predicate = [NSPredicate predicateWithFormat:@"type == %@ AND NOT(SELF in %@)", questionSet.type, sectionArray];
         addTest.questionSetsToChoose = [self.student.managedObjectContext executeFetchRequest:questionSetRequest error:nil].mutableCopy;
-        addTest.minCorrectStepper.value = [self.student.defaultPassCriteria doubleValue];
-        addTest.testLengthStepper.value = [self.student.defaultTestLength doubleValue];
+        
+        //Update settings
+        addTest.passCriteriaSetting = self.student.defaultPassCriteria;
+        addTest.testLengthSetting = self.student.defaultTestLength;
         
         self.popover = [[UIPopoverController alloc] initWithContentViewController:addTest];
         [self.popover presentPopoverFromRect:selectedCell.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];

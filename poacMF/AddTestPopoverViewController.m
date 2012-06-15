@@ -19,7 +19,7 @@
 @synthesize questionSetPicker = _questionSetPicker;
 @synthesize delegate = _delegate;
 @synthesize minCorrectStepper = _minCorrectStepper, testLengthStepper = _testLengthStepper, minCorrectLabel = _minCorrectLabel, testLengthLabel = _testLengthLabel;
-
+@synthesize passCriteriaSetting = _passCriteriaSetting, testLengthSetting = _testLengthSetting;
 -(void) setQuestionSetsToChoose:(NSMutableArray *)questionSetsToChoose{
     _questionSetsToChoose = questionSetsToChoose;
     [self.questionSetPicker reloadAllComponents];
@@ -54,10 +54,17 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    self.contentSizeForViewInPopover = CGSizeMake(350, 350);
     
     //Update Stepper Labels
-    [self stepperUpdated:self.testLengthStepper];
-    [self stepperUpdated:self.minCorrectStepper];
+    if (self.testLengthSetting){
+        self.testLengthStepper.value = self.testLengthSetting.doubleValue;
+        [self stepperUpdated:self.testLengthStepper];
+    }
+    if (self.passCriteriaSetting) {
+        self.minCorrectStepper.value = self.passCriteriaSetting.doubleValue;
+        [self stepperUpdated:self.minCorrectStepper];
+    }
 }
 
 - (void)viewDidUnload

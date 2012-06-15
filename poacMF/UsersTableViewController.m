@@ -28,10 +28,6 @@
         _currentAdmin = currentAdmin;
         NSLog(@"Admin: %@",_currentAdmin);
         [self setupFetchedResultsController];
-        if (self.fetchedResultsController.fetchedObjects.count>0) {
-            [self.delegate didSelectObject:[self.fetchedResultsController.fetchedObjects objectAtIndex:0]];
-        }
-
     }
 }
 

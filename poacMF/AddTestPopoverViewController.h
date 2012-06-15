@@ -26,6 +26,11 @@
 @property (nonatomic, weak) IBOutlet UILabel* minCorrectLabel;
 @property (nonatomic, weak) IBOutlet UILabel* testLengthLabel;
 
+//Passed settings
+@property (nonatomic, strong) NSNumber* testLengthSetting;
+@property (nonatomic, strong) NSNumber* passCriteriaSetting;
+
+
 - (IBAction)addTestPressed:(id)sender;
 - (IBAction)stepperUpdated:(id)sender;
 

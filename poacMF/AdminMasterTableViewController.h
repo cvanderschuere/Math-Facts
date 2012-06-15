@@ -21,7 +21,7 @@
 -(IBAction)logout:(id)sender;
 
 
-@property (nonatomic, weak) id<AdminSplitViewCommunicationDelegate> delegate;
+@property (nonatomic, weak) IBOutlet id<AdminSplitViewCommunicationDelegate> delegate;
 
 
 @end
