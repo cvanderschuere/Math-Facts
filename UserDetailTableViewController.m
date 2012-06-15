@@ -32,7 +32,7 @@
 -(void) setStudent:(Student *)student{
     if (![_student isEqual:student]) {
         _student = student;
-        
+        NSLog(@"Student: %@",_student);
         //Set Title and setup observer
         self.title = _student.firstName;
         
@@ -263,6 +263,7 @@
         newTest.passCriteria = self.student.defaultPassCriteria;
         [self.student addTestsObject:newTest];
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SaveDatabase" object:nil];
 }
 -(void) didAddTestForQuestionSet:(QuestionSet *)qSet minCorrect:(int)minCorrect length:(NSTimeInterval)length{
     [self.popover dismissPopoverAnimated:YES];

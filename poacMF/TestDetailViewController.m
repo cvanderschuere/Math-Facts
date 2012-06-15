@@ -8,14 +8,17 @@
 
 #import "TestDetailViewController.h"
 #import "Result.h"
+#import "AdjustTestPopoverViewController.h"
 
 @interface TestDetailViewController ()
 
 @property (nonatomic, strong) NSMutableArray* results;
+@property (nonatomic, strong) UIPopoverController *popover;
 
 @end
 
 @implementation TestDetailViewController
+@synthesize popover = _popover;
 @synthesize test = _test;
 @synthesize resultsTableView = _resultsTableView;
 @synthesize results = _results;
@@ -45,6 +48,9 @@
     [super viewDidLoad];
     [self constructBarChart];
 	// Do any additional setup after loading the view.
+}
+-(void) viewWillDisappear:(BOOL)animated{
+    [self.popover dismissPopoverAnimated:animated];
 }
 - (void)viewDidUnload
 {
@@ -234,4 +240,16 @@
     return @"Results";
 }
 
+- (IBAction)adjustTestPressed:(id)sender {
+    if (self.popover.isPopoverVisible) {
+        return [self.popover dismissPopoverAnimated:YES];
+    }
+    //Create view from storyboard and present
+    AdjustTestPopoverViewController* adjustVC = [self.storyboard instantiateViewControllerWithIdentifier:@"adjustTestPopoverViewController"];
+    adjustVC.testToAdjust = self.test;
+    self.popover = [[UIPopoverController alloc] initWithContentViewController:adjustVC];
+    [self.popover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    
+    
+}
 @end

@@ -42,6 +42,7 @@
 	 Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
 	 If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 	 */
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self saveDatabase];
 }//end method
 
@@ -55,6 +56,7 @@
 	/*
 	 Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 	 */
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveDatabase) name:@"SaveDatabase" object:nil];
 }//end method
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -68,7 +70,7 @@
 -(void) setupDatabase{
     NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     url = [url URLByAppendingPathComponent:@"database"];
-    self.database = [[UIManagedDocument alloc] initWithFileURL:url];
+    self.database = [[SPManagedDocument alloc] initWithFileURL:url];
     
     // Set the persistent store options to point to the cloud
     //Things to add for iCloud:  PrivateName, NSPersistentStoreUbiquitousContentNameKey,cloudURL, NSPersistentStoreUbiquitousContentURLKey,
@@ -90,8 +92,8 @@
                     if (succeed)
                         [self.database openWithCompletionHandler:^(BOOL success){
                             if (succeed) {
-                                [self addInitalData:self.database];
                                 [self setReadyToLogin:YES];
+                                [self addInitalData:self.database];
                             }
                         }];
                 }];
@@ -117,7 +119,7 @@
         loginVC.readyToLogin = ready;
     } 
 }
--(void) addInitalData:(UIManagedDocument*)document{
+-(void) addInitalData:(SPManagedDocument*)document{
     [document.managedObjectContext performBlockAndWait:^{
     
         //Load information for plist
@@ -133,6 +135,7 @@
                 [createdAdmins addObject:newAdmin];
             }
         }
+        
         //Add inital Students
         NSArray* seedStudents = [seedDict objectForKey:@"Students"];
         NSMutableArray *createdStudents = [NSMutableArray arrayWithCapacity:seedStudents.count];
@@ -144,7 +147,6 @@
                 [createdStudents addObject:newStudent];
             }
         }
-        
         
         //Add inital question set to new admins
         NSArray* seedQuestionSets = [seedDict objectForKey:@"Questions Sets"];
@@ -165,7 +167,7 @@
                 for (NSArray* question in [questionSet objectForKey:@"questions"]) {
                     Question* newQuestion = [NSEntityDescription insertNewObjectForEntityForName:@"Question" inManagedObjectContext:document.managedObjectContext];
                     
-                    // -1 signifies the black in the question
+                    // nil signifies the blank in the question
                     newQuestion.x = [[question objectAtIndex:0] intValue]>=0?[question objectAtIndex:0]:nil;
                     newQuestion.y = [[question objectAtIndex:1] intValue]>=0?[question objectAtIndex:1]:nil;
                     newQuestion.z = [[question objectAtIndex:2] intValue]>=0?[question objectAtIndex:2]:nil;
@@ -179,6 +181,8 @@
             }];
         }
     }];
+    //Save
+    [self saveDatabase];
 }
 
 -(void) saveDatabase{

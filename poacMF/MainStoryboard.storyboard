@@ -1219,14 +1219,86 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="ENA-hA-1lV"/>
+                    <navigationItem key="navigationItem" id="ENA-hA-1lV">
+                        <barButtonItem key="rightBarButtonItem" title="Adjust" id="tly-dI-4oo">
+                            <connections>
+                                <action selector="adjustTestPressed:" destination="uB6-5h-3c5" id="EwQ-8S-6Oc"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="graphView" destination="d1d-e1-vIy" id="RGW-HH-141"/>
                         <outlet property="resultsTableView" destination="TJZ-1x-cHO" id="ioe-0X-EtH"/>
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1705" y="-2958"/>
+            <point key="canvasLocation" x="1774" y="-2965"/>
+        </scene>
+        <!--Adjust Test Popover View Controller-->
+        <scene sceneID="Ubc-0T-DQM">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Kzi-aV-LW9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="adjustTestPopoverViewController" id="YiW-Lk-YqV" customClass="AdjustTestPopoverViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DdA-eD-bgt">
+                        <rect key="frame" x="0.0" y="20" width="320" height="120"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Pass Criteria:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Mgd-aP-Jbp">
+                                <rect key="frame" x="6" y="10" width="133" height="39"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="40" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Ub3-qX-UwX">
+                                <rect key="frame" x="153" y="10" width="34" height="39"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stepper opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" id="Giw-ou-5bL">
+                                <rect key="frame" x="212" y="16" width="94" height="27"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="stepperValueChanged:" destination="YiW-Lk-YqV" eventType="valueChanged" id="ejm-aR-HXc"/>
+                                </connections>
+                            </stepper>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Test Length:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="KX0-R4-NHy">
+                                <rect key="frame" x="6" y="61" width="133" height="39"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="60" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="hgn-cl-0XU">
+                                <rect key="frame" x="153" y="61" width="34" height="39"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stepper opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" id="JPV-jo-HhG">
+                                <rect key="frame" x="212" y="67" width="94" height="27"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="stepperValueChanged:" destination="YiW-Lk-YqV" eventType="valueChanged" id="OHT-sN-7Nw"/>
+                                </connections>
+                            </stepper>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="320" height="120"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="passCriteriaLabel" destination="Ub3-qX-UwX" id="F4w-Iq-4SJ"/>
+                        <outlet property="passCriteriaStepper" destination="Giw-ou-5bL" id="C2N-9B-cAk"/>
+                        <outlet property="testLengthLabel" destination="hgn-cl-0XU" id="ST5-Ye-DGQ"/>
+                        <outlet property="testLengthStepper" destination="JPV-jo-HhG" id="Ic3-3u-hsM"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="2624" y="-2931"/>
         </scene>
         <!--Add Test Popover View Controller-->
         <scene sceneID="CXX-JO-Otp">
@@ -1859,6 +1931,16 @@
                 <relationship kind="outlet" name="testLengthStepper" candidateClass="UIStepper"/>
             </relationships>
         </class>
+        <class className="AdjustTestPopoverViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AdjustTestPopoverViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="stepperValueChanged:"/>
+                <relationship kind="outlet" name="passCriteriaLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="passCriteriaStepper" candidateClass="UIStepper"/>
+                <relationship kind="outlet" name="testLengthLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="testLengthStepper" candidateClass="UIStepper"/>
+            </relationships>
+        </class>
         <class className="AdminMasterTableViewController" superclassName="CoreDataTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AdminMasterTableViewController.h"/>
             <relationships>
@@ -1938,6 +2020,7 @@
         <class className="TestDetailViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TestDetailViewController.h"/>
             <relationships>
+                <relationship kind="action" name="adjustTestPressed:"/>
                 <relationship kind="outlet" name="graphView" candidateClass="CPTGraphHostingView"/>
                 <relationship kind="outlet" name="resultsTableView" candidateClass="UITableView"/>
             </relationships>

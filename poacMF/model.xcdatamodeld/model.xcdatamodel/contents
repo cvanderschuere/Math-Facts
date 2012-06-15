@@ -65,11 +65,11 @@
     <elements>
         <element name="Administrator" positionX="-216" positionY="-288" width="128" height="75"/>
         <element name="Practice" positionX="90" positionY="57" width="128" height="105"/>
-        <element name="Question" positionX="457" positionY="261" width="128" height="105"/>
+        <element name="Question" positionX="162" positionY="270" width="128" height="105"/>
         <element name="QuestionSet" positionX="214" positionY="-315" width="128" height="135"/>
         <element name="Result" positionX="-263" positionY="216" width="128" height="150"/>
         <element name="Student" positionX="-443" positionY="-108" width="128" height="135"/>
-        <element name="Test" positionX="-83" positionY="-171" width="128" height="150"/>
+        <element name="Test" positionX="-45" positionY="-123" width="128" height="150"/>
         <element name="User" positionX="-441" positionY="-306" width="128" height="120"/>
     </elements>
 </model>

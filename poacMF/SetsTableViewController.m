@@ -74,7 +74,7 @@
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"QuestionSet"];
     request.sortDescriptors = [NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:@"type" ascending:YES selector:@selector(compare:)],[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)],[NSSortDescriptor sortDescriptorWithKey:@"difficultyLevel" ascending:YES selector:@selector(compare:)],nil];
-    request.predicate = [NSPredicate predicateWithFormat:@"administrator == %@",self.currentAdmin];
+    //request.predicate = [NSPredicate predicateWithFormat:@"administrator == %@ OR SELF in %@",self.currentAdmin, self.currentAdmin.questionSets];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.currentAdmin.managedObjectContext

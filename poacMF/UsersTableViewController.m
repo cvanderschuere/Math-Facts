@@ -31,6 +31,7 @@
         if (self.fetchedResultsController.fetchedObjects.count>0) {
             [self.delegate didSelectObject:[self.fetchedResultsController.fetchedObjects objectAtIndex:0]];
         }
+
     }
 }
 
@@ -47,7 +48,6 @@
     
     UIBarButtonItem* flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     self.toolbarItems = [NSArray arrayWithObjects:flexibleSpace,[[UIBarButtonItem alloc] initWithCustomView:segControl],flexibleSpace, nil];
-    
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -81,15 +81,13 @@
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Student"];
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]];
-    request.predicate = [NSPredicate predicateWithFormat:@"administrator == %@",self.currentAdmin];
+    //request.predicate = [NSPredicate predicateWithFormat:@"administrator == %@ OR SELF in %@",self.currentAdmin,self.currentAdmin.students];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.currentAdmin.managedObjectContext
                                                                           sectionNameKeyPath:nil
                                                                                    cacheName:nil];
-    
-    NSLog(@"Any Student Admin: %@", self.currentAdmin.managedObjectContext.description);
-}
+    }
 
 
 #pragma mark - Table view data source

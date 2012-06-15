@@ -19,7 +19,7 @@
 
 }
 @property (nonatomic, strong) UIWindow *window;
-@property (nonatomic, strong)  UIManagedDocument* database;
+@property (nonatomic, strong)  SPManagedDocument* database;
 @property (nonatomic, strong)	User		*currentUser;
 
 

@@ -80,8 +80,8 @@
         else if(users.count == 1){
             NSLog(@"Does not match ANY user");
         }
-        else {
-            NSLog(@"Error: Matches more than 1 admin");
+        else{
+            NSLog(@"Error: Matches %d admin",users.count);
         }
 	}
     else {

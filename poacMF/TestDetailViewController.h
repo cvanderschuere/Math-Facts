@@ -14,5 +14,7 @@
 @property (nonatomic, strong) Test* test;
 @property (nonatomic, weak) IBOutlet UITableView* resultsTableView;
 @property (nonatomic, weak) IBOutlet CPTGraphHostingView *graphView;
+- (IBAction)adjustTestPressed:(id)sender;
+
 
 @end
