@@ -28,12 +28,16 @@
         <relationship name="administrator" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Administrator" inverseName="questionSets" inverseEntity="Administrator" syncable="YES"/>
         <relationship name="questions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Question" inverseName="questionSet" inverseEntity="Question" syncable="YES"/>
     </entity>
+    <entity name="Response" representedClassName="Response" syncable="YES">
+        <attribute name="answer" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="question" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Question" syncable="YES"/>
+    </entity>
     <entity name="Result" representedClassName="Result" syncable="YES">
         <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="isPractice" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
-        <relationship name="questionsCorrect" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Question" syncable="YES"/>
-        <relationship name="questionsIncorrect" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Question" syncable="YES"/>
+        <relationship name="correctResponses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Response" syncable="YES"/>
+        <relationship name="incorrectResponses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Response" syncable="YES"/>
         <relationship name="student" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Student" inverseName="results" inverseEntity="Student" syncable="YES"/>
         <relationship name="test" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Test" inverseName="results" inverseEntity="Test" syncable="YES"/>
     </entity>
@@ -72,5 +76,6 @@
         <element name="Student" positionX="-443" positionY="-108" width="128" height="135"/>
         <element name="Test" positionX="-45" positionY="-117" width="128" height="150"/>
         <element name="User" positionX="-443" positionY="-300" width="128" height="120"/>
+        <element name="Response" positionX="216" positionY="303" width="128" height="75"/>
     </elements>
 </model>

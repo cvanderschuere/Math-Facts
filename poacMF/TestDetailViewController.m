@@ -149,8 +149,8 @@
     [self.resultsTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];;
 }
 -(float) percentageCorrectForResult:(Result*)result{
-    float correct = result.questionsCorrect.count;
-    float incorrect = result.questionsIncorrect.count;
+    float correct = result.correctResponses.count;
+    float incorrect = result.incorrectResponses.count;
     float percentageCorrect = correct/(correct + incorrect);
     percentageCorrect *=100;
     return percentageCorrect;

@@ -1719,7 +1719,7 @@
                     <view key="view" contentMode="scaleToFill" id="QqU-Fz-jyy">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" title="Subject" id="ZKF-Q0-N5k">
                         <barButtonItem key="backBarButtonItem" title="Subjects" id="2NP-md-zS0"/>

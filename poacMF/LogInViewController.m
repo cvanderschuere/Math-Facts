@@ -141,8 +141,8 @@
 
 -(void) viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:YES];
-	self.userNameTextField.text = @"admin";
-	self.passwordTextField.text = @"poacmf";
+	self.userNameTextField.text = @"chris";
+	self.passwordTextField.text = @"test";
 }//end method
 
 #pragma mark Rotation

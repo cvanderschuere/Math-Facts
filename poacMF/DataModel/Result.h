@@ -2,36 +2,37 @@
 //  Result.h
 //  poacMF
 //
-//  Created by Chris Vanderschuere on 07/06/2012.
+//  Created by Chris Vanderschuere on 15/06/2012.
 //  Copyright (c) 2012 Matt Hunter. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "Response.h"
 
-@class Question, Student, Test;
+@class Student, Test, Response;
 
 @interface Result : NSManagedObject
 
-@property (nonatomic, retain) NSDate * startDate;
 @property (nonatomic, retain) NSDate * endDate;
 @property (nonatomic, retain) NSNumber * isPractice;
-@property (nonatomic, retain) Test *test;
-@property (nonatomic, retain) NSSet *questionsCorrect;
-@property (nonatomic, retain) NSSet *questionsIncorrect;
+@property (nonatomic, retain) NSDate * startDate;
+@property (nonatomic, retain) NSSet *correctResponses;
+@property (nonatomic, retain) NSSet *incorrectResponses;
 @property (nonatomic, retain) Student *student;
+@property (nonatomic, retain) Test *test;
 @end
 
 @interface Result (CoreDataGeneratedAccessors)
 
-- (void)addQuestionsCorrectObject:(Question *)value;
-- (void)removeQuestionsCorrectObject:(Question *)value;
-- (void)addQuestionsCorrect:(NSSet *)values;
-- (void)removeQuestionsCorrect:(NSSet *)values;
+- (void)addCorrectResponsesObject:(Response *)value;
+- (void)removeCorrectResponsesObject:(Response *)value;
+- (void)addCorrectResponses:(NSSet *)values;
+- (void)removeCorrectResponses:(NSSet *)values;
 
-- (void)addQuestionsIncorrectObject:(Question *)value;
-- (void)removeQuestionsIncorrectObject:(Question *)value;
-- (void)addQuestionsIncorrect:(NSSet *)values;
-- (void)removeQuestionsIncorrect:(NSSet *)values;
+- (void)addIncorrectResponsesObject:(Response *)value;
+- (void)removeIncorrectResponsesObject:(Response *)value;
+- (void)addIncorrectResponses:(NSSet *)values;
+- (void)removeIncorrectResponses:(NSSet *)values;
 
 @end

@@ -28,8 +28,8 @@
     self.title = [NSDateFormatter localizedStringFromDate:_result.startDate dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle];
     
     //Reload data
-    self.questionsCorrect = _result.questionsCorrect.allObjects.mutableCopy;
-    self.questionsIncorrect = _result.questionsIncorrect.allObjects.mutableCopy;
+    self.questionsCorrect = _result.correctResponses.allObjects.mutableCopy;
+    self.questionsIncorrect = _result.incorrectResponses.allObjects.mutableCopy;
     [self.tableView reloadData];
 }
 
@@ -85,12 +85,11 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     // Configure the cell...
-    Question *question = indexPath.section == 0?[self.questionsCorrect objectAtIndex:indexPath.row]:[self.questionsIncorrect objectAtIndex:indexPath.row];
+    Response *response = indexPath.section == 0?[self.questionsCorrect objectAtIndex:indexPath.row]:[self.questionsIncorrect objectAtIndex:indexPath.row];
     
     //Format for question
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ %@ %@ = %@",question.x?question.x.stringValue:@"__",question.questionSet.typeSymbol,question.y?question.y.stringValue:@"__",question.z?question.z.stringValue:@"__"];
-    cell.detailTextLabel.text = nil;//TODO: Add answer
-    
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ %@ %@ = %@",response.question.x?response.question.x.stringValue:@"__",response.question.questionSet.typeSymbol,response.question.y?response.question.y.stringValue:@"__",response.question.z?response.question.z.stringValue:@"__"];
+    cell.detailTextLabel.text = response.answer;    
     return cell;
 }
 -(NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{

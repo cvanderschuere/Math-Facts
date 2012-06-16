@@ -244,14 +244,19 @@
     NSNumber * answer = [formatter numberFromString:givenAnswer];
     
     if ([answer compare:actualAnswer] == NSOrderedSame) {
-        //Correct Answer
-        [self.result addQuestionsCorrectObject:[self.questionsToAsk lastObject]];
+        //Create Response
+        Response *correctResponse = [NSEntityDescription insertNewObjectForEntityForName:@"Response" inManagedObjectContext:self.result.managedObjectContext];
+        correctResponse.question = [self.questionsToAsk lastObject];
+        correctResponse.answer = givenAnswer;
+        [self.result addCorrectResponsesObject:correctResponse];
         
     }
     else {
         //Incorrect Answer
-        [self.result addQuestionsIncorrectObject:[self.questionsToAsk lastObject]];
-
+        Response *incorrectResponse = [NSEntityDescription insertNewObjectForEntityForName:@"Response" inManagedObjectContext:self.result.managedObjectContext];
+        incorrectResponse.question = [self.questionsToAsk lastObject];
+        incorrectResponse.answer = givenAnswer;
+        [self.result addIncorrectResponsesObject:incorrectResponse];
     }
     
     [self checkPassConditions];

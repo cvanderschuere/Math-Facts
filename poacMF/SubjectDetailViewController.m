@@ -9,6 +9,7 @@
 #import "SubjectDetailViewController.h"
 #import "TestViewController.h"
 #import "Test.h"
+#import "TestSelectCell.h"
 
 @interface SubjectDetailViewController ()
 
@@ -61,6 +62,11 @@
     }
     
     [self.view addSubview: self.gridView];
+}
+-(void) viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    //Reload with new scores
     [self.gridView reloadData];
 
 }
@@ -94,11 +100,12 @@
         return ( hiddenCell );
     }
     
-    AQGridViewCell * cell = (AQGridViewCell *)[gridView dequeueReusableCellWithIdentifier: CellIdentifier];
+    TestSelectCell * cell = (TestSelectCell *)[gridView dequeueReusableCellWithIdentifier: CellIdentifier];
     if ( cell == nil )
     {
-        cell = [[AQGridViewCell alloc] initWithFrame: CGRectMake(0.0, 0.0, 120, 120)
+        cell = [[TestSelectCell alloc] initWithFrame: CGRectMake(0.0, 0.0, 120, 120)
                                      reuseIdentifier: CellIdentifier];
+        /*
         UIView *colorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 120, 120)];
         colorView.backgroundColor = [UIColor blackColor];
         UILabel *levelLabel = [[UILabel alloc] initWithFrame:colorView.frame];
@@ -109,9 +116,43 @@
         levelLabel.tag = 2;
         [colorView addSubview:levelLabel];
         [cell.contentView addSubview:colorView];
+         */
     }
-    UILabel *label = [cell.contentView viewWithTag:2];
-    label.text = [NSString stringWithFormat:@"%d", index+1];
+    Test* test = [self.subjectTests objectAtIndex:index];
+    cell.difficultyLevel = [NSNumber numberWithInt:test.questionSet.difficultyLevel.intValue +1];
+    
+    //Calculate Pass level
+    if (test.results.count>0) {
+        int maxCorrect = 0;
+        for (Result* result in test.results) {
+            if (result.correctResponses.count>maxCorrect) {
+                maxCorrect = result.correctResponses.count;
+            }
+        }
+        
+        if (maxCorrect>=test.passCriteria.intValue) {
+            if (maxCorrect>=test.passCriteria.intValue * 1.2) {
+                //is 20% greater
+                cell.passedLevel = [NSNumber numberWithInt:3];
+            }
+            else if (maxCorrect>=test.passCriteria.intValue * 1.1) {
+                //is 10% greater
+                cell.passedLevel = [NSNumber numberWithInt:2];
+            }
+            else {
+                //Just passed
+                cell.passedLevel = [NSNumber numberWithInt:1];
+            }
+        }
+        else {
+            //Hasn't passed yet
+            cell.passedLevel = [NSNumber numberWithInt:0];
+        }
+        
+    }
+    else {
+        cell.passedLevel = [NSNumber numberWithInt:0];
+    }
     
     return ( cell );
 }
