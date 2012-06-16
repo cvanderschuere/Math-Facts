@@ -7,7 +7,6 @@
 //
 
 #import "SubjectDetailViewController.h"
-#import "TestViewController.h"
 #import "Test.h"
 #import "TestSelectCell.h"
 
@@ -184,6 +183,7 @@
         //Pass test to TestVC
         Test *selectedTest = [self.subjectTests objectAtIndex:[sender selectedIndex]];
         NSLog(@"Selected Test: %@",selectedTest.questionSet.name);
+        [segue.destinationViewController setDelegate:self];
         [segue.destinationViewController setTest:selectedTest];
     }
 }
@@ -216,6 +216,19 @@
     }
 }
 
+#pragma mark - Test Result Delegate
+-(void) didFinishTest:(Test*)finishedTest withResult:(Result*)result{
+    BOOL passed = finishedTest.passCriteria.intValue <= result.correctResponses.count;
+    
+    int totalQuestions = result.correctResponses.count + result.incorrectResponses.count;
+    
+    //Create UIAlertView to present information
+    UIAlertView *finishedTestAlert = [[UIAlertView alloc] initWithTitle:passed?@"Good Work":@"Try Again" 
+                                                                message:passed?[NSString stringWithFormat:@"You got %d questions correct!",result.correctResponses.count]:[NSString stringWithFormat:@"You need to get %d more questions right next time",finishedTest.passCriteria.intValue - result.correctResponses.count]
+                                                               delegate:nil 
+                                                      cancelButtonTitle:@"Close" otherButtonTitles:nil];
+    [finishedTestAlert show];
+}
 
 
 @end

@@ -7,10 +7,10 @@
 //
 
 #import "AEUserTableViewController.h"
-#import "User.h"
 #import "PoacMFAppDelegate.h"
 #import "AppConstants.h"
 #import "AppLibrary.h"
+#import "Test.h"
 
 @interface AEUserTableViewController ()
 
@@ -136,8 +136,21 @@
     self.studentToUpdate.password = self.passwordTF.text;
     self.studentToUpdate.emailAddress = self.emailAddressTF.text;
     
-    self.studentToUpdate.defaultTestLength = [NSNumber numberWithDouble:self.testLengthStepper.value];
-    self.studentToUpdate.defaultPassCriteria = [NSNumber numberWithDouble:self.passCriteriaStepper.value];
+    
+    //Update all current tests to new values if changed
+    if (self.studentToUpdate.defaultTestLength.doubleValue != self.testLengthStepper.value) {
+        self.studentToUpdate.defaultTestLength = [NSNumber numberWithDouble:self.testLengthStepper.value];
+        for (Test* test in self.studentToUpdate.tests) {
+            test.testLength = [NSNumber numberWithDouble:self.testLengthStepper.value];
+        }
+
+    }
+    if (self.studentToUpdate.defaultPassCriteria.doubleValue != self.passCriteriaStepper.value) {
+        self.studentToUpdate.defaultPassCriteria = [NSNumber numberWithDouble:self.passCriteriaStepper.value];
+        for (Test* test in self.studentToUpdate.tests) {
+            test.passCriteria = [NSNumber numberWithDouble:self.passCriteriaStepper.value];
+        }
+    }
     
     NSLog(@"Updated User: %@", self.studentToUpdate);
         

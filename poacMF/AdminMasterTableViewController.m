@@ -10,18 +10,25 @@
 
 @interface AdminMasterTableViewController ()
 
+@property (nonatomic, strong) UIActionSheet* popupQuery;
+
 @end
 
 @implementation AdminMasterTableViewController
 @synthesize delegate = _delegate;
+@synthesize popupQuery = _popupQuery;
 
 -(IBAction)logout:(id)sender{
+    //Dismiss if visible
+    if(self.popupQuery.visible)
+        return [self.popupQuery dismissWithClickedButtonIndex:-1 animated:YES];
+    
     //Show action sheet to confrim logout
-    UIActionSheet *popupQuery = [[UIActionSheet alloc] initWithTitle:@"Logout?" 
+    self.popupQuery = [[UIActionSheet alloc] initWithTitle:@"Logout?" 
                                                             delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"Logout" 
                                                    otherButtonTitles:@"Cancel", nil, nil];
-    popupQuery.actionSheetStyle = UIActionSheetStyleBlackOpaque;
-    [popupQuery showFromBarButtonItem:sender animated:YES];
+    self.popupQuery.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+    [self.popupQuery showFromBarButtonItem:sender animated:YES];
 }
 -(void) actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 0) {
@@ -32,6 +39,12 @@
 
 -(IBAction)toggleEditMode:(id)sender{
     self.tableView.editing = !self.tableView.editing;
+}
+
+-(void) viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    
+    [self.popupQuery dismissWithClickedButtonIndex:-1 animated:animated];
 }
 
 @end

@@ -9,10 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "Test.h"
 
+@protocol TestResultProtocol <NSObject>
+
+-(void) didFinishTest:(Test*)finishedTest withResult:(Result*)result;
+
+@end
+
 @interface TestViewController : UIViewController <UIActionSheetDelegate>
 
 @property (nonatomic, strong) Test* test;
 @property (nonatomic, strong) NSMutableArray *questionsToAsk;
+@property (nonatomic, strong) id<TestResultProtocol> delegate;
 
 //UI
 @property (weak, nonatomic) IBOutlet UILabel *questionsLabel;

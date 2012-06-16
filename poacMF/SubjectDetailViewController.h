@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "AQGridView.h"
+#import "TestViewController.h"
 
-
-@interface SubjectDetailViewController : UIViewController <AQGridViewDataSource, AQGridViewDelegate, UIActionSheetDelegate>{
+@interface SubjectDetailViewController : UIViewController <AQGridViewDataSource, AQGridViewDelegate, UIActionSheetDelegate, TestResultProtocol>{
     NSUInteger _emptyCellIndex;
     
 }

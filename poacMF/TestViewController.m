@@ -16,6 +16,7 @@
 
 @property (nonatomic, strong) Result* result;
 @property (nonatomic, strong) NSTimer* updateTimer;
+@property (nonatomic, strong) UIActionSheet *quitSheet;
 
 @end
 
@@ -30,7 +31,9 @@
 @synthesize verticalLine = _verticalLine;
 
 @synthesize test = _test, questionsToAsk = _questionsToAsk, result = _result;
-@synthesize updateTimer = _updateTimer;;
+@synthesize updateTimer = _updateTimer;
+@synthesize delegate = _delegate;
+@synthesize quitSheet = _quitSheet;
 
 -(void) setTest:(Test *)test{
     if (![_test isEqual:test]) {
@@ -61,36 +64,29 @@
     if (self.test.questionSet.type.intValue == QUESTION_TYPE_MATH_DIVISION) {
         //Setup for divsion symbol
         //Setup for vertical problem
-        if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
-            self.xLabel.center = CGPointMake(524, 235);
-            self.yLabel.center = CGPointMake(300, 233);
-            self.zLabel.center = CGPointMake(524, 116);
-            self.horizontalLine.center = CGPointMake(524, 174);
-        }
-        else if(UIInterfaceOrientationIsPortrait(self.interfaceOrientation)){
-            self.xLabel.center = CGPointMake(400, 152);
-            self.yLabel.center = CGPointMake(400, 218);
-            self.zLabel.center = CGPointMake(400, 318);
-            self.horizontalLine.center = CGPointMake(400, 266);
-        }
+        self.xLabel.frame = CGRectMake(318, 202, 132, 62);
+        self.yLabel.frame = CGRectMake(151, 198, 132, 66);
+        self.zLabel.frame = CGRectMake(318, 83, 132,68);
+        self.horizontalLine.frame = CGRectMake(258, 164, 252,19);
+        
         self.verticalLine.hidden = NO;
         self.mathOperatorSymbol.hidden = YES;
         
     }
     else {
         //Setup for vertical problem
-        if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
+        /*if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
             self.xLabel.center = CGPointMake(385, 152);
             self.yLabel.center = CGPointMake(385, 218);
             self.zLabel.center = CGPointMake(385, 318);
             self.horizontalLine.center = CGPointMake(385, 266);
         }
-        else if(UIInterfaceOrientationIsPortrait(self.interfaceOrientation)){
+        else if(UIInterfaceOrientationIsPortrait(self.interfaceOrientation)){*/
             self.xLabel.center = CGPointMake(400, 152);
             self.yLabel.center = CGPointMake(400, 218);
             self.zLabel.center = CGPointMake(400, 318);
             self.horizontalLine.center = CGPointMake(400, 266);
-        }
+        //}
         self.verticalLine.hidden = YES;
         self.mathOperatorSymbol.hidden = NO;
         switch (self.test.questionSet.type.intValue) {
@@ -108,6 +104,9 @@
         }        
     }
     
+    //Clear labels
+    self.xLabel.text = self.yLabel.text = self.zLabel.text = self.timeLabel.text = nil;
+    
 }
 
 -(void) viewDidAppear:(BOOL)animated{
@@ -115,6 +114,9 @@
     UIActionSheet *startTestSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"Quit" otherButtonTitles:@"Start", nil];
     [startTestSheet showInView:self.view];
 
+}
+-(void) viewWillDisappear:(BOOL)animated{
+    [self.quitSheet dismissWithClickedButtonIndex:-1 animated:animated];
 }
 #pragma mark - Test Flow Methods
 -(void) startTest{
@@ -137,7 +139,6 @@
     NSTimeInterval interval = [self.result.endDate timeIntervalSinceNow];
     if (interval<=0) {
         //Test has finished
-        [self.updateTimer invalidate];
         [self endSessionWithTimer:YES];
     }
     else {
@@ -268,6 +269,9 @@
     
 }
 -(void) endSessionWithTimer:(BOOL)endedWithTimer{
+    
+    [self.updateTimer invalidate]; //Stop timer
+
     if (!endedWithTimer) {
         self.result.endDate = [NSDate date]; //Used if test is stopped short
     }
@@ -275,6 +279,11 @@
     [[UIApplication sharedApplication].delegate performSelector:@selector(saveDatabase)];    
     
     [self.navigationController popViewControllerAnimated:YES];
+    
+    //Show Stats if test started
+    if (self.result) {
+        [self.delegate didFinishTest:self.test withResult:self.result];
+    }
 }
 #pragma mark - IBActions
 -(IBAction)digitPressed:(id)sender{
@@ -303,8 +312,11 @@
 		[self evaluateGivenAnswer:answerLabel.text  withActualAnswer:actualAnswer];
 }
 -(IBAction)quitTest:(id)sender{
-    UIActionSheet *startTestSheet = [[UIActionSheet alloc] initWithTitle:NULL delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"Quit" otherButtonTitles: nil];
-    [startTestSheet showFromBarButtonItem:sender animated:YES];
+    if (self.quitSheet.visible)
+        return [self.quitSheet dismissWithClickedButtonIndex:-1 animated:YES];
+    
+    self.quitSheet = [[UIActionSheet alloc] initWithTitle:NULL delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"Quit" otherButtonTitles: nil];
+    [self.quitSheet showFromBarButtonItem:sender animated:YES];
 
 }
 #pragma mark - UIActionSheet Delegate
