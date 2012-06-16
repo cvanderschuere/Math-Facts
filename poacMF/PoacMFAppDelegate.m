@@ -25,7 +25,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [TestFlight takeOff:@"697945e1548f653ac921aafc40670040_MTAwMzE3MjAxMi0wNi0xNCAyMDowNTozMi4zMjk2NDg"];
+    //[TestFlight takeOff:@"697945e1548f653ac921aafc40670040_MTAwMzE3MjAxMi0wNi0xNCAyMDowNTozMi4zMjk2NDg"];
     [self setupDatabase];
 	return YES;
 }//end method
@@ -161,6 +161,7 @@
                 qSet.name = [questionSet objectForKey:@"name"];
                 qSet.type = setType;
                 qSet.difficultyLevel = [NSNumber numberWithInt:idx];
+                NSLog(@"%@: %@",qSet.name,qSet.difficultyLevel);
                 
                 //Set through each question
                 [[questionSet objectForKey:@"questions"] enumerateObjectsUsingBlock:^(NSArray* question, NSUInteger idx, BOOL *stop){
@@ -180,7 +181,10 @@
         }
     }];
     //Save
-    [self saveDatabase];
+    [document saveToURL:self.database.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:^(BOOL success){
+        NSLog(@"Save (Save Document) %@",success?@"Successful":@"Unsuccessful");
+    }];
+
 }
 
 -(void) saveDatabase{

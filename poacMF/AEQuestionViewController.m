@@ -53,39 +53,35 @@
     
 }
 - (IBAction)stepperUpdate:(UIStepper*)sender {
-    //Check if all blanks filled
-    if (self.xStepper.value > -1 && self.yStepper.value > -1 && self.zStepper.value > -1) {
-        //Dont allow sender to change to blank
-        sender.value = -1;
-        return;
+    //Update labels
+    if ([sender isEqual:self.xStepper]) {
+        self.xLabel.text = self.xStepper.value != -1?[NSNumber numberWithDouble:self.xStepper.value].stringValue:@"__";
     }
-    else {
-        //Update labels
-        if ([sender isEqual:self.xStepper]) {
-            self.xLabel.text = self.xStepper.value != -1?[NSNumber numberWithDouble:self.xStepper.value].stringValue:@"__";
-        }
-        else if ([sender isEqual:self.yStepper]) {
-            self.yLabel.text = self.yStepper.value != -1?[NSNumber numberWithDouble:self.yStepper.value].stringValue:@"__";
-        }
-        else if ([sender isEqual:self.zStepper]) {
-            self.zLabel.text = self.zStepper.value != -1?[NSNumber numberWithDouble:self.zStepper.value].stringValue:@"__";
-        }
-        
+    else if ([sender isEqual:self.yStepper]) {
+        self.yLabel.text = self.yStepper.value != -1?[NSNumber numberWithDouble:self.yStepper.value].stringValue:@"__";
     }
-    
+    else if ([sender isEqual:self.zStepper]) {
+        self.zLabel.text = self.zStepper.value != -1?[NSNumber numberWithDouble:self.zStepper.value].stringValue:@"__";
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     
-    //Check if for proper blank count
+    //Check if more than one blank
 	AppLibrary *al = [[AppLibrary alloc] init];
     if ((self.xStepper.value == -1 && self.yStepper.value == -1)||(self.xStepper.value == -1 && self.zStepper.value == -1)||(self.zStepper.value == -1 && self.yStepper.value == -1)){
 		NSString *msg = @"Too many blanks in question";
 		[al showAlertFromDelegate:nil withWarning:msg];
 		return;
 	}//end if
+    //Check if no blanks
+    else if(self.xStepper.value > -1 && self.yStepper.value > -1 && self.zStepper.value > -1) {
+        NSString *msg = @"There must be a blank in question";
+		[al showAlertFromDelegate:nil withWarning:msg];
+		return;
+    }
     
     //Create New question or update old
     //Create new student if necessary

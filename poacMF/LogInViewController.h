@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (nonatomic) BOOL readyToLogin;
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
+@property (weak, nonatomic) IBOutlet UILabel *buildString;
 
 -(IBAction) loginTapped;
 - (IBAction)sendFeedback:(id)sender;

@@ -29,6 +29,7 @@
 @synthesize mathOperatorSymbol = _mathOperatorSymbol;
 @synthesize horizontalLine = _horizontalLine;
 @synthesize verticalLine = _verticalLine;
+@synthesize numberCorrectLabel = _numberCorrectLabel;
 
 @synthesize test = _test, questionsToAsk = _questionsToAsk, result = _result;
 @synthesize updateTimer = _updateTimer;
@@ -39,6 +40,9 @@
     if (![_test isEqual:test]) {
         _questionsToAsk = nil;
         _test = test;
+        
+        //Set title label
+        self.title = [_test.student.firstName stringByAppendingString:[NSString stringWithFormat:@": %@",_test.questionSet.name]];
         
         //Reload Questions to ask
         NSFetchRequest *previousQuestionSet = [NSFetchRequest fetchRequestWithEntityName:@"QuestionSet"];
@@ -98,7 +102,7 @@
     }
     
     //Clear labels
-    self.xLabel.text = self.yLabel.text = self.zLabel.text = self.timeLabel.text = nil;
+    self.xLabel.text = self.yLabel.text = self.zLabel.text = self.timeLabel.text = self.numberCorrectLabel.text = nil;
     
 }
 
@@ -255,6 +259,10 @@
     
     [self checkPassConditions];
     
+    //Update numberCorrectLabel
+    self.numberCorrectLabel.text = [NSString stringWithFormat:@"%d / %d",self.result.correctResponses.count,self.test.passCriteria.intValue];
+    
+    
     [self performSelector:@selector(loadNextQuestion) withObject:nil afterDelay:.2]; //Add delay for effect
     
 }
@@ -333,6 +341,7 @@
     [self setMathOperatorSymbol:nil];
     [self setHorizontalLine:nil];
     [self setVerticalLine:nil];
+    [self setNumberCorrectLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }

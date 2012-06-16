@@ -30,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *mathOperatorSymbol;
 @property (weak, nonatomic) IBOutlet UIView *horizontalLine;
 @property (weak, nonatomic) IBOutlet UIView *verticalLine;
+@property (weak, nonatomic) IBOutlet UILabel *numberCorrectLabel;
 
 @end
 

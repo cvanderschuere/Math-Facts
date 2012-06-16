@@ -77,12 +77,20 @@
                                     <action selector="sendFeedback:" destination="rPp-Vw-Shc" eventType="touchUpInside" id="kxD-4W-ehX"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Build" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Gpc-nx-N7e">
+                                <rect key="frame" x="141" y="0.0" width="487" height="52"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                         <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
                     </view>
                     <navigationItem key="navigationItem" id="9Sn-CC-W82"/>
                     <connections>
+                        <outlet property="buildString" destination="Gpc-nx-N7e" id="eAQ-Fs-VQi"/>
                         <outlet property="errorLabel" destination="sem-lQ-kAh" id="iYW-SO-EMk"/>
                         <outlet property="loginButton" destination="qGg-uM-VKC" id="bwd-gB-oJc"/>
                         <outlet property="passwordTextField" destination="4dt-7q-O5N" id="PfG-Q5-5cA"/>
@@ -1138,7 +1146,7 @@
                                     <rect key="frame" x="45" y="1" width="658" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Test" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FI3-3Z-Lyb">
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Timing:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FI3-3Z-Lyb">
                                             <rect key="frame" x="10" y="0.0" width="638" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
@@ -1159,7 +1167,7 @@
                                     <rect key="frame" x="45" y="0.0" width="678" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Add Test" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DqA-ZE-Nx8">
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Add Timing" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DqA-ZE-Nx8">
                                             <rect key="frame" x="10" y="0.0" width="658" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
@@ -1177,7 +1185,7 @@
                                     <rect key="frame" x="45" y="0.0" width="678" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Add Test Category" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mwd-OJ-LxV">
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Add Category" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mwd-OJ-LxV">
                                             <rect key="frame" x="10" y="0.0" width="658" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
@@ -1282,7 +1290,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Pass Criteria:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Mgd-aP-Jbp">
-                                <rect key="frame" x="6" y="61" width="133" height="39"/>
+                                <rect key="frame" x="8" y="61" width="133" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1302,8 +1310,8 @@
                                     <action selector="stepperValueChanged:" destination="YiW-Lk-YqV" eventType="valueChanged" id="ejm-aR-HXc"/>
                                 </connections>
                             </stepper>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Test Length:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="KX0-R4-NHy">
-                                <rect key="frame" x="6" y="14" width="133" height="39"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Timing Length:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="KX0-R4-NHy">
+                                <rect key="frame" x="1" y="14" width="147" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1401,8 +1409,8 @@
                                     <outlet property="delegate" destination="zpH-Po-kHp" id="LdL-hV-8Aw"/>
                                 </connections>
                             </pickerView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Test Length:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="FXU-4Y-RgR">
-                                <rect key="frame" x="8" y="253" width="141" height="53"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Timing Length:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="FXU-4Y-RgR">
+                                <rect key="frame" x="8" y="253" width="153" height="53"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1948,14 +1956,21 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Time Remaining:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="fHn-85-bVD">
-                                <rect key="frame" x="487" y="20" width="189" height="43"/>
+                                <rect key="frame" x="486" y="9" width="189" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="20 s" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="bpV-3P-j9U">
-                                <rect key="frame" x="660" y="20" width="96" height="43"/>
+                                <rect key="frame" x="660" y="9" width="96" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="10/40" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="kH9-L8-h0a">
+                                <rect key="frame" x="660" y="60" width="96" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1971,6 +1986,10 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="goldenStarOn.png" id="HQh-Bx-IYj">
+                                <rect key="frame" x="610" y="60" width="43" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -1985,6 +2004,7 @@
                     <connections>
                         <outlet property="horizontalLine" destination="YLc-JK-hyj" id="o9D-o1-dS8"/>
                         <outlet property="mathOperatorSymbol" destination="2cu-XM-xiy" id="l51-PU-EgJ"/>
+                        <outlet property="numberCorrectLabel" destination="kH9-L8-h0a" id="TPk-kj-ExU"/>
                         <outlet property="timeLabel" destination="bpV-3P-j9U" id="ZlI-Nz-LQE"/>
                         <outlet property="verticalLine" destination="xtm-zu-pjR" id="aRF-Fd-F2X"/>
                         <outlet property="xLabel" destination="lOT-do-oBm" id="lB3-HK-ujj"/>
@@ -2027,6 +2047,7 @@
         <image name="9_pad.png" width="101" height="50"/>
         <image name="cards.png" width="286" height="91"/>
         <image name="fog.png" width="1024" height="748"/>
+        <image name="goldenStarOn.png" width="100" height="100"/>
         <image name="iPadNumberPad.png" width="776" height="266"/>
         <image name="next_pad.png" width="101" height="50"/>
         <image name="shadow.jpg" width="421" height="1072"/>
@@ -2205,6 +2226,7 @@
             <relationships>
                 <relationship kind="outlet" name="horizontalLine" candidateClass="UIView"/>
                 <relationship kind="outlet" name="mathOperatorSymbol" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="numberCorrectLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="questionsLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="timeLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="verticalLine" candidateClass="UIView"/>

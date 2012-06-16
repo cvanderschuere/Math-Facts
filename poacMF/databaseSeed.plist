@@ -45,7 +45,7 @@
 			<array>
 				<dict>
 					<key>name</key>
-					<string># + 0</string>
+					<string>Set A</string>
 					<key>questions</key>
 					<array>
 						<array>
@@ -107,7 +107,7 @@
 				</dict>
 				<dict>
 					<key>name</key>
-					<string>#&apos;s 1-3</string>
+					<string>Set B</string>
 					<key>questions</key>
 					<array>
 						<array>
@@ -134,7 +134,7 @@
 				</dict>
 				<dict>
 					<key>name</key>
-					<string>#&apos;s 1-4</string>
+					<string>Set C</string>
 					<key>questions</key>
 					<array>
 						<array>
@@ -156,7 +156,7 @@
 				</dict>
 				<dict>
 					<key>name</key>
-					<string>#&apos;s 1-5</string>
+					<string>Set D</string>
 					<key>questions</key>
 					<array>
 						<array>
@@ -178,7 +178,7 @@
 				</dict>
 				<dict>
 					<key>name</key>
-					<string>#&apos;s 1-6</string>
+					<string>Set E</string>
 					<key>questions</key>
 					<array>
 						<array>
@@ -200,7 +200,7 @@
 				</dict>
 				<dict>
 					<key>name</key>
-					<string>#&apos;s 1-7</string>
+					<string>Set F</string>
 					<key>questions</key>
 					<array>
 						<array>
@@ -222,7 +222,7 @@
 				</dict>
 				<dict>
 					<key>name</key>
-					<string>#&apos;s 1-8</string>
+					<string>Set G</string>
 					<key>questions</key>
 					<array>
 						<array>
@@ -244,7 +244,7 @@
 				</dict>
 				<dict>
 					<key>name</key>
-					<string>#&apos;s 1-9</string>
+					<string>Set H</string>
 					<key>questions</key>
 					<array>
 						<array>
@@ -271,7 +271,7 @@
 			<array>
 				<dict>
 					<key>name</key>
-					<string>Identity</string>
+					<string>Set A</string>
 					<key>questions</key>
 					<array>
 						<array>
@@ -316,6 +316,92 @@
 						</array>
 					</array>
 				</dict>
+				<dict>
+					<key>name</key>
+					<string>Set B</string>
+					<key>questions</key>
+					<array>
+						<array>
+							<integer>3</integer>
+							<integer>1</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>3</integer>
+							<integer>2</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>4</integer>
+							<integer>1</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>4</integer>
+							<integer>1</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>4</integer>
+							<integer>3</integer>
+							<integer>-1</integer>
+						</array>
+					</array>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Set C</string>
+					<key>questions</key>
+					<array>
+						<array>
+							<integer>5</integer>
+							<integer>1</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>5</integer>
+							<integer>4</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>4</integer>
+							<integer>1</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>5</integer>
+							<integer>3</integer>
+							<integer>-1</integer>
+						</array>
+					</array>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Set D</string>
+					<key>questions</key>
+					<array>
+						<array>
+							<integer>6</integer>
+							<integer>1</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>6</integer>
+							<integer>5</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>4</integer>
+							<integer>2</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>6</integer>
+							<integer>4</integer>
+							<integer>-1</integer>
+						</array>
+					</array>
+				</dict>
 			</array>
 		</array>
 		<array>
@@ -323,7 +409,7 @@
 			<array>
 				<dict>
 					<key>name</key>
-					<string># x 1</string>
+					<string>Set A</string>
 					<key>questions</key>
 					<array>
 						<array>
@@ -373,6 +459,269 @@
 						</array>
 					</array>
 				</dict>
+				<dict>
+					<key>name</key>
+					<string>Set B</string>
+					<key>questions</key>
+					<array>
+						<array>
+							<integer>0</integer>
+							<integer>0</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>1</integer>
+							<integer>0</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>2</integer>
+							<integer>0</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>3</integer>
+							<integer>0</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>4</integer>
+							<integer>0</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>5</integer>
+							<integer>0</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>6</integer>
+							<integer>0</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>7</integer>
+							<integer>0</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>8</integer>
+							<integer>0</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>9</integer>
+							<integer>0</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>10</integer>
+							<integer>0</integer>
+							<integer>-1</integer>
+						</array>
+					</array>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Set C</string>
+					<key>questions</key>
+					<array>
+						<array>
+							<integer>2</integer>
+							<integer>3</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>3</integer>
+							<integer>2</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>2</integer>
+							<integer>2</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>3</integer>
+							<integer>3</integer>
+							<integer>-1</integer>
+						</array>
+					</array>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Set D</string>
+					<key>questions</key>
+					<array>
+						<array>
+							<integer>2</integer>
+							<integer>4</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>4</integer>
+							<integer>2</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>5</integer>
+							<integer>2</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>2</integer>
+							<integer>5</integer>
+							<integer>-1</integer>
+						</array>
+					</array>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Set A</string>
+					<key>questions</key>
+					<array>
+						<array>
+							<integer>2</integer>
+							<integer>6</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>6</integer>
+							<integer>2</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>7</integer>
+							<integer>2</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>2</integer>
+							<integer>7</integer>
+							<integer>-1</integer>
+						</array>
+					</array>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Set B</string>
+					<key>questions</key>
+					<array>
+						<array>
+							<integer>2</integer>
+							<integer>8</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>8</integer>
+							<integer>2</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>9</integer>
+							<integer>2</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>2</integer>
+							<integer>9</integer>
+							<integer>-1</integer>
+						</array>
+					</array>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Set C</string>
+					<key>questions</key>
+					<array>
+						<array>
+							<integer>3</integer>
+							<integer>9</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>9</integer>
+							<integer>3</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>9</integer>
+							<integer>4</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>4</integer>
+							<integer>9</integer>
+							<integer>-1</integer>
+						</array>
+					</array>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Set D</string>
+					<key>questions</key>
+					<array>
+						<array>
+							<integer>3</integer>
+							<integer>9</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>9</integer>
+							<integer>3</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>3</integer>
+							<integer>3</integer>
+							<integer>-1</integer>
+						</array>
+					</array>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Set E</string>
+					<key>questions</key>
+					<array>
+						<array>
+							<integer>4</integer>
+							<integer>9</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>9</integer>
+							<integer>4</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>4</integer>
+							<integer>4</integer>
+							<integer>-1</integer>
+						</array>
+					</array>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Set F</string>
+					<key>questions</key>
+					<array>
+						<array>
+							<integer>5</integer>
+							<integer>9</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>9</integer>
+							<integer>5</integer>
+							<integer>-1</integer>
+						</array>
+						<array>
+							<integer>5</integer>
+							<integer>5</integer>
+							<integer>-1</integer>
+						</array>
+					</array>
+				</dict>
 			</array>
 		</array>
 		<array>
@@ -380,7 +729,7 @@
 			<array>
 				<dict>
 					<key>name</key>
-					<string># / 1</string>
+					<string>Set A</string>
 					<key>questions</key>
 					<array>
 						<array>
