@@ -17,5 +17,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 
 -(IBAction) loginTapped;
+- (IBAction)sendFeedback:(id)sender;
 
 @end
