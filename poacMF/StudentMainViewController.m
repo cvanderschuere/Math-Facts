@@ -14,6 +14,8 @@
 
 @interface StudentMainViewController ()
 
+@property (nonatomic, strong) UIActionSheet* logoutSheet;
+
 @end
 
 @implementation StudentMainViewController
@@ -21,6 +23,7 @@
 @synthesize pageControl = _pageControl;
 @synthesize currentStudent = _currentStudent;
 @synthesize subjects2DArray = _subjects2DArray;
+@synthesize logoutSheet = _logoutSheet;
 
 -(void) setCurrentStudent:(Student *)currentStudent{
     NSLog(@"Current Student: %@",currentStudent);
@@ -126,9 +129,12 @@
 - (IBAction)changePage:(UIPageControl*)sender {
     // update the scroll view to the appropriate page
     CGRect frame;
-    frame.origin.x = self.subjectScrollView.frame.size.width * sender.currentPage;
+    frame.origin.x = self.subjectScrollView.bounds.size.width * self.pageControl.currentPage;
     frame.origin.y = 0;
-    frame.size = self.subjectScrollView.frame.size;
+    frame.size = self.subjectScrollView.bounds.size;
+    
+    NSLog(@"New Page: %d",self.pageControl.currentPage);
+
     [self.subjectScrollView scrollRectToVisible:frame animated:YES];
     
     // Keep track of when scrolls happen in response to the page control
@@ -159,13 +165,16 @@
 }
         
 -(IBAction) logOut: (id) sender {
+    if (self.logoutSheet.visible)
+        return [self.logoutSheet dismissWithClickedButtonIndex:-1 animated:YES];
+    
     //2) confirmatory logout prompt if they are logged in
-    UIActionSheet *popupQuery = [[UIActionSheet alloc] initWithTitle:@"Logout?" 
+    self.logoutSheet = [[UIActionSheet alloc] initWithTitle:@"Logout?" 
                                                             delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"Logout" 
                                                    otherButtonTitles:@"Cancel", nil, nil];
-    popupQuery.actionSheetStyle = UIActionSheetStyleBlackOpaque;
-    popupQuery.delegate = self;
-    [popupQuery showFromBarButtonItem:sender animated:YES];
+    self.logoutSheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+    self.logoutSheet.delegate = self;
+    [self.logoutSheet showFromBarButtonItem:sender animated:YES];
 }//end method
 -(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 0) {

@@ -95,10 +95,10 @@
 -(NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     switch (section) {
         case 0:
-            return @"Questions Correct";
+            return [NSString stringWithFormat:@"Questions Correct: %d",self.result.correctResponses.count];
             break;
         case 1:
-            return @"Questions Incorrect";
+            return [NSString stringWithFormat:@"Questions Incorrect: %d",self.result.incorrectResponses.count];
         default:
             return nil;
             break;

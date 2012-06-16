@@ -19,6 +19,16 @@
 	<array>
 		<dict>
 			<key>firstName</key>
+			<string>Kathy</string>
+			<key>lastName</key>
+			<string></string>
+			<key>username</key>
+			<string>kathy</string>
+			<key>password</key>
+			<string>test</string>
+		</dict>
+		<dict>
+			<key>firstName</key>
 			<string>Chris</string>
 			<key>lastName</key>
 			<string>Vanderschuere</string>

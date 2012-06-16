@@ -75,18 +75,11 @@
     }
     else {
         //Setup for vertical problem
-        /*if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
-            self.xLabel.center = CGPointMake(385, 152);
-            self.yLabel.center = CGPointMake(385, 218);
-            self.zLabel.center = CGPointMake(385, 318);
-            self.horizontalLine.center = CGPointMake(385, 266);
-        }
-        else if(UIInterfaceOrientationIsPortrait(self.interfaceOrientation)){*/
-            self.xLabel.center = CGPointMake(400, 152);
-            self.yLabel.center = CGPointMake(400, 218);
-            self.zLabel.center = CGPointMake(400, 318);
-            self.horizontalLine.center = CGPointMake(400, 266);
-        //}
+        self.xLabel.center = CGPointMake(385, 152);
+        self.yLabel.center = CGPointMake(385, 218);
+        self.zLabel.center = CGPointMake(385, 318);
+        self.horizontalLine.center = CGPointMake(385, 266);
+        
         self.verticalLine.hidden = YES;
         self.mathOperatorSymbol.hidden = NO;
         switch (self.test.questionSet.type.intValue) {
