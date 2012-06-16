@@ -170,6 +170,7 @@
     //Test: 1 Practice: 0
     if (buttonIndex == 1) {
         //Launch Test
+        [TestFlight passCheckpoint:@"StartTest"];
         [self performSegueWithIdentifier:@"startTestSegue" sender:self.gridView];
     }
     else if (buttonIndex == 0) {
@@ -218,10 +219,10 @@
 
 #pragma mark - Test Result Delegate
 -(void) didFinishTest:(Test*)finishedTest withResult:(Result*)result{
+    [TestFlight passCheckpoint:@"FinishedTest"];
+
     BOOL passed = finishedTest.passCriteria.intValue <= result.correctResponses.count;
-    
-    int totalQuestions = result.correctResponses.count + result.incorrectResponses.count;
-    
+        
     //Create UIAlertView to present information
     UIAlertView *finishedTestAlert = [[UIAlertView alloc] initWithTitle:passed?@"Good Work":@"Try Again" 
                                                                 message:passed?[NSString stringWithFormat:@"You got %d questions correct!",result.correctResponses.count]:[NSString stringWithFormat:@"You need to get %d more questions right next time",finishedTest.passCriteria.intValue - result.correctResponses.count]

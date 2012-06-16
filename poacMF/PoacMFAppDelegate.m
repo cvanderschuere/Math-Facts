@@ -14,7 +14,6 @@
 #import "QuestionSet.h"
 #import "Question.h"
 
-
 @implementation PoacMFAppDelegate
 
 @synthesize window = _window;
@@ -26,6 +25,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [TestFlight takeOff:@"697945e1548f653ac921aafc40670040_MTAwMzE3MjAxMi0wNi0xNCAyMDowNTozMi4zMjk2NDg"];
     [self setupDatabase];
 	return YES;
 }//end method

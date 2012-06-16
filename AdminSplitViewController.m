@@ -51,12 +51,14 @@
     NSLog(@"Object: %@",aObject);
     UINavigationController *navController = [self.viewControllers lastObject];
     if ([aObject isKindOfClass:[Student class]]) {
+        [TestFlight passCheckpoint:@"StudentDetail"];
         //Detail view should be userDetailView
         UserDetailTableViewController *detailTVC = [self.storyboard instantiateViewControllerWithIdentifier:@"UserDetailTableViewController"];
         [detailTVC setStudent:aObject];
         [navController setViewControllers:[NSArray arrayWithObject:detailTVC] animated:NO];
     }
     else if ([aObject isKindOfClass:[QuestionSet class]]) {
+        [TestFlight passCheckpoint:@"QuestionSetDetail"];
         //Detail view should be userDetailView
         QuestionSetDetailTableViewController *detailTVC = [self.storyboard instantiateViewControllerWithIdentifier:@"QuestionSetDetailTableViewController"];
         [detailTVC setQuestionSet:aObject];
@@ -76,7 +78,6 @@
         if ([[currentVC student] isEqual:aObject]) {
             [currentVC setStudent:nil];
         }
-    
     }
 
 }
