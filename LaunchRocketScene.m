@@ -5,7 +5,7 @@
 //  Created by Chris Vanderschuere on 08/06/2012.
 //  Copyright (c) 2012 Matt Hunter. All rights reserved.
 //
-
+/*
 #import "LaunchRocketScene.h"
 #import "Test.h"
 #import "GameOverScene.h"
@@ -278,7 +278,7 @@
 	[_projectiles addObject:projectile];
 	
 }
-
+*/
 
 
 @end

@@ -33,8 +33,8 @@
                                     <outlet property="delegate" destination="rPp-Vw-Shc" id="RYZ-u0-fDj"/>
                                 </connections>
                             </textField>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="POAC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="O2q-Qy-OBn">
-                                <rect key="frame" x="214" y="271" width="368" height="108"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Math Facts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="O2q-Qy-OBn">
+                                <rect key="frame" x="215" y="271" width="368" height="108"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="55"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -2144,6 +2144,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
             <relationships>
                 <relationship kind="action" name="loginTapped"/>
+                <relationship kind="action" name="sendFeedback:"/>
                 <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="passwordTextField" candidateClass="UITextField"/>

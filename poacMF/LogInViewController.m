@@ -89,6 +89,10 @@
     }
 
 }//end method
+
+- (IBAction)sendFeedback:(id)sender {
+    [TestFlight openFeedbackView];
+}
 #pragma mark - Storyboard Segues
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"adminUserSegue"]) {

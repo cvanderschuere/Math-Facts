@@ -15,10 +15,11 @@
 
 @implementation CVCocosViewController
 
-@synthesize scene = _scene;
+//@synthesize scene = _scene;
 @synthesize background = _background;
 @synthesize test = _test;
 
+/*
 -(void) setTest:(Test *)test{
     _test = test;
 }
@@ -73,4 +74,5 @@
     [self setBackground:nil];
     [super viewDidUnload];
 }
+ */
 @end

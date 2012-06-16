@@ -5,7 +5,7 @@
 //  Created by Chris Vanderschuere on 08/06/2012.
 //  Copyright (c) 2012 Matt Hunter. All rights reserved.
 //
-
+/*
 #import "cocos2d.h"
 
 @interface Background:CCLayerColor
@@ -34,3 +34,4 @@
 @property (nonatomic, strong) LaunchRocketLayer *mainLayer;
 
 @end
+*/

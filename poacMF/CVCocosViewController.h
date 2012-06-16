@@ -9,14 +9,14 @@
 #import <UIKit/UIKit.h>
 
 // cocos2d import
-#import "cocos2d.h"
-#import "LaunchRocketScene.h"
+//#import "cocos2d.h"
+//#import "LaunchRocketScene.h"
 #import "Test.h"
 
 @interface CVCocosViewController : UIViewController
 
 @property (nonatomic, strong) Test *test;
-@property (nonatomic, strong) LaunchRocketScene *scene;
+//@property (nonatomic, strong) LaunchRocketScene *scene;
 @property (weak, nonatomic) IBOutlet UIImageView *background;
 
 @end
