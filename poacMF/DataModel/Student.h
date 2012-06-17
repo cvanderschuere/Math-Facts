@@ -16,6 +16,7 @@
 
 @property (nonatomic, retain) NSNumber * defaultTestLength;
 @property (nonatomic, retain) NSNumber * defaultPassCriteria;
+@property (nonatomic, retain) NSNumber * defaultPracticeLength;
 @property (nonatomic, retain) NSNumber * idNumber;
 @property (nonatomic, retain) NSString * notes;
 @property (nonatomic, retain) Administrator *administrator;

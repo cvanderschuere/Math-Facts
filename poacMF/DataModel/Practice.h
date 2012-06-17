@@ -15,6 +15,7 @@
 
 @property (nonatomic, retain) NSNumber * maximumIncorrect;
 @property (nonatomic, retain) NSNumber * minimumCorrect;
+@property (nonatomic, retain) NSNumber * practiceLength;
 @property (nonatomic, retain) NSNumber * passed;
 @property (nonatomic, retain) Test *test;
 @property (nonatomic, retain) NSSet *results;

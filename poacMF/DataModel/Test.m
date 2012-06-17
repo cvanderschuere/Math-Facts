@@ -17,4 +17,12 @@
 @dynamic results;
 @dynamic student;
 
+-(void) awakeFromInsert{
+    [super awakeFromInsert];
+    
+    //Add Practice entity
+    Practice* practice = [NSEntityDescription insertNewObjectForEntityForName:@"Practice" inManagedObjectContext:self.managedObjectContext];
+    practice.test = self;
+}
+
 @end

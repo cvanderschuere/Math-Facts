@@ -15,6 +15,7 @@
 @implementation Student
 
 @dynamic defaultPassCriteria;
+@dynamic defaultPracticeLength;
 @dynamic idNumber;
 @dynamic notes;
 @dynamic administrator;

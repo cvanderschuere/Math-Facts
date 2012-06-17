@@ -13,7 +13,9 @@
 
 @interface TestDetailViewController ()
 
-@property (nonatomic, strong) NSMutableArray* results;
+@property (nonatomic, strong) NSMutableArray* testResults;
+@property (nonatomic, strong) NSMutableArray* practiceResults;
+
 @property (nonatomic, strong) UIPopoverController *popover;
 
 @end
@@ -22,7 +24,7 @@
 @synthesize popover = _popover;
 @synthesize test = _test;
 @synthesize resultsTableView = _resultsTableView;
-@synthesize results = _results;
+@synthesize testResults = _testResults, practiceResults = _practiceResults;
 @synthesize graphView = _graphView;
 
 
@@ -32,9 +34,9 @@
         
         self.title = _test.questionSet.name;
         
-        self.results = _test.results.allObjects.mutableCopy;
+        self.testResults = _test.results.allObjects.mutableCopy;
         
-        [self.results sortUsingComparator:^NSComparisonResult(Result *obj1, Result *obj2){
+        [self.testResults sortUsingComparator:^NSComparisonResult(Result *obj1, Result *obj2){
             return [obj1.startDate compare:obj2.startDate];
         }];
         
@@ -67,7 +69,7 @@
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"resultDetailSegue"]) {
         //Find index path of sender
-        [segue.destinationViewController setResult:(Result*)[self.results objectAtIndex:[self.resultsTableView indexPathForCell:sender].row]];
+        [segue.destinationViewController setResult:(Result*)[self.testResults objectAtIndex:[self.resultsTableView indexPathForCell:sender].row]];
         [self.resultsTableView deselectRowAtIndexPath:[self.resultsTableView indexPathForCell:sender] animated:NO];
     }
 }
@@ -91,7 +93,7 @@
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)barChart.defaultPlotSpace;
     plotSpace.allowsUserInteraction = YES;
     plotSpace.delegate = self;
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(115.0f)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(55.0f)];
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(7.0f)];
     
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)barChart.axisSet;
@@ -102,12 +104,12 @@
     x.majorIntervalLength = CPTDecimalFromString(@"1");
     // Define some custom labels for the data elements
 	x.labelingPolicy = CPTAxisLabelingPolicyNone;
-	NSMutableArray *customLabels = [NSMutableArray arrayWithCapacity:self.results.count];
+	NSMutableArray *customLabels = [NSMutableArray arrayWithCapacity:self.testResults.count];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = @"MM/dd";
     
-	[self.results enumerateObjectsUsingBlock:^(Result* result, NSUInteger idx, BOOL *stop){
+	[self.testResults enumerateObjectsUsingBlock:^(Result* result, NSUInteger idx, BOOL *stop){
         //Use Date formatter to make date
         NSString *dateString = [dateFormatter stringFromDate:result.startDate];
         
@@ -124,12 +126,12 @@
     y.axisLineStyle               = nil;
     y.majorTickLineStyle          = nil;
     y.minorTickLineStyle          = nil;
-    y.majorIntervalLength         = CPTDecimalFromString(@"20");
+    y.majorIntervalLength         = CPTDecimalFromString(@"10");
     y.orthogonalCoordinateDecimal = CPTDecimalFromString(@"0");
-    y.title                       = @"Correct %";
+    y.title                       = @"Questions / Minute";
     y.titleOffset                 = 40.0f;
-    y.titleLocation               = CPTDecimalFromFloat(50.0f);
-    y.visibleRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(115.0f)];
+    y.titleLocation               = CPTDecimalFromFloat(20.0f);
+    y.visibleRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(55.0f)];
     
     // First bar plot
     CPTBarPlot *barPlot = [CPTBarPlot tubularBarPlotWithColor:[CPTColor darkGrayColor] horizontalBars:NO];
@@ -146,7 +148,8 @@
 
 -(void)barPlot:(CPTBarPlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)index
 {
-    [self.resultsTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];;
+    UITableViewCell *selectedCell = [self.resultsTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
+    [self performSegueWithIdentifier:@"resultDetailSegue" sender:selectedCell];
 }
 -(float) percentageCorrectForResult:(Result*)result{
     float correct = result.correctResponses.count;
@@ -155,13 +158,16 @@
     percentageCorrect *=100;
     return percentageCorrect;
 }
+-(float) questionsCorrectPerMinutesForResult:(Result*)result{
+    return result.correctResponses.count * ((60.0f)/([result.endDate timeIntervalSinceDate:result.startDate]));
+}
 
 #pragma mark - Plot Data Source Methods
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
     if ( [plot isKindOfClass:[CPTBarPlot class]] ) {
-        return self.results.count;
+        return self.testResults.count;
     }
     else {
         return 0;
@@ -177,8 +183,8 @@
         num = [NSDecimalNumber numberWithInt:index +1];
 	}
 	else if ( fieldEnum == CPTBarPlotFieldBarTip ) {
-		// length - calculate percentage correct
-        num = [NSDecimalNumber numberWithFloat:[self percentageCorrectForResult:[self.results objectAtIndex:index]]];
+		// length - calculate QPM
+        num = [NSDecimalNumber numberWithFloat:[self questionsCorrectPerMinutesForResult:[self.testResults objectAtIndex:index]]];
 	}
 	else {
 		// base
@@ -198,8 +204,8 @@
     }
     
     CPTTextLayer *newLayer = nil;
-    int percentageCorrect = (int)  [self percentageCorrectForResult:[self.results objectAtIndex:index]];
-    newLayer = [[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%d%%", percentageCorrect] style:whiteText];   
+    int percentageCorrect = (int)  [self questionsCorrectPerMinutesForResult:[self.testResults objectAtIndex:index]];
+    newLayer = [[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%d", percentageCorrect] style:whiteText];   
     
     return newLayer;
 }
@@ -210,14 +216,14 @@
 {
 	// Impose a limit on how far user can scroll in x
 	if ( coordinate == CPTCoordinateX ) {
-		CPTPlotRange *maxRange			  = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(self.results.count+5)];
+		CPTPlotRange *maxRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(self.testResults.count+5)];
 		CPTMutablePlotRange *changedRange = [newRange mutableCopy];
 		[changedRange shiftEndToFitInRange:maxRange];
 		[changedRange shiftLocationToFitInRange:maxRange];
 		newRange = changedRange;
 	}
     else {
-        CPTPlotRange *maxRange			  = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(100.0f)];
+        CPTPlotRange *maxRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(55.0f)];
 		CPTMutablePlotRange *changedRange = [newRange mutableCopy];
 		[changedRange shiftEndToFitInRange:maxRange];
 		[changedRange shiftLocationToFitInRange:maxRange];
@@ -236,12 +242,12 @@
 }
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.results.count;
+    return self.testResults.count;
 }
 -(UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"resultCell"];
-    cell.textLabel.text = [NSDateFormatter localizedStringFromDate:[[self.results objectAtIndex:indexPath.row] startDate]  dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterShortStyle];
+    cell.textLabel.text = [NSDateFormatter localizedStringFromDate:[[self.testResults objectAtIndex:indexPath.row] startDate]  dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterShortStyle];
     return cell;
 }
 -(NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section

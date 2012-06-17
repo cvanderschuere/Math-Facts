@@ -15,6 +15,7 @@
 
 @dynamic maximumIncorrect;
 @dynamic minimumCorrect;
+@dynamic practiceLength;
 @dynamic passed;
 @dynamic test;
 @dynamic results;

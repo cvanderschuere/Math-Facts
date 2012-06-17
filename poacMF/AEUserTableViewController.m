@@ -21,8 +21,11 @@
 @property (nonatomic, weak)	IBOutlet	UITextField		*emailAddressTF;
 @property (weak, nonatomic) IBOutlet UIStepper *testLengthStepper;
 @property (weak, nonatomic) IBOutlet UIStepper *passCriteriaStepper;
+@property (weak, nonatomic) IBOutlet UIStepper *practiceLengthStepper;
 @property (weak, nonatomic) IBOutlet UILabel *testLengthLabel;
 @property (weak, nonatomic) IBOutlet UILabel *passCriteriaLabel;
+@property (weak, nonatomic) IBOutlet UILabel *practiceLengthLabel;
+
 
 - (IBAction)stepperUpdated:(id)sender;
 
@@ -35,6 +38,7 @@
 @synthesize passCriteriaLabel = _passCriteriaLabel;
 @synthesize usernameTF = _usernameTF, firstNameTF = _firstNameTF, lastNameTF = _lastNameTF, passwordTF = _passwordTF, emailAddressTF = _emailAddressTF;
 @synthesize studentToUpdate = _studentToUpdate, createdStudentsAdmin = _createdStudentsAdmin;
+@synthesize practiceLengthLabel = _practiceLengthLabel, practiceLengthStepper = _practiceLengthStepper;
 
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -62,12 +66,16 @@
         [self stepperUpdated:self.testLengthStepper];
         self.passCriteriaStepper.value = self.studentToUpdate.defaultPassCriteria.doubleValue;
         [self stepperUpdated:self.passCriteriaStepper];
+        self.practiceLengthStepper.value = self.studentToUpdate.defaultPracticeLength.doubleValue;
+        [self stepperUpdated:self.practiceLengthStepper];
         
         self.title = [@"Edit " stringByAppendingString:self.studentToUpdate.firstName];
 
 	}//end editMode
-    else 
+    else{
         self.title = @"Create Student";
+        self.practiceLengthStepper.value = 120;
+    }
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -151,6 +159,8 @@
             test.passCriteria = [NSNumber numberWithDouble:self.passCriteriaStepper.value];
         }
     }
+    
+    self.studentToUpdate.defaultPracticeLength = [NSNumber numberWithDouble:self.practiceLengthStepper.value];
     
     NSLog(@"Updated User: %@", self.studentToUpdate);
         

@@ -25,6 +25,7 @@
 
 @implementation LoginViewController
 @synthesize errorLabel = _errorLabel;
+@synthesize buildString = _buildString;
 @synthesize loginButton = _loginButton;
 @synthesize userNameTextField = _userNameTextField, passwordTextField = _passwordTextField, readyToLogin = _readyToLogin;
 
@@ -141,6 +142,14 @@
 	self.passwordTextField.placeholder = @"Please Enter Password";
 	*/
     
+    //Load Build Information
+    /* Build Version Stuff */
+	NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+	NSString *name = [infoDictionary objectForKey:@"CFBundleDisplayName"];
+	NSString *version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+	NSString *build = [infoDictionary objectForKey:@"CFBundleVersion"];
+	self.buildString.text = [NSString stringWithFormat:@"%@ v%@ (build %@)",name,version,build];
+    
 }//end method
 
 -(void) viewWillAppear:(BOOL)animated {
@@ -164,6 +173,7 @@
 - (void)viewDidUnload {
     [self setLoginButton:nil];
     [self setErrorLabel:nil];
+    [self setBuildString:nil];
     [super viewDidUnload];
 }
 @end

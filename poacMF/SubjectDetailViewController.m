@@ -175,6 +175,8 @@
     }
     else if (buttonIndex == 0) {
         //Launch Practice
+        [TestFlight passCheckpoint:@"StartTest"];
+        [self performSegueWithIdentifier:@"startPracticeSegue" sender:self.gridView];
     }
     
     [self.gridView deselectItemAtIndex:self.gridView.selectedIndex animated:YES];
@@ -187,6 +189,13 @@
         [segue.destinationViewController setDelegate:self];
         [segue.destinationViewController setTest:selectedTest];
     }
+    else if ([segue.identifier isEqualToString:@"startPracticeSegue"]) {
+        //Pass test to TestVC
+        Test *selectedTest = [self.subjectTests objectAtIndex:[sender selectedIndex]];
+        [segue.destinationViewController setDelegate:self];
+        [segue.destinationViewController setPractice:selectedTest.practice];
+    }
+
 }
 - (void)viewDidUnload
 {
@@ -225,7 +234,7 @@
         
     //Create UIAlertView to present information
     UIAlertView *finishedTestAlert = [[UIAlertView alloc] initWithTitle:passed?@"Good Work":@"Try Again" 
-                                                                message:passed?[NSString stringWithFormat:@"You got %d questions correct!",result.correctResponses.count]:[NSString stringWithFormat:@"You need to get %d more questions right next time",finishedTest.passCriteria.intValue - result.correctResponses.count]
+                                                                message:passed?[NSString stringWithFormat:@"You got %d questions correct!",result.correctResponses.count]:[NSString stringWithFormat:@"You need to get %d questions correct",finishedTest.passCriteria.intValue]
                                                                delegate:nil 
                                                       cancelButtonTitle:@"Close" otherButtonTitles:nil];
     [finishedTestAlert show];

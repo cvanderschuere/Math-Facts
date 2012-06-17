@@ -151,6 +151,19 @@
     Test *test = (Test*) [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = [@"Test: " stringByAppendingString:test.questionSet.name];
     
+    
+    __block NSNumber *passCriteria = test.passCriteria;
+    __block BOOL testPassed = NO;
+    
+    //Determine if testPassed
+    [test.results enumerateObjectsUsingBlock:^(Result* result, BOOL *stop){
+        if (result.correctResponses.count >= passCriteria.intValue) {
+            testPassed = YES;
+            *stop = YES;
+        }
+    }];
+    cell.imageView.image = testPassed?[UIImage imageNamed:@"passStamp"]:nil;
+    
     return cell;
 }
 
