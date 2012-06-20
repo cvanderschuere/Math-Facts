@@ -422,7 +422,7 @@
                     </navigationItem>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1410" y="71"/>
+            <point key="canvasLocation" x="3330" y="1143"/>
         </scene>
         <!--Admin Split View Controller-->
         <scene sceneID="LND-OX-TIs">
@@ -496,7 +496,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="-102" y="-1544"/>
+            <point key="canvasLocation" x="-894" y="-3256"/>
         </scene>
         <!--Sets Table View Controller - Sets-->
         <scene sceneID="Fym-hT-yh9">
@@ -546,13 +546,134 @@
                                 <action selector="toggleEditMode:" destination="Yf9-Wp-TaX" id="GRc-4t-QeS"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="add" id="E4P-rk-ogc"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="E4P-rk-ogc">
+                            <connections>
+                                <segue destination="CMD-Ew-LxY" kind="modal" identifier="addQuestionSetSegue" modalPresentationStyle="formSheet" id="mC8-kJ-oI5"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <segue destination="CMD-Ew-LxY" kind="modal" identifier="editQuestionSetSegue" modalPresentationStyle="formSheet" id="GH1-yE-saq"/>
+                    </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="-243" y="-192"/>
+            <point key="canvasLocation" x="-363" y="-824"/>
+        </scene>
+        <!--Question Set Table View Controller-->
+        <scene sceneID="yeb-Gz-FJj">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cGR-Mh-14m" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="ox6-xC-IeO" customClass="AEQuestionSetTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="hzE-E9-aFy">
+                        <rect key="frame" x="0.0" y="44" width="540" height="576"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="questionCell" textLabel="4Hw-PG-anb" style="IBUITableViewCellStyleDefault" id="gdW-aT-Lkv">
+                                <rect key="frame" x="0.0" y="54" width="540" height="45"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="31" y="1" width="458" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Question" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4Hw-PG-anb">
+                                            <rect key="frame" x="10" y="0.0" width="438" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="addQuestionCell" textLabel="UJa-Jj-oAP" style="IBUITableViewCellStyleDefault" id="Civ-Hu-PPl">
+                                <rect key="frame" x="0.0" y="99" width="540" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="31" y="0.0" width="478" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Add Question" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UJa-Jj-oAP">
+                                            <rect key="frame" x="10" y="0.0" width="458" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="nameCell" id="TVx-UP-29d">
+                                <rect key="frame" x="0.0" y="143" width="540" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="31" y="0.0" width="478" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <textField opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="center" minimumFontSize="17" id="ilL-Oz-sO5">
+                                            <rect key="frame" x="0.0" y="0.0" width="478" height="43"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done"/>
+                                        </textField>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="typeCell" id="8eh-Qu-hsj">
+                                <rect key="frame" x="0.0" y="187" width="540" height="45"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="31" y="0.0" width="478" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="10" contentMode="left" text="Addition" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Xvv-vu-4f9">
+                                            <rect key="frame" x="20" y="0.0" width="297" height="43"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                        <stepper opaque="NO" clipsSubviews="YES" tag="15" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="3" id="hhk-iB-T3T">
+                                            <rect key="frame" x="364" y="8" width="94" height="27"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
+                                        </stepper>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="ox6-xC-IeO" id="IK9-X5-cdh"/>
+                            <outlet property="delegate" destination="ox6-xC-IeO" id="HRH-bd-Jgw"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="j9e-SO-PnO">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Wh2-2c-13u">
+                            <connections>
+                                <action selector="cancelClicked" destination="ox6-xC-IeO" id="BoN-6x-IL0"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="zIJ-tV-iNT">
+                            <connections>
+                                <action selector="saveClicked" destination="ox6-xC-IeO" id="Hrn-lL-5Hp"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <modalFormSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <segue destination="MSP-Rv-tw5" kind="popover" popoverAnchorView="hzE-E9-aFy" id="nL8-qI-Nad">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                        </segue>
+                    </connections>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="2326" y="-489"/>
         </scene>
         <!--Users View Controller-->
         <scene sceneID="lkX-5B-raA">
@@ -666,7 +787,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="4526" y="-953"/>
+            <point key="canvasLocation" x="5500" y="-953"/>
         </scene>
         <!--AE User Tableview Controller-->
         <scene sceneID="pZp-oP-fzx">
@@ -911,7 +1032,7 @@
                     </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="2750" y="-1358"/>
+            <point key="canvasLocation" x="2174" y="-3598"/>
         </scene>
         <!--Assign Quiz View Controller-->
         <scene sceneID="5Cu-KI-cd2">
@@ -1252,7 +1373,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="327" y="-2965"/>
+            <point key="canvasLocation" x="583" y="-4829"/>
         </scene>
         <!--Test Detail View Controller-->
         <scene sceneID="k1Q-Z7-CDm">
@@ -1316,7 +1437,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1774" y="-2965"/>
+            <point key="canvasLocation" x="2030" y="-4829"/>
         </scene>
         <!--Adjust Test Popover View Controller-->
         <scene sceneID="Ubc-0T-DQM">
@@ -1382,7 +1503,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="2324" y="-3255"/>
+            <point key="canvasLocation" x="2580" y="-5119"/>
         </scene>
         <!--Result Detail View Controller-->
         <scene sceneID="dzN-ki-lD5">
@@ -1428,7 +1549,7 @@
                     <navigationItem key="navigationItem" id="74M-ud-oL8"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="2957" y="-2951"/>
+            <point key="canvasLocation" x="3213" y="-4815"/>
         </scene>
         <!--Add Test Popover View Controller-->
         <scene sceneID="CXX-JO-Otp">
@@ -1515,7 +1636,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1828" y="-3472"/>
+            <point key="canvasLocation" x="2084" y="-5336"/>
         </scene>
         <!--Add Category Popover Controller-->
         <scene sceneID="QiH-bb-fNb">
@@ -1553,7 +1674,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="472" y="-3378"/>
+            <point key="canvasLocation" x="728" y="-5242"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="OI6-Py-oVN">
@@ -1571,7 +1692,7 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="-1103" y="-2866"/>
+            <point key="canvasLocation" x="-847" y="-4730"/>
         </scene>
         <!--Question Set Detail Table View Controller-->
         <scene sceneID="ZTG-ou-GfC">
@@ -1626,12 +1747,13 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="qNh-h2-uX8">
+                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="mZw-kY-YaG"/>
                         <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="action" id="uAt-vH-ALX"/>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="-1085" y="-4332"/>
+            <point key="canvasLocation" x="763" y="-2000"/>
         </scene>
         <!--Question View Controller-->
         <scene sceneID="cFn-Ym-Gh9">
@@ -1639,7 +1761,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i61-9Z-FmB" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="AEQuestionViewController" id="MSP-Rv-tw5" customClass="AEQuestionViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7I0-FR-GZm">
-                        <rect key="frame" x="0.0" y="20" width="400" height="120"/>
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="120"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="dIN-iY-JNa">
@@ -1713,7 +1835,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="3692" y="-3255"/>
+            <point key="canvasLocation" x="3353" y="-335"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="xYv-ww-lZX">
@@ -2070,7 +2192,7 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="1416" y="-1342"/>
+            <point key="canvasLocation" x="1264" y="-3582"/>
         </scene>
         <!--Practice View Controller - Tester-->
         <scene sceneID="5oN-Iq-VNS">
@@ -2344,6 +2466,25 @@
             </objects>
             <point key="canvasLocation" x="596" y="3082"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="3be-Gz-QMb">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Km9-ya-0ig" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="CMD-Ew-LxY" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <modalFormSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="fsZ-CJ-Kua">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ox6-xC-IeO" kind="relationship" relationship="rootViewController" id="a3a-GJ-LCM"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="1095" y="-575"/>
+        </scene>
     </scenes>
     <resources>
         <image name="0_pad.png" width="101" height="50"/>
@@ -2383,6 +2524,15 @@
                 <relationship kind="action" name="saveClicked"/>
                 <relationship kind="outlet" name="questionSetPicker" candidateClass="UIPickerView"/>
                 <relationship kind="outlet" name="thisTableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="AEQuestionSetTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AEQuestionSetTableViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="stepperUpdated:" candidateClass="UIStepper"/>
+                <relationship kind="outlet" name="nameTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="typeLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="typeStepper" candidateClass="UIStepper"/>
             </relationships>
         </class>
         <class className="AEQuestionViewController" superclassName="UIViewController">
@@ -2613,6 +2763,7 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Cls-HQ-4Ry"/>
+        <segue reference="GH1-yE-saq"/>
+        <segue reference="jnl-1r-efU"/>
     </inferredMetricsTieBreakers>
 </document>

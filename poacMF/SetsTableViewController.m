@@ -8,6 +8,7 @@
 
 #import "SetsTableViewController.h"
 #import "QuestionSet.h"
+#import "AEQuestionSetTableViewController.h"
 
 @interface SetsTableViewController ()
 
@@ -68,6 +69,16 @@
 	return YES;
 }
 
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"addQuestionSetSegue"]) {
+        [[[segue.destinationViewController viewControllers] lastObject] setAdministratorToCreateIn:self.currentAdmin];
+    }
+    else if ([segue.identifier isEqualToString:@"editQuestionSetSegue"]) {
+        [[[segue.destinationViewController viewControllers] lastObject] setQuestionSetToUpdate:sender];
+    }
+}
+
+
 #pragma mark - NSFetchedResultsController Methods
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
@@ -108,7 +119,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
         [self.fetchedResultsController.managedObjectContext deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
-    }   
+    }
 }
 
 
@@ -133,15 +144,14 @@
          [q setValue:[NSNumber numberWithInt:i++] forKey:@"difficultyLevel"];
      }
  }
- 
-
 
  // Override to support conditional rearranging of the table view.
  - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
  {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
+     // Return NO if you do not want the item to be re-orderable.
+     return YES;
  }
+
 - (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
 {
     if (sourceIndexPath.section != proposedDestinationIndexPath.section) {
@@ -160,10 +170,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //Update Detail View controller with selected user
-    [self.delegate didSelectObject:(QuestionSet*)[self.fetchedResultsController objectAtIndexPath:indexPath]];
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    if (tableView.editing) {
+        //Segue to edit set view
+        [self performSegueWithIdentifier:@"editQuestionSetSegue" sender:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+    }
+    else {
+        //Update Detail View controller with selected user
+        [self.delegate didSelectObject:(QuestionSet*)[self.fetchedResultsController objectAtIndexPath:indexPath]];
+    }
     
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 @end

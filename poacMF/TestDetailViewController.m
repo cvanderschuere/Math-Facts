@@ -40,6 +40,11 @@
             return [obj1.startDate compare:obj2.startDate];
         }];
         
+        self.practiceResults = _test.practice.results.allObjects.mutableCopy;
+        [self.practiceResults sortUsingComparator:^NSComparisonResult(Result *obj1, Result *obj2){
+            return [obj1.startDate compare:obj2.startDate];
+        }];
+        
         //Update Results
         [self.resultsTableView reloadData];
     }
@@ -69,8 +74,14 @@
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"resultDetailSegue"]) {
         //Find index path of sender
-        [segue.destinationViewController setResult:(Result*)[self.testResults objectAtIndex:[self.resultsTableView indexPathForCell:sender].row]];
-        [self.resultsTableView deselectRowAtIndexPath:[self.resultsTableView indexPathForCell:sender] animated:NO];
+        NSIndexPath* selectedCellIndex = [self.resultsTableView indexPathForCell:sender];
+        if (selectedCellIndex.section == 0)
+            [segue.destinationViewController setResult:(Result*)[self.testResults objectAtIndex:selectedCellIndex.row]];
+        else if (selectedCellIndex.section == 1)
+            [segue.destinationViewController setResult:(Result*)[self.practiceResults objectAtIndex:selectedCellIndex.row]];
+
+        //Clear Selection
+        [self.resultsTableView deselectRowAtIndexPath:selectedCellIndex animated:NO];
     }
 }
 
@@ -223,7 +234,7 @@
 		newRange = changedRange;
 	}
     else {
-        CPTPlotRange *maxRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(55.0f)];
+        CPTPlotRange *maxRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(75.0f)];
 		CPTMutablePlotRange *changedRange = [newRange mutableCopy];
 		[changedRange shiftEndToFitInRange:maxRange];
 		[changedRange shiftLocationToFitInRange:maxRange];
@@ -238,21 +249,26 @@
 #pragma UITableView DataSource
 -(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.testResults.count;
+    return section==0?self.testResults.count:self.practiceResults.count;
 }
 -(UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"resultCell"];
-    cell.textLabel.text = [NSDateFormatter localizedStringFromDate:[[self.testResults objectAtIndex:indexPath.row] startDate]  dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterShortStyle];
+    cell.textLabel.text = [NSDateFormatter localizedStringFromDate:[[indexPath.section==0?self.testResults:self.practiceResults objectAtIndex:indexPath.row] startDate]  dateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterShortStyle];
+    if (indexPath.section == 0) {
+        //Determine if timing was passed
+        Result* result = [self.testResults objectAtIndex:indexPath.row];
+        cell.imageView.image = result.correctResponses.count >= self.test.passCriteria.intValue?[UIImage imageNamed:@"passStamp"]:nil;
+    }
     return cell;
 }
 -(NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return @"Results";
+    return section==0?@"Timing":@"Practice";
 }
 
 - (IBAction)adjustTestPressed:(id)sender {

@@ -20,6 +20,7 @@
 @synthesize delegate = _delegate;
 
 -(void) setCategoriesToChoose:(NSMutableArray *)categoriesToChoose{
+    [categoriesToChoose sortUsingSelector:@selector(compare:)];
     _categoriesToChoose = categoriesToChoose;
     [self.categoryPicker reloadAllComponents];
     if (_categoriesToChoose.count>0) {

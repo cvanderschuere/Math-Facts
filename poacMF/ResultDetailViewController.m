@@ -25,7 +25,7 @@
     _result = result;
     
     //Set title
-    self.title = [NSDateFormatter localizedStringFromDate:_result.startDate dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle];
+    self.title = [NSDateFormatter localizedStringFromDate:_result.startDate dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterShortStyle];
     
     //Reload data
     self.questionsCorrect = _result.correctResponses.allObjects.mutableCopy;

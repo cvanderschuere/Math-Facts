@@ -102,6 +102,9 @@
     else if ([segue.identifier isEqualToString:@"studentUserSegue"]) {
         StudentMainViewController *progressVC = (StudentMainViewController *) [[segue.destinationViewController viewControllers] lastObject];
         progressVC.currentStudent = sender;
+        
+        //Clear Password
+        self.passwordTextField.text = nil;
     }
 }
 

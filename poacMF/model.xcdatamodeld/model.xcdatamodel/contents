@@ -9,7 +9,7 @@
         <attribute name="minimumCorrect" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="passed" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="practiceLength" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <relationship name="results" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Result" syncable="YES"/>
+        <relationship name="results" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Result" syncable="YES"/>
         <relationship name="test" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Test" inverseName="practice" inverseEntity="Test" syncable="YES"/>
     </entity>
     <entity name="Question" representedClassName="Question" syncable="YES">
@@ -71,13 +71,13 @@
     <fetchRequest name="StudentLogin" entity="Student" predicateString="username == $USERNAME AND password == $PASSWORD"/>
     <elements>
         <element name="Administrator" positionX="-216" positionY="-288" width="128" height="75"/>
-        <element name="Practice" positionX="99" positionY="111" width="128" height="105"/>
+        <element name="Practice" positionX="36" positionY="120" width="128" height="105"/>
         <element name="Question" positionX="574" positionY="282" width="128" height="105"/>
         <element name="QuestionSet" positionX="214" positionY="-315" width="128" height="165"/>
-        <element name="Response" positionX="45" positionY="339" width="128" height="75"/>
+        <element name="Response" positionX="216" positionY="303" width="128" height="75"/>
         <element name="Result" positionX="-351" positionY="237" width="128" height="150"/>
         <element name="Student" positionX="-443" positionY="-108" width="128" height="165"/>
-        <element name="Test" positionX="-99" positionY="-117" width="128" height="150"/>
+        <element name="Test" positionX="-45" positionY="-117" width="128" height="150"/>
         <element name="User" positionX="-443" positionY="-300" width="128" height="120"/>
     </elements>
 </model>
