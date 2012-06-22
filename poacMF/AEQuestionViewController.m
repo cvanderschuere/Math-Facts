@@ -21,7 +21,8 @@
 @synthesize yLabel = _yLabel;
 @synthesize zLabel = _zLabel;
 
-@synthesize questionToUpdate = _questionToUpdate, questionSetToCreateIn = _questionSetToCreateIn;
+@synthesize questionToUpdate = _questionToUpdate, contextToCreateIn = _contextToCreateIn, operatorSymbol = _operatorSymbol;
+@synthesize delegate = _delegate;
 
 - (void)viewDidLoad
 {
@@ -48,7 +49,7 @@
     else{
         self.title = @"Create Question";
         self.zStepper.value = -1;
-        self.operatorLabel.text = self.questionSetToCreateIn.typeSymbol;
+        self.operatorLabel.text = self.operatorSymbol?self.operatorSymbol:@"?";
     }
     
 }
@@ -84,18 +85,20 @@
     }
     
     //Create New question or update old
+    BOOL isEditing = YES;
     //Create new student if necessary
     if (!self.questionToUpdate) {
-        self.questionToUpdate = [NSEntityDescription insertNewObjectForEntityForName:@"Question" inManagedObjectContext:self.questionSetToCreateIn.managedObjectContext];
-        //set question order to last
-        self.questionToUpdate.questionOrder = [NSNumber numberWithInt:self.questionSetToCreateIn.questions.count];
-        
-        [self.questionSetToCreateIn addQuestionsObject:self.questionToUpdate];
+        self.questionToUpdate = [NSEntityDescription insertNewObjectForEntityForName:@"Question" inManagedObjectContext:self.contextToCreateIn];
+        isEditing = NO;
     }
 	
     self.questionToUpdate.x = self.xStepper.value != -1?[NSNumber numberWithDouble:self.xStepper.value]:nil;
     self.questionToUpdate.y = self.yStepper.value != -1?[NSNumber numberWithDouble:self.yStepper.value]:nil;
     self.questionToUpdate.z = self.zStepper.value != -1?[NSNumber numberWithDouble:self.zStepper.value]:nil;
+        
+    
+    isEditing?[self.delegate didUpdateQuestion:self.questionToUpdate]:[self.delegate didCreateQuestion:self.questionToUpdate];
+
 
 }
 

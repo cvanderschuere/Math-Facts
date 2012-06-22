@@ -68,6 +68,9 @@
     if ([segue.identifier isEqualToString:@"addStudentSegue"]) {
         [[[segue.destinationViewController viewControllers] lastObject] setCreatedStudentsAdmin:self.currentAdmin];
     }
+    else if ([segue.identifier isEqualToString:@"editStudentSegue"]) {
+        [[[segue.destinationViewController viewControllers] lastObject] setStudentToUpdate:sender];
+    }
     
 }
 
@@ -134,10 +137,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //Update Detail View controller with selected user
-    [self.delegate didSelectObject:(Student*)[self.fetchedResultsController objectAtIndexPath:indexPath]];
+    if (tableView.editing) {
+        [self performSegueWithIdentifier:@"editStudentSegue" sender:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+    }
+    else {
+        //Update Detail View controller with selected user
+        [self.delegate didSelectObject:(Student*)[self.fetchedResultsController objectAtIndexPath:indexPath]];
+    }
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    
 }
 
 

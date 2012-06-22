@@ -8,6 +8,7 @@
 
 #import "QuestionSetDetailTableViewController.h"
 #import "AEQuestionViewController.h"
+#import "AEQuestionSetTableViewController.h"
 
 @interface QuestionSetDetailTableViewController ()
 
@@ -52,6 +53,13 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return YES;
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"editQuestionSetSegue"]) {
+        [[[segue.destinationViewController viewControllers] lastObject] setQuestionSetToUpdate:self.questionSet];
+    }
+    
 }
 
 #pragma mark - NSFetchedResultsController Methods
@@ -109,7 +117,7 @@
     UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
     if ([selectedCell.reuseIdentifier isEqualToString:@"addQuestionCell"]) {
         AEQuestionViewController *aeQuestion = [self.storyboard instantiateViewControllerWithIdentifier:@"AEQuestionViewController"];
-        aeQuestion.questionSetToCreateIn = self.questionSet;
+        aeQuestion.contextToCreateIn = self.questionSet.managedObjectContext;
         
         
         self.popover = [[UIPopoverController alloc] initWithContentViewController:aeQuestion];

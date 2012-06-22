@@ -10,10 +10,28 @@
 #import "QuestionSet.h"
 #import "AppLibrary.h"
 
+@protocol AEQuestionProtocol <NSObject>
+
+-(void) didCreateQuestion:(Question*)newQuestion;
+-(void) didUpdateQuestion:(Question*) updatedQuestion;
+
+@end
+
+//Data flow
+
+    //Update
+        //questionToUpdateIsProvided
+    //Create
+        //managedObjectContext and type is provided
+
+
+
 @interface AEQuestionViewController : UIViewController
 
 @property (nonatomic, strong) Question *questionToUpdate;
-@property (nonatomic, strong) QuestionSet *questionSetToCreateIn;
+@property (nonatomic, strong) NSManagedObjectContext *contextToCreateIn;
+@property (nonatomic, strong) NSString *operatorSymbol;
+@property (nonatomic, weak) id<AEQuestionProtocol> delegate;
 
 //IBOutlets
 @property (weak, nonatomic) IBOutlet UIStepper *xStepper;
