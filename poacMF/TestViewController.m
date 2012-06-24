@@ -288,6 +288,9 @@
 }
 #pragma mark - IBActions
 -(IBAction)digitPressed:(id)sender{
+    if (!self.updateTimer.isValid) //Copy race condition code from matt's work
+        return;
+    
 	UIButton *btn = (UIButton *) sender;
     NSString *temp = [NSString stringWithFormat:@"%d", btn.tag];
 

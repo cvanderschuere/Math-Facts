@@ -24,6 +24,13 @@
 @property (nonatomic, retain) NSSet *results;
 @property (nonatomic, retain) Student *student;
 
+//Transient
+@property (nonatomic, readonly, retain) NSNumber *passed;
+@property (nonatomic, readonly, retain) NSNumber *isCurrentTest;
+
++(Test*) testWithStudent:(Student*)student QuestionSet:(QuestionSet*) questionSet inManagedObjectContext:(NSManagedObjectContext*) context;
+
+
 @end
 
 @interface Test (CoreDataGeneratedAccessors)

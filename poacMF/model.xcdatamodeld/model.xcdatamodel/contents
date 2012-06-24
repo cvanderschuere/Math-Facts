@@ -49,11 +49,14 @@
         <attribute name="idNumber" optional="YES" attributeType="Integer 32" minValueString="0" syncable="YES"/>
         <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="administrator" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Administrator" inverseName="students" inverseEntity="Administrator" syncable="YES"/>
+        <relationship name="currentTest" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Test" syncable="YES"/>
         <relationship name="results" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Result" inverseName="student" inverseEntity="Result" syncable="YES"/>
         <relationship name="tests" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Test" inverseName="student" inverseEntity="Test" syncable="YES"/>
     </entity>
     <entity name="Test" representedClassName="Test" syncable="YES">
+        <attribute name="isCurrentTest" optional="YES" transient="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="passCriteria" attributeType="Integer 16" minValueString="0" syncable="YES"/>
+        <attribute name="passed" optional="YES" transient="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="testLength" attributeType="Integer 16" minValueString="0" syncable="YES"/>
         <relationship name="practice" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Practice" inverseName="test" inverseEntity="Practice" syncable="YES"/>
         <relationship name="questionSet" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="QuestionSet" syncable="YES"/>
@@ -63,7 +66,9 @@
     <entity name="User" representedClassName="User" syncable="YES">
         <attribute name="emailAddress" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstNameInital" optional="YES" transient="YES" attributeType="String" maxValueString="1" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastNameInital" optional="YES" transient="YES" attributeType="String" maxValueString="1" syncable="YES"/>
         <attribute name="password" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
@@ -72,12 +77,12 @@
     <elements>
         <element name="Administrator" positionX="-216" positionY="-288" width="128" height="75"/>
         <element name="Practice" positionX="36" positionY="120" width="128" height="105"/>
-        <element name="Question" positionX="574" positionY="282" width="128" height="105"/>
+        <element name="Question" positionX="387" positionY="126" width="128" height="105"/>
         <element name="QuestionSet" positionX="214" positionY="-315" width="128" height="165"/>
         <element name="Response" positionX="216" positionY="303" width="128" height="75"/>
-        <element name="Result" positionX="-351" positionY="237" width="128" height="150"/>
+        <element name="Result" positionX="-333" positionY="336" width="128" height="150"/>
         <element name="Student" positionX="-443" positionY="-108" width="128" height="165"/>
         <element name="Test" positionX="-45" positionY="-117" width="128" height="150"/>
-        <element name="User" positionX="-443" positionY="-300" width="128" height="120"/>
+        <element name="User" positionX="-443" positionY="-300" width="128" height="150"/>
     </elements>
 </model>

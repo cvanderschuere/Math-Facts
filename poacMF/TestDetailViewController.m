@@ -88,26 +88,26 @@
 -(void)constructBarChart
 {
     // Create barChart from theme
-    CPTXYGraph *barChart = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
+    CPTXYGraph *graph = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
     CPTTheme *theme = [CPTTheme themeNamed:kCPTDarkGradientTheme];
-    [barChart applyTheme:theme];
-    self.graphView.hostedGraph             = barChart;
-    barChart.plotAreaFrame.masksToBorder = NO;
+    [graph applyTheme:theme];
+    self.graphView.hostedGraph             = graph;
+    graph.plotAreaFrame.masksToBorder = NO;
     
 
-    barChart.paddingLeft   = 60;
-    barChart.paddingTop    = 0;
-    barChart.paddingRight  = 0;
-    barChart.paddingBottom = 30;
+    graph.paddingLeft   = 60;
+    graph.paddingTop    = 0;
+    graph.paddingRight  = 0;
+    graph.paddingBottom = 30;
     
     // Add plot space for horizontal bar charts
-    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)barChart.defaultPlotSpace;
+    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
     plotSpace.allowsUserInteraction = YES;
     plotSpace.delegate = self;
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(55.0f)];
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(7.0f)];
     
-    CPTXYAxisSet *axisSet = (CPTXYAxisSet *)barChart.axisSet;
+    CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
     x.axisLineStyle               = nil;
     x.majorTickLineStyle          = nil;
@@ -144,16 +144,55 @@
     y.titleLocation               = CPTDecimalFromFloat(20.0f);
     y.visibleRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(55.0f)];
     
-    // First bar plot
-    CPTBarPlot *barPlot = [CPTBarPlot tubularBarPlotWithColor:[CPTColor darkGrayColor] horizontalBars:NO];
+    /*
+    //Correct Scatter Plot
+    CPTScatterPlot *dataSourceLinePlot = [[CPTScatterPlot alloc] init];
+    dataSourceLinePlot.identifier = @"Green Plot";
+    
+    CPTMutableLineStyle *lineStyle = [dataSourceLinePlot.dataLineStyle mutableCopy];
+    lineStyle.lineWidth              = 3.f;
+    lineStyle.lineColor              = [CPTColor greenColor];
+    lineStyle.dashPattern            = [NSArray arrayWithObjects:[NSNumber numberWithFloat:5.0f], [NSNumber numberWithFloat:5.0f], nil];
+    dataSourceLinePlot.dataLineStyle = lineStyle;
+    
+    dataSourceLinePlot.dataSource = self;
+    
+    // Put an area gradient under the plot above
+    CPTColor *areaColor       = [CPTColor colorWithComponentRed:0.3 green:1.0 blue:0.3 alpha:0.8];
+    CPTGradient *areaGradient = [CPTGradient gradientWithBeginningColor:areaColor endingColor:[CPTColor clearColor]];
+    areaGradient.angle = -90.0f;
+    CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];
+    dataSourceLinePlot.areaFill      = areaGradientFill;
+    dataSourceLinePlot.areaBaseValue = CPTDecimalFromString(@"1.75");
+    
+    // Animate in the new plot, as an example
+    dataSourceLinePlot.opacity        = 0.0f;
+    dataSourceLinePlot.cachePrecision = CPTPlotCachePrecisionAuto;
+    [graph addPlot:dataSourceLinePlot toPlotSpace:plotSpace];
+    */
+
+    // Correct plot
+    CPTBarPlot *barPlot = [CPTBarPlot tubularBarPlotWithColor:[CPTColor greenColor] horizontalBars:NO];
     barPlot.baseValue  = CPTDecimalFromString(@"0");
     barPlot.dataSource = self;
     barPlot.delegate = self;
     barPlot.barOffset  = CPTDecimalFromFloat(-0.5f);
     //barPlot.fill = [CPTFill fillWithColor:[CPTColor colorWithCGColor:[UIColor darkGrayColor].CGColor]];
     barPlot.cornerRadius = 5;
-    barPlot.identifier = @"Bar Plot 1";
-    [barChart addPlot:barPlot toPlotSpace:plotSpace];
+    barPlot.identifier = @"Bar Plot Correct";
+    [graph addPlot:barPlot toPlotSpace:plotSpace];
+    
+    // Incorrect plot
+    CPTBarPlot *barPlot2 = [CPTBarPlot tubularBarPlotWithColor:[CPTColor redColor] horizontalBars:NO];
+    barPlot2.baseValue  = CPTDecimalFromString(@"0");
+    barPlot2.dataSource = self;
+    barPlot2.delegate = self;
+    barPlot2.barOffset  = CPTDecimalFromFloat(-0.5f);
+    //barPlot.fill = [CPTFill fillWithColor:[CPTColor colorWithCGColor:[UIColor darkGrayColor].CGColor]];
+    barPlot2.cornerRadius = 5;
+    barPlot2.identifier = @"Bar Plot Correct";
+    [graph addPlot:barPlot2 toPlotSpace:plotSpace];
+
 }
 #pragma mark - CPTBarPlot delegate method
 
@@ -171,6 +210,9 @@
 }
 -(float) questionsCorrectPerMinutesForResult:(Result*)result{
     return result.correctResponses.count * ((60.0f)/([result.endDate timeIntervalSinceDate:result.startDate]));
+}
+-(float) questionsIncorrectPerMinutesForResult:(Result*)result{
+    return result.incorrectResponses.count * ((60.0f)/([result.endDate timeIntervalSinceDate:result.startDate]));
 }
 
 #pragma mark - Plot Data Source Methods
@@ -195,7 +237,7 @@
 	}
 	else if ( fieldEnum == CPTBarPlotFieldBarTip ) {
 		// length - calculate QPM
-        num = [NSDecimalNumber numberWithFloat:[self questionsCorrectPerMinutesForResult:[self.testResults objectAtIndex:index]]];
+        num = [plot.identifier isEqual:@"Bar Plot Correct"]?[NSDecimalNumber numberWithFloat:[self questionsCorrectPerMinutesForResult:[self.testResults objectAtIndex:index]]]:[NSDecimalNumber numberWithFloat:[self questionsIncorrectPerMinutesForResult:[self.testResults objectAtIndex:index]]];
 	}
 	else {
 		// base
@@ -215,7 +257,7 @@
     }
     
     CPTTextLayer *newLayer = nil;
-    int percentageCorrect = (int)  [self questionsCorrectPerMinutesForResult:[self.testResults objectAtIndex:index]];
+    int percentageCorrect = (int)  [plot.identifier isEqual:@"Bar Plot Correct"]?[self questionsCorrectPerMinutesForResult:[self.testResults objectAtIndex:index]]:[self questionsIncorrectPerMinutesForResult:[self.testResults objectAtIndex:index]];
     newLayer = [[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%d", percentageCorrect] style:whiteText];   
     
     return newLayer;

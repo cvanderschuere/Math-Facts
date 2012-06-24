@@ -17,6 +17,10 @@
 @dynamic password;
 @dynamic username;
 
+//Transient
+@dynamic firstNameInital;
+@dynamic lastNameInital;
+
 +(BOOL) isUserNameUnique:(NSString*)username inContext:(NSManagedObjectContext*)context{
     //Fetch all User objects with same username
     NSFetchRequest* fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"User"];
@@ -25,5 +29,16 @@
     
     return [context executeFetchRequest:fetchRequest error:NULL].count == 0;
 }
-
+- (NSString *) firstNameInital {
+    [self willAccessValueForKey:@"firstNameInital"];
+    NSString * initial = self.firstName.length>0?[[self firstName] substringToIndex:1]:@"";
+    [self didAccessValueForKey:@"firstNameInital"];
+    return initial;
+}
+- (NSString *) lastNameInital {
+    [self willAccessValueForKey:@"lastNameInital"];
+    NSString * initial = self.lastName.length>0?[[self lastName] substringToIndex:1]:@"";
+    [self didAccessValueForKey:@"lastNameInital"];
+    return initial;
+}
 @end

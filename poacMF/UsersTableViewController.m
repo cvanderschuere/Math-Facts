@@ -83,7 +83,7 @@
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.currentAdmin.managedObjectContext
-                                                                          sectionNameKeyPath:nil
+                                                                          sectionNameKeyPath:@"firstNameInital"
                                                                                    cacheName:nil];
     }
 

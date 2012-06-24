@@ -22,6 +22,7 @@
 @dynamic results;
 @dynamic tests;
 @dynamic defaultTestLength;
+@dynamic currentTest;
 
 
 @end

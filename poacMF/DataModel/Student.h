@@ -22,6 +22,7 @@
 @property (nonatomic, retain) Administrator *administrator;
 @property (nonatomic, retain) NSSet *results;
 @property (nonatomic, retain) NSSet *tests;
+@property (nonatomic, weak) Test* currentTest;
 @end
 
 @interface Student (CoreDataGeneratedAccessors)
@@ -35,5 +36,6 @@
 - (void)removeTestsObject:(Test *)value;
 - (void)addTests:(NSSet *)values;
 - (void)removeTests:(NSSet *)values;
+
 
 @end

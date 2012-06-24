@@ -107,7 +107,22 @@
 }
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
-    return nil;
+    return nil;//[self.fetchedResultsController sectionIndexTitles];
+}
+- (NSString *)controller:(NSFetchedResultsController *)controller sectionIndexTitleForSectionName:(NSString *)sectionName{
+    if ([sectionName isEqualToString:@"Addition"]) {
+        return @"+";
+    }
+    else if ([sectionName isEqualToString:@"Subtraction"]) {
+        return @"-";
+    }
+    else if ([sectionName isEqualToString:@"Multiplication"]) {
+        return @"x";
+    }
+    else if ([sectionName isEqualToString:@"Division"]) {
+        return @"/";
+    }
+
 }
 - (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath{
     return NO;

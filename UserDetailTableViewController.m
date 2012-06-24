@@ -214,6 +214,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Navigation logic may go here. Create and push another view controller.
+    /*
     UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
     if ([selectedCell.reuseIdentifier isEqualToString:@"addTestCell"]) {
         AddTestPopoverViewController* addTest = [self.storyboard instantiateViewControllerWithIdentifier:@"addTestPopoverViewController"];
@@ -260,6 +261,7 @@
         self.popover = [[UIPopoverController alloc] initWithContentViewController:addVC];
         [self.popover presentPopoverFromRect:selectedCell.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
+    */
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
