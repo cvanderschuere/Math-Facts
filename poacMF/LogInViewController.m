@@ -16,7 +16,7 @@
 #import "Student.h"
 #import "Administrator.h"
 #import "AdminSplitViewController.h"
-#import "StudentMainViewController.h"
+#import "SubjectDetailViewController.h"
 
 
 @interface LoginViewController ()
@@ -100,7 +100,7 @@
         [segue.destinationViewController setCurrentAdmin:sender];
     }
     else if ([segue.identifier isEqualToString:@"studentUserSegue"]) {
-        StudentMainViewController *progressVC = (StudentMainViewController *) [[segue.destinationViewController viewControllers] lastObject];
+        SubjectDetailViewController *progressVC = (SubjectDetailViewController *) [[segue.destinationViewController viewControllers] lastObject];
         progressVC.currentStudent = sender;
         
         //Clear Password

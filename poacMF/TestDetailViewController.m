@@ -183,14 +183,14 @@
     [graph addPlot:barPlot toPlotSpace:plotSpace];
     
     // Incorrect plot
-    CPTBarPlot *barPlot2 = [CPTBarPlot tubularBarPlotWithColor:[CPTColor redColor] horizontalBars:NO];
+    CPTBarPlot *barPlot2 = [CPTBarPlot tubularBarPlotWithColor:[CPTColor colorWithComponentRed:1 green:0 blue:0 alpha:.1] horizontalBars:NO];
     barPlot2.baseValue  = CPTDecimalFromString(@"0");
     barPlot2.dataSource = self;
     barPlot2.delegate = self;
     barPlot2.barOffset  = CPTDecimalFromFloat(-0.5f);
     //barPlot.fill = [CPTFill fillWithColor:[CPTColor colorWithCGColor:[UIColor darkGrayColor].CGColor]];
     barPlot2.cornerRadius = 5;
-    barPlot2.identifier = @"Bar Plot Correct";
+    barPlot2.identifier = @"Bar Plot Incorrect";
     [graph addPlot:barPlot2 toPlotSpace:plotSpace];
 
 }

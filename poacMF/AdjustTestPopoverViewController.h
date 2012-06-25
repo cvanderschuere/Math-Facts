@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Test.h"
 
-@interface AdjustTestPopoverViewController : UIViewController
+@interface AdjustTestPopoverViewController : UITableViewController
 
 @property (strong, nonatomic) Test *testToAdjust;
 

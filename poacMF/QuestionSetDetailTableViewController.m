@@ -60,6 +60,11 @@
     if ([segue.identifier isEqualToString:@"editQuestionSetSegue"]) {
         [[[segue.destinationViewController viewControllers] lastObject] setQuestionSetToUpdate:self.questionSet];
     }
+    else if ([segue.identifier isEqualToString:@"showTestSegue"]) {
+        //Get selected test from frc and pass it along
+        Test* selectedTest = [self.fetchedResultsController objectAtIndexPath:[self.tableView indexPathForCell:sender]];
+        [segue.destinationViewController setTest:selectedTest];
+    }
     
 }
 
@@ -113,9 +118,14 @@
     
     if (test.results.count>0) {
         //Find best result
-        Result *bestResult = test.results.anyObject;
+        Result *bestResult = nil;
+        for (Result *result in test.results) {
+            if (result.correctResponses.count > bestResult.correctResponses.count) {
+                bestResult = result;
+            }
+        }
         
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"QPM: %d", bestResult.correctResponses.count * ((60.0f)/([bestResult.endDate timeIntervalSinceDate:bestResult.startDate]))];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"QPM: %.0f", bestResult.correctResponses.count * ((60.0f)/([bestResult.endDate timeIntervalSinceDate:bestResult.startDate]))];
     }
     else {
         cell.detailTextLabel.text = @"Unattempted";

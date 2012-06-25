@@ -236,6 +236,7 @@
 }
 -(void) didSelectQuestionSet:(QuestionSet*)selectedQuestionSet{
     [self.student selectQuestionSet:selectedQuestionSet];
+    [self.popover dismissPopoverAnimated:YES];
 }
 
 -(void) didAddCategoryType:(NSNumber *)categoryType{
@@ -271,7 +272,7 @@
 
 - (IBAction)selectCurrentTest:(UIBarButtonItem*)sender {
     if (self.popover.popoverVisible) {
-        [self.popover dismissPopoverAnimated:YES];
+        return [self.popover dismissPopoverAnimated:YES];
     }
     
     SelectCurrentTestTableViewController* selectTest = [self.storyboard instantiateViewControllerWithIdentifier:@"SelectCurrentTestTableViewController"];

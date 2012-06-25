@@ -352,7 +352,7 @@
         }
         else {
             //No more question sets
-            
+            [self.currentStudent setCurrentTest:nil];
         }
         
         
