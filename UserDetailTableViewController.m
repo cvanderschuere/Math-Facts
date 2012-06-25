@@ -35,7 +35,7 @@
         NSLog(@"Student: %@",_student);
         //Set Title and setup observer
         self.title = _student.firstName;
-        
+        self.debug = YES;
         
         if (_student){   //Enable Button Segues
             self.shareButton.enabled = self.editButton.enabled = YES;
@@ -43,7 +43,6 @@
         }
         else {   //Disable and clear tableview
             self.fetchedResultsController = nil;
-            [self.tableView reloadData];
             self.shareButton.enabled = self.editButton.enabled = NO;
         }
     }
@@ -97,31 +96,31 @@
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Test"];
-    request.sortDescriptors = [NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:@"questionSet.type" ascending:YES selector:@selector(compare:)],[NSSortDescriptor sortDescriptorWithKey:@"questionSet.difficultyLevel" ascending:YES selector:@selector(compare:)],[NSSortDescriptor sortDescriptorWithKey:@"questionSet.name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)],nil];
+    request.sortDescriptors = [NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:@"isCurrentTest" ascending:NO selector:@selector(compare:)],[NSSortDescriptor sortDescriptorWithKey:@"questionSet.type" ascending:YES selector:@selector(compare:)],[NSSortDescriptor sortDescriptorWithKey:@"questionSet.difficultyLevel" ascending:YES selector:@selector(compare:)],[NSSortDescriptor sortDescriptorWithKey:@"questionSet.name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)],nil];
     request.predicate = [NSPredicate predicateWithFormat:@"student.username == %@",self.student.username];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.student.managedObjectContext
-                                                                          sectionNameKeyPath:@"questionSet.typeName"
+                                                                          sectionNameKeyPath:@"isCurrentTest"
                                                                                    cacheName:nil];
 }
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    //Include insert category cell
-    return [super numberOfSectionsInTableView:tableView] + 1;
+    return [super numberOfSectionsInTableView:tableView];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    //Include insert row if not add category cell
-    if (section!=[self numberOfSectionsInTableView:tableView]-1) {
-        return [super tableView:tableView numberOfRowsInSection:section] + 1;
-    }
-    return self.student?1:0;
+    return [super tableView:tableView numberOfRowsInSection:section];
 }
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-	return section!=[self numberOfSectionsInTableView:tableView]-1?[[[self.fetchedResultsController sections] objectAtIndex:section] name]:nil;
+-(NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    NSString *sectionName = [super tableView:tableView titleForHeaderInSection:section];
+    if ([sectionName isEqualToString:@"1"]) {
+        return @"Current";
+    }
+    else {
+        return @"History";
+    }
 }
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
@@ -138,31 +137,17 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //Check if last row and not last section... should include insert row
-    if (indexPath.section == [self numberOfSectionsInTableView:tableView]-1) {
-        return [tableView dequeueReusableCellWithIdentifier:@"addTestCategoryCell"];
+    /*
+    //Check if section 1 and current test doesnt exist
+    if (indexPath.section == 0 && !self.student.currentTest) {
+        return [tableView dequeueReusableCellWithIdentifier:@"selectTestCell"];
     }
-    else if (indexPath.row == [tableView.dataSource tableView:tableView numberOfRowsInSection:indexPath.section]-1) {
-        //Include Insert Row
-        return [tableView dequeueReusableCellWithIdentifier:@"addTestCell"];
-    }
-        
+     */
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"testCell"];
     Test *test = (Test*) [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [@"Test: " stringByAppendingString:test.questionSet.name];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@: %@",test.questionSet.typeName,test.questionSet.name];// [@"Test: " stringByAppendingString:test.questionSet.name];
     
-    
-    __block NSNumber *passCriteria = test.passCriteria;
-    __block BOOL testPassed = NO;
-    
-    //Determine if testPassed
-    [test.results enumerateObjectsUsingBlock:^(Result* result, BOOL *stop){
-        if (result.correctResponses.count >= passCriteria.intValue) {
-            testPassed = YES;
-            *stop = YES;
-        }
-    }];
-    cell.imageView.image = testPassed?[UIImage imageNamed:@"passStamp"]:nil;
+    cell.imageView.image = test.passed.boolValue?[UIImage imageNamed:@"passStamp"]:nil;
     
     return cell;
 }
@@ -189,7 +174,7 @@
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
-    return ![[tableView cellForRowAtIndexPath:indexPath].reuseIdentifier isEqualToString:@"addTestCategoryCell"] && ![[tableView cellForRowAtIndexPath:indexPath].reuseIdentifier isEqualToString:@"addTestCell"];
+    return ![[tableView cellForRowAtIndexPath:indexPath].reuseIdentifier isEqualToString:@"selectTestCell"];
 }
 
 
@@ -216,27 +201,12 @@
     // Navigation logic may go here. Create and push another view controller.
     /*
     UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
-    if ([selectedCell.reuseIdentifier isEqualToString:@"addTestCell"]) {
-        AddTestPopoverViewController* addTest = [self.storyboard instantiateViewControllerWithIdentifier:@"addTestPopoverViewController"];
-        addTest.delegate = self;
+    if ([selectedCell.reuseIdentifier isEqualToString:@"selectTestCell"]) {
+        SelectCurrentTestTableViewController* selectTest = [self.storyboard instantiateViewControllerWithIdentifier:@"SelectCurrentTestTableViewController"];
+        selectTest.delegate = self;
+        selectTest.context = self.student.managedObjectContext;
         
-        //Load all questionSets from section
-        NSMutableArray *sectionArray = [NSMutableArray array];
-        for (int index = 0; index<indexPath.row; index++) {
-            [sectionArray addObject:[[self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:index inSection:indexPath.section]] questionSet]];
-        }
-        //Fetch all questionSets of same type and are not these
-        NSFetchRequest *questionSetRequest = [NSFetchRequest fetchRequestWithEntityName:@"QuestionSet"];
-        questionSetRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"difficultyLevel" ascending:YES]];
-        QuestionSet *questionSet = [sectionArray lastObject];
-        questionSetRequest.predicate = [NSPredicate predicateWithFormat:@"type == %@ AND NOT(SELF in %@)", questionSet.type, sectionArray];
-        addTest.questionSetsToChoose = [self.student.managedObjectContext executeFetchRequest:questionSetRequest error:nil].mutableCopy;
-        
-        //Update settings
-        addTest.passCriteriaSetting = self.student.defaultPassCriteria;
-        addTest.testLengthSetting = self.student.defaultTestLength;
-        
-        self.popover = [[UIPopoverController alloc] initWithContentViewController:addTest];
+        self.popover = [[UIPopoverController alloc] initWithContentViewController:selectTest];
         [self.popover presentPopoverFromRect:selectedCell.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
     else if ([selectedCell.reuseIdentifier isEqualToString:@"addTestCategoryCell"]) {
@@ -263,6 +233,30 @@
     }
     */
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+-(void) didSelectQuestionSet:(QuestionSet*)selectedQuestionSet{
+    //Fetch pre-existing test for this user and questionset
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Test"];
+    fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"student.firstName" ascending:YES]];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"questionSet.type == %@ AND questionSet.difficultyLevel == %@ AND questionSet.name == %@ AND student.username == %@",selectedQuestionSet.type,selectedQuestionSet.difficultyLevel,selectedQuestionSet.name,self.student.username];
+    NSArray* result = [self.student.managedObjectContext executeFetchRequest:fetchRequest error:NULL];
+    
+    
+    Test* currentTest = nil;
+    //If no prexisting tests exist...create new
+    if (result.count == 0) {
+        currentTest = [NSEntityDescription insertNewObjectForEntityForName:@"Test" inManagedObjectContext:self.student.managedObjectContext];
+        currentTest.questionSet = selectedQuestionSet;
+        currentTest.testLength = self.student.defaultTestLength;
+        currentTest.passCriteria = self.student.defaultPassCriteria;
+        [self.student addTestsObject:currentTest];
+
+    }
+    else {
+        currentTest = result.lastObject;
+    }
+    
+    [self.student setCurrentTest:currentTest];
 }
 
 -(void) didAddCategoryType:(NSNumber *)categoryType{
@@ -296,4 +290,16 @@
     [self.student addTestsObject:newTest];
 }
 
+- (IBAction)selectCurrentTest:(UIBarButtonItem*)sender {
+    if (self.popover.popoverVisible) {
+        [self.popover dismissPopoverAnimated:YES];
+    }
+    
+    SelectCurrentTestTableViewController* selectTest = [self.storyboard instantiateViewControllerWithIdentifier:@"SelectCurrentTestTableViewController"];
+    selectTest.delegate = self;
+    selectTest.context = self.student.managedObjectContext;
+    
+    self.popover = [[UIPopoverController alloc] initWithContentViewController:selectTest];
+    [self.popover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+}
 @end

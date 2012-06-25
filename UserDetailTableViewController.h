@@ -9,16 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "CoreDataTableViewController.h"
 #import "AddCategoryPopoverController.h"
-#import "AddTestPopoverViewController.h"
+#import "SelectCurrentTestTableViewController.h"
 #import "Student.h"
 
 
-@interface UserDetailTableViewController : CoreDataTableViewController <UIPopoverControllerDelegate, AddCategoryDelegate,AddTestDelegate>
+@interface UserDetailTableViewController : CoreDataTableViewController <UIPopoverControllerDelegate, AddCategoryDelegate,SelectTestProtocol>
 
 @property (nonatomic, strong) Student* student;
 @property (nonatomic, strong) UIPopoverController *popover;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *editButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
 
+- (IBAction)selectCurrentTest:(id)sender;
 
 @end

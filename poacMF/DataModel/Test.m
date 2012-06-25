@@ -16,10 +16,10 @@
 @dynamic questionSet;
 @dynamic results;
 @dynamic student;
+@dynamic isCurrentTest;
 
 
 @dynamic passed;
-@dynamic isCurrentTest;
 
 -(void) awakeFromInsert{
     [super awakeFromInsert];
@@ -42,12 +42,8 @@
     }];
     return [NSNumber numberWithBool:didPass];
 }
--(NSNumber*) isCurrentTest{
-    if ([self.student.currentTest isEqual:self]) {
-        return [NSNumber numberWithBool:YES];
-    }
-    return [NSNumber numberWithBool:NO];
++(NSSet*) keyPathsForValuesAffectingIsCurrentTest{
+    return [NSSet setWithObject:@"currentTestForStudent"];
 }
-
 
 @end

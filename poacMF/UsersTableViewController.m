@@ -85,7 +85,7 @@
                                                                         managedObjectContext:self.currentAdmin.managedObjectContext
                                                                           sectionNameKeyPath:@"firstNameInital"
                                                                                    cacheName:nil];
-    }
+}
 
 
 #pragma mark - Table view data source

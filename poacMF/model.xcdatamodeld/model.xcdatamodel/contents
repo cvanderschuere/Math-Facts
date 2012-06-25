@@ -49,12 +49,11 @@
         <attribute name="idNumber" optional="YES" attributeType="Integer 32" minValueString="0" syncable="YES"/>
         <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="administrator" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Administrator" inverseName="students" inverseEntity="Administrator" syncable="YES"/>
-        <relationship name="currentTest" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Test" syncable="YES"/>
         <relationship name="results" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Result" inverseName="student" inverseEntity="Result" syncable="YES"/>
         <relationship name="tests" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Test" inverseName="student" inverseEntity="Test" syncable="YES"/>
     </entity>
     <entity name="Test" representedClassName="Test" syncable="YES">
-        <attribute name="isCurrentTest" optional="YES" transient="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="isCurrentTest" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="passCriteria" attributeType="Integer 16" minValueString="0" syncable="YES"/>
         <attribute name="passed" optional="YES" transient="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="testLength" attributeType="Integer 16" minValueString="0" syncable="YES"/>
