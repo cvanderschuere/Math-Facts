@@ -81,7 +81,7 @@
         <element name="Response" positionX="216" positionY="303" width="128" height="75"/>
         <element name="Result" positionX="-333" positionY="336" width="128" height="150"/>
         <element name="Student" positionX="-443" positionY="-108" width="128" height="165"/>
-        <element name="Test" positionX="-45" positionY="-117" width="128" height="150"/>
+        <element name="Test" positionX="-45" positionY="-117" width="128" height="165"/>
         <element name="User" positionX="-443" positionY="-300" width="128" height="150"/>
     </elements>
 </model>

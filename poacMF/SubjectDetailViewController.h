@@ -15,7 +15,7 @@
     
 }
 
-@property (nonatomic, strong) NSMutableArray *subjectTests;
+@property (nonatomic, strong) Student *currentStudent;
 @property (nonatomic, strong) AQGridView *gridView;
 
 @end

@@ -11,15 +11,58 @@
 #import "TestSelectCell.h"
 
 @interface SubjectDetailViewController ()
+@property (nonatomic, strong) NSMutableArray *subjectTests;
+@property (nonatomic, strong) UIActionSheet* logoutSheet;
 
 @end
 
 @implementation SubjectDetailViewController
 
-@synthesize subjectTests = _subjectTests, gridView = _gridView;
+@synthesize subjectTests = _subjectTests, gridView = _gridView, currentStudent = _currentStudent;
+@synthesize logoutSheet = _logoutSheet;
+
+-(void) setCurrentStudent:(Student *)currentStudent{
+    if (![currentStudent isEqual:_currentStudent]) {
+        _currentStudent = currentStudent;
+        
+        //Find current test
+        Test* currentTest = [[currentStudent.tests filteredSetUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(Test* evaluatedObject,NSDictionary* bindings){
+            return evaluatedObject.isCurrentTest.boolValue;
+        }]] anyObject];
+        
+        [self updateDateForType:currentTest.questionSet];
+    }
+}
+-(void) updateDateForType: (QuestionSet*) questionSet{
+    //Set title
+    self.title = questionSet.typeName;
+    
+    //Fetch all tests of same type
+    NSMutableArray* testsOfSubject = [self.currentStudent.tests filteredSetUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(Test* evaluatedObject,NSDictionary* bindings){
+        return [evaluatedObject.questionSet.type isEqualToNumber:questionSet.type];
+    }]].allObjects.mutableCopy;
+    
+    //Sort by sort order
+    [testsOfSubject sortUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"questionSet.difficultyLevel" ascending:YES]]];
+    
+    //Fetch all question sets of type
+    NSFetchRequest *questionSets = [NSFetchRequest fetchRequestWithEntityName:@"QuestionSet"];
+    questionSets.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"difficultyLevel" ascending:YES]];
+    questionSets.predicate = [NSPredicate predicateWithFormat:@"type == %@",questionSet.type];
+    
+    NSMutableArray *subjectTests = [_currentStudent.managedObjectContext executeFetchRequest:questionSets error:NULL].mutableCopy;
+    
+    //Replace with tests
+    for (Test* test in testsOfSubject) {
+        [subjectTests replaceObjectAtIndex:test.questionSet.difficultyLevel.intValue withObject:test];
+    }
+    self.subjectTests = subjectTests;
+
+}
 
 -(void) setSubjectTests:(NSMutableArray *)subjectTests{
     if (![_subjectTests isEqualToArray:subjectTests]) {
+        /*
         //Sort incoming data
         [subjectTests sortUsingComparator:^NSComparisonResult(Test* test1, Test* test2){
             //Sort by difficulty of question set
@@ -28,10 +71,10 @@
         for (Test* test in subjectTests) {
             NSLog(@"Test: %@",test.questionSet.difficultyLevel);
         }
+        */
         
         //Set value and reload data
         _subjectTests = subjectTests;
-        self.title = [[[_subjectTests objectAtIndex:0] questionSet] typeName];
         [self.gridView reloadData];
     }
 }
@@ -69,6 +112,18 @@
     [self.gridView reloadData];
 
 }
+-(IBAction) logOut: (id) sender {
+    if (self.logoutSheet.visible)
+        return [self.logoutSheet dismissWithClickedButtonIndex:-1 animated:YES];
+    
+    //2) confirmatory logout prompt if they are logged in
+    self.logoutSheet = [[UIActionSheet alloc] initWithTitle:@"Logout?" 
+                                                   delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"Logout" 
+                                          otherButtonTitles:@"Cancel", nil, nil];
+    self.logoutSheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+    self.logoutSheet.delegate = self;
+    [self.logoutSheet showFromBarButtonItem:sender animated:YES];
+}//end method
 
 #pragma mark -
 #pragma mark GridView Data Source
@@ -98,7 +153,9 @@
         hiddenCell.hidden = YES;
         return ( hiddenCell );
     }
-    
+        
+    id object = [self.subjectTests objectAtIndex:index];
+
     TestSelectCell * cell = (TestSelectCell *)[gridView dequeueReusableCellWithIdentifier: CellIdentifier];
     if ( cell == nil )
     {
@@ -117,40 +174,62 @@
         [cell.contentView addSubview:colorView];
          */
     }
-    Test* test = [self.subjectTests objectAtIndex:index];
-    cell.difficultyLevel = [NSNumber numberWithInt:test.questionSet.difficultyLevel.intValue +1];
     
-    //Calculate Pass level
-    if (test.results.count>0) {
-        int maxCorrect = 0;
-        for (Result* result in test.results) {
-            if (result.correctResponses.count>maxCorrect) {
-                maxCorrect = result.correctResponses.count;
-            }
-        }
+    if ([object isKindOfClass:[Test class]]) {
+        Test *test = object;
         
-        if (maxCorrect>=test.passCriteria.intValue) {
-            if (maxCorrect>=test.passCriteria.intValue * 1.2) {
-                //is 20% greater
-                cell.passedLevel = [NSNumber numberWithInt:3];
+        cell.difficultyLevel = [NSNumber numberWithInt:test.questionSet.difficultyLevel.intValue +1];
+        cell.locked = NO;
+        
+        //Calculate Pass level
+        if (test.results.count>0) {
+            int maxCorrect = 0;
+            for (Result* result in test.results) {
+                if (result.correctResponses.count>maxCorrect) {
+                    maxCorrect = result.correctResponses.count;
+                }
             }
-            else if (maxCorrect>=test.passCriteria.intValue * 1.1) {
-                //is 10% greater
-                cell.passedLevel = [NSNumber numberWithInt:2];
+            
+            if (maxCorrect>=test.passCriteria.intValue) {
+                if (maxCorrect>=test.passCriteria.intValue * 1.2) {
+                    //is 20% greater
+                    cell.passedLevel = [NSNumber numberWithInt:3];
+                }
+                else if (maxCorrect>=test.passCriteria.intValue * 1.1) {
+                    //is 10% greater
+                    cell.passedLevel = [NSNumber numberWithInt:2];
+                }
+                else {
+                    //Just passed
+                    cell.passedLevel = [NSNumber numberWithInt:1];
+                }
             }
             else {
-                //Just passed
-                cell.passedLevel = [NSNumber numberWithInt:1];
+                //Hasn't passed yet
+                cell.passedLevel = [NSNumber numberWithInt:0];
             }
+            
         }
         else {
-            //Hasn't passed yet
             cell.passedLevel = [NSNumber numberWithInt:0];
         }
-        
+
+        if (test.isCurrentTest.boolValue) {
+            //Show highlight
+            cell.layer.borderWidth = 2;
+            cell.layer.borderColor = [UIColor yellowColor].CGColor;
+        }
+        else {
+            cell.layer.borderWidth = 0;
+        }
     }
-    else {
-        cell.passedLevel = [NSNumber numberWithInt:0];
+    else{
+        //Question Set
+        cell.locked = YES;
+        cell.difficultyLevel = [NSNumber numberWithInt:[object difficultyLevel].intValue +1];
+        cell.passedLevel = [NSNumber numberWithInt:-1];
+        cell.layer.borderWidth = 0;
+
     }
     
     return ( cell );
@@ -162,24 +241,50 @@
 }
 #pragma mark - AQGridView Delegate
 -(void) gridView:(AQGridView *)gridView didSelectItemAtIndex:(NSUInteger)index{
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil  delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Practice",@"Test", nil];
-    [actionSheet showFromRect:[gridView rectForItemAtIndex:index]  inView:self.view animated:YES];
+    id object = [self.subjectTests objectAtIndex:index];
+    if ([object isKindOfClass:[Test class]]) {
+        if ([object isCurrentTest].boolValue) {
+            //Current Test
+            UIActionSheet* actionSheet = nil;
+            if ([object practice].results.count>0) {
+                actionSheet = [[UIActionSheet alloc] initWithTitle:nil  delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Practice",@"Test",nil];
+            }
+            else {
+                actionSheet = [[UIActionSheet alloc] initWithTitle:nil  delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Practice",nil];
+            }
+            [actionSheet showFromRect:[gridView rectForItemAtIndex:index]  inView:self.view animated:YES];
+        }
+        else {
+            //Previous test
+            [self.gridView deselectItemAtIndex:index animated:YES];
+        }
+    }
+    else if ([object isKindOfClass:[QuestionSet class]]) {
+        [self.gridView deselectItemAtIndex:index animated:YES];
+    }
 }
 #pragma mark - UIActionSheet Delegate
 -(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-    //Test: 1 Practice: 0
-    if (buttonIndex == 1) {
-        //Launch Test
-        [TestFlight passCheckpoint:@"StartTest"];
-        [self performSegueWithIdentifier:@"startTestSegue" sender:self.gridView];
+    if ([actionSheet.title isEqualToString:@"Logout?"]) {
+        if (buttonIndex == 0) {
+            [self.parentViewController dismissViewControllerAnimated:YES completion:NULL];
+        }
     }
-    else if (buttonIndex == 0) {
-        //Launch Practice
-        [TestFlight passCheckpoint:@"StartTest"];
-        [self performSegueWithIdentifier:@"startPracticeSegue" sender:self.gridView];
+    else {
+        //Test: 1 Practice: 0
+        if (buttonIndex == 1) {
+            //Launch Test
+            [TestFlight passCheckpoint:@"StartTest"];
+            [self performSegueWithIdentifier:@"startTestSegue" sender:self.gridView];
+        }
+        else if (buttonIndex == 0) {
+            //Launch Practice
+            [TestFlight passCheckpoint:@"StartTest"];
+            [self performSegueWithIdentifier:@"startPracticeSegue" sender:self.gridView];
+        }
+        
+        [self.gridView deselectItemAtIndex:self.gridView.selectedIndex animated:YES];
     }
-    
-    [self.gridView deselectItemAtIndex:self.gridView.selectedIndex animated:YES];
 }
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"startTestSegue"]) {
@@ -231,6 +336,28 @@
     [TestFlight passCheckpoint:@"FinishedTest"];
 
     BOOL passed = finishedTest.passCriteria.intValue <= result.correctResponses.count;
+    
+    if (passed) {
+        //Find next questionSet to create new test
+        NSFetchRequest *nextQSFetch = [NSFetchRequest fetchRequestWithEntityName:@"QuestionSet"];
+        nextQSFetch.sortDescriptors = [NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:@"type" ascending:YES selector:@selector(compare:)],[NSSortDescriptor sortDescriptorWithKey:@"difficultyLevel" ascending:YES selector:@selector(compare:)],[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)],nil];
+        nextQSFetch.predicate = [NSPredicate predicateWithFormat:@"(type == %@ AND difficultyLevel > %@) OR type > %@",finishedTest.questionSet.type,finishedTest.questionSet.difficultyLevel,finishedTest.questionSet.type];
+        nextQSFetch.fetchBatchSize = 1;
+        
+        NSArray* nextQs = [self.currentStudent.managedObjectContext executeFetchRequest:nextQSFetch error:NULL];
+        if (nextQs.count >0) {
+            QuestionSet *nextQuestionSet = [nextQs objectAtIndex:0];
+            [self.currentStudent selectQuestionSet:nextQuestionSet];
+            [self updateDateForType:nextQuestionSet];
+        }
+        else {
+            //No more question sets
+            
+        }
+        
+        
+    }
+    
         
     //Create UIAlertView to present information
     UIAlertView *finishedTestAlert = [[UIAlertView alloc] initWithTitle:passed?@"Good Work":@"Try Again" 
@@ -239,6 +366,7 @@
                                                       cancelButtonTitle:@"Close" otherButtonTitles:nil];
     [finishedTestAlert show];
 }
+
 
 
 @end

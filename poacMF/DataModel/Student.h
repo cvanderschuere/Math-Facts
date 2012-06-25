@@ -10,7 +10,7 @@
 #import <CoreData/CoreData.h>
 #import "User.h"
 
-@class Administrator, Result, Test;
+@class Administrator, Result, Test, QuestionSet;
 
 @interface Student : User
 
@@ -24,6 +24,7 @@
 @property (nonatomic, retain) NSSet *tests;
 
 -(void) setCurrentTest:(Test *)currentTest;
+-(void) selectQuestionSet: (QuestionSet*)selectedSet;
 
 @end
 

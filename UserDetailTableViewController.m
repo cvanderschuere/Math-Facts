@@ -235,28 +235,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 -(void) didSelectQuestionSet:(QuestionSet*)selectedQuestionSet{
-    //Fetch pre-existing test for this user and questionset
-    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Test"];
-    fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"student.firstName" ascending:YES]];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"questionSet.type == %@ AND questionSet.difficultyLevel == %@ AND questionSet.name == %@ AND student.username == %@",selectedQuestionSet.type,selectedQuestionSet.difficultyLevel,selectedQuestionSet.name,self.student.username];
-    NSArray* result = [self.student.managedObjectContext executeFetchRequest:fetchRequest error:NULL];
-    
-    
-    Test* currentTest = nil;
-    //If no prexisting tests exist...create new
-    if (result.count == 0) {
-        currentTest = [NSEntityDescription insertNewObjectForEntityForName:@"Test" inManagedObjectContext:self.student.managedObjectContext];
-        currentTest.questionSet = selectedQuestionSet;
-        currentTest.testLength = self.student.defaultTestLength;
-        currentTest.passCriteria = self.student.defaultPassCriteria;
-        [self.student addTestsObject:currentTest];
-
-    }
-    else {
-        currentTest = result.lastObject;
-    }
-    
-    [self.student setCurrentTest:currentTest];
+    [self.student selectQuestionSet:selectedQuestionSet];
 }
 
 -(void) didAddCategoryType:(NSNumber *)categoryType{

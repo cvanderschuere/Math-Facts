@@ -11,6 +11,7 @@
 @implementation TestSelectCell
 
 @synthesize difficultyLevel = _difficultyLevel;
+@synthesize locked = _locked;
 @synthesize passedLevel = _passedLevel;
 
 -(id) initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier{
@@ -29,6 +30,10 @@
         levelLabel.backgroundColor = [UIColor clearColor];
         levelLabel.tag = 4;
         [self.contentView addSubview:levelLabel];
+        
+        UIImageView *lockedImage = [[UIImageView alloc] initWithFrame:CGRectMake(30, 30, frame.size.width-60, frame.size.height-60)];
+        lockedImage.tag = 5;
+        [self.contentView addSubview:lockedImage];
         
         //Create start images
         UIImageView *star3 = [[UIImageView alloc] initWithFrame:CGRectMake(frame.size.width -30, frame.size.height-30, 30, 30)];
@@ -71,6 +76,7 @@
             star1.image = star2.image = star3.image = [UIImage imageNamed:@"goldenStarOn.png"];
             break;
         default:
+            star1.image = star2.image = star3.image = nil;
             break;
     }
     
@@ -81,5 +87,11 @@
     
     UILabel* difficultyLabel = (UILabel*) [self.contentView viewWithTag:4];
     difficultyLabel.text = difficultyLevel.stringValue;
+}
+-(void) setLocked:(BOOL)locked{
+    _locked = locked;
+    UIImageView *lockedImage = (UIImageView*) [self.contentView viewWithTag:5];
+    lockedImage.image = locked?[UIImage imageNamed:@"lock"]:nil;
+    [self.contentView viewWithTag:4].alpha = locked?0:1;
 }
 @end

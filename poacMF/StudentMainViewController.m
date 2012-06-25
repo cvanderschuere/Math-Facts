@@ -72,7 +72,7 @@
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"subjectDetailSegue"]) {
         //Get tag from uibutton to deterine what subject array to send
-        [segue.destinationViewController setSubjectTests:[self.subjects2DArray objectAtIndex:[sender tag]]];
+        //[segue.destinationViewController setSubjectTests:[self.subjects2DArray objectAtIndex:[sender tag]]];
     }
 }
 
