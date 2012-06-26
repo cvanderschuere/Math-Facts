@@ -2,14 +2,14 @@
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1171" systemVersion="11E53" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Administrator" representedClassName="Administrator" parentEntity="User" syncable="YES">
         <relationship name="questionSets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="QuestionSet" inverseName="administrator" inverseEntity="QuestionSet" syncable="YES"/>
-        <relationship name="students" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Student" inverseName="administrator" inverseEntity="Student" syncable="YES"/>
+        <relationship name="students" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Student" inverseName="administrator" inverseEntity="Student" syncable="YES"/>
     </entity>
     <entity name="Practice" representedClassName="Practice" syncable="YES">
         <attribute name="maximumIncorrect" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="minimumCorrect" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="passed" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="practiceLength" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <relationship name="results" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Result" syncable="YES"/>
+        <relationship name="results" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Result" syncable="YES"/>
         <relationship name="test" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Test" inverseName="practice" inverseEntity="Test" syncable="YES"/>
     </entity>
     <entity name="Question" representedClassName="Question" syncable="YES">
@@ -27,7 +27,7 @@
         <attribute name="typeName" transient="YES" attributeType="String" defaultValueString="Unknown Type" syncable="YES"/>
         <attribute name="typeSymbol" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
         <relationship name="administrator" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Administrator" inverseName="questionSets" inverseEntity="Administrator" syncable="YES"/>
-        <relationship name="questions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Question" inverseName="questionSet" inverseEntity="Question" syncable="YES"/>
+        <relationship name="questions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Question" inverseName="questionSet" inverseEntity="Question" syncable="YES"/>
     </entity>
     <entity name="Response" representedClassName="Response" syncable="YES">
         <attribute name="answer" optional="YES" attributeType="String" syncable="YES"/>
@@ -37,8 +37,8 @@
         <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="isPractice" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
-        <relationship name="correctResponses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Response" syncable="YES"/>
-        <relationship name="incorrectResponses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Response" syncable="YES"/>
+        <relationship name="correctResponses" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Response" syncable="YES"/>
+        <relationship name="incorrectResponses" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Response" syncable="YES"/>
         <relationship name="student" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Student" inverseName="results" inverseEntity="Student" syncable="YES"/>
         <relationship name="test" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Test" inverseName="results" inverseEntity="Test" syncable="YES"/>
     </entity>
@@ -49,8 +49,8 @@
         <attribute name="idNumber" optional="YES" attributeType="Integer 32" minValueString="0" syncable="YES"/>
         <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="administrator" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Administrator" inverseName="students" inverseEntity="Administrator" syncable="YES"/>
-        <relationship name="results" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Result" inverseName="student" inverseEntity="Result" syncable="YES"/>
-        <relationship name="tests" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Test" inverseName="student" inverseEntity="Test" syncable="YES"/>
+        <relationship name="results" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Result" inverseName="student" inverseEntity="Result" syncable="YES"/>
+        <relationship name="tests" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Test" inverseName="student" inverseEntity="Test" syncable="YES"/>
     </entity>
     <entity name="Test" representedClassName="Test" syncable="YES">
         <attribute name="isCurrentTest" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
@@ -59,7 +59,7 @@
         <attribute name="testLength" attributeType="Integer 16" minValueString="0" syncable="YES"/>
         <relationship name="practice" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Practice" inverseName="test" inverseEntity="Practice" syncable="YES"/>
         <relationship name="questionSet" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="QuestionSet" syncable="YES"/>
-        <relationship name="results" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Result" inverseName="test" inverseEntity="Result" syncable="YES"/>
+        <relationship name="results" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Result" inverseName="test" inverseEntity="Result" syncable="YES"/>
         <relationship name="student" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Student" inverseName="tests" inverseEntity="Student" syncable="YES"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES">
@@ -80,8 +80,8 @@
         <element name="QuestionSet" positionX="214" positionY="-315" width="128" height="165"/>
         <element name="Response" positionX="216" positionY="303" width="128" height="75"/>
         <element name="Result" positionX="-333" positionY="336" width="128" height="150"/>
-        <element name="Student" positionX="-443" positionY="-108" width="128" height="165"/>
-        <element name="Test" positionX="-45" positionY="-117" width="128" height="165"/>
-        <element name="User" positionX="-443" positionY="-300" width="128" height="150"/>
+        <element name="Student" positionX="-623" positionY="-75" width="128" height="165"/>
+        <element name="Test" positionX="-45" positionY="-117" width="128" height="150"/>
+        <element name="User" positionX="-621" positionY="-324" width="128" height="150"/>
     </elements>
 </model>

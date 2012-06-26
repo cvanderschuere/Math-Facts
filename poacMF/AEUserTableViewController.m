@@ -227,5 +227,8 @@
     else if([sender isEqual:self.passCriteriaStepper]){
         self.passCriteriaLabel.text = [NSNumber numberWithDouble:sender.value].stringValue;
     }
+    else if ([sender isEqual:self.practiceLengthStepper]) {
+        self.practiceLengthLabel.text = [NSNumber numberWithDouble:sender.value].stringValue;
+    }
 }
 @end

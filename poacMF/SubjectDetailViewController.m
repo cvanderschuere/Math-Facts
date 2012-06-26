@@ -50,11 +50,11 @@
     questionSets.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"difficultyLevel" ascending:YES]];
     questionSets.predicate = [NSPredicate predicateWithFormat:@"type == %@",questionSet.type];
     
-    NSMutableArray *subjectTests = [_currentStudent.managedObjectContext executeFetchRequest:questionSets error:NULL].mutableCopy;
+    NSMutableArray *subjectTests = [_currentStudent.managedObjectContext executeFetchRequest:questionSets error:NULL].mutableCopy;  
     
     //Replace with tests
     for (Test* test in testsOfSubject) {
-        [subjectTests replaceObjectAtIndex:test.questionSet.difficultyLevel.intValue withObject:test];
+        [subjectTests replaceObjectAtIndex:[subjectTests indexOfObjectIdenticalTo:test.questionSet] withObject:test];
     }
     self.subjectTests = subjectTests;
 
@@ -161,18 +161,6 @@
     {
         cell = [[TestSelectCell alloc] initWithFrame: CGRectMake(0.0, 0.0, 120, 120)
                                      reuseIdentifier: CellIdentifier];
-        /*
-        UIView *colorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 120, 120)];
-        colorView.backgroundColor = [UIColor blackColor];
-        UILabel *levelLabel = [[UILabel alloc] initWithFrame:colorView.frame];
-        levelLabel.backgroundColor = [UIColor clearColor];
-        levelLabel.font = [UIFont systemFontOfSize:40];
-        levelLabel.textAlignment = UITextAlignmentCenter;
-        levelLabel.textColor = [UIColor whiteColor];
-        levelLabel.tag = 2;
-        [colorView addSubview:levelLabel];
-        [cell.contentView addSubview:colorView];
-         */
     }
     
     if ([object isKindOfClass:[Test class]]) {
@@ -181,6 +169,16 @@
         cell.difficultyLevel = [NSNumber numberWithInt:test.questionSet.difficultyLevel.intValue +1];
         cell.locked = NO;
         
+        
+        if (test.isCurrentTest.boolValue) {
+            //Show highlight
+            cell.layer.borderWidth = 3;
+            cell.layer.borderColor = [UIColor yellowColor].CGColor;
+        }
+        else {
+            cell.layer.borderWidth = 0;
+        }
+
         //Calculate Pass level
         if (test.results.count>0) {
             int maxCorrect = 0;
@@ -210,19 +208,11 @@
             }
             
         }
-        else {
-            cell.passedLevel = [NSNumber numberWithInt:0];
+        else { //Unattempted
+            cell.passedLevel = [NSNumber numberWithInt:-1];
         }
 
-        if (test.isCurrentTest.boolValue) {
-            //Show highlight
-            cell.layer.borderWidth = 2;
-            cell.layer.borderColor = [UIColor yellowColor].CGColor;
-        }
-        else {
-            cell.layer.borderWidth = 0;
-        }
-    }
+            }
     else{
         //Question Set
         cell.locked = YES;

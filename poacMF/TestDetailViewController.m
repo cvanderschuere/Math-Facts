@@ -172,23 +172,23 @@
     */
 
     // Correct plot
-    CPTBarPlot *barPlot = [CPTBarPlot tubularBarPlotWithColor:[CPTColor greenColor] horizontalBars:NO];
+    CPTBarPlot *barPlot = [CPTBarPlot tubularBarPlotWithColor:[CPTColor lightGrayColor] horizontalBars:NO];
     barPlot.baseValue  = CPTDecimalFromString(@"0");
     barPlot.dataSource = self;
     barPlot.delegate = self;
     barPlot.barOffset  = CPTDecimalFromFloat(-0.5f);
-    //barPlot.fill = [CPTFill fillWithColor:[CPTColor colorWithCGColor:[UIColor darkGrayColor].CGColor]];
+    //barPlot.barWidth = [NSDecimalNumber decimalNumberWithString:@"0.5"].decimalValue;
     barPlot.cornerRadius = 5;
     barPlot.identifier = @"Bar Plot Correct";
     [graph addPlot:barPlot toPlotSpace:plotSpace];
     
     // Incorrect plot
-    CPTBarPlot *barPlot2 = [CPTBarPlot tubularBarPlotWithColor:[CPTColor colorWithComponentRed:1 green:0 blue:0 alpha:.1] horizontalBars:NO];
+    CPTBarPlot *barPlot2 = [CPTBarPlot tubularBarPlotWithColor:[CPTColor colorWithComponentRed:1 green:0 blue:0 alpha:.2] horizontalBars:NO];
     barPlot2.baseValue  = CPTDecimalFromString(@"0");
     barPlot2.dataSource = self;
     barPlot2.delegate = self;
     barPlot2.barOffset  = CPTDecimalFromFloat(-0.5f);
-    //barPlot.fill = [CPTFill fillWithColor:[CPTColor colorWithCGColor:[UIColor darkGrayColor].CGColor]];
+    //barPlot2.barWidth = [NSDecimalNumber decimalNumberWithString:@"0.5"].decimalValue;
     barPlot2.cornerRadius = 5;
     barPlot2.identifier = @"Bar Plot Incorrect";
     [graph addPlot:barPlot2 toPlotSpace:plotSpace];

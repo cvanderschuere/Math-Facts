@@ -16,9 +16,9 @@
 @property (nonatomic, strong) NSMutableArray *questionArray;
 @property (nonatomic, strong) NSMutableArray *createdQuestions;
 
-@property (nonatomic, weak) IBOutlet UITextField *nameTextField;
-@property (nonatomic, weak) IBOutlet UIStepper *typeStepper;
-@property (nonatomic, weak) IBOutlet UILabel *typeLabel;
+@property (nonatomic, strong) IBOutlet UITextField *nameTextField;
+@property (nonatomic, strong) IBOutlet UIStepper *typeStepper;
+@property (nonatomic, strong) IBOutlet UILabel *typeLabel;
 
 @property (nonatomic, strong) UIPopoverController* popover;
 
@@ -37,7 +37,7 @@
 @synthesize isEditing = _isEditing;
 
 //Connect up subviews ***Really bad way to do this-should make custom subclass
-
+/*
 -(UIStepper*) typeStepper{
     if (!_typeStepper) {
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
@@ -62,16 +62,14 @@
     }
     return _nameTextField;
 }
-
+*/
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    //Create tableView
-    [self.tableView reloadData];
-    
+        
     self.createdQuestions = [NSMutableArray array];
     self.questionArray = [NSMutableArray array];
+
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -118,15 +116,22 @@
 -(IBAction) saveClicked {
 	//TODO: Need to check for valid values and unique username
 	AppLibrary *al = [[AppLibrary alloc] init];
-	if (nil == self.nameTextField.text){
+	if (0 == self.nameTextField.text.length){
 		NSString *msg = @"Name must be entered.";
 		[al showAlertFromDelegate:self withWarning:msg];
 		return;
 	}//end if
+    if (self.questionArray.count == 0) {
+        NSString *msg = @"Question Set must contain a question";
+		[al showAlertFromDelegate:self withWarning:msg];
+		return;
+    }
+    
     
     //Create questionSet if necessary
     if (!self.questionSetToUpdate) {
         self.questionSetToUpdate = [NSEntityDescription insertNewObjectForEntityForName:@"QuestionSet" inManagedObjectContext:self.administratorToCreateIn.managedObjectContext];
+        self.questionSetToUpdate.difficultyLevel = [NSNumber numberWithInt:self.administratorToCreateIn.questionSets.count];
         self.questionSetToUpdate.administrator = self.administratorToCreateIn;
     }
     
@@ -207,6 +212,16 @@
 {
     if (indexPath.section == 0) {
         UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:indexPath.row == 0?@"nameCell":@"typeCell"];
+        if (indexPath.row == 1) {
+            self.typeStepper = (UIStepper *) [cell.contentView viewWithTag:15];
+            [self.typeStepper addTarget:self action:@selector(stepperUpdated:) forControlEvents:UIControlEventValueChanged];
+            self.typeLabel = (UILabel*) [cell.contentView viewWithTag:10];
+        }
+        else if (indexPath.row == 0) {
+            self.nameTextField = (UITextField*) [cell.contentView viewWithTag:5];
+            self.nameTextField.delegate = self;
+        }
+
         return cell;
     }
     else if (indexPath.section == 1) {

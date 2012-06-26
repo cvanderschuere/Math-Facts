@@ -84,22 +84,22 @@
 		return;
     }
     
-    //Create New question or update old
-    BOOL isEditing = YES;
-    //Create new student if necessary
-    if (!self.questionToUpdate) {
-        self.questionToUpdate = [NSEntityDescription insertNewObjectForEntityForName:@"Question" inManagedObjectContext:self.contextToCreateIn];
-        isEditing = NO;
-    }
-	
-    self.questionToUpdate.x = self.xStepper.value != -1?[NSNumber numberWithDouble:self.xStepper.value]:nil;
-    self.questionToUpdate.y = self.yStepper.value != -1?[NSNumber numberWithDouble:self.yStepper.value]:nil;
-    self.questionToUpdate.z = self.zStepper.value != -1?[NSNumber numberWithDouble:self.zStepper.value]:nil;
+    if (self.contextToCreateIn) {
+        //Create New question or update old
+        BOOL isEditing = YES;
+        //Create new student if necessary
+        if (!self.questionToUpdate) {
+            self.questionToUpdate = [NSEntityDescription insertNewObjectForEntityForName:@"Question" inManagedObjectContext:self.contextToCreateIn];
+            isEditing = NO;
+        }
         
-    
-    isEditing?[self.delegate didUpdateQuestion:self.questionToUpdate]:[self.delegate didCreateQuestion:self.questionToUpdate];
-
-
+        self.questionToUpdate.x = self.xStepper.value != -1?[NSNumber numberWithDouble:self.xStepper.value]:nil;
+        self.questionToUpdate.y = self.yStepper.value != -1?[NSNumber numberWithDouble:self.yStepper.value]:nil;
+        self.questionToUpdate.z = self.zStepper.value != -1?[NSNumber numberWithDouble:self.zStepper.value]:nil;
+            
+        
+        isEditing?[self.delegate didUpdateQuestion:self.questionToUpdate]:[self.delegate didCreateQuestion:self.questionToUpdate];
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

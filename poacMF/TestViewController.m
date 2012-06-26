@@ -274,7 +274,13 @@
     [self.updateTimer invalidate]; //Stop timer
 
     if (!endedWithTimer) {
-        self.result.endDate = [NSDate date]; //Used if test is stopped short
+        if (self.result.correctResponses.count + self.result.incorrectResponses.count>0) {
+            self.result.endDate = [NSDate date]; //Used if test is stopped short but not quit entirely
+        }
+        else {
+            [self.result.managedObjectContext deleteObject:self.result]; //Delete worthlessresults
+        }
+
     }
     //Save
     [[UIApplication sharedApplication].delegate performSelector:@selector(saveDatabase)];    
