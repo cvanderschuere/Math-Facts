@@ -2514,6 +2514,21 @@
                                             <action selector="digitPressed:" destination="j2a-Eg-zWi" eventType="touchUpInside" id="tyf-Ka-6zw"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="drT-5l-TFb">
+                                        <rect key="frame" x="538" y="20" width="101" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
+                                        <state key="normal" backgroundImage="next_pad.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="didPressNextButton:" destination="j2a-Eg-zWi" eventType="touchUpInside" id="Cr3-Y1-6br"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -2521,6 +2536,13 @@
                                 <rect key="frame" x="151" y="198" width="132" height="66"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Bold" family="Chalkboard SE" pointSize="65"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Incorrect. The correct answer was 20." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="gJS-hJ-Y59">
+                                <rect key="frame" x="-193" y="589" width="1154" height="94"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <fontDescription key="fontDescription" name="ChalkboardSE-Bold" family="Chalkboard SE" pointSize="35"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -2604,8 +2626,12 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="correctStar" destination="9hP-Rh-BrL" id="LKY-8Z-5Jv"/>
                         <outlet property="horizontalLine" destination="6zz-QV-DmF" id="9Mk-lH-5LS"/>
+                        <outlet property="incorrectImage" destination="x0I-yF-NlR" id="EhG-5A-NWV"/>
+                        <outlet property="instructionLabel" destination="gJS-hJ-Y59" id="Kqk-06-q8X"/>
                         <outlet property="mathOperatorSymbol" destination="9zv-2o-BYN" id="l6A-Ex-osK"/>
+                        <outlet property="nextButton" destination="drT-5l-TFb" id="fys-l4-Ldy"/>
                         <outlet property="numberCorrectLabel" destination="s12-UG-Nxn" id="D1Z-hF-JUr"/>
                         <outlet property="numberIncorrectLabel" destination="yJv-R2-Y8w" id="6Hd-h6-BTG"/>
                         <outlet property="timeLabel" destination="lzG-t6-YMZ" id="lUv-hb-VXX"/>
@@ -2796,8 +2822,13 @@
         <class className="PracticeViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PracticeViewController.h"/>
             <relationships>
+                <relationship kind="action" name="didPressNextButton:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="correctStar" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="horizontalLine" candidateClass="UIView"/>
+                <relationship kind="outlet" name="incorrectImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="instructionLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="mathOperatorSymbol" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="nextButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="numberCorrectLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="numberIncorrectLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="questionsLabel" candidateClass="UILabel"/>

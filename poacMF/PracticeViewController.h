@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "Practice.h"
+#import "QuestionSet.h"
+#import "Question.h"
+#import "Result.h"
 
 @protocol PracticeResultProtocol <NSObject>
 
@@ -32,6 +35,15 @@
 @property (weak, nonatomic) IBOutlet UIView *verticalLine;
 @property (weak, nonatomic) IBOutlet UILabel *numberCorrectLabel;
 @property (weak, nonatomic) IBOutlet UILabel *numberIncorrectLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *correctStar;
+@property (weak, nonatomic) IBOutlet UIImageView *incorrectImage;
+@property (weak, nonatomic) IBOutlet UIButton *nextButton;
+
+@property (weak, nonatomic) IBOutlet UILabel *instructionLabel;
+-(IBAction)didPressNextButton:(UIButton*)sender;
+
+
+-(void) prepareForQuestion:(Question*)question;
 
 @end
 

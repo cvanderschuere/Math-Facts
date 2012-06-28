@@ -14,9 +14,11 @@
 
 @implementation Student
 
+@dynamic defaultMaximumIncorrect;
 @dynamic defaultPassCriteria;
 @dynamic defaultPracticeLength;
 @dynamic defaultTestLength;
+@dynamic numberOfDistractionQuestions;
 @dynamic idNumber;
 @dynamic notes;
 @dynamic administrator;

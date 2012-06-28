@@ -17,6 +17,7 @@
 @dynamic results;
 @dynamic student;
 @dynamic isCurrentTest;
+@dynamic maximumIncorrect;
 
 
 @dynamic passed;

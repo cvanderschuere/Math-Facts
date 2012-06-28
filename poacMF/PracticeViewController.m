@@ -13,11 +13,18 @@
 #import "PoacMFAppDelegate.h"
 #import "Test.h"
 
+#define RETAKE_REPITITION 3
+#define RETAKE_DELAY 3
+
 @interface PracticeViewController ()
 
 @property (nonatomic, strong) Result* result;
 @property (nonatomic, strong) NSTimer* updateTimer;
 @property (nonatomic, strong) UIActionSheet *quitSheet;
+
+@property (nonatomic) BOOL currentQuestionIsRetake;
+@property (nonatomic) int questionsBeforeRetake;
+@property (nonatomic, strong) NSMutableArray *errorQueue;
 
 @end
 
@@ -32,11 +39,17 @@
 @synthesize verticalLine = _verticalLine;
 @synthesize numberCorrectLabel = _numberCorrectLabel;
 @synthesize numberIncorrectLabel = _numberIncorrectLabel;
+@synthesize correctStar = _correctStar;
+@synthesize incorrectImage = _incorrectImage;
+@synthesize nextButton = _nextButton;
+@synthesize instructionLabel = _instructionLabel;
 
 @synthesize practice = _practice, questionsToAsk = _questionsToAsk, result = _result;
 @synthesize updateTimer = _updateTimer;
 @synthesize delegate = _delegate;
 @synthesize quitSheet = _quitSheet;
+
+@synthesize currentQuestionIsRetake = _currentQuestionIsRetake, questionsBeforeRetake = _questionsBeforeRetake, errorQueue = _errorQueue;
 
 -(void) setPractice:(Practice *)practice{
     if (![_practice isEqual:practice]) {
@@ -65,6 +78,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //Set inital data
+    self.nextButton.alpha = 0;
+    self.instructionLabel.text = nil;
+    self.currentQuestionIsRetake = NO;
+    self.questionsBeforeRetake = -1;
+    self.errorQueue = [NSMutableArray array];
         
     //Setup for question type
     if (self.practice.test.questionSet.type.intValue == QUESTION_TYPE_MATH_DIVISION) {
@@ -146,11 +166,28 @@
     }
 }
 -(void) loadNextQuestion{
-    if (self.questionsToAsk.count>1) {
-        //Insert old question in front of array
-        [self.questionsToAsk insertObject:[self.questionsToAsk lastObject] atIndex:0];
-        [self.questionsToAsk removeLastObject];
-        
+    //Disable instruction
+    self.nextButton.layer.opacity = 0;
+    self.instructionLabel.text = nil;
+    
+    if(self.currentQuestionIsRetake){
+        [self prepareForQuestion:[self.questionsToAsk lastObject]];   //Load last question again
+    }
+    
+    //Normal Question loading
+    else if (self.questionsToAsk.count>1) {
+        //Check if error question
+        if ([self.errorQueue.lastObject isEqual:self.questionsToAsk.lastObject]) {
+            [self.errorQueue removeLastObject];
+            [self.questionsToAsk removeLastObject];
+        }
+        else {
+            //Insert old question in front of array
+            [self.questionsToAsk insertObject:[self.questionsToAsk lastObject] atIndex:0];
+            [self.questionsToAsk removeLastObject];
+
+        }
+                
         //Pick a random question and exchange it with the last object
         //[self.questionsToAsk exchangeObjectAtIndex:arc4random()%(self.questionsToAsk.count)  withObjectAtIndex:self.questionsToAsk.count-1];
         
@@ -243,31 +280,73 @@
     formatter.numberStyle = NSNumberFormatterBehavior10_4;
     NSNumber * answer = [formatter numberFromString:givenAnswer];
     
-    if ([answer compare:actualAnswer] == NSOrderedSame) {
-        //Create Response
-        Response *correctResponse = [NSEntityDescription insertNewObjectForEntityForName:@"Response" inManagedObjectContext:self.result.managedObjectContext];
-        correctResponse.question = [self.questionsToAsk lastObject];
-        correctResponse.answer = givenAnswer;
-        [self.result addCorrectResponsesObject:correctResponse];
-        
-    }
-    else {
-        //Incorrect Answer
-        Response *incorrectResponse = [NSEntityDescription insertNewObjectForEntityForName:@"Response" inManagedObjectContext:self.result.managedObjectContext];
-        incorrectResponse.question = [self.questionsToAsk lastObject];
-        incorrectResponse.answer = givenAnswer;
-        [self.result addIncorrectResponsesObject:incorrectResponse];
-    }
-    
-    [self checkPassConditions];
-    
-    //Update status labels
-    self.numberCorrectLabel.text = [NSString stringWithFormat:@"%d",self.result.correctResponses.count];
-    self.numberIncorrectLabel.text = [NSString stringWithFormat:@"%d",self.result.incorrectResponses.count];
+    if (!self.currentQuestionIsRetake) {
+        if ([answer compare:actualAnswer] == NSOrderedSame) {
+            //Create Response
+            Response *correctResponse = [NSEntityDescription insertNewObjectForEntityForName:@"Response" inManagedObjectContext:self.result.managedObjectContext];
+            correctResponse.question = self.questionsBeforeRetake % RETAKE_DELAY == 0?self.errorQueue.lastObject:[self.questionsToAsk lastObject];
+            correctResponse.answer = givenAnswer;
+            [self.result addCorrectResponsesObject:correctResponse];
+            
+            //Animate Correct star
+            [UIView animateWithDuration:.4 delay:0 options:UIViewAnimationOptionAutoreverse animations:^(){
+                self.correctStar.transform = CGAffineTransformMakeScale(2, 2);
+            } completion:^(BOOL completed){
+                self.correctStar.transform = CGAffineTransformIdentity;
 
+            }];
+            
+        }
+        else {
+            //Incorrect Answer
+            Response *incorrectResponse = [NSEntityDescription insertNewObjectForEntityForName:@"Response" inManagedObjectContext:self.result.managedObjectContext];
+            incorrectResponse.question = self.questionsBeforeRetake % RETAKE_DELAY == 0?self.errorQueue.lastObject:[self.questionsToAsk lastObject];
+            incorrectResponse.answer = givenAnswer;
+            [self.result addIncorrectResponsesObject:incorrectResponse];
+            
+            //Instruct about actual answer
+                //Determine label with answer
+            
+            self.instructionLabel.text = [@"Incorrect. The correct answer was " stringByAppendingString:actualAnswer.stringValue];
+            
+            //Animate Incorrect image
+            [UIView animateWithDuration:.8 delay:0 options:UIViewAnimationOptionAutoreverse animations:^(){
+                self.incorrectImage.transform = CGAffineTransformMakeScale(2, 2);
+            } completion:^(BOOL completed){
+                self.incorrectImage.transform = CGAffineTransformIdentity;
+                
+            }];
+            
+            //Manage error retake
+            [self.errorQueue insertObject:self.questionsToAsk.lastObject atIndex:0]; //Add to front of array
+            [self.errorQueue insertObject:self.questionsToAsk.lastObject atIndex:0]; //Add to front of array
+            [self.errorQueue insertObject:self.questionsToAsk.lastObject atIndex:0]; //Add to front of array
+
+            //Check if questions array is large enough
+            while (self.questionsToAsk.count < RETAKE_DELAY * RETAKE_REPITITION) {
+                [self.questionsToAsk addObjectsFromArray:self.questionsToAsk]; //Double size
+            }
+            
+            //Add retake questions
+            for (int i = 1; i<=RETAKE_REPITITION; i++) {
+                [self.questionsToAsk insertObject:self.questionsToAsk.lastObject atIndex:self.questionsToAsk.count - RETAKE_DELAY * i];
+            }
+
+            self.currentQuestionIsRetake = YES;
+
+        }
+        self.numberCorrectLabel.text = [NSString stringWithFormat:@"%d",self.result.correctResponses.count];
+        self.numberIncorrectLabel.text = [NSString stringWithFormat:@"%d",self.result.incorrectResponses.count];
+    }
+    else{
+        self.currentQuestionIsRetake = NO;
+        [self performSelector:@selector(loadNextQuestion) withObject:nil afterDelay:.2];
+    }
     
-    
-    [self performSelector:@selector(loadNextQuestion) withObject:nil afterDelay:.2]; //Add delay for effect
+    if ([answer compare:actualAnswer] == NSOrderedSame)
+        [self performSelector:@selector(loadNextQuestion) withObject:nil afterDelay:.2];
+    else
+        self.nextButton.layer.opacity = 1;
     
 }
 -(void) checkPassConditions{
@@ -323,7 +402,10 @@
 	NSNumber* actualAnswer = [self getAnswerForQuestion:[self.questionsToAsk lastObject]];
 	
 	if ([answerLabel.text length] == [[actualAnswer stringValue] length])
-		[self evaluateGivenAnswer:answerLabel.text  withActualAnswer:actualAnswer];
+		 [self evaluateGivenAnswer:answerLabel.text  withActualAnswer:actualAnswer];
+}
+-(IBAction)didPressNextButton:(UIButton *)sender{
+    [self loadNextQuestion];
 }
 -(IBAction)quitTest:(id)sender{
     if (self.quitSheet.visible)
@@ -356,6 +438,10 @@
     [self setVerticalLine:nil];
     [self setNumberCorrectLabel:nil];
     [self setNumberIncorrectLabel:nil];
+    [self setNextButton:nil];
+    [self setCorrectStar:nil];
+    [self setIncorrectImage:nil];
+    [self setInstructionLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
