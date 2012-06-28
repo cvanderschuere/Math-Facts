@@ -186,13 +186,15 @@
         //Calculate Pass level
         if (test.results.count>0) {
             int maxCorrect = 0;
+            Result *bestResult = nil;
             for (Result* result in test.results) {
                 if (result.correctResponses.count>maxCorrect) {
-                    maxCorrect = result.correctResponses.count;
+                    maxCorrect = result.correctResponses.count - result.incorrectResponses.count;
+                    bestResult = result;
                 }
             }
             
-            if (maxCorrect>=test.passCriteria.intValue) {
+            if (bestResult.didPass.boolValue) {
                 //Passed
                 cell.passedLevel = [NSNumber numberWithInt:1];
             }
@@ -262,12 +264,12 @@
         }
     }
     else {
-        if ([actionSheet.title isEqualToString:@"Timing"]) {
+        if ([actionSheet.title isEqualToString:@"Timing"] && buttonIndex != -1) {
             //Launch Test
             [TestFlight passCheckpoint:@"StartTest"];
             [self performSegueWithIdentifier:@"startTestSegue" sender:self.gridView];
         }
-        else if ([actionSheet.title isEqualToString:@"Practice"]) {
+        else if ([actionSheet.title isEqualToString:@"Practice"] && buttonIndex != -1) {
             //Launch Practice
             [TestFlight passCheckpoint:@"StartPractice"];
             [self performSegueWithIdentifier:@"startPracticeSegue" sender:self.gridView];
@@ -325,7 +327,7 @@
 -(void) didFinishTest:(Test*)finishedTest withResult:(Result*)result{
     [TestFlight passCheckpoint:@"FinishedTest"];
 
-    BOOL passed = finishedTest.passCriteria.intValue <= result.correctResponses.count;
+    BOOL passed = result.didPass.boolValue;
     
     if (passed) {
         //Find next questionSet to create new test

@@ -47,7 +47,7 @@
     [segControl addTarget:self.navigationController action:@selector(switchViewController:) forControlEvents:UIControlEventValueChanged];
     
     UIBarButtonItem* flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    self.toolbarItems = [NSArray arrayWithObjects:self.toolbarItems.lastObject,flexibleSpace,[[UIBarButtonItem alloc] initWithCustomView:segControl],flexibleSpace, nil];
+    self.toolbarItems = [NSArray arrayWithObjects:[self.toolbarItems objectAtIndex:0],flexibleSpace,[[UIBarButtonItem alloc] initWithCustomView:segControl],flexibleSpace,self.toolbarItems.lastObject, nil];
 
 
     // Uncomment the following line to preserve selection between presentations.
@@ -75,6 +75,9 @@
     }
     else if ([segue.identifier isEqualToString:@"editQuestionSetSegue"]) {
         [[[segue.destinationViewController viewControllers] lastObject] setQuestionSetToUpdate:sender];
+    }
+    else if ([segue.identifier isEqualToString:@"summarySegueSet"]) {
+        [[[segue.destinationViewController viewControllers] lastObject] setCurrentAdmin:self.currentAdmin];
     }
 }
 

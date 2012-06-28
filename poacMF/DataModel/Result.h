@@ -21,6 +21,11 @@
 @property (nonatomic, retain) NSSet *incorrectResponses;
 @property (nonatomic, retain) Student *student;
 @property (nonatomic, retain) Test *test;
+
+//Transient
+@property (nonatomic, retain) NSNumber *didPass;
+
+
 @end
 
 @interface Result (CoreDataGeneratedAccessors)

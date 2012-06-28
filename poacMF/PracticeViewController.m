@@ -65,11 +65,25 @@
         previousQuestionSet.predicate = [NSPredicate predicateWithFormat:@"difficultyLevel < %@ AND type == %@",_practice.test.questionSet.difficultyLevel,_practice.test.questionSet.type];
         NSMutableArray *sets = [_practice.managedObjectContext executeFetchRequest:previousQuestionSet error:NULL].mutableCopy;
         
-        [sets addObject:_practice.test.questionSet]; //Add current set to back - oldest to newest
-        self.questionsToAsk = [NSMutableArray array];
+        //Cummalate old questions
+        NSMutableArray * allOldQuestions = [NSMutableArray array];
         for (QuestionSet* set in sets) {
-            for (Question* q in set.questions) {
-                [self.questionsToAsk addObject:q];
+            [allOldQuestions addObjectsFromArray:set.questions.allObjects];
+        }
+        
+        NSMutableArray* newQuestions = practice.test.questionSet.questions.allObjects.mutableCopy;
+        self.questionsToAsk = [NSMutableArray array];
+        
+        while (newQuestions.count>0) {
+            if (self.questionsToAsk.count%3==0 || allOldQuestions.count == 0) {
+                //Add new question every third question
+                [self.questionsToAsk addObject:newQuestions.lastObject];
+                [newQuestions removeLastObject];
+            }
+            else {
+                //Add old question
+                [self.questionsToAsk addObject:allOldQuestions.lastObject];
+                [allOldQuestions removeLastObject];
             }
         }
     }

@@ -38,10 +38,12 @@
 /* Flow Chart */
 
 //1) Test set (Fetch questions for all previous question sets for cummulative = questionsToAsk)
+    //Shuffel inital questions
 //2) ViewDidLoad (Setup screen for testType + ask for confirmation to start test)
 //3) Start Test (Create Result and set start date; initiate question loop)
 
     //4) Load first question from list and display (if empty load again)
+        //After every question has been show shuffle
     //5) Digit pressed (Check to see if matches number of digit required and use as full answer if so)
     //6) Check answer 
         //7a) Correct (Add to questionsCorrect and congratulate animation)

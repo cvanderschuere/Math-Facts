@@ -7,6 +7,7 @@
 //
 
 #import "CoreDataTableViewController.h"
+#import "SummaryTableViewController.h"
 
 @protocol AdminSplitViewCommunicationDelegate <NSObject>
 

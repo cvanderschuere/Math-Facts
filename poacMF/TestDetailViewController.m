@@ -18,6 +18,8 @@
 
 @property (nonatomic, strong) UIPopoverController *popover;
 
+@property (nonatomic) int maxNumberY;
+
 @end
 
 @implementation TestDetailViewController
@@ -26,7 +28,7 @@
 @synthesize resultsTableView = _resultsTableView;
 @synthesize testResults = _testResults, practiceResults = _practiceResults;
 @synthesize graphView = _graphView;
-
+@synthesize maxNumberY = _maxNumberY;
 
 -(void) setTest:(Test *)test{
     if (![_test isEqual:test]) {
@@ -129,6 +131,13 @@
         newLabel.alignment = CPTAlignmentCenter;
         newLabel.offset = 1;
 		[customLabels addObject:newLabel];
+        
+        //Checkf if new max Y number
+        if (self.maxNumberY < result.correctResponses.count)
+            self.maxNumberY = result.correctResponses.count;
+        if (self.maxNumberY < result.incorrectResponses.count)
+            self.maxNumberY = result.incorrectResponses.count;
+        
 	}];
     
 	x.axisLabels = [NSSet setWithArray:customLabels];
@@ -276,7 +285,7 @@
 		newRange = changedRange;
 	}
     else {
-        CPTPlotRange *maxRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(75.0f)];
+        CPTPlotRange *maxRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(self.maxNumberY + 5.0)];
 		CPTMutablePlotRange *changedRange = [newRange mutableCopy];
 		[changedRange shiftEndToFitInRange:maxRange];
 		[changedRange shiftLocationToFitInRange:maxRange];
@@ -304,7 +313,7 @@
     if (indexPath.section == 0) {
         //Determine if timing was passed
         Result* result = [self.testResults objectAtIndex:indexPath.row];
-        cell.imageView.image = result.correctResponses.count >= self.test.passCriteria.intValue?[UIImage imageNamed:@"passStamp"]:nil;
+        cell.imageView.image = result.didPass.boolValue?[UIImage imageNamed:@"passStamp"]:nil;
     }
     return cell;
 }

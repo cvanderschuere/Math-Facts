@@ -34,6 +34,7 @@
         <relationship name="question" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Question" syncable="YES"/>
     </entity>
     <entity name="Result" representedClassName="Result" syncable="YES">
+        <attribute name="didPass" optional="YES" transient="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="isPractice" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
@@ -82,7 +83,7 @@
         <element name="Question" positionX="387" positionY="126" width="128" height="105"/>
         <element name="QuestionSet" positionX="214" positionY="-315" width="128" height="165"/>
         <element name="Response" positionX="216" positionY="303" width="128" height="75"/>
-        <element name="Result" positionX="-333" positionY="336" width="128" height="150"/>
+        <element name="Result" positionX="-333" positionY="336" width="128" height="165"/>
         <element name="Student" positionX="-623" positionY="-75" width="128" height="165"/>
         <element name="Test" positionX="-45" positionY="-117" width="128" height="150"/>
         <element name="User" positionX="-621" positionY="-324" width="128" height="150"/>

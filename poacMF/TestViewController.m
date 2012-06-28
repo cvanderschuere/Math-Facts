@@ -11,6 +11,7 @@
 #import "Question.h"
 #import "Result.h"
 #import "PoacMFAppDelegate.h"
+#import "NSMutableArray+Shuffling.h"
 
 @interface TestViewController ()
 
@@ -50,11 +51,22 @@
         previousQuestionSet.predicate = [NSPredicate predicateWithFormat:@"difficultyLevel < %@ AND type == %@",_test.questionSet.difficultyLevel,_test.questionSet.type];
         NSMutableArray *sets = [_test.managedObjectContext executeFetchRequest:previousQuestionSet error:NULL].mutableCopy;
         
-        [sets addObject:_test.questionSet]; //Add current set to back - oldest to newest
-        self.questionsToAsk = [NSMutableArray array];
+        NSMutableArray * allOldQuestions = [NSMutableArray array];
         for (QuestionSet* set in sets) {
-            for (Question* q in set.questions) {
-                [self.questionsToAsk addObject:q];
+            [allOldQuestions addObjectsFromArray:set.questions.allObjects];
+        }
+        NSMutableArray* newQuestions = test.questionSet.questions.allObjects.mutableCopy;
+        self.questionsToAsk = [NSMutableArray array];
+        while (newQuestions.count>0) {
+            if (self.questionsToAsk.count%3==0 || allOldQuestions.count == 0) {
+                //Add new question every third question
+                [self.questionsToAsk addObject:newQuestions.lastObject];
+                [newQuestions removeLastObject];
+            }
+            else {
+                //Add old question
+                [self.questionsToAsk addObject:allOldQuestions.lastObject];
+                [allOldQuestions removeLastObject];
             }
         }
     }
@@ -149,8 +161,9 @@
         [self.questionsToAsk insertObject:[self.questionsToAsk lastObject] atIndex:0];
         [self.questionsToAsk removeLastObject];
         
-        //Pick a random question and exchange it with the last object
-        //[self.questionsToAsk exchangeObjectAtIndex:arc4random()%(self.questionsToAsk.count)  withObjectAtIndex:self.questionsToAsk.count-1];
+        //If gone through entire array...shuffle
+        if (self.result.correctResponses.count + self.result.incorrectResponses.count == self.questionsToAsk.count)
+            [self.questionsToAsk shuffleArray];
         
         //Load new first question
         [self prepareForQuestion:[self.questionsToAsk lastObject]];

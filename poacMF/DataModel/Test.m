@@ -36,7 +36,7 @@
 -(NSNumber*) passed{
     __block BOOL didPass = NO;
     [self.results enumerateObjectsUsingBlock:^(Result* result, BOOL *stop){
-        if (result.correctResponses.count >= self.passCriteria.intValue) {
+        if (result.didPass.boolValue) {
             didPass = YES;
             *stop = YES;
         }
