@@ -25,9 +25,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
     [TestFlight takeOff:@"697945e1548f653ac921aafc40670040_MTAwMzE3MjAxMi0wNi0xNCAyMDowNTozMi4zMjk2NDg"];
     
-    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
 
     
     [self setupDatabase];
@@ -162,7 +162,7 @@
             [[setTypeArray objectAtIndex:1] enumerateObjectsUsingBlock:^(NSDictionary *questionSet,NSUInteger idx, BOOL *stop){
                 //Create QuestionSet
                 QuestionSet *qSet = [NSEntityDescription insertNewObjectForEntityForName:@"QuestionSet" inManagedObjectContext:document.managedObjectContext];
-                qSet.name = [questionSet objectForKey:@"name"];
+                qSet.name = [NSString stringWithFormat:@"Set %d",idx+1];
                 qSet.type = setType;
                 qSet.difficultyLevel = [NSNumber numberWithInt:idx];
                 NSLog(@"%@: %@",qSet.name,qSet.difficultyLevel);

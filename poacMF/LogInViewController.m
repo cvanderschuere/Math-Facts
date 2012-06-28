@@ -94,6 +94,12 @@
 - (IBAction)sendFeedback:(id)sender {
     [TestFlight openFeedbackView];
 }
+/*
+- (IBAction)sayHello:(id)sender {
+    UIAlertView *helloAlert = [[UIAlertView alloc] initWithTitle:@"hej" message:@"Hur mor du?" delegate:nil cancelButtonTitle:@"steng" otherButtonTitles:nil];
+    [helloAlert show];
+    
+}*/
 #pragma mark - Storyboard Segues
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"adminUserSegue"]) {
@@ -157,8 +163,8 @@
 
 -(void) viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:YES];
-    self.userNameTextField.text = @"admin";
-	self.passwordTextField.text = @"poacmf";
+    //self.userNameTextField.text = @"admin";
+	//self.passwordTextField.text = @"poacmf";
 }//end method
 
 #pragma mark Rotation

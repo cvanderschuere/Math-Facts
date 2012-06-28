@@ -29,11 +29,15 @@
                                                    otherButtonTitles:@"Cancel", nil, nil];
     self.popupQuery.actionSheetStyle = UIActionSheetStyleBlackOpaque;
     [self.popupQuery showFromBarButtonItem:sender animated:YES];
+    
+    //Save on logout
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SaveDatabase" object:nil];
 }
 -(void) actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 0) {
         UIViewController *loginVC = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
         [[[UIApplication sharedApplication] keyWindow] setRootViewController:loginVC];
+        
     }
 }
 

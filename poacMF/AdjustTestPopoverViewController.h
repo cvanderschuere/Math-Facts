@@ -15,8 +15,10 @@
 
 @property (weak, nonatomic) IBOutlet UIStepper *passCriteriaStepper;
 @property (weak, nonatomic) IBOutlet UIStepper *testLengthStepper;
+@property (weak, nonatomic) IBOutlet UIStepper *maxIncorrectStepper;
 @property (weak, nonatomic) IBOutlet UILabel *passCriteriaLabel;
 @property (weak, nonatomic) IBOutlet UILabel *testLengthLabel;
+@property (weak, nonatomic) IBOutlet UILabel *maxIncorrectLabel;
 
 
 - (IBAction)stepperValueChanged:(id)sender;

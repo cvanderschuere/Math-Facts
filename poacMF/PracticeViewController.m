@@ -12,9 +12,9 @@
 #import "Result.h"
 #import "PoacMFAppDelegate.h"
 #import "Test.h"
+#import "TestViewController.h"
 
 #define RETAKE_REPITITION 3
-#define RETAKE_DELAY 3
 
 @interface PracticeViewController ()
 
@@ -136,6 +136,12 @@
 }
 -(void) viewWillDisappear:(BOOL)animated{
     [self.quitSheet dismissWithClickedButtonIndex:-1 animated:animated];
+}
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"startTestFromPractice"]){
+        [segue.destinationViewController setDelegate:self.delegate];
+        [segue.destinationViewController setTest:self.practice.test];
+    }
 }
 #pragma mark - Test Flow Methods
 -(void) startTest{
@@ -284,13 +290,13 @@
         if ([answer compare:actualAnswer] == NSOrderedSame) {
             //Create Response
             Response *correctResponse = [NSEntityDescription insertNewObjectForEntityForName:@"Response" inManagedObjectContext:self.result.managedObjectContext];
-            correctResponse.question = self.questionsBeforeRetake % RETAKE_DELAY == 0?self.errorQueue.lastObject:[self.questionsToAsk lastObject];
+            correctResponse.question = [self.questionsToAsk lastObject];
             correctResponse.answer = givenAnswer;
             [self.result addCorrectResponsesObject:correctResponse];
             
             //Animate Correct star
-            [UIView animateWithDuration:.4 delay:0 options:UIViewAnimationOptionAutoreverse animations:^(){
-                self.correctStar.transform = CGAffineTransformMakeScale(2, 2);
+            [UIView animateWithDuration:.5 delay:0 options:UIViewAnimationOptionAutoreverse animations:^(){
+                self.correctStar.transform = CGAffineTransformMakeScale(1.8, 1.8);
             } completion:^(BOOL completed){
                 self.correctStar.transform = CGAffineTransformIdentity;
 
@@ -300,7 +306,7 @@
         else {
             //Incorrect Answer
             Response *incorrectResponse = [NSEntityDescription insertNewObjectForEntityForName:@"Response" inManagedObjectContext:self.result.managedObjectContext];
-            incorrectResponse.question = self.questionsBeforeRetake % RETAKE_DELAY == 0?self.errorQueue.lastObject:[self.questionsToAsk lastObject];
+            incorrectResponse.question = [self.questionsToAsk lastObject];
             incorrectResponse.answer = givenAnswer;
             [self.result addIncorrectResponsesObject:incorrectResponse];
             
@@ -310,8 +316,8 @@
             self.instructionLabel.text = [@"Incorrect. The correct answer was " stringByAppendingString:actualAnswer.stringValue];
             
             //Animate Incorrect image
-            [UIView animateWithDuration:.8 delay:0 options:UIViewAnimationOptionAutoreverse animations:^(){
-                self.incorrectImage.transform = CGAffineTransformMakeScale(2, 2);
+            [UIView animateWithDuration:.5 delay:0 options:UIViewAnimationOptionAutoreverse animations:^(){
+                self.incorrectImage.transform = CGAffineTransformMakeScale(1.8, 1.8);
             } completion:^(BOOL completed){
                 self.incorrectImage.transform = CGAffineTransformIdentity;
                 
@@ -323,13 +329,13 @@
             [self.errorQueue insertObject:self.questionsToAsk.lastObject atIndex:0]; //Add to front of array
 
             //Check if questions array is large enough
-            while (self.questionsToAsk.count < RETAKE_DELAY * RETAKE_REPITITION) {
+            while (self.questionsToAsk.count < self.practice.test.student.numberOfDistractionQuestions.intValue * RETAKE_REPITITION) {
                 [self.questionsToAsk addObjectsFromArray:self.questionsToAsk]; //Double size
             }
             
             //Add retake questions
             for (int i = 1; i<=RETAKE_REPITITION; i++) {
-                [self.questionsToAsk insertObject:self.questionsToAsk.lastObject atIndex:self.questionsToAsk.count - RETAKE_DELAY * i];
+                [self.questionsToAsk insertObject:self.questionsToAsk.lastObject atIndex:self.questionsToAsk.count - self.practice.test.student.numberOfDistractionQuestions.intValue * i];
             }
 
             self.currentQuestionIsRetake = YES;
@@ -339,8 +345,15 @@
         self.numberIncorrectLabel.text = [NSString stringWithFormat:@"%d",self.result.incorrectResponses.count];
     }
     else{
-        self.currentQuestionIsRetake = NO;
-        [self performSelector:@selector(loadNextQuestion) withObject:nil afterDelay:.2];
+        //Current Retaking question
+        if ([answer compare:actualAnswer] == NSOrderedSame) {
+            //Got retake right
+            self.currentQuestionIsRetake = NO;
+        }
+        else {
+            //Got retake wrong..repeat until right
+            self.instructionLabel.text = [@"Incorrect. The correct answer was " stringByAppendingString:actualAnswer.stringValue];
+        }
     }
     
     if ([answer compare:actualAnswer] == NSOrderedSame)
@@ -363,17 +376,22 @@
         else if(self.result){
             [self.practice removeResultsObject:self.result];
             [self.practice.managedObjectContext deleteObject:self.result]; //Delete worthlessresults
+            self.result = nil;
         }
     }
     //Save
     [[UIApplication sharedApplication].delegate performSelector:@selector(saveDatabase)];    
     
-    [self.navigationController popViewControllerAnimated:YES];
     
-    //Show Stats if test started
-    if (self.result) {
-        //[self.delegate didFinishTest:self.test withResult:self.result];
+    //Move to test or exit
+    if (self.result && endedWithTimer) {
+        UIAlertView *finishAlert = [[UIAlertView alloc] initWithTitle:@"Good work" message:[NSString stringWithFormat:@"You got %d corrent and %d incorrect",self.result.correctResponses.count,self.result.incorrectResponses.count] delegate:self cancelButtonTitle:@"Go To Test" otherButtonTitles:nil];
+        [finishAlert show];
     }
+    else {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+
 }
 #pragma mark - IBActions
 -(IBAction)digitPressed:(id)sender{
@@ -426,6 +444,10 @@
         [self endSessionWithTimer:NO];
     }
 }
+-(void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+    [self performSegueWithIdentifier:@"startTestFromPractice" sender:self.delegate];
+}
+
 - (void)viewDidUnload
 {
     [self setQuestionsLabel:nil];

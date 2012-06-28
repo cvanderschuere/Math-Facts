@@ -18,7 +18,7 @@
 
 @end
 
-@interface PracticeViewController : UIViewController <UIActionSheetDelegate>
+@interface PracticeViewController : UIViewController <UIActionSheetDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) Practice* practice;
 @property (nonatomic, strong) NSMutableArray *questionsToAsk;

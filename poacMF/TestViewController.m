@@ -267,6 +267,9 @@
     
 }
 -(void) checkPassConditions{
+    if (self.result.incorrectResponses.count > self.test.maximumIncorrect.intValue) {
+        [self endSessionWithTimer:NO];
+    }
     
 }
 -(void) endSessionWithTimer:(BOOL)endedWithTimer{
@@ -285,7 +288,7 @@
     //Save
     [[UIApplication sharedApplication].delegate performSelector:@selector(saveDatabase)];    
     
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popToRootViewControllerAnimated:YES];
     
     //Show Stats if test started
     if (self.result) {

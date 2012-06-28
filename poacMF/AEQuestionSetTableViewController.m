@@ -69,7 +69,6 @@
         
     self.createdQuestions = [NSMutableArray array];
     self.questionArray = [NSMutableArray array];
-
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -79,10 +78,6 @@
     
     //Configure for updatedUser if in edit mode
     if (self.questionSetToUpdate) {
-		self.nameTextField.text = self.questionSetToUpdate.name;
-		self.typeStepper.value = self.questionSetToUpdate.type.intValue;
-        [self stepperUpdated: self.typeStepper];
-        
         self.questionArray = self.questionSetToUpdate.questions.allObjects.mutableCopy;
         [self.questionArray sortUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"questionOrder" ascending:YES]]];
         
@@ -95,7 +90,13 @@
     }
 
 }
-
+-(void) viewDidAppear:(BOOL)animated{
+    if (self.questionSetToUpdate) {
+		self.nameTextField.text = self.questionSetToUpdate.name;
+		self.typeStepper.value = self.questionSetToUpdate.type.intValue;
+        [self stepperUpdated: self.typeStepper];
+    }
+}
 - (void)viewDidUnload
 {
     [super viewDidUnload];

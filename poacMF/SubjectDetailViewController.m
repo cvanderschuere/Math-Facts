@@ -123,6 +123,10 @@
     self.logoutSheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
     self.logoutSheet.delegate = self;
     [self.logoutSheet showFromBarButtonItem:sender animated:YES];
+    
+    //Save on logout
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SaveDatabase" object:nil];
+
 }//end method
 
 #pragma mark -
@@ -189,18 +193,8 @@
             }
             
             if (maxCorrect>=test.passCriteria.intValue) {
-                if (maxCorrect>=test.passCriteria.intValue * 1.2) {
-                    //is 20% greater
-                    cell.passedLevel = [NSNumber numberWithInt:3];
-                }
-                else if (maxCorrect>=test.passCriteria.intValue * 1.1) {
-                    //is 10% greater
-                    cell.passedLevel = [NSNumber numberWithInt:2];
-                }
-                else {
-                    //Just passed
-                    cell.passedLevel = [NSNumber numberWithInt:1];
-                }
+                //Passed
+                cell.passedLevel = [NSNumber numberWithInt:1];
             }
             else {
                 //Hasn't passed yet
@@ -235,12 +229,19 @@
     if ([object isKindOfClass:[Test class]]) {
         if ([object isCurrentTest].boolValue) {
             //Current Test
+            Test *currentTest = (Test*) object;
             UIActionSheet* actionSheet = nil;
-            if ([object practice].results.count>0) {
-                actionSheet = [[UIActionSheet alloc] initWithTitle:nil  delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Practice",@"Test",nil];
+            //Determine took practice last or timing last
+            
+            NSArray *practices = [[currentTest practice].results.allObjects sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES]]];
+            NSArray *timings = [currentTest.results.allObjects sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES]]];
+            
+            
+            if ([[[practices.lastObject startDate] earlierDate:[timings.lastObject startDate]] isEqualToDate:[timings.lastObject startDate]] || (timings.count == 0 && practices.count != 0)) {
+                actionSheet = [[UIActionSheet alloc] initWithTitle:@"Timing"  delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Start Timing",nil];
             }
             else {
-                actionSheet = [[UIActionSheet alloc] initWithTitle:nil  delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Practice",nil];
+                actionSheet = [[UIActionSheet alloc] initWithTitle:@"Practice"  delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Start Practice",nil];
             }
             [actionSheet showFromRect:[gridView rectForItemAtIndex:index]  inView:self.view animated:YES];
         }
@@ -261,15 +262,14 @@
         }
     }
     else {
-        //Test: 1 Practice: 0
-        if (buttonIndex == 1) {
+        if ([actionSheet.title isEqualToString:@"Timing"]) {
             //Launch Test
             [TestFlight passCheckpoint:@"StartTest"];
             [self performSegueWithIdentifier:@"startTestSegue" sender:self.gridView];
         }
-        else if (buttonIndex == 0) {
+        else if ([actionSheet.title isEqualToString:@"Practice"]) {
             //Launch Practice
-            [TestFlight passCheckpoint:@"StartTest"];
+            [TestFlight passCheckpoint:@"StartPractice"];
             [self performSegueWithIdentifier:@"startPracticeSegue" sender:self.gridView];
         }
         

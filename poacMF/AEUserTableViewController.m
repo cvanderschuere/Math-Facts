@@ -22,9 +22,13 @@
 @property (weak, nonatomic) IBOutlet UIStepper *testLengthStepper;
 @property (weak, nonatomic) IBOutlet UIStepper *passCriteriaStepper;
 @property (weak, nonatomic) IBOutlet UIStepper *practiceLengthStepper;
+@property (weak, nonatomic) IBOutlet UIStepper *maximumIncorrectStepper;
+@property (weak, nonatomic) IBOutlet UIStepper *distractionNumberStepper;
 @property (weak, nonatomic) IBOutlet UILabel *testLengthLabel;
 @property (weak, nonatomic) IBOutlet UILabel *passCriteriaLabel;
 @property (weak, nonatomic) IBOutlet UILabel *practiceLengthLabel;
+@property (weak, nonatomic) IBOutlet UILabel *maximumIncorrectLabel;
+@property (weak, nonatomic) IBOutlet UILabel *distractionNumberLabel;
 
 
 - (IBAction)stepperUpdated:(id)sender;
@@ -32,8 +36,12 @@
 @end
 
 @implementation AEUserTableViewController
+@synthesize maximumIncorrectLabel = _maximumIncorrectLabel;
+@synthesize distractionNumberLabel = _distractionNumberLabel;
 @synthesize testLengthStepper = _testLengthStepper;
 @synthesize passCriteriaStepper = _passCriteriaStepper;
+@synthesize maximumIncorrectStepper = _maximumIncorrectStepper;
+@synthesize distractionNumberStepper = _distractionNumberStepper;
 @synthesize testLengthLabel = _testLengthLabel;
 @synthesize passCriteriaLabel = _passCriteriaLabel;
 @synthesize usernameTF = _usernameTF, firstNameTF = _firstNameTF, lastNameTF = _lastNameTF, passwordTF = _passwordTF, emailAddressTF = _emailAddressTF;
@@ -68,6 +76,10 @@
         [self stepperUpdated:self.passCriteriaStepper];
         self.practiceLengthStepper.value = self.studentToUpdate.defaultPracticeLength.doubleValue;
         [self stepperUpdated:self.practiceLengthStepper];
+        self.maximumIncorrectStepper.value = self.studentToUpdate.defaultMaximumIncorrect.doubleValue;
+        [self stepperUpdated:self.maximumIncorrectStepper];
+        self.distractionNumberStepper.value = self.studentToUpdate.numberOfDistractionQuestions.doubleValue;
+        [self stepperUpdated:self.distractionNumberStepper];
         
         self.title = [@"Edit " stringByAppendingString:self.studentToUpdate.firstName];
 
@@ -90,6 +102,10 @@
     [self setPassCriteriaStepper:nil];
     [self setTestLengthLabel:nil];
     [self setPassCriteriaLabel:nil];
+    [self setMaximumIncorrectStepper:nil];
+    [self setMaximumIncorrectLabel:nil];
+    [self setDistractionNumberStepper:nil];
+    [self setDistractionNumberLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -144,6 +160,8 @@
     self.studentToUpdate.password = self.passwordTF.text;
     self.studentToUpdate.emailAddress = self.emailAddressTF.text;
     
+    self.studentToUpdate.numberOfDistractionQuestions = [NSNumber numberWithDouble:self.distractionNumberStepper.value];
+    
     
     //Update all current tests to new values if changed
     if (self.studentToUpdate.defaultTestLength.doubleValue != self.testLengthStepper.value) {
@@ -157,6 +175,12 @@
         self.studentToUpdate.defaultPassCriteria = [NSNumber numberWithDouble:self.passCriteriaStepper.value];
         for (Test* test in self.studentToUpdate.tests) {
             test.passCriteria = [NSNumber numberWithDouble:self.passCriteriaStepper.value];
+        }
+    }
+    if (self.studentToUpdate.defaultMaximumIncorrect.doubleValue != self.maximumIncorrectStepper.value) {
+        self.studentToUpdate.defaultMaximumIncorrect = [NSNumber numberWithDouble:self.maximumIncorrectStepper.value];
+        for (Test* test in self.studentToUpdate.tests) {
+            test.maximumIncorrect = [NSNumber numberWithDouble:self.maximumIncorrectStepper.value];
         }
     }
     
@@ -229,6 +253,12 @@
     }
     else if ([sender isEqual:self.practiceLengthStepper]) {
         self.practiceLengthLabel.text = [NSNumber numberWithDouble:sender.value].stringValue;
+    }
+    else if ([sender isEqual:self.maximumIncorrectStepper]) {
+        self.maximumIncorrectLabel.text = [NSNumber numberWithDouble:sender.value].stringValue;
+    }
+    else if ([sender isEqual:self.distractionNumberStepper]) {
+        self.distractionNumberLabel.text = [NSNumber numberWithDouble:sender.value].stringValue;
     }
 }
 @end

@@ -62,11 +62,13 @@
     
     switch (_passedLevel.intValue) {
         case 0:
-            star1.image = star2.image = star3.image = [UIImage imageNamed:@"goldenStarOff.png"];
+            star1.image = [UIImage imageNamed:@"goldenStarOff.png"];
+            star2.image = star3.image = nil;
+            //star1.image = star2.image = star3.image = [UIImage imageNamed:@"goldenStarOff.png"];
             break;
         case 1:
             star1.image = [UIImage imageNamed:@"goldenStarOn.png"];
-            star2.image = star3.image = [UIImage imageNamed:@"goldenStarOff.png"];
+            star2.image = star3.image = nil;
             break;
         case 2:
             star3.image = [UIImage imageNamed:@"goldenStarOff.png"];

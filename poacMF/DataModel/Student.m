@@ -50,6 +50,7 @@
         currentTest.questionSet = selectedQuestionSet;
         currentTest.testLength = self.defaultTestLength;
         currentTest.passCriteria = self.defaultPassCriteria;
+        currentTest.maximumIncorrect = self.defaultMaximumIncorrect;
         [self addTestsObject:currentTest];
         
     }
