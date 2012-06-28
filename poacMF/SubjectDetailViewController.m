@@ -352,8 +352,8 @@
     
         
     //Create UIAlertView to present information
-    UIAlertView *finishedTestAlert = [[UIAlertView alloc] initWithTitle:passed?@"Good Work":@"Try Again" 
-                                                                message:passed?[NSString stringWithFormat:@"You got %d questions correct!",result.correctResponses.count]:[NSString stringWithFormat:@"You need to get %d questions correct",finishedTest.passCriteria.intValue]
+    UIAlertView *finishedTestAlert = [[UIAlertView alloc] initWithTitle:passed?@"You Passed!":@"Try the Practice Again" 
+                                                                message:passed?[NSString stringWithFormat:@"You got %d correct and %d incorrect.",result.correctResponses.count,result.incorrectResponses.count]:[NSString stringWithFormat:@"To pass you need %d correct and can only get %d incorrect.",finishedTest.passCriteria.intValue,finishedTest.maximumIncorrect.intValue]
                                                                delegate:nil 
                                                       cancelButtonTitle:@"Close" otherButtonTitles:nil];
     [finishedTestAlert show];

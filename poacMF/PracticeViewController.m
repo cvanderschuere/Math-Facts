@@ -300,43 +300,49 @@
     formatter.numberStyle = NSNumberFormatterBehavior10_4;
     NSNumber * answer = [formatter numberFromString:givenAnswer];
     
-    if (!self.currentQuestionIsRetake) {
-        if ([answer compare:actualAnswer] == NSOrderedSame) {
-            //Create Response
-            Response *correctResponse = [NSEntityDescription insertNewObjectForEntityForName:@"Response" inManagedObjectContext:self.result.managedObjectContext];
-            correctResponse.question = [self.questionsToAsk lastObject];
-            correctResponse.answer = givenAnswer;
-            [self.result addCorrectResponsesObject:correctResponse];
-            
-            //Animate Correct star
-            [UIView animateWithDuration:.5 delay:0 options:UIViewAnimationOptionAutoreverse animations:^(){
-                self.correctStar.transform = CGAffineTransformMakeScale(1.8, 1.8);
-            } completion:^(BOOL completed){
-                self.correctStar.transform = CGAffineTransformIdentity;
+    if ([answer compare:actualAnswer] == NSOrderedSame) {
+        //Create Response
+        Response *correctResponse = [NSEntityDescription insertNewObjectForEntityForName:@"Response" inManagedObjectContext:self.result.managedObjectContext];
+        correctResponse.question = [self.questionsToAsk lastObject];
+        correctResponse.answer = givenAnswer;
+        [self.result addCorrectResponsesObject:correctResponse];
+        
+        //Animate Correct star
+        [UIView animateWithDuration:.5 delay:0 options:UIViewAnimationOptionAutoreverse animations:^(){
+            self.correctStar.transform = CGAffineTransformMakeScale(1.8, 1.8);
+        } completion:^(BOOL completed){
+            self.correctStar.transform = CGAffineTransformIdentity;
 
-            }];
+        }];
+        
+        if (self.currentQuestionIsRetake)
+            self.currentQuestionIsRetake = NO;
+        
+    }
+    else {
+        //Incorrect Answer
+        Response *incorrectResponse = [NSEntityDescription insertNewObjectForEntityForName:@"Response" inManagedObjectContext:self.result.managedObjectContext];
+        incorrectResponse.question = [self.questionsToAsk lastObject];
+        incorrectResponse.answer = givenAnswer;
+        [self.result addIncorrectResponsesObject:incorrectResponse];
+        
+        //Instruct about actual answer
+            //Determine label with answer
+        
+        self.instructionLabel.text = [@"Incorrect. The correct answer was " stringByAppendingString:actualAnswer.stringValue];
+        
+        //Animate Incorrect image
+        [UIView animateWithDuration:.5 delay:0 options:UIViewAnimationOptionAutoreverse animations:^(){
+            self.incorrectImage.transform = CGAffineTransformMakeScale(1.8, 1.8);
+        } completion:^(BOOL completed){
+            self.incorrectImage.transform = CGAffineTransformIdentity;
             
+        }];
+        
+        if (self.currentQuestionIsRetake) {
+            //Repeat current retake
         }
         else {
-            //Incorrect Answer
-            Response *incorrectResponse = [NSEntityDescription insertNewObjectForEntityForName:@"Response" inManagedObjectContext:self.result.managedObjectContext];
-            incorrectResponse.question = [self.questionsToAsk lastObject];
-            incorrectResponse.answer = givenAnswer;
-            [self.result addIncorrectResponsesObject:incorrectResponse];
-            
-            //Instruct about actual answer
-                //Determine label with answer
-            
-            self.instructionLabel.text = [@"Incorrect. The correct answer was " stringByAppendingString:actualAnswer.stringValue];
-            
-            //Animate Incorrect image
-            [UIView animateWithDuration:.5 delay:0 options:UIViewAnimationOptionAutoreverse animations:^(){
-                self.incorrectImage.transform = CGAffineTransformMakeScale(1.8, 1.8);
-            } completion:^(BOOL completed){
-                self.incorrectImage.transform = CGAffineTransformIdentity;
-                
-            }];
-            
             //Manage error retake
             [self.errorQueue insertObject:self.questionsToAsk.lastObject atIndex:0]; //Add to front of array
             [self.errorQueue insertObject:self.questionsToAsk.lastObject atIndex:0]; //Add to front of array
@@ -353,22 +359,11 @@
             }
 
             self.currentQuestionIsRetake = YES;
+        }
 
-        }
-        self.numberCorrectLabel.text = [NSString stringWithFormat:@"%d",self.result.correctResponses.count];
-        self.numberIncorrectLabel.text = [NSString stringWithFormat:@"%d",self.result.incorrectResponses.count];
     }
-    else{
-        //Current Retaking question
-        if ([answer compare:actualAnswer] == NSOrderedSame) {
-            //Got retake right
-            self.currentQuestionIsRetake = NO;
-        }
-        else {
-            //Got retake wrong..repeat until right
-            self.instructionLabel.text = [@"Incorrect. The correct answer was " stringByAppendingString:actualAnswer.stringValue];
-        }
-    }
+    self.numberCorrectLabel.text = [NSString stringWithFormat:@"%d",self.result.correctResponses.count];
+    self.numberIncorrectLabel.text = [NSString stringWithFormat:@"%d",self.result.incorrectResponses.count];
     
     if ([answer compare:actualAnswer] == NSOrderedSame)
         [self performSelector:@selector(loadNextQuestion) withObject:nil afterDelay:.2];
@@ -399,7 +394,7 @@
     
     //Move to test or exit
     if (self.result && endedWithTimer) {
-        UIAlertView *finishAlert = [[UIAlertView alloc] initWithTitle:@"Good work" message:[NSString stringWithFormat:@"You got %d corrent and %d incorrect",self.result.correctResponses.count,self.result.incorrectResponses.count] delegate:self cancelButtonTitle:@"Go To Test" otherButtonTitles:nil];
+        UIAlertView *finishAlert = [[UIAlertView alloc] initWithTitle:@"Good work" message:[NSString stringWithFormat:@"You got %d questions correct and %d incorrect.",self.result.correctResponses.count,self.result.incorrectResponses.count] delegate:self cancelButtonTitle:@"Go To Test" otherButtonTitles:nil];
         [finishAlert show];
     }
     else {

@@ -81,7 +81,10 @@
     }
     else {
         //Find last result for student
-        Result* lastResult = [selectedStudent.results.allObjects sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES]]].lastObject;
+        NSArray* allResults = [selectedStudent.results.allObjects sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES]]];
+            
+        Result* lastResult = [allResults filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isPractice == %@",[NSNumber numberWithBool:NO]]].lastObject
+;
         
         //Save for later use
         if (lastResult) {
