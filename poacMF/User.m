@@ -3,7 +3,7 @@
 //  poacMF
 //
 //  Created by Chris Vanderschuere on 07/06/2012.
-//  Copyright (c) 2012 Matt Hunter. All rights reserved.
+//  Copyright (c) 2012 Chris Vanderschuere. All rights reserved.
 //
 
 #import "User.h"
@@ -25,7 +25,7 @@
     //Fetch all User objects with same username
     NSFetchRequest* fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"User"];
     fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"username" ascending:YES]];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"username == %@",username];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"username == %@", username.lowercaseString];
     
     return [context executeFetchRequest:fetchRequest error:NULL].count == 0;
 }

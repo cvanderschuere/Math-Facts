@@ -2,8 +2,8 @@
 //  main.m
 //  poacMF
 //
-//  Created by Matt Hunter on 3/17/11.
-//  Copyright 2011 Matt Hunter. All rights reserved.
+//  Created by Chris Vanderschuere on 3/17/11.
+//  Copyright 2011 Chris Vanderschuere. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

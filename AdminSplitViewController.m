@@ -3,7 +3,7 @@
 //  poacMF
 //
 //  Created by Chris Vanderschuere on 05/06/2012.
-//  Copyright (c) 2012 Matt Hunter. All rights reserved.
+//  Copyright (c) 2012 Chris Vanderschuere. All rights reserved.
 //
 
 #import "AdminSplitViewController.h"
@@ -77,6 +77,11 @@
         //Check to see if object currently being shown was deleted
         if ([[currentVC student] isEqual:aObject]) {
             [currentVC setStudent:nil];
+        }
+    }
+    else if ([aObject isKindOfClass:[QuestionSet class]] && [currentVC isKindOfClass:[QuestionSetDetailTableViewController class]]) {
+        if ([[currentVC questionSet] isEqual:aObject]) {
+            [currentVC setQuestionSet:nil];
         }
     }
 

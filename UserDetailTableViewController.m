@@ -3,7 +3,7 @@
 //  poacMF
 //
 //  Created by Chris Vanderschuere on 05/06/2012.
-//  Copyright (c) 2012 Matt Hunter. All rights reserved.
+//  Copyright (c) 2012 Chris Vanderschuere. All rights reserved.
 //
 
 #import "UserDetailTableViewController.h"
@@ -35,15 +35,14 @@
         NSLog(@"Student: %@",_student);
         //Set Title and setup observer
         self.title = _student.firstName;
-        self.debug = YES;
         
         if (_student){   //Enable Button Segues
-            self.shareButton.enabled = self.editButton.enabled = YES;
+            self.shareButton.enabled = self.navigationItem.leftBarButtonItem.enabled = self.navigationItem.rightBarButtonItem.enabled = YES;
             [self setupFetchedResultsController];
         }
         else {   //Disable and clear tableview
             self.fetchedResultsController = nil;
-            self.shareButton.enabled = self.editButton.enabled = NO;
+            self.shareButton.enabled = self.navigationItem.leftBarButtonItem.enabled = self.navigationItem.rightBarButtonItem.enabled = NO;
         }
     }
 }
@@ -54,9 +53,9 @@
     
     //Only enable segues if student exists
     if (_student)   
-        self.shareButton.enabled = self.editButton.enabled = YES;
+        self.shareButton.enabled = self.navigationItem.leftBarButtonItem.enabled = self.navigationItem.rightBarButtonItem.enabled = YES;
     else    //Disable
-        self.shareButton.enabled = self.editButton.enabled = NO;
+        self.shareButton.enabled = self.navigationItem.leftBarButtonItem.enabled = self.navigationItem.rightBarButtonItem.enabled = NO;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;

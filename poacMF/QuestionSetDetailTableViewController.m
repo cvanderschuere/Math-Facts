@@ -3,7 +3,7 @@
 //  poacMF
 //
 //  Created by Chris Vanderschuere on 08/06/2012.
-//  Copyright (c) 2012 Matt Hunter. All rights reserved.
+//  Copyright (c) 2012 Chris Vanderschuere. All rights reserved.
 //
 
 #import "QuestionSetDetailTableViewController.h"
@@ -27,9 +27,15 @@
         self.title = questionSet.name;
         
         //Setup frc
-        if(_questionSet)
+        if(_questionSet){
+            self.navigationItem.rightBarButtonItem.enabled = self.navigationItem.leftBarButtonItem.enabled = YES;
             [self setupFetchedResultsController];
+        }
         
+        else {
+            self.navigationItem.rightBarButtonItem.enabled = self.navigationItem.leftBarButtonItem.enabled = NO;
+            self.fetchedResultsController = nil;
+        }
     }
 }
 

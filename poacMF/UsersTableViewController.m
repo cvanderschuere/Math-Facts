@@ -3,7 +3,7 @@
 //  poacMF
 //
 //  Created by Chris Vanderschuere on 05/06/2012.
-//  Copyright (c) 2012 Matt Hunter. All rights reserved.
+//  Copyright (c) 2012 Chris Vanderschuere. All rights reserved.
 //
 
 #import "UsersTableViewController.h"

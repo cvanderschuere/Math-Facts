@@ -3,7 +3,7 @@
 //  poacMF
 //
 //  Created by Chris Vanderschuere on 04/06/2012.
-//  Copyright (c) 2012 Matt Hunter. All rights reserved.
+//  Copyright (c) 2012 Chris Vanderschuere. All rights reserved.
 //
 
 #import "LoginViewController.h"
@@ -62,7 +62,7 @@
 	
 	//log em in, swap the view
     PoacMFAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSDictionary* loginDict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:self.userNameTextField.text,self.passwordTextField.text, nil] forKeys:[NSArray arrayWithObjects:@"USERNAME",@"PASSWORD", nil]];
+    NSDictionary* loginDict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:self.userNameTextField.text.lowercaseString,self.passwordTextField.text, nil] forKeys:[NSArray arrayWithObjects:@"USERNAME",@"PASSWORD", nil]];
     //Check if is student
     NSFetchRequest *studentLogin = [appDelegate.database.managedObjectModel fetchRequestFromTemplateWithName:@"StudentLogin" substitutionVariables:loginDict];
     NSArray *users = [appDelegate.database.managedObjectContext executeFetchRequest:studentLogin error:nil];

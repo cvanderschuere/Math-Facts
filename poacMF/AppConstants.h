@@ -2,8 +2,8 @@
 //  AppConstants.h
 //  poacMF
 //
-//  Created by Matt Hunter on 3/18/11.
-//  Copyright 2011 Matt Hunter. All rights reserved.
+//  Created by Chris Vanderschuere on 3/18/11.
+//  Copyright 2011 Chris Vanderschuere. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

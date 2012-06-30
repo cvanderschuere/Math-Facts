@@ -3,7 +3,7 @@
 //  poacMF
 //
 //  Created by Chris Vanderschuere on 05/06/2012.
-//  Copyright (c) 2012 Matt Hunter. All rights reserved.
+//  Copyright (c) 2012 Chris Vanderschuere. All rights reserved.
 //
 
 #import "AEUserTableViewController.h"
@@ -143,7 +143,7 @@
 	}//end if
     else {
         //Check if username is unique or the same username as before
-        if (![Student isUserNameUnique:self.usernameTF.text inContext:self.studentToUpdate?self.studentToUpdate.managedObjectContext:self.createdStudentsAdmin.managedObjectContext] && ![self.studentToUpdate.username isEqualToString:self.usernameTF.text]) {
+        if (![Student isUserNameUnique:self.usernameTF.text inContext:self.studentToUpdate?self.studentToUpdate.managedObjectContext:self.createdStudentsAdmin.managedObjectContext] && ![self.studentToUpdate.username isEqualToString:self.usernameTF.text.lowercaseString]) {
             NSString *msg = @"Username already used.";
             [al showAlertFromDelegate:self withWarning:msg];
             return;
@@ -171,7 +171,7 @@
         [self.createdStudentsAdmin addStudentsObject:self.studentToUpdate];
     }
 	
-    self.studentToUpdate.username = self.usernameTF.text;
+    self.studentToUpdate.username = self.usernameTF.text.lowercaseString;
     self.studentToUpdate.firstName = self.firstNameTF.text;
     self.studentToUpdate.lastName = self.lastNameTF.text;
     self.studentToUpdate.password = self.passwordTF.text;
