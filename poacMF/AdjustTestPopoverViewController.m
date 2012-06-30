@@ -21,12 +21,14 @@
 @synthesize testLengthLabel = _testLengthLabel;
 @synthesize maxIncorrectLabel = _maxIncorrectLabel;
 
-
+#pragma mark - View Lifecycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+    
+    //Set inital values and update labels
     self.testLengthStepper.value = self.testToAdjust.testLength.doubleValue;
     self.passCriteriaStepper.value = self.testToAdjust.passCriteria.doubleValue;
     self.maxIncorrectStepper.value = self.testToAdjust.maximumIncorrect.doubleValue;
@@ -52,6 +54,7 @@
 	return YES;
 }
 
+#pragma mark - IBActions
 - (IBAction)stepperValueChanged:(UIStepper*)sender {
     if ([sender isEqual:self.passCriteriaStepper]) {
         self.passCriteriaLabel.text = [NSString stringWithFormat:@"%.0f",sender.value];

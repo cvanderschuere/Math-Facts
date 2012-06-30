@@ -300,7 +300,7 @@
 #pragma UITableView DataSource
 -(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return self.testResults.count>0?1:0 + self.practiceResults.count>0?1:0;
 }
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -309,6 +309,8 @@
 -(UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"resultCell"];
+    
+    //Customize Cell
     cell.textLabel.text = [NSDateFormatter localizedStringFromDate:[[indexPath.section==0?self.testResults:self.practiceResults objectAtIndex:indexPath.row] startDate]  dateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterShortStyle];
     if (indexPath.section == 0) {
         //Determine if timing was passed
@@ -319,7 +321,7 @@
 }
 -(NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return section==0?@"Timing":@"Practice";
+    return section==0 && self.testResults.count>0?@"Timing":@"Practice"; //Customize section header
 }
 
 - (IBAction)adjustTestPressed:(id)sender {

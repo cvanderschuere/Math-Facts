@@ -11,8 +11,8 @@
 #import "Administrator.h"
 #import "AEQuestionViewController.h"
 
-
-//Object Creating Rules
+/*
+ *Object Creating Rules*
 
     //Add QuestionSet
     
@@ -34,7 +34,7 @@
         //Cancel
             //disregard changes to values
             //delete all created questions
-
+*/
 
 
 

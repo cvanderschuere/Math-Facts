@@ -31,7 +31,7 @@
     }
 }
 
-
+#pragma mark - View Lifecycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -77,8 +77,9 @@
 }
 
 #pragma mark - NSFetchedResultsController Methods
-- (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
+- (void)setupFetchedResultsController
 {
+    //Fetch all students of currentAdmin
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Student"];
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]];
     request.predicate = [NSPredicate predicateWithFormat:@"administrator.username == %@",self.currentAdmin.username];
@@ -86,9 +87,8 @@
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.currentAdmin.managedObjectContext
                                                                           sectionNameKeyPath:@"firstNameInital"
-                                                                                   cacheName:nil];
+                                                                                cacheName:nil];
 }
-
 
 #pragma mark - Table view data source
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -98,8 +98,11 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     NSString *titleString=@"";
+    
+    //Get Student
     Student *student = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
+    //Customize Cell
     NSString *name = [student.firstName stringByAppendingString:@" "];
     titleString = [name stringByAppendingString:student.lastName];
     cell.textLabel.text = titleString; 
@@ -119,27 +122,12 @@
 }
 
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView.editing) {
+        //Open edit student viewcontroll modally
         [self performSegueWithIdentifier:@"editStudentSegue" sender:[self.fetchedResultsController objectAtIndexPath:indexPath]];
     }
     else {

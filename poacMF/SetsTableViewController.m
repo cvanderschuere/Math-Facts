@@ -26,16 +26,6 @@
     }
 }
 
-
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];    
@@ -85,6 +75,7 @@
 #pragma mark - NSFetchedResultsController Methods
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
+    //Fetch all question sets of currentAdmin; Sort by type
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"QuestionSet"];
     request.sortDescriptors = [NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:@"type" ascending:YES selector:@selector(compare:)],[NSSortDescriptor sortDescriptorWithKey:@"difficultyLevel" ascending:YES selector:@selector(compare:)],[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)],nil];
     request.predicate = [NSPredicate predicateWithFormat:@"administrator.username == %@",self.currentAdmin.username];
@@ -99,11 +90,12 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"questionSetCell";
-    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
+    //Get Question Set
     QuestionSet *qSet = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
+    //Customize Cell
     cell.textLabel.text = qSet.name; 
     
     return cell;
@@ -113,6 +105,7 @@
     return nil;//[self.fetchedResultsController sectionIndexTitles];
 }
 - (NSString *)controller:(NSFetchedResultsController *)controller sectionIndexTitleForSectionName:(NSString *)sectionName{
+    //Customize Section index titles
     if ([sectionName isEqualToString:@"Addition"]) {
         return @"+";
     }
@@ -125,7 +118,7 @@
     else if ([sectionName isEqualToString:@"Division"]) {
         return @"/";
     }
-
+    return nil;
 }
 - (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath{
     return NO;
@@ -136,6 +129,7 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
+        [self.delegate didDeleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
         [self.fetchedResultsController.managedObjectContext deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
     }
 }
@@ -172,6 +166,7 @@
 
 - (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
 {
+    //Limit moving cells to the section of their current type
     if (sourceIndexPath.section != proposedDestinationIndexPath.section) {
         NSInteger row = 0;
         if (sourceIndexPath.section < proposedDestinationIndexPath.section) {

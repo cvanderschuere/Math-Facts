@@ -8,6 +8,7 @@
 
 #import "AQGridViewCell.h"
 
+//Cell for grid of avalible tests
 @interface TestSelectCell : AQGridViewCell
 
 @property (nonatomic, strong) NSNumber* difficultyLevel;

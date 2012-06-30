@@ -36,33 +36,7 @@
 @synthesize popover = _popover, createdQuestions = _createdQuestions;
 @synthesize isEditing = _isEditing;
 
-//Connect up subviews ***Really bad way to do this-should make custom subclass
-/*
--(UIStepper*) typeStepper{
-    if (!_typeStepper) {
-        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-        _typeStepper = (UIStepper *) [cell.contentView viewWithTag:15];
-        [_typeStepper addTarget:self action:@selector(stepperUpdated:) forControlEvents:UIControlEventValueChanged];
-    }
-    return _typeStepper;
-}
--(UILabel*) typeLabel{
-    if (!_typeLabel) {
-        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-        _typeLabel = (UILabel*) [cell.contentView viewWithTag:10];
-    }
-    return _typeLabel;
-}
--(UITextField*)nameTextField{
-    if(!_nameTextField){
-        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-
-        _nameTextField = (UITextField*) [cell.contentView viewWithTag:5];
-        _nameTextField.delegate = self;
-    }
-    return _nameTextField;
-}
-*/
+#pragma mark - View Lifecycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -97,61 +71,12 @@
         [self stepperUpdated: self.typeStepper];
     }
 }
-- (void)viewDidUnload
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+	return YES;
 }
-#pragma mark Button Methods
--(IBAction) cancelClicked {
-    //Delete all questions created this session
-    for (Question* createdQuestion in self.createdQuestions) {
-        [self.administratorToCreateIn.managedObjectContext deleteObject:createdQuestion];
-    }
-    
-    //Dismiss View
-	[self dismissViewControllerAnimated:YES completion:NULL];
-}//end method
 
--(IBAction) saveClicked {
-	//TODO: Need to check for valid values and unique username
-	AppLibrary *al = [[AppLibrary alloc] init];
-	if (0 == self.nameTextField.text.length){
-		NSString *msg = @"Name must be entered.";
-		[al showAlertFromDelegate:self withWarning:msg];
-		return;
-	}//end if
-    if (self.questionArray.count == 0) {
-        NSString *msg = @"Question Set must contain a question";
-		[al showAlertFromDelegate:self withWarning:msg];
-		return;
-    }
-    
-    
-    //Create questionSet if necessary
-    if (!self.questionSetToUpdate) {
-        self.questionSetToUpdate = [NSEntityDescription insertNewObjectForEntityForName:@"QuestionSet" inManagedObjectContext:self.administratorToCreateIn.managedObjectContext];
-        self.questionSetToUpdate.difficultyLevel = [NSNumber numberWithInt:self.administratorToCreateIn.questionSets.count];
-        self.questionSetToUpdate.administrator = self.administratorToCreateIn;
-    }
-    
-    //Assign Variables
-    self.questionSetToUpdate.name = self.nameTextField.text;    
-    self.questionSetToUpdate.type = [NSNumber numberWithDouble:self.typeStepper.value];
-     
-   
-    //Remove all current question associations
-    [self.questionSetToUpdate removeQuestions:self.questionSetToUpdate.questions];
-    
-    
-    //Associate all new qustions to questionSet
-    [self.questionSetToUpdate addQuestions:[NSSet setWithArray:self.questionArray]];
-    
-    NSLog(@"Updated Question Set: %@", self.questionSetToUpdate);
-    
-	[self dismissModalViewControllerAnimated:YES];
-}//end method
+#pragma mark - IBActions
 -(IBAction)stepperUpdated:(UIStepper*)sender{
     if([sender isEqual:self.typeStepper]){
         int type = (int) sender.value;  
@@ -176,11 +101,59 @@
         self.typeLabel.text = defaultString;
     }
 }
--(void) didCreateQuestion:(Question*)newQuestion{
+-(IBAction) cancelClicked {
+    //Delete all questions created this session
+    for (Question* createdQuestion in self.createdQuestions) {
+        [self.administratorToCreateIn.managedObjectContext deleteObject:createdQuestion];
+    }
     
+    //Dismiss View
+	[self dismissViewControllerAnimated:YES completion:NULL];
+}//end method
+
+-(IBAction) saveClicked {
+	AppLibrary *al = [[AppLibrary alloc] init];
+    
+    //Check for valid values
+	if (0 == self.nameTextField.text.length){
+		NSString *msg = @"Name must be entered.";
+		[al showAlertFromDelegate:self withWarning:msg];
+		return;
+	}//end if
+    if (self.questionArray.count == 0) {
+        NSString *msg = @"Question Set must contain a question";
+		[al showAlertFromDelegate:self withWarning:msg];
+		return;
+    }
+
+    //Create questionSet if necessary
+    if (!self.questionSetToUpdate) {
+        self.questionSetToUpdate = [NSEntityDescription insertNewObjectForEntityForName:@"QuestionSet" inManagedObjectContext:self.administratorToCreateIn.managedObjectContext];
+        self.questionSetToUpdate.difficultyLevel = [NSNumber numberWithInt:self.administratorToCreateIn.questionSets.count];
+        self.questionSetToUpdate.administrator = self.administratorToCreateIn;
+    }
+    
+    //Assign Variables
+    self.questionSetToUpdate.name = self.nameTextField.text;    
+    self.questionSetToUpdate.type = [NSNumber numberWithDouble:self.typeStepper.value];
+     
+   
+    //Remove all current question associations
+    [self.questionSetToUpdate removeQuestions:self.questionSetToUpdate.questions];
+    
+    
+    //Associate all new qustions to questionSet
+    [self.questionSetToUpdate addQuestions:[NSSet setWithArray:self.questionArray]];
+    
+    NSLog(@"Updated Question Set: %@", self.questionSetToUpdate);
+    
+	[self dismissModalViewControllerAnimated:YES];
+}//end method
+-(void) didCreateQuestion:(Question*)newQuestion{
     //Add to bottom
     newQuestion.questionOrder = [NSNumber numberWithInt:self.questionArray.count];
     
+    //Add to cache arrays
     [self.questionArray addObject:newQuestion];
     [self.createdQuestions addObject:newQuestion];
     
@@ -190,16 +163,10 @@
     [self.questionArray replaceObjectAtIndex:updatedQuestion.questionOrder.intValue withObject:updatedQuestion];
     [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:updatedQuestion.questionOrder.intValue inSection:1]] withRowAnimation:UITableViewRowAnimationFade];
 }
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-	return YES;
-}
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
     return 2;
 }
 
@@ -238,6 +205,7 @@
         
         return cell;
     }
+    return nil;
 }
 
 
@@ -257,14 +225,14 @@
         // Delete the row from the data source
         [self.questionSetToUpdate.managedObjectContext deleteObject:[self.questionArray objectAtIndex:indexPath.row]];
         
-        
-        [self.createdQuestions removeObjectIdenticalTo:[self.questionArray objectAtIndex:indexPath.row]];
         //Move down all questions above it
         for (int index = indexPath.row; index < self.questionArray.count; index++) {
             Question* question = [self.questionArray objectAtIndex:index];
             question.questionOrder = [NSNumber numberWithInt:question.questionOrder.intValue-1];
         }
         
+        //Remove out of caches
+        [self.createdQuestions removeObjectIdenticalTo:[self.questionArray objectAtIndex:indexPath.row]];
         [self.questionArray removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }   
@@ -276,6 +244,7 @@
 //Limit to moving to section 1
 - (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
 {
+    //Limit reodering questions to section of questions
     if (sourceIndexPath.section != proposedDestinationIndexPath.section) {
         NSInteger row = 0;
         if (sourceIndexPath.section < proposedDestinationIndexPath.section) {
@@ -306,7 +275,6 @@
         [q setValue:[NSNumber numberWithInt:i++] forKey:@"questionOrder"];
     }
 }
-
 
 // Override to support conditional rearranging of the table view.
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath

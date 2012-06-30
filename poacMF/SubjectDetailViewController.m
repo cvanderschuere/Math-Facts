@@ -78,7 +78,7 @@
         [self.gridView reloadData];
     }
 }
-
+#pragma mark - View Lifecycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -110,8 +110,30 @@
     
     //Reload with new scores
     [self.gridView reloadData];
-
 }
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return YES;
+}
+- (void) willRotateToInterfaceOrientation: (UIInterfaceOrientation) toInterfaceOrientation
+                                 duration: (NSTimeInterval) duration
+{
+    if ( UIInterfaceOrientationIsPortrait(toInterfaceOrientation) )
+    {
+        // width will be 768, which divides by four nicely already
+        NSLog( @"Setting left+right content insets to zero" );
+        self.gridView.leftContentInset = 0.0;
+        self.gridView.rightContentInset = 0.0;
+    }
+    else
+    {
+        // width will be 1024, so subtract a little to get a width divisible by five
+        NSLog( @"Setting left+right content insets to 2.0" );
+        self.gridView.leftContentInset = 2.0;
+        self.gridView.rightContentInset = 2.0;
+    }
+}
+#pragma mark - IBActions
 -(IBAction) logOut: (id) sender {
     if (self.logoutSheet.visible)
         return [self.logoutSheet dismissWithClickedButtonIndex:-1 animated:YES];
@@ -129,8 +151,7 @@
 
 }//end method
 
-#pragma mark -
-#pragma mark GridView Data Source
+#pragma mark - GridView Data Source
 
 - (NSUInteger) numberOfItemsInGridView: (AQGridView *) gridView
 {
@@ -202,7 +223,6 @@
                 //Hasn't passed yet
                 cell.passedLevel = [NSNumber numberWithInt:0];
             }
-            
         }
         else { //Unattempted
             cell.passedLevel = [NSNumber numberWithInt:-1];
@@ -215,7 +235,6 @@
         cell.difficultyLevel = [NSNumber numberWithInt:[object difficultyLevel].intValue +1];
         cell.passedLevel = [NSNumber numberWithInt:-1];
         cell.layer.borderWidth = 0;
-
     }
     
     return ( cell );
@@ -233,12 +252,12 @@
             //Current Test
             Test *currentTest = (Test*) object;
             UIActionSheet* actionSheet = nil;
-            //Determine took practice last or timing last
             
+            //Sort all pracitices and timings by startDate
             NSArray *practices = [[currentTest practice].results.allObjects sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES]]];
             NSArray *timings = [currentTest.results.allObjects sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES]]];
             
-            
+            //Determine if took practice or timing last
             if ([[[practices.lastObject startDate] earlierDate:[timings.lastObject startDate]] isEqualToDate:[timings.lastObject startDate]] || (timings.count == 0 && practices.count != 0)) {
                 actionSheet = [[UIActionSheet alloc] initWithTitle:@"Timing"  delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Start Timing",nil];
             }
@@ -274,10 +293,11 @@
             [TestFlight passCheckpoint:@"StartPractice"];
             [self performSegueWithIdentifier:@"startPracticeSegue" sender:self.gridView];
         }
-        
         [self.gridView deselectItemAtIndex:self.gridView.selectedIndex animated:YES];
     }
 }
+
+#pragma mark - Storyboard
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"startTestSegue"]) {
         //Pass test to TestVC
@@ -294,35 +314,6 @@
     }
 
 }
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return YES;
-}
-- (void) willRotateToInterfaceOrientation: (UIInterfaceOrientation) toInterfaceOrientation
-                                 duration: (NSTimeInterval) duration
-{
-    if ( UIInterfaceOrientationIsPortrait(toInterfaceOrientation) )
-    {
-        // width will be 768, which divides by four nicely already
-        NSLog( @"Setting left+right content insets to zero" );
-        self.gridView.leftContentInset = 0.0;
-        self.gridView.rightContentInset = 0.0;
-    }
-    else
-    {
-        // width will be 1024, so subtract a little to get a width divisible by five
-        NSLog( @"Setting left+right content insets to 2.0" );
-        self.gridView.leftContentInset = 2.0;
-        self.gridView.rightContentInset = 2.0;
-    }
-}
-
 #pragma mark - Test Result Delegate
 -(void) didFinishTest:(Test*)finishedTest withResult:(Result*)result{
     [TestFlight passCheckpoint:@"FinishedTest"];
@@ -347,9 +338,7 @@
             [self.currentStudent setCurrentTest:nil];
         }
         
-        
     }
-    
         
     //Create UIAlertView to present information
     UIAlertView *finishedTestAlert = [[UIAlertView alloc] initWithTitle:passed?@"You Passed!":@"Try the Practice Again" 

@@ -15,6 +15,7 @@
 #import "TestViewController.h"
 
 #define RETAKE_REPITITION 3
+#define ANSWER_ANIMATION_HALF_LENGTH .4
 
 @interface PracticeViewController ()
 
@@ -139,7 +140,6 @@
     
     //Clear labels
     self.xLabel.text = self.yLabel.text = self.zLabel.text = self.timeLabel.text = self.numberCorrectLabel.text = self.numberIncorrectLabel.text = nil;
-    
 }
 
 -(void) viewDidAppear:(BOOL)animated{
@@ -151,6 +151,32 @@
 -(void) viewWillDisappear:(BOOL)animated{
     [self.quitSheet dismissWithClickedButtonIndex:-1 animated:animated];
 }
+- (void)viewDidUnload
+{
+    [self setQuestionsLabel:nil];
+    [self setTimeLabel:nil];
+    [self setXLabel:nil];
+    [self setYLabel:nil];
+    [self setZLabel:nil];
+    [self setMathOperatorSymbol:nil];
+    [self setHorizontalLine:nil];
+    [self setVerticalLine:nil];
+    [self setNumberCorrectLabel:nil];
+    [self setNumberIncorrectLabel:nil];
+    [self setNextButton:nil];
+    [self setCorrectStar:nil];
+    [self setIncorrectImage:nil];
+    [self setInstructionLabel:nil];
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+	return YES;
+}
+
+#pragma mark - Storyboard
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"startTestFromPractice"]){
         [segue.destinationViewController setDelegate:self.delegate];
@@ -308,11 +334,15 @@
         [self.result addCorrectResponsesObject:correctResponse];
         
         //Animate Correct star
-        [UIView animateWithDuration:.5 delay:0 options:UIViewAnimationOptionAutoreverse animations:^(){
+        [UIView animateWithDuration:ANSWER_ANIMATION_HALF_LENGTH animations:^{
+            //Scale large
             self.correctStar.transform = CGAffineTransformMakeScale(1.8, 1.8);
-        } completion:^(BOOL completed){
-            self.correctStar.transform = CGAffineTransformIdentity;
-
+        }completion:^(BOOL finished){
+            [UIView animateWithDuration:ANSWER_ANIMATION_HALF_LENGTH
+                             animations:^{
+                                 //Scale back
+                                 self.correctStar.transform = CGAffineTransformIdentity;
+                             }];
         }];
         
         if (self.currentQuestionIsRetake)
@@ -332,13 +362,17 @@
         self.instructionLabel.text = [@"Incorrect. The correct answer was " stringByAppendingString:actualAnswer.stringValue];
         
         //Animate Incorrect image
-        [UIView animateWithDuration:.5 delay:0 options:UIViewAnimationOptionAutoreverse animations:^(){
+        [UIView animateWithDuration:ANSWER_ANIMATION_HALF_LENGTH animations:^{
+            //Scale large
             self.incorrectImage.transform = CGAffineTransformMakeScale(1.8, 1.8);
-        } completion:^(BOOL completed){
-            self.incorrectImage.transform = CGAffineTransformIdentity;
-            
+            }completion:^(BOOL finished){
+                [UIView animateWithDuration:ANSWER_ANIMATION_HALF_LENGTH
+                                 animations:^{
+                                     //Scale back
+                                     self.incorrectImage.transform = CGAffineTransformIdentity;
+                                 }];
         }];
-        
+            
         if (self.currentQuestionIsRetake) {
             //Repeat current retake
         }
@@ -455,31 +489,6 @@
 }
 -(void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
     [self performSegueWithIdentifier:@"startTestFromPractice" sender:self.delegate];
-}
-
-- (void)viewDidUnload
-{
-    [self setQuestionsLabel:nil];
-    [self setTimeLabel:nil];
-    [self setXLabel:nil];
-    [self setYLabel:nil];
-    [self setZLabel:nil];
-    [self setMathOperatorSymbol:nil];
-    [self setHorizontalLine:nil];
-    [self setVerticalLine:nil];
-    [self setNumberCorrectLabel:nil];
-    [self setNumberIncorrectLabel:nil];
-    [self setNextButton:nil];
-    [self setCorrectStar:nil];
-    [self setIncorrectImage:nil];
-    [self setInstructionLabel:nil];
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-	return YES;
 }
 
 @end

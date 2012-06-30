@@ -71,6 +71,7 @@
 #pragma mark - NSFetchedResultsController Methods
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
+    //Fetch all tests of from current quetion set
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Test"];
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"student.firstName" ascending:YES]];
     request.predicate = [NSPredicate predicateWithFormat:@"questionSet.name == %@ AND questionSet.type == %@ AND questionSet.difficultyLevel == %@",self.questionSet.name, self.questionSet.type,self.questionSet.difficultyLevel];
@@ -81,17 +82,13 @@
                                                                                    cacheName:nil];
 }
 #pragma mark - Table view data source
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    //Include insert row
-    return [super tableView:tableView numberOfRowsInSection:section];
-}
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
     return nil;
 }
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-	return [[[[self.fetchedResultsController sections] objectAtIndex:section] name] isEqualToString:@"1"]?@"Passed":@"Unpassed";
+	return [[[[self.fetchedResultsController sections] objectAtIndex:section] name] isEqualToString:@"1"]?@"Passed":@"Unpassed"; //Customize header
 }
 
 // Override to support editing the table view.
@@ -104,18 +101,15 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    /*
-    if (indexPath.row == [tableView.dataSource tableView:tableView numberOfRowsInSection:indexPath.section]-1) {
-        //Include Insert Row
-        return [tableView dequeueReusableCellWithIdentifier:@"addQuestionCell"];
-    }*/
-     
-    
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"testerCell"];
+    
+    //Get Test
     Test *test = (Test*) [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    //Customize Cell
     cell.textLabel.text = [test.student.firstName stringByAppendingString:[@" " stringByAppendingString:test.student.lastName]];
     
-    
+    //Add Result information for test
     if (test.results.count>0) {
         //Find best result
         Result *bestResult = nil;
@@ -131,7 +125,6 @@
         cell.detailTextLabel.text = @"Unattempted";
     }
 
-    
     return cell;
 }
 
@@ -141,6 +134,7 @@
 {
     UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
     if ([selectedCell.reuseIdentifier isEqualToString:@"addQuestionCell"]) {
+        //Popover to Add Question ViewController
         AEQuestionViewController *aeQuestion = [self.storyboard instantiateViewControllerWithIdentifier:@"AEQuestionViewController"];
         aeQuestion.contextToCreateIn = self.questionSet.managedObjectContext;
         
@@ -148,18 +142,6 @@
         self.popover = [[UIPopoverController alloc] initWithContentViewController:aeQuestion];
         [self.popover presentPopoverFromRect:selectedCell.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
-    /*
-    else if ([selectedCell.reuseIdentifier isEqualToString:@"questionCell"]) {
-        AEQuestionViewController *aeQuestion = [self.storyboard instantiateViewControllerWithIdentifier:@"AEQuestionViewController"];
-        aeQuestion.questionToUpdate = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        
-        
-        self.popover = [[UIPopoverController alloc] initWithContentViewController:aeQuestion];
-        [self.popover presentPopoverFromRect:selectedCell.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-
-    }
-     */
-
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 

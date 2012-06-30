@@ -24,6 +24,7 @@
 @synthesize questionToUpdate = _questionToUpdate, contextToCreateIn = _contextToCreateIn, operatorSymbol = _operatorSymbol;
 @synthesize delegate = _delegate;
 
+#pragma mark - View Lifecycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -53,19 +54,6 @@
     }
     
 }
-- (IBAction)stepperUpdate:(UIStepper*)sender {
-    //Update labels
-    if ([sender isEqual:self.xStepper]) {
-        self.xLabel.text = self.xStepper.value != -1?[NSNumber numberWithDouble:self.xStepper.value].stringValue:@"__";
-    }
-    else if ([sender isEqual:self.yStepper]) {
-        self.yLabel.text = self.yStepper.value != -1?[NSNumber numberWithDouble:self.yStepper.value].stringValue:@"__";
-    }
-    else if ([sender isEqual:self.zStepper]) {
-        self.zLabel.text = self.zStepper.value != -1?[NSNumber numberWithDouble:self.zStepper.value].stringValue:@"__";
-    }
-}
-
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
@@ -97,14 +85,8 @@
         self.questionToUpdate.y = self.yStepper.value != -1?[NSNumber numberWithDouble:self.yStepper.value]:nil;
         self.questionToUpdate.z = self.zStepper.value != -1?[NSNumber numberWithDouble:self.zStepper.value]:nil;
             
-        
         isEditing?[self.delegate didUpdateQuestion:self.questionToUpdate]:[self.delegate didCreateQuestion:self.questionToUpdate];
     }
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-	return YES;
 }
 
 - (void)viewDidUnload {
@@ -117,4 +99,23 @@
     [self setZLabel:nil];
     [super viewDidUnload];
 }
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+	return YES;
+}
+#pragma mark - IBActions
+- (IBAction)stepperUpdate:(UIStepper*)sender {
+    //Update labels
+    if ([sender isEqual:self.xStepper]) {
+        self.xLabel.text = self.xStepper.value != -1?[NSNumber numberWithDouble:self.xStepper.value].stringValue:@"__";
+    }
+    else if ([sender isEqual:self.yStepper]) {
+        self.yLabel.text = self.yStepper.value != -1?[NSNumber numberWithDouble:self.yStepper.value].stringValue:@"__";
+    }
+    else if ([sender isEqual:self.zStepper]) {
+        self.zLabel.text = self.zStepper.value != -1?[NSNumber numberWithDouble:self.zStepper.value].stringValue:@"__";
+    }
+}
+
+
 @end

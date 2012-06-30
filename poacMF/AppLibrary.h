@@ -9,14 +9,6 @@
 #import <Foundation/Foundation.h>
 
 
-@interface AppLibrary : NSObject {
-    
-}
-
+@interface AppLibrary : NSObject
 -(void)				showAlertFromDelegate: (id) delegateObject  withWarning: (NSString *) warning;
--(NSString *)		interpretMathTypeAsPhrase: (int) mathType;
--(NSString *)		interpretMathTypeAsSymbol: (int) mathType;
--(NSString *)		formattedDate: (NSDate *)thisDate;
--(NSDictionary *)	matchAndCountUsers: (NSMutableArray *)listOfUsers toDetails:(NSMutableArray *) listOfResults;
-
 @end

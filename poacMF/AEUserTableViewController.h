@@ -10,7 +10,7 @@
 #import "Student.h"
 #import "Administrator.h"
 
-@interface AEUserTableViewController : UITableViewController <UITextFieldDelegate>
+@interface AEUserTableViewController : UITableViewController <UITextFieldDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) Student* studentToUpdate;
 @property (nonatomic, strong) Administrator* createdStudentsAdmin;

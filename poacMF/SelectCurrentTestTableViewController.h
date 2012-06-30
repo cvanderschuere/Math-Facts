@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "CoreDataTableViewController.h"
-#import "QuestionSet.h"
+#import "Administrator.h"
+#import "Student.h"
 
 @protocol SelectTestProtocol <NSObject>
 
@@ -19,7 +20,7 @@
 
 @interface SelectCurrentTestTableViewController : CoreDataTableViewController
 
-@property (nonatomic, strong) NSManagedObjectContext *context;
+@property (nonatomic, strong) Student *student;
 @property (nonatomic, weak) id <SelectTestProtocol> delegate;
 
 @end

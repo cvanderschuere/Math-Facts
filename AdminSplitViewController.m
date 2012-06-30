@@ -46,7 +46,7 @@
     return self;
 }
 
-#pragma mark - AdminComDelegate
+#pragma mark - AdminSplitViewCommunicationDelegate
 -(void) didSelectObject:(id)aObject{
     NSLog(@"Object: %@",aObject);
     UINavigationController *navController = [self.viewControllers lastObject];

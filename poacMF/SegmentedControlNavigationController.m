@@ -17,23 +17,7 @@
 
 @implementation SegmentedControlNavigationController
 
-
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    //Add segmentedControl to toolbar
-    
-    
-	// Do any additional setup after loading the view.
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-}
-
+#pragma mark - IBActions
 -(IBAction)switchViewController:(UISegmentedControl*)sender{
     switch (sender.selectedSegmentIndex) {
         case 0:
@@ -57,6 +41,7 @@
     }
 }
 
+#pragma mark - Rotation Handling
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
 	return YES;

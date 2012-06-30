@@ -14,16 +14,16 @@
 @end
 
 @implementation SelectCurrentTestTableViewController
-@synthesize context = _context;
+@synthesize student = _student;
 @synthesize delegate = _delegate;
 
--(void) setContext:(NSManagedObjectContext *)context{
-    _context = context;
-    if(context)
+-(void) setStudent:(Student *)student{
+    _student = student;
+    if(_student)
         [self setupFetchedResultsController];
 }
 
-
+#pragma mark - View Lifecycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -48,14 +48,15 @@
 }
 
 #pragma mark - NSFetchedResultsController Methods
- - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
+ - (void)setupFetchedResultsController
 {
+   //Fetch all question sets of current admin; sort by typeName  
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"QuestionSet"];
     request.sortDescriptors = [NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:@"type" ascending:YES selector:@selector(compare:)],[NSSortDescriptor sortDescriptorWithKey:@"difficultyLevel" ascending:YES selector:@selector(compare:)],[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)],nil];
-    request.predicate = nil;
+    request.predicate = [NSPredicate predicateWithFormat:@"administrator.username == %@",self.student.administrator.username];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
-                                                                        managedObjectContext:self.context
+                                                                        managedObjectContext:self.student.managedObjectContext
                                                                           sectionNameKeyPath:@"typeName"
                                                                                    cacheName:nil];
 }
@@ -78,6 +79,7 @@
     return nil;//[self.fetchedResultsController sectionIndexTitles];
 }
  - (NSString *)controller:(NSFetchedResultsController *)controller sectionIndexTitleForSectionName:(NSString *)sectionName{
+     //Customize Section Index Titles
      if ([sectionName isEqualToString:@"Addition"]) {
          return @"+";
      }
@@ -90,50 +92,11 @@
      else if ([sectionName isEqualToString:@"Division"]) {
          return @"/";
      }
-     
+     return nil;
  }
 - (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath{
  return NO;
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
 

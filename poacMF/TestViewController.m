@@ -71,7 +71,7 @@
         }
     }
 }
-
+#pragma mark - View Lifecycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -115,7 +115,6 @@
     
     //Clear labels
     self.xLabel.text = self.yLabel.text = self.zLabel.text = self.timeLabel.text = self.numberCorrectLabel.text = nil;
-    
 }
 
 -(void) viewDidAppear:(BOOL)animated{
@@ -127,6 +126,26 @@
 -(void) viewWillDisappear:(BOOL)animated{
     [self.quitSheet dismissWithClickedButtonIndex:-1 animated:animated];
 }
+- (void)viewDidUnload
+{
+    [self setQuestionsLabel:nil];
+    [self setTimeLabel:nil];
+    [self setXLabel:nil];
+    [self setYLabel:nil];
+    [self setZLabel:nil];
+    [self setMathOperatorSymbol:nil];
+    [self setHorizontalLine:nil];
+    [self setVerticalLine:nil];
+    [self setNumberCorrectLabel:nil];
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+	return YES;
+}
+
 #pragma mark - Test Flow Methods
 -(void) startTest{
     //Create Result and set values
@@ -281,7 +300,8 @@
 }
 -(void) checkPassConditions{
     if (self.result.incorrectResponses.count > self.test.maximumIncorrect.intValue) {
-        [self endSessionWithTimer:NO];
+        //Failed test: Undecided whether should kick students out or finish the timing
+        //[self endSessionWithTimer:NO];
     }
     
 }
@@ -296,11 +316,11 @@
         else {
             [self.result.managedObjectContext deleteObject:self.result]; //Delete worthlessresults
         }
-
     }
     //Save
     [[UIApplication sharedApplication].delegate performSelector:@selector(saveDatabase)];    
     
+    //Exit to test grid
     [self.navigationController popToRootViewControllerAnimated:YES];
     
     //Show Stats if test started
@@ -356,24 +376,4 @@
         [self endSessionWithTimer:NO];
     }
 }
-- (void)viewDidUnload
-{
-    [self setQuestionsLabel:nil];
-    [self setTimeLabel:nil];
-    [self setXLabel:nil];
-    [self setYLabel:nil];
-    [self setZLabel:nil];
-    [self setMathOperatorSymbol:nil];
-    [self setHorizontalLine:nil];
-    [self setVerticalLine:nil];
-    [self setNumberCorrectLabel:nil];
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-	return YES;
-}
-
 @end

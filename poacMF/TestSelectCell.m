@@ -87,6 +87,7 @@
 -(void) setDifficultyLevel:(NSNumber *)difficultyLevel{
     _difficultyLevel = difficultyLevel;
     
+    //Set difficult Label
     UILabel* difficultyLabel = (UILabel*) [self.contentView viewWithTag:4];
     difficultyLabel.text = difficultyLevel.stringValue;
 }

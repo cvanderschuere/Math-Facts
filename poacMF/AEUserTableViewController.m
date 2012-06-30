@@ -49,15 +49,7 @@
 @synthesize practiceLengthLabel = _practiceLengthLabel, practiceLengthStepper = _practiceLengthStepper;
 
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
+#pragma mark - View Lifecycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -70,6 +62,7 @@
 		self.lastNameTF.text = self.studentToUpdate.lastName;
 		self.emailAddressTF.text = self.studentToUpdate.emailAddress;
         
+        //Set stepper values and update labels
         self.testLengthStepper.value = self.studentToUpdate.defaultTestLength.doubleValue;
         [self stepperUpdated:self.testLengthStepper];
         self.passCriteriaStepper.value = self.studentToUpdate.defaultPassCriteria.doubleValue;
@@ -110,7 +103,31 @@
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
-#pragma mark Button Methods
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+	return YES;
+}
+
+#pragma mark - IBActions
+- (IBAction)stepperUpdated:(UIStepper*)sender {
+    if([sender isEqual:self.testLengthStepper]){
+        self.testLengthLabel.text = [NSNumber numberWithDouble:sender.value].stringValue;
+    }
+    else if([sender isEqual:self.passCriteriaStepper]){
+        self.passCriteriaLabel.text = [NSNumber numberWithDouble:sender.value].stringValue;
+    }
+    else if ([sender isEqual:self.practiceLengthStepper]) {
+        self.practiceLengthLabel.text = [NSNumber numberWithDouble:sender.value].stringValue;
+    }
+    else if ([sender isEqual:self.maximumIncorrectStepper]) {
+        self.maximumIncorrectLabel.text = [NSNumber numberWithDouble:sender.value].stringValue;
+    }
+    else if ([sender isEqual:self.distractionNumberStepper]) {
+        self.distractionNumberLabel.text = [NSNumber numberWithDouble:sender.value].stringValue;
+    }
+}
+
 -(IBAction) cancelClicked {
     //Dismiss View
 	[self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
@@ -162,26 +179,10 @@
     
     self.studentToUpdate.numberOfDistractionQuestions = [NSNumber numberWithDouble:self.distractionNumberStepper.value];
     
-    
-    //Update all current tests to new values if changed
-    if (self.studentToUpdate.defaultTestLength.doubleValue != self.testLengthStepper.value) {
-        self.studentToUpdate.defaultTestLength = [NSNumber numberWithDouble:self.testLengthStepper.value];
-        for (Test* test in self.studentToUpdate.tests) {
-            test.testLength = [NSNumber numberWithDouble:self.testLengthStepper.value];
-        }
-
-    }
-    if (self.studentToUpdate.defaultPassCriteria.doubleValue != self.passCriteriaStepper.value) {
-        self.studentToUpdate.defaultPassCriteria = [NSNumber numberWithDouble:self.passCriteriaStepper.value];
-        for (Test* test in self.studentToUpdate.tests) {
-            test.passCriteria = [NSNumber numberWithDouble:self.passCriteriaStepper.value];
-        }
-    }
-    if (self.studentToUpdate.defaultMaximumIncorrect.doubleValue != self.maximumIncorrectStepper.value) {
-        self.studentToUpdate.defaultMaximumIncorrect = [NSNumber numberWithDouble:self.maximumIncorrectStepper.value];
-        for (Test* test in self.studentToUpdate.tests) {
-            test.maximumIncorrect = [NSNumber numberWithDouble:self.maximumIncorrectStepper.value];
-        }
+    //If student has tests and a test setting changed...ask to update all tests to new settings
+    if (self.studentToUpdate.tests.count>0 && (self.studentToUpdate.defaultTestLength.doubleValue != self.testLengthStepper.value || self.studentToUpdate.defaultPassCriteria.doubleValue != self.passCriteriaStepper.value || self.studentToUpdate.defaultMaximumIncorrect.doubleValue != self.maximumIncorrectStepper.value)) {
+        UIAlertView *updateTests = [[UIAlertView alloc] initWithTitle:@"Update Settings" message:@"Should all current timings be updated to new settings?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+        [updateTests show];
     }
     
     self.studentToUpdate.defaultPracticeLength = [NSNumber numberWithDouble:self.practiceLengthStepper.value];
@@ -190,75 +191,35 @@
         
 	[self dismissModalViewControllerAnimated:YES];
 }//end method
-
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-	return YES;
+#pragma mark - UIAlertView Delegate
+-(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        //Update all current tests to new values if changed
+        if (self.studentToUpdate.defaultTestLength.doubleValue != self.testLengthStepper.value) {
+            self.studentToUpdate.defaultTestLength = [NSNumber numberWithDouble:self.testLengthStepper.value];
+            for (Test* test in self.studentToUpdate.tests) {
+                test.testLength = [NSNumber numberWithDouble:self.testLengthStepper.value];
+            }
+            
+        }
+        if (self.studentToUpdate.defaultPassCriteria.doubleValue != self.passCriteriaStepper.value) {
+            self.studentToUpdate.defaultPassCriteria = [NSNumber numberWithDouble:self.passCriteriaStepper.value];
+            for (Test* test in self.studentToUpdate.tests) {
+                test.passCriteria = [NSNumber numberWithDouble:self.passCriteriaStepper.value];
+            }
+        }
+        if (self.studentToUpdate.defaultMaximumIncorrect.doubleValue != self.maximumIncorrectStepper.value) {
+            self.studentToUpdate.defaultMaximumIncorrect = [NSNumber numberWithDouble:self.maximumIncorrectStepper.value];
+            for (Test* test in self.studentToUpdate.tests) {
+                test.maximumIncorrect = [NSNumber numberWithDouble:self.maximumIncorrectStepper.value];
+            }
+        }
+    }
 }
-
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - UITextField Delegate
-
 -(BOOL) textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
     return YES;
-}
-
-- (IBAction)stepperUpdated:(UIStepper*)sender {
-    if([sender isEqual:self.testLengthStepper]){
-        self.testLengthLabel.text = [NSNumber numberWithDouble:sender.value].stringValue;
-    }
-    else if([sender isEqual:self.passCriteriaStepper]){
-        self.passCriteriaLabel.text = [NSNumber numberWithDouble:sender.value].stringValue;
-    }
-    else if ([sender isEqual:self.practiceLengthStepper]) {
-        self.practiceLengthLabel.text = [NSNumber numberWithDouble:sender.value].stringValue;
-    }
-    else if ([sender isEqual:self.maximumIncorrectStepper]) {
-        self.maximumIncorrectLabel.text = [NSNumber numberWithDouble:sender.value].stringValue;
-    }
-    else if ([sender isEqual:self.distractionNumberStepper]) {
-        self.distractionNumberLabel.text = [NSNumber numberWithDouble:sender.value].stringValue;
-    }
 }
 @end

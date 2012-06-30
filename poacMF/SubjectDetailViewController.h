@@ -12,7 +12,6 @@
 
 @interface SubjectDetailViewController : UIViewController <AQGridViewDataSource, AQGridViewDelegate, UIActionSheetDelegate, TestResultProtocol>{
     NSUInteger _emptyCellIndex;
-    
 }
 
 @property (nonatomic, strong) Student *currentStudent;

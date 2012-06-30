@@ -8,11 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol AddCategoryDelegate <NSObject>
-
--(void) didAddCategoryType:(NSNumber*) categoryType;
-
-@end
 
 @interface AddCategoryPopoverController : UIViewController
 

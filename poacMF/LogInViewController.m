@@ -94,12 +94,7 @@
 - (IBAction)sendFeedback:(id)sender {
     [TestFlight openFeedbackView];
 }
-/*
-- (IBAction)sayHello:(id)sender {
-    UIAlertView *helloAlert = [[UIAlertView alloc] initWithTitle:@"hej" message:@"Hur mor du?" delegate:nil cancelButtonTitle:@"steng" otherButtonTitles:nil];
-    [helloAlert show];
-    
-}*/
+
 #pragma mark - Storyboard Segues
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"adminUserSegue"]) {
@@ -122,37 +117,8 @@
 	if ((self.interfaceOrientation == UIInterfaceOrientationPortrait) || 
 		(self.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown))
 		frame = CGRectMake(10, 6, 280, 30);
-	
-    /*
-	UITextField *foo = [[UITextField alloc] initWithFrame:frame];
-	self.userNameTextField = foo;
-	self.userNameTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-	self.userNameTextField.textAlignment = UITextAlignmentCenter;
-	self.userNameTextField.returnKeyType = UIReturnKeyDone;
-	self.userNameTextField.borderStyle = UITextBorderStyleNone;
-	self.userNameTextField.clearsOnBeginEditing = NO;
-	self.userNameTextField.delegate = self;
-	self.userNameTextField.autocorrectionType = FALSE;
-	self.userNameTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-	self.userNameTextField.placeholder = @"Please Enter Username";
-	
-	UITextField *foo2 = [[UITextField alloc] initWithFrame:frame];
-	self.passwordTextField = foo2;
-	self.passwordTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;	
-	self.passwordTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-	self.passwordTextField.textAlignment = UITextAlignmentCenter;
-	self.passwordTextField.returnKeyType = UIReturnKeyDone;
-	self.passwordTextField.borderStyle = UITextBorderStyleNone;
-	self.passwordTextField.clearsOnBeginEditing = NO;
-	self.passwordTextField.secureTextEntry = YES;
-	self.passwordTextField.delegate = self;
-	self.passwordTextField.autocorrectionType = FALSE;
-	self.passwordTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-	self.passwordTextField.placeholder = @"Please Enter Password";
-	*/
     
     //Load Build Information
-    /* Build Version Stuff */
 	NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
 	NSString *name = [infoDictionary objectForKey:@"CFBundleDisplayName"];
 	NSString *version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];

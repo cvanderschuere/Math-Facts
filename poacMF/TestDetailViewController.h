@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Test.h"
 
-@interface TestDetailViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, CPTBarPlotDataSource, CPTBarPlotDelegate>
+@interface TestDetailViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, CPTBarPlotDataSource, CPTBarPlotDelegate, CPTPlotSpaceDelegate>
 
 @property (nonatomic, strong) Test* test;
 @property (nonatomic, weak) IBOutlet UITableView* resultsTableView;

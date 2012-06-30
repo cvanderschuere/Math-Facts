@@ -24,8 +24,6 @@
     //Create
         //managedObjectContext and type is provided
 
-
-
 @interface AEQuestionViewController : UIViewController
 
 @property (nonatomic, strong) Question *questionToUpdate;

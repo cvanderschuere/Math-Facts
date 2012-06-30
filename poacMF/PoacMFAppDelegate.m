@@ -25,6 +25,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    //Testflight
     [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
     [TestFlight takeOff:@"697945e1548f653ac921aafc40670040_MTAwMzE3MjAxMi0wNi0xNCAyMDowNTozMi4zMjk2NDg"];
     
@@ -72,6 +74,8 @@
 }//end method
 #pragma mark - Database methods
 -(void) setupDatabase{
+    
+    //Init managedDocument
     NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     url = [url URLByAppendingPathComponent:@"database"];
     self.database = [[SPManagedDocument alloc] initWithFileURL:url];
@@ -86,9 +90,10 @@
                              nil];
     self.database.persistentStoreOptions = options;
     
-    
+    //Open Document
     if (![[NSFileManager defaultManager] fileExistsAtPath:[self.database.fileURL path]]) {
         // does not exist on disk, so create it
+            //Save...close...open to prevent errors
         [self.database saveToURL:self.database.fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL succeed){
             [self setReadyToLogin:NO];
             if (succeed) {
@@ -118,6 +123,7 @@
 
 }
 -(void) setReadyToLogin:(BOOL)ready{
+    //Inform login controller of document state
     if ([self.window.rootViewController respondsToSelector:@selector(setReadyToLogin:)]) {
         LoginViewController* loginVC = (LoginViewController*) self.window.rootViewController;
         loginVC.readyToLogin = ready;

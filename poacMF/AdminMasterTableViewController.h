@@ -10,7 +10,7 @@
 #import "SummaryTableViewController.h"
 
 @protocol AdminSplitViewCommunicationDelegate <NSObject>
-
+//Used to inform detai view of object selection
 -(void) didSelectObject: (id) aObject;
 -(void) didDeleteObject: (id) aObject;
 
