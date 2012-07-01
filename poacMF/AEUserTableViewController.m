@@ -178,43 +178,57 @@
     self.studentToUpdate.emailAddress = self.emailAddressTF.text;
     
     self.studentToUpdate.numberOfDistractionQuestions = [NSNumber numberWithDouble:self.distractionNumberStepper.value];
+
+    self.studentToUpdate.defaultPracticeLength = [NSNumber numberWithDouble:self.practiceLengthStepper.value];
+
     
     //If student has tests and a test setting changed...ask to update all tests to new settings
     if (self.studentToUpdate.tests.count>0 && (self.studentToUpdate.defaultTestLength.doubleValue != self.testLengthStepper.value || self.studentToUpdate.defaultPassCriteria.doubleValue != self.passCriteriaStepper.value || self.studentToUpdate.defaultMaximumIncorrect.doubleValue != self.maximumIncorrectStepper.value)) {
+        
+        
         UIAlertView *updateTests = [[UIAlertView alloc] initWithTitle:@"Update Settings" message:@"Should all current timings be updated to new settings?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
         [updateTests show];
     }
+    else {
+        [self dismissModalViewControllerAnimated:YES];
     
-    self.studentToUpdate.defaultPracticeLength = [NSNumber numberWithDouble:self.practiceLengthStepper.value];
+        //Update Test Defaults
+        self.studentToUpdate.defaultTestLength = [NSNumber numberWithDouble:self.testLengthStepper.value];
+        self.studentToUpdate.defaultPassCriteria = [NSNumber numberWithDouble:self.passCriteriaStepper.value];
+        self.studentToUpdate.defaultMaximumIncorrect = [NSNumber numberWithDouble:self.maximumIncorrectStepper.value];
+    }
+    
     
     NSLog(@"Updated User: %@", self.studentToUpdate);
         
-	[self dismissModalViewControllerAnimated:YES];
 }//end method
 #pragma mark - UIAlertView Delegate
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1) {
         //Update all current tests to new values if changed
         if (self.studentToUpdate.defaultTestLength.doubleValue != self.testLengthStepper.value) {
-            self.studentToUpdate.defaultTestLength = [NSNumber numberWithDouble:self.testLengthStepper.value];
             for (Test* test in self.studentToUpdate.tests) {
                 test.testLength = [NSNumber numberWithDouble:self.testLengthStepper.value];
             }
             
         }
         if (self.studentToUpdate.defaultPassCriteria.doubleValue != self.passCriteriaStepper.value) {
-            self.studentToUpdate.defaultPassCriteria = [NSNumber numberWithDouble:self.passCriteriaStepper.value];
             for (Test* test in self.studentToUpdate.tests) {
                 test.passCriteria = [NSNumber numberWithDouble:self.passCriteriaStepper.value];
             }
         }
         if (self.studentToUpdate.defaultMaximumIncorrect.doubleValue != self.maximumIncorrectStepper.value) {
-            self.studentToUpdate.defaultMaximumIncorrect = [NSNumber numberWithDouble:self.maximumIncorrectStepper.value];
             for (Test* test in self.studentToUpdate.tests) {
                 test.maximumIncorrect = [NSNumber numberWithDouble:self.maximumIncorrectStepper.value];
             }
         }
     }
+    
+    //Update Test Defaults
+    self.studentToUpdate.defaultTestLength = [NSNumber numberWithDouble:self.testLengthStepper.value];
+    self.studentToUpdate.defaultPassCriteria = [NSNumber numberWithDouble:self.passCriteriaStepper.value];
+    self.studentToUpdate.defaultMaximumIncorrect = [NSNumber numberWithDouble:self.maximumIncorrectStepper.value];    
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 #pragma mark - UITextField Delegate
