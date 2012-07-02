@@ -13,8 +13,8 @@
 #import "PoacMFAppDelegate.h"
 #import "NSMutableArray+Shuffling.h"
 
-//Must be multiple of 10
-#define NEW_OLD_QUESTION_RATIO 20
+//1 in # new vs old
+#define NEW_OLD_QUESTION_RATIO 5
 
 
 @interface TestViewController ()
@@ -61,24 +61,24 @@
         for (QuestionSet* set in sets) {
             [allOldQuestions addObjectsFromArray:set.questions.allObjects];
         }
-        
-        //Shuffle old questions
         [allOldQuestions shuffleArray];
-        
+                
         NSMutableArray* newQuestions = test.questionSet.questions.allObjects.mutableCopy;
         [newQuestions shuffleArray];
         
         self.questionsToAsk = [NSMutableArray array];
         while (newQuestions.count>0) {
-            if (self.questionsToAsk.count%(NEW_OLD_QUESTION_RATIO/10)==0 || allOldQuestions.count == 0) {
+            if (self.questionsToAsk.count%(NEW_OLD_QUESTION_RATIO)==0 || allOldQuestions.count == 0) {
                 //Add new question every third question
                 [self.questionsToAsk addObject:newQuestions.lastObject];
                 [newQuestions removeLastObject];
             }
             else {
-                //Add old question
-                [self.questionsToAsk addObject:allOldQuestions.lastObject];
-                [allOldQuestions removeLastObject];
+                //Add old question in random order
+                Question *oldQuestion = [allOldQuestions objectAtIndex:arc4random()%allOldQuestions.count];
+                
+                [self.questionsToAsk addObject:oldQuestion];
+                [allOldQuestions removeObject:oldQuestion];
             }
         }
     }
@@ -302,6 +302,7 @@
         Response *correctResponse = [NSEntityDescription insertNewObjectForEntityForName:@"Response" inManagedObjectContext:self.result.managedObjectContext];
         correctResponse.question = [self.questionsToAsk lastObject];
         correctResponse.answer = givenAnswer;
+        correctResponse.index = [NSNumber numberWithInt:self.result.correctResponses.count + self.result.incorrectResponses.count];
         [self.result addCorrectResponsesObject:correctResponse];
         
     }
@@ -310,6 +311,7 @@
         Response *incorrectResponse = [NSEntityDescription insertNewObjectForEntityForName:@"Response" inManagedObjectContext:self.result.managedObjectContext];
         incorrectResponse.question = [self.questionsToAsk lastObject];
         incorrectResponse.answer = givenAnswer;
+        incorrectResponse.index = [NSNumber numberWithInt:self.result.correctResponses.count + self.result.incorrectResponses.count];
         [self.result addIncorrectResponsesObject:incorrectResponse];
     }
     

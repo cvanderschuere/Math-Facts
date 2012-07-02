@@ -18,8 +18,8 @@
 #define RETAKE_REPITITION 3
 #define ANSWER_ANIMATION_HALF_LENGTH .4
 
-//Must be multiple of 10
-#define NEW_OLD_QUESTION_RATIO 30
+//1 in # new vs old
+#define NEW_OLD_QUESTION_RATIO 3
 
 
 @interface PracticeViewController ()
@@ -88,7 +88,7 @@
         self.questionsToAsk = [NSMutableArray array];
         
         while (newQuestions.count>0) {
-            if (self.questionsToAsk.count%(NEW_OLD_QUESTION_RATIO/10)==0 || allOldQuestions.count == 0) {
+            if (self.questionsToAsk.count%(NEW_OLD_QUESTION_RATIO)==0 || allOldQuestions.count == 0) {
                 //Add new question every third question
                 [self.questionsToAsk addObject:newQuestions.lastObject];
                 [newQuestions removeLastObject];

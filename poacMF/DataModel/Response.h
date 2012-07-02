@@ -14,6 +14,7 @@
 @interface Response : NSManagedObject
 
 @property (nonatomic, retain) NSString * answer;
+@property (nonatomic, retain) NSNumber *index;
 @property (nonatomic, retain) Question *question;
 
 @end

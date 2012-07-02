@@ -14,5 +14,6 @@
 
 @dynamic answer;
 @dynamic question;
+@dynamic index;
 
 @end

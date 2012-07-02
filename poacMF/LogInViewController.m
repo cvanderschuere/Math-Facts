@@ -62,24 +62,41 @@
 	
 	//log em in, swap the view
     PoacMFAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSDictionary* loginDict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:self.userNameTextField.text.lowercaseString,self.passwordTextField.text, nil] forKeys:[NSArray arrayWithObjects:@"USERNAME",@"PASSWORD", nil]];
+    NSDictionary* loginDict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:self.userNameTextField.text.lowercaseString, nil] forKeys:[NSArray arrayWithObjects:@"USERNAME", nil]];
     //Check if is student
     NSFetchRequest *studentLogin = [appDelegate.database.managedObjectModel fetchRequestFromTemplateWithName:@"StudentLogin" substitutionVariables:loginDict];
     NSArray *users = [appDelegate.database.managedObjectContext executeFetchRequest:studentLogin error:nil];
     if (users.count == 1) {
-        Student* currentStudent = [users lastObject];
-        [self performSegueWithIdentifier:@"studentUserSegue" sender:currentStudent];
+        //Check password
+        if ([[users.lastObject password] isEqualToString:self.passwordTextField.text]) {
+            Student* currentStudent = [users lastObject];
+            [self performSegueWithIdentifier:@"studentUserSegue" sender:currentStudent];
+        }
+        else {
+            UIAlertView *passwordAlert = [[UIAlertView alloc] initWithTitle:@"Incorrect password" message:nil delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
+            [passwordAlert show];
+        }
     }//
     else if(users.count == 0) {
         //Check if is admin
         NSFetchRequest *adminLogin = [appDelegate.database.managedObjectModel fetchRequestFromTemplateWithName:@"AdminLogin" substitutionVariables:loginDict];
         users = [appDelegate.database.managedObjectContext executeFetchRequest:adminLogin error:nil];
         if (users.count == 1) {
-            Administrator* admin = [users lastObject];
-            [self performSegueWithIdentifier:@"adminUserSegue" sender:admin];
+            //Check password
+            if ([[users.lastObject password] isEqualToString:self.passwordTextField.text]) {
+                Administrator* admin = [users lastObject];
+                [self performSegueWithIdentifier:@"adminUserSegue" sender:admin];
+            }
+            else {
+                //Incorrect Password
+                UIAlertView *passwordAlert = [[UIAlertView alloc] initWithTitle:@"Incorrect password" message:nil delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
+                [passwordAlert show];
+            }
         }//
-        else if(users.count == 1){
+        else if(users.count == 0){
             NSLog(@"Does not match ANY user");
+            UIAlertView *userDoesntExistAlert = [[UIAlertView alloc] initWithTitle:@"Invalid Username" message:nil delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+            [userDoesntExistAlert show];
         }
         else{
             NSLog(@"Error: Matches %d admin",users.count);
@@ -87,6 +104,8 @@
 	}
     else {
         NSLog(@"Error: Matches more than 1 student");
+        UIAlertView *dataBaseAlert = [[UIAlertView alloc] initWithTitle:@"Database Error" message:nil delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+        [dataBaseAlert show];
     }
 
 }//end method

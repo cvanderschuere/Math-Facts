@@ -30,6 +30,12 @@
     //Reload data
     self.questionsCorrect = _result.correctResponses.allObjects.mutableCopy;
     self.questionsIncorrect = _result.incorrectResponses.allObjects.mutableCopy;
+    
+    //Sort data
+    [self.questionsCorrect sortUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES]]];
+    [self.questionsIncorrect sortUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES]]];
+
+    
     [self.tableView reloadData];
 }
 
@@ -89,7 +95,7 @@
     
     //Format for question
     cell.textLabel.text = [NSString stringWithFormat:@"%@ %@ %@ = %@",response.question.x?response.question.x.stringValue:@"__",response.question.questionSet.typeSymbol,response.question.y?response.question.y.stringValue:@"__",response.question.z?response.question.z.stringValue:@"__"];
-    cell.detailTextLabel.text = response.answer;    
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (Set %d)", response.answer, response.question.questionSet.difficultyLevel.intValue + 1];    
     return cell;
 }
 -(NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
