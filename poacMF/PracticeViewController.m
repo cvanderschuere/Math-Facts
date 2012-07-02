@@ -94,9 +94,11 @@
                 [newQuestions removeLastObject];
             }
             else {
-                //Add old question
-                [self.questionsToAsk addObject:allOldQuestions.lastObject];
-                [allOldQuestions removeLastObject];
+                //Add old question in random order
+                Question *oldQuestion = [allOldQuestions objectAtIndex:arc4random()%allOldQuestions.count];
+                
+                [self.questionsToAsk addObject:oldQuestion];
+                [allOldQuestions removeObject:oldQuestion];
             }
         }
     }

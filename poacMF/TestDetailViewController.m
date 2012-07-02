@@ -34,7 +34,7 @@
     if (![_test isEqual:test]) {
         _test = test;
         
-        self.title = _test.questionSet.name;
+        self.title = [NSString stringWithFormat:@"%@. %@ (%@)",_test.student.firstNameInital,_test.student.lastName,_test.questionSet.name];
         
         self.testResults = _test.results.allObjects.mutableCopy;
         
@@ -300,7 +300,9 @@
 #pragma UITableView DataSource
 -(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.testResults.count>0?1:0 + self.practiceResults.count>0?1:0;
+    NSInteger sections = self.testResults.count>0?1:0;
+    sections += (self.practiceResults.count)>0?1:0;
+    return sections;
 }
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
