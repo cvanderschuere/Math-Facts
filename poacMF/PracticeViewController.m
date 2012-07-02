@@ -13,9 +13,14 @@
 #import "PoacMFAppDelegate.h"
 #import "Test.h"
 #import "TestViewController.h"
+#import "NSMutableArray+Shuffling.h"
 
 #define RETAKE_REPITITION 3
 #define ANSWER_ANIMATION_HALF_LENGTH .4
+
+//Must be multiple of 10
+#define NEW_OLD_QUESTION_RATIO 30
+
 
 @interface PracticeViewController ()
 
@@ -24,6 +29,7 @@
 @property (nonatomic, strong) UIActionSheet *quitSheet;
 
 @property (nonatomic) BOOL currentQuestionIsRetake;
+@property (nonatomic) BOOL questionsNeedShuffle;
 @property (nonatomic) int questionsBeforeRetake;
 @property (nonatomic, strong) NSMutableArray *errorQueue;
 
@@ -50,7 +56,7 @@
 @synthesize delegate = _delegate;
 @synthesize quitSheet = _quitSheet;
 
-@synthesize currentQuestionIsRetake = _currentQuestionIsRetake, questionsBeforeRetake = _questionsBeforeRetake, errorQueue = _errorQueue;
+@synthesize currentQuestionIsRetake = _currentQuestionIsRetake, questionsBeforeRetake = _questionsBeforeRetake, errorQueue = _errorQueue,questionsNeedShuffle = _questionsNeedShuffle;
 
 -(void) setPractice:(Practice *)practice{
     if (![_practice isEqual:practice]) {
@@ -72,11 +78,17 @@
             [allOldQuestions addObjectsFromArray:set.questions.allObjects];
         }
         
+        //Shuffle old questions
+        [allOldQuestions shuffleArray];
+        self.questionsNeedShuffle = NO;
+        
         NSMutableArray* newQuestions = practice.test.questionSet.questions.allObjects.mutableCopy;
+        [newQuestions shuffleArray];
+        
         self.questionsToAsk = [NSMutableArray array];
         
         while (newQuestions.count>0) {
-            if (self.questionsToAsk.count%3==0 || allOldQuestions.count == 0) {
+            if (self.questionsToAsk.count%(NEW_OLD_QUESTION_RATIO/10)==0 || allOldQuestions.count == 0) {
                 //Add new question every third question
                 [self.questionsToAsk addObject:newQuestions.lastObject];
                 [newQuestions removeLastObject];
@@ -221,7 +233,7 @@
     }
     
     //Normal Question loading
-    else if (self.questionsToAsk.count>1) {
+    else if (self.questionsToAsk.count>0) {
         //Check if error question
         if ([self.errorQueue.lastObject isEqual:self.questionsToAsk.lastObject]) {
             [self.errorQueue removeLastObject];
@@ -233,9 +245,18 @@
             [self.questionsToAsk removeLastObject];
 
         }
-                
-        //Pick a random question and exchange it with the last object
-        //[self.questionsToAsk exchangeObjectAtIndex:arc4random()%(self.questionsToAsk.count)  withObjectAtIndex:self.questionsToAsk.count-1];
+        
+        //If gone through entire array...shuffle
+        if ((self.result.correctResponses.count + self.result.incorrectResponses.count == self.questionsToAsk.count)|| self.questionsNeedShuffle){
+            if (self.errorQueue.count>0) {
+                //Cant shuffle now, shuffle when error array empty
+                self.questionsNeedShuffle = YES;
+            }
+            else{
+                [self.questionsToAsk shuffleArray];
+                self.questionsNeedShuffle = NO;
+            }
+        }
         
         //Load new first question
         [self prepareForQuestion:[self.questionsToAsk lastObject]];
@@ -243,6 +264,8 @@
 }
 -(void) prepareForQuestion:(Question*)question{
     if (question) {
+        NSLog(@"Question from Question set: %@",question.questionSet.difficultyLevel.stringValue);
+        
         //Setup text
         self.xLabel.text = question.x?[NSNumberFormatter localizedStringFromNumber:question.x numberStyle:NSNumberFormatterBehavior10_4]:nil;
         self.yLabel.text = question.y?[NSNumberFormatter localizedStringFromNumber:question.y numberStyle:NSNumberFormatterBehavior10_4]:nil;
@@ -439,6 +462,8 @@
 #pragma mark - IBActions
 -(IBAction)digitPressed:(id)sender{
     if (!self.updateTimer.isValid) //Copy race condition code from matt's work
+        return;
+    if (self.instructionLabel.text.length>0)//If current showing instruction, disable button input
         return;
     
 	UIButton *btn = (UIButton *) sender;

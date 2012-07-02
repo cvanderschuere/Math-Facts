@@ -1794,7 +1794,6 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="digitPressed:" destination="j2a-Eg-zWi" eventType="touchUpInside" id="F68-Sr-bmr"/>
                                             <action selector="digitPressed:" destination="KpE-ok-NA2" eventType="touchUpInside" id="kKu-LB-7sI"/>
                                         </connections>
                                     </button>
@@ -1811,11 +1810,10 @@
                                         </state>
                                         <connections>
                                             <action selector="digitPressed:" destination="KpE-ok-NA2" eventType="touchUpInside" id="ObE-MD-EmU"/>
-                                            <action selector="digitPressed:" destination="j2a-Eg-zWi" eventType="touchUpInside" id="xGf-I3-y3s"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="yXp-nS-xJ6">
-                                        <rect key="frame" x="280" y="10" width="101" height="50"/>
+                                        <rect key="frame" x="279" y="10" width="101" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="ChalkboardSE-Bold" family="Chalkboard SE" pointSize="40"/>
                                         <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -1826,7 +1824,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="digitPressed:" destination="j2a-Eg-zWi" eventType="touchUpInside" id="tVU-es-XAP"/>
+                                            <action selector="digitPressed:" destination="KpE-ok-NA2" eventType="touchUpInside" id="Xjh-cE-YXQ"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1kL-Hv-Usm">
@@ -1842,7 +1840,6 @@
                                         </state>
                                         <connections>
                                             <action selector="digitPressed:" destination="KpE-ok-NA2" eventType="touchUpInside" id="dAV-bd-pw5"/>
-                                            <action selector="digitPressed:" destination="j2a-Eg-zWi" eventType="touchUpInside" id="eUz-lP-kcM"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="EeD-mu-t8s">
@@ -1858,7 +1855,6 @@
                                         </state>
                                         <connections>
                                             <action selector="digitPressed:" destination="KpE-ok-NA2" eventType="touchUpInside" id="n1F-Uc-gKz"/>
-                                            <action selector="digitPressed:" destination="j2a-Eg-zWi" eventType="touchUpInside" id="nWn-Bs-zfS"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="0vj-8f-b6J">
@@ -1874,7 +1870,6 @@
                                         </state>
                                         <connections>
                                             <action selector="digitPressed:" destination="j2a-Eg-zWi" eventType="touchUpInside" id="Amw-oy-9ih"/>
-                                            <action selector="digitPressed:" destination="KpE-ok-NA2" eventType="touchUpInside" id="nec-5q-YPG"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="jqT-43-UAG">
@@ -1890,7 +1885,6 @@
                                         </state>
                                         <connections>
                                             <action selector="digitPressed:" destination="j2a-Eg-zWi" eventType="touchUpInside" id="93y-Tp-t2v"/>
-                                            <action selector="digitPressed:" destination="KpE-ok-NA2" eventType="touchUpInside" id="bGp-gA-G91"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="nim-zT-hJL">
@@ -1905,7 +1899,6 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="digitPressed:" destination="j2a-Eg-zWi" eventType="touchUpInside" id="Agi-3v-Iut"/>
                                             <action selector="digitPressed:" destination="KpE-ok-NA2" eventType="touchUpInside" id="fY1-ZV-Mor"/>
                                         </connections>
                                     </button>
@@ -1922,7 +1915,6 @@
                                         </state>
                                         <connections>
                                             <action selector="digitPressed:" destination="KpE-ok-NA2" eventType="touchUpInside" id="Z68-W7-Z9o"/>
-                                            <action selector="digitPressed:" destination="j2a-Eg-zWi" eventType="touchUpInside" id="bAB-lS-81F"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="aps-SD-NAi">
@@ -1937,7 +1929,6 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="digitPressed:" destination="j2a-Eg-zWi" eventType="touchUpInside" id="WB9-GL-25d"/>
                                             <action selector="digitPressed:" destination="KpE-ok-NA2" eventType="touchUpInside" id="xwg-Ig-p6E"/>
                                         </connections>
                                     </button>

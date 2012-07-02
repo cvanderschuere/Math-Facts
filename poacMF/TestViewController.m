@@ -13,6 +13,10 @@
 #import "PoacMFAppDelegate.h"
 #import "NSMutableArray+Shuffling.h"
 
+//Must be multiple of 10
+#define NEW_OLD_QUESTION_RATIO 20
+
+
 @interface TestViewController ()
 
 @property (nonatomic, strong) Result* result;
@@ -51,14 +55,22 @@
         previousQuestionSet.predicate = [NSPredicate predicateWithFormat:@"difficultyLevel < %@ AND type == %@",_test.questionSet.difficultyLevel,_test.questionSet.type];
         NSMutableArray *sets = [_test.managedObjectContext executeFetchRequest:previousQuestionSet error:NULL].mutableCopy;
         
+        NSLog(@"Sets: %@",sets);
+        
         NSMutableArray * allOldQuestions = [NSMutableArray array];
         for (QuestionSet* set in sets) {
             [allOldQuestions addObjectsFromArray:set.questions.allObjects];
         }
+        
+        //Shuffle old questions
+        [allOldQuestions shuffleArray];
+        
         NSMutableArray* newQuestions = test.questionSet.questions.allObjects.mutableCopy;
+        [newQuestions shuffleArray];
+        
         self.questionsToAsk = [NSMutableArray array];
         while (newQuestions.count>0) {
-            if (self.questionsToAsk.count%3==0 || allOldQuestions.count == 0) {
+            if (self.questionsToAsk.count%(NEW_OLD_QUESTION_RATIO/10)==0 || allOldQuestions.count == 0) {
                 //Add new question every third question
                 [self.questionsToAsk addObject:newQuestions.lastObject];
                 [newQuestions removeLastObject];
@@ -175,21 +187,33 @@
     }
 }
 -(void) loadNextQuestion{
-    if (self.questionsToAsk.count>1) {
+    if (self.questionsToAsk.count>0) {
+        Question* previousQuestion = self.questionsToAsk.lastObject;
+        
         //Insert old question in front of array
-        [self.questionsToAsk insertObject:[self.questionsToAsk lastObject] atIndex:0];
+        [self.questionsToAsk insertObject:previousQuestion atIndex:0];
         [self.questionsToAsk removeLastObject];
         
         //If gone through entire array...shuffle
         if (self.result.correctResponses.count + self.result.incorrectResponses.count == self.questionsToAsk.count)
             [self.questionsToAsk shuffleArray];
         
-        //Load new first question
-        [self prepareForQuestion:[self.questionsToAsk lastObject]];
+        //Load new first question: check for duplicate question
+        if ([previousQuestion isEqual:self.questionsToAsk.lastObject]) {
+            //Skip to next question
+            [self.questionsToAsk insertObject:previousQuestion atIndex:0];
+            [self.questionsToAsk removeLastObject];
+            [self prepareForQuestion:[self.questionsToAsk lastObject]];
+        }
+        else{
+            [self prepareForQuestion:[self.questionsToAsk lastObject]];
+        }
     }
 }
 -(void) prepareForQuestion:(Question*)question{
     if (question) {
+        NSLog(@"Question from Question set: %@",question.questionSet.difficultyLevel.stringValue);
+        
         //Setup text
         self.xLabel.text = question.x?[NSNumberFormatter localizedStringFromNumber:question.x numberStyle:NSNumberFormatterBehavior10_4]:nil;
         self.yLabel.text = question.y?[NSNumberFormatter localizedStringFromNumber:question.y numberStyle:NSNumberFormatterBehavior10_4]:nil;
