@@ -33,6 +33,7 @@
 
     
     [self setupDatabase];
+
 	return YES;
 }//end method
 
@@ -114,6 +115,18 @@
         [self.database openWithCompletionHandler:^(BOOL success) {
             NSLog(@"\nOpening Document %@\n",success?@"Succesful":@"Un Successful"); 
             [self setReadyToLogin:success];
+            
+            //DEBUG INFORMATION
+            NSFetchRequest* fetch = [NSFetchRequest fetchRequestWithEntityName:@"Result"];
+            fetch.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"endDate" ascending:YES]];
+            NSArray* resultArray = [self.database.managedObjectContext executeFetchRequest:fetch error:NULL];
+            
+            fetch = [NSFetchRequest fetchRequestWithEntityName:@"Test"];
+            fetch.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"testLength" ascending:YES]];
+            NSArray* testArray = [self.database.managedObjectContext executeFetchRequest:fetch error:NULL];
+            
+            NSLog(@"**Database Statistics**\n\n Test (%d): %@ \n\n Result(%d): %@\n\n",testArray.count,testArray,resultArray.count,resultArray);
+
         }];
     } 
     else if (self.database.documentState == UIDocumentStateNormal) {
