@@ -21,6 +21,7 @@
 @dynamic student;
 @dynamic test;
 @dynamic didPass;
+@dynamic practice;
 
 -(NSNumber*) didPass{
     return [NSNumber numberWithBool:self.test.passCriteria.intValue <= self.correctResponses.count && self.test.maximumIncorrect.intValue >= self.incorrectResponses.count];

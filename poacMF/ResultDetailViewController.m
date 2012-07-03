@@ -94,8 +94,14 @@
     Response *response = indexPath.section == 0?[self.questionsCorrect objectAtIndex:indexPath.row]:[self.questionsIncorrect objectAtIndex:indexPath.row];
     
     //Format for question
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ %@ %@ = %@",response.question.x?response.question.x.stringValue:@"__",response.question.questionSet.typeSymbol,response.question.y?response.question.y.stringValue:@"__",response.question.z?response.question.z.stringValue:@"__"];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (%@)", response.answer, response.question.questionSet.name];    
+    if (response.question.questionSet) {
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ %@ %@ = %@",response.question.x?response.question.x.stringValue:@"__",response.question.questionSet.typeSymbol,response.question.y?response.question.y.stringValue:@"__",response.question.z?response.question.z.stringValue:@"__"];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (%@)", response.answer, response.question.questionSet.name];
+    }
+    else {
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ ? %@ = %@",response.question.x?response.question.x.stringValue:@"__",response.question.y?response.question.y.stringValue:@"__",response.question.z?response.question.z.stringValue:@"__"];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (Deleted Question)", response.answer];
+    }
     return cell;
 }
 -(NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{

@@ -10,7 +10,7 @@
 #import <CoreData/CoreData.h>
 #import "Response.h"
 
-@class Student, Test, Response;
+@class Student, Test, Response,Practice;
 
 @interface Result : NSManagedObject
 
@@ -21,6 +21,7 @@
 @property (nonatomic, retain) NSSet *incorrectResponses;
 @property (nonatomic, retain) Student *student;
 @property (nonatomic, retain) Test *test;
+@property (nonatomic, retain) Practice *practice;
 
 //Transient
 @property (nonatomic, retain) NSNumber *didPass;

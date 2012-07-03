@@ -15,6 +15,7 @@
 
 @property (nonatomic, strong) NSMutableArray *questionArray;
 @property (nonatomic, strong) NSMutableArray *createdQuestions;
+@property (nonatomic, strong) NSMutableArray *deletedQuestions;
 
 @property (nonatomic, strong) IBOutlet UITextField *nameTextField;
 @property (nonatomic, strong) IBOutlet UIStepper *typeStepper;
@@ -33,7 +34,7 @@
 @implementation AEQuestionSetTableViewController
 @synthesize questionSetToUpdate = _questionSetToUpdate, administratorToCreateIn = _administratorToCreateIn, nameTextField = _nameTextField;
 @synthesize typeStepper = _typeStepper, typeLabel = _typeLabel, questionArray = _questionArray;
-@synthesize popover = _popover, createdQuestions = _createdQuestions;
+@synthesize popover = _popover, createdQuestions = _createdQuestions, deletedQuestions = _deletedQuestions;
 @synthesize isEditing = _isEditing;
 
 #pragma mark - View Lifecycle
@@ -43,6 +44,7 @@
         
     self.createdQuestions = [NSMutableArray array];
     self.questionArray = [NSMutableArray array];
+    self.deletedQuestions = [NSMutableArray array];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -57,6 +59,8 @@
         
         self.title = [@"Edit " stringByAppendingString:self.questionSetToUpdate.name];
         self.isEditing = YES;
+        
+        self.navigationItem.leftBarButtonItem = nil; //Remove ability to cancel when editing
         
 	}//end editMode
     else{
@@ -222,15 +226,6 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [self.questionSetToUpdate.managedObjectContext deleteObject:[self.questionArray objectAtIndex:indexPath.row]];
-        
-        //Move down all questions above it
-        for (int index = indexPath.row; index < self.questionArray.count; index++) {
-            Question* question = [self.questionArray objectAtIndex:index];
-            question.questionOrder = [NSNumber numberWithInt:question.questionOrder.intValue-1];
-        }
-        
         //Remove out of caches
         [self.createdQuestions removeObjectIdenticalTo:[self.questionArray objectAtIndex:indexPath.row]];
         [self.questionArray removeObjectAtIndex:indexPath.row];
@@ -298,7 +293,8 @@
         aeQuestion.contextToCreateIn = self.administratorToCreateIn?self.administratorToCreateIn.managedObjectContext:self.questionSetToUpdate.managedObjectContext;
     }
     else if ([selectedCell.reuseIdentifier isEqualToString:@"questionCell"]) {
-        aeQuestion.questionToUpdate = [self.questionArray objectAtIndex:indexPath.row];
+        //aeQuestion.questionToUpdate = [self.questionArray objectAtIndex:indexPath.row];
+        return; //Disable editing questions: prevents logic error in student respones
     }
     
     self.popover = [[UIPopoverController alloc] initWithContentViewController:aeQuestion];

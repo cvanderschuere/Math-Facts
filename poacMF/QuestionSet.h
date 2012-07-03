@@ -10,7 +10,7 @@
 #import <CoreData/CoreData.h>
 #import "Question.h"
 
-@class Administrator, Question;
+@class Administrator, Question, Test;
 
 #define QUESTION_TYPE_MATH_ADDITION         0
 #define QUESTION_TYPE_MATH_SUBTRACTION      1
@@ -27,6 +27,7 @@
 @property (nonatomic, retain) NSString * typeSymbol;
 @property (nonatomic, retain) Administrator *administrator;
 @property (nonatomic, retain) NSSet *questions;
+@property (nonatomic, retain) NSSet *tests;
 @end
 
 @interface QuestionSet (CoreDataGeneratedAccessors)

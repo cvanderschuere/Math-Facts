@@ -19,7 +19,7 @@
 @dynamic typeSymbol;
 @dynamic administrator;
 @dynamic questions;
-
+@dynamic tests;
 
 - (NSString *) typeName {
     [self willAccessValueForKey:@"typeName"];
