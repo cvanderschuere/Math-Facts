@@ -21,7 +21,6 @@
 -(void) setCurrentAdmin:(Administrator *)currentAdmin{
     if (![_currentAdmin isEqual:currentAdmin]) {
         _currentAdmin = currentAdmin;
-        NSLog(@"Admin: %@",_currentAdmin);
         [self setupFetchedResultsController];
     }
 }

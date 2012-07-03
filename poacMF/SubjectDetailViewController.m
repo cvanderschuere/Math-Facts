@@ -30,10 +30,17 @@
             return evaluatedObject.isCurrentTest.boolValue;
         }]] anyObject];
         
-        [self updateDateForType:currentTest.questionSet];
+        if (currentTest)
+            [self updateDateForType:currentTest.questionSet];
+        else {
+            self.title = @"No assigned timings";
+        }
     }
 }
 -(void) updateDateForType: (QuestionSet*) questionSet{
+    if (!questionSet)
+        return;
+    
     //Set title
     self.title = questionSet.typeName;
     

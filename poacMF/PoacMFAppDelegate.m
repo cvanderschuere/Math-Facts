@@ -116,7 +116,8 @@
             NSLog(@"\nOpening Document %@\n",success?@"Succesful":@"Un Successful"); 
             [self setReadyToLogin:success];
             
-            //DEBUG INFORMATION
+            /*
+                                        //DEBUG INFORMATION//
             NSFetchRequest* fetch = [NSFetchRequest fetchRequestWithEntityName:@"Result"];
             fetch.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"endDate" ascending:YES]];
             NSArray* resultArray = [self.database.managedObjectContext executeFetchRequest:fetch error:NULL];
@@ -126,7 +127,7 @@
             NSArray* testArray = [self.database.managedObjectContext executeFetchRequest:fetch error:NULL];
             
             NSLog(@"**Database Statistics**\n\n Test (%d): %@ \n\n Result(%d): %@\n\n",testArray.count,testArray,resultArray.count,resultArray);
-
+             */
         }];
     } 
     else if (self.database.documentState == UIDocumentStateNormal) {
@@ -184,7 +185,6 @@
                 qSet.name = [NSString stringWithFormat:@"Set %d",idx+1];
                 qSet.type = setType;
                 qSet.difficultyLevel = [NSNumber numberWithInt:idx];
-                NSLog(@"%@: %@",qSet.name,qSet.difficultyLevel);
                 
                 //Set through each question
                 [[questionSet objectForKey:@"questions"] enumerateObjectsUsingBlock:^(NSArray* question, NSUInteger idx, BOOL *stop){

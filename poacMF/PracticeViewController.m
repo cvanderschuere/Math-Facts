@@ -119,10 +119,10 @@
     if (self.practice.test.questionSet.type.intValue == QUESTION_TYPE_MATH_DIVISION) {
         //Setup for divsion symbol
         //Setup for vertical problem
-        self.xLabel.frame = CGRectMake(318, 202, 132, 62);
-        self.yLabel.frame = CGRectMake(151, 198, 132, 66);
-        self.zLabel.frame = CGRectMake(318, 83, 132,68);
-        self.horizontalLine.frame = CGRectMake(258, 164, 252,19);
+        self.xLabel.frame = CGRectMake(318, 212, 132, 62);
+        self.yLabel.frame = CGRectMake(151, 208, 132, 66);
+        self.zLabel.frame = CGRectMake(318, 93, 132,68);
+        self.horizontalLine.hidden = YES; //.frame = CGRectMake(258, 164, 252,19);
         
         self.verticalLine.hidden = NO;
         self.mathOperatorSymbol.hidden = YES;
@@ -130,10 +130,11 @@
     }
     else {
         //Setup for vertical problem
-        self.xLabel.center = CGPointMake(385, 152);
-        self.yLabel.center = CGPointMake(385, 218);
-        self.zLabel.center = CGPointMake(385, 318);
-        self.horizontalLine.center = CGPointMake(385, 266);
+        self.xLabel.center = CGPointMake(385, 162);
+        self.yLabel.center = CGPointMake(385, 228);
+        self.zLabel.center = CGPointMake(385, 328);
+        self.horizontalLine.hidden = NO;
+        self.horizontalLine.center = CGPointMake(385, 276);
         
         self.verticalLine.hidden = YES;
         self.mathOperatorSymbol.hidden = NO;
@@ -229,12 +230,13 @@
     //Disable instruction
     self.nextButton.layer.opacity = 0;
     self.instructionLabel.text = nil;
-    
+    Question* previousQuestion = self.questionsToAsk.lastObject;
+
     if(self.currentQuestionIsRetake){
         [self prepareForQuestion:[self.questionsToAsk lastObject]];   //Load last question again
     }
     
-    //Normal Question loading
+    //Normal Question loading    
     else if (self.questionsToAsk.count>0) {
         //Check if error question
         if ([self.errorQueue.lastObject isEqual:self.questionsToAsk.lastObject]) {
@@ -260,8 +262,17 @@
             }
         }
         
-        //Load new first question
-        [self prepareForQuestion:[self.questionsToAsk lastObject]];
+        //Load new first question: check for duplicate question
+        if ([previousQuestion isEqual:self.questionsToAsk.lastObject]) {
+            //Skip to next question
+            [self.questionsToAsk insertObject:previousQuestion atIndex:0];
+            [self.questionsToAsk removeLastObject];
+            [self prepareForQuestion:[self.questionsToAsk lastObject]];
+        }
+        else{
+            [self prepareForQuestion:[self.questionsToAsk lastObject]];
+        }
+
     }
 }
 -(void) prepareForQuestion:(Question*)question{

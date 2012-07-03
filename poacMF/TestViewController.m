@@ -92,10 +92,10 @@
     if (self.test.questionSet.type.intValue == QUESTION_TYPE_MATH_DIVISION) {
         //Setup for divsion symbol
         //Setup for vertical problem
-        self.xLabel.frame = CGRectMake(318, 202, 132, 62);
-        self.yLabel.frame = CGRectMake(151, 198, 132, 66);
-        self.zLabel.frame = CGRectMake(318, 83, 132,68);
-        self.horizontalLine.frame = CGRectMake(258, 164, 252,19);
+        self.xLabel.frame = CGRectMake(318, 212, 132, 62);
+        self.yLabel.frame = CGRectMake(151, 208, 132, 66);
+        self.zLabel.frame = CGRectMake(318, 93, 132,68);
+        self.horizontalLine.hidden = YES;  //.frame = CGRectMake(258, 164, 252,19);
         
         self.verticalLine.hidden = NO;
         self.mathOperatorSymbol.hidden = YES;
@@ -103,10 +103,11 @@
     }
     else {
         //Setup for vertical problem
-        self.xLabel.center = CGPointMake(385, 152);
-        self.yLabel.center = CGPointMake(385, 218);
-        self.zLabel.center = CGPointMake(385, 318);
-        self.horizontalLine.center = CGPointMake(385, 266);
+        self.xLabel.center = CGPointMake(385, 162);
+        self.yLabel.center = CGPointMake(385, 228);
+        self.zLabel.center = CGPointMake(385, 328);
+        self.horizontalLine.hidden = NO;
+        self.horizontalLine.center = CGPointMake(385, 276);
         
         self.verticalLine.hidden = YES;
         self.mathOperatorSymbol.hidden = NO;

@@ -1986,9 +1986,21 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="xtm-zu-pjR">
-                                <rect key="frame" x="287" y="164" width="20" height="117"/>
+                                <rect key="frame" x="270" y="174" width="230" height="117"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" id="cT7-JK-bEW">
+                                        <rect key="frame" x="0.0" y="0.0" width="230" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" id="aqs-Dh-N5G">
+                                        <rect key="frame" x="0.0" y="0.0" width="25" height="117"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="goldenStarOn.png" id="HQh-Bx-IYj">
                                 <rect key="frame" x="610" y="60" width="43" height="40"/>
@@ -2050,6 +2062,23 @@
                                 <rect key="frame" x="0.0" y="-42" width="768" height="1002"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
+                            <view contentMode="scaleToFill" id="TH8-pn-ozO">
+                                <rect key="frame" x="280" y="184" width="230" height="117"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" id="Iqh-QE-17J">
+                                        <rect key="frame" x="0.0" y="0.0" width="230" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" id="aLN-Dg-87N">
+                                        <rect key="frame" x="0.0" y="0.0" width="25" height="117"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
                             <view contentMode="scaleToFill" id="lUZ-YJ-PVq">
                                 <rect key="frame" x="55" y="691" width="659" height="269"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -2224,7 +2253,7 @@
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="n5j-9b-Vfg">
-                                <rect key="frame" x="151" y="198" width="132" height="66"/>
+                                <rect key="frame" x="151" y="208" width="132" height="66"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Bold" family="Chalkboard SE" pointSize="65"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2238,7 +2267,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="B8c-YQ-L1U">
-                                <rect key="frame" x="318" y="202" width="132" height="62"/>
+                                <rect key="frame" x="318" y="212" width="132" height="62"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Bold" family="Chalkboard SE" pointSize="65"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2252,7 +2281,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="PTM-DP-KTt">
-                                <rect key="frame" x="318" y="83" width="132" height="68"/>
+                                <rect key="frame" x="318" y="93" width="132" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Bold" family="Chalkboard SE" pointSize="65"/>
@@ -2291,11 +2320,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" id="yud-j3-u5o">
-                                <rect key="frame" x="287" y="164" width="20" height="117"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                            </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="goldenStarOn.png" id="9hP-Rh-BrL">
                                 <rect key="frame" x="610" y="60" width="43" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
@@ -2326,7 +2350,6 @@
                         <outlet property="numberCorrectLabel" destination="s12-UG-Nxn" id="D1Z-hF-JUr"/>
                         <outlet property="numberIncorrectLabel" destination="yJv-R2-Y8w" id="6Hd-h6-BTG"/>
                         <outlet property="timeLabel" destination="lzG-t6-YMZ" id="lUv-hb-VXX"/>
-                        <outlet property="verticalLine" destination="yud-j3-u5o" id="iH0-nt-ql1"/>
                         <outlet property="xLabel" destination="n5j-9b-Vfg" id="EMp-hG-XAF"/>
                         <outlet property="yLabel" destination="B8c-YQ-L1U" id="dLM-2i-292"/>
                         <outlet property="zLabel" destination="PTM-DP-KTt" id="bC3-V5-m0D"/>
