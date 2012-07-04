@@ -367,6 +367,7 @@
         Response *correctResponse = [NSEntityDescription insertNewObjectForEntityForName:@"Response" inManagedObjectContext:self.result.managedObjectContext];
         correctResponse.question = [self.questionsToAsk lastObject];
         correctResponse.answer = givenAnswer;
+        correctResponse.index = [NSNumber numberWithInt:self.result.correctResponses.count + self.result.incorrectResponses.count];
         [self.result addCorrectResponsesObject:correctResponse];
         
         //Animate Correct star
@@ -390,6 +391,7 @@
         Response *incorrectResponse = [NSEntityDescription insertNewObjectForEntityForName:@"Response" inManagedObjectContext:self.result.managedObjectContext];
         incorrectResponse.question = [self.questionsToAsk lastObject];
         incorrectResponse.answer = givenAnswer;
+        incorrectResponse.index = [NSNumber numberWithInt:self.result.correctResponses.count + self.result.incorrectResponses.count];
         [self.result addIncorrectResponsesObject:incorrectResponse];
         
         //Instruct about actual answer

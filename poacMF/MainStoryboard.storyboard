@@ -686,15 +686,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="questionCell" textLabel="4Hw-PG-anb" style="IBUITableViewCellStyleDefault" id="gdW-aT-Lkv">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="questionCell" textLabel="4Hw-PG-anb" style="IBUITableViewCellStyleDefault" id="gdW-aT-Lkv">
                                 <rect key="frame" x="0.0" y="54" width="540" height="45"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="31" y="1" width="458" height="43"/>
+                                    <rect key="frame" x="31" y="1" width="478" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Question" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4Hw-PG-anb">
-                                            <rect key="frame" x="10" y="0.0" width="438" height="43"/>
+                                            <rect key="frame" x="10" y="0.0" width="458" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -704,15 +704,15 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="addQuestionCell" textLabel="UJa-Jj-oAP" style="IBUITableViewCellStyleDefault" id="Civ-Hu-PPl">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="addQuestionCell" textLabel="UJa-Jj-oAP" style="IBUITableViewCellStyleDefault" id="Civ-Hu-PPl">
                                 <rect key="frame" x="0.0" y="99" width="540" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="31" y="0.0" width="478" height="43"/>
+                                    <rect key="frame" x="31" y="0.0" width="458" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Add Question" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UJa-Jj-oAP">
-                                            <rect key="frame" x="10" y="0.0" width="458" height="43"/>
+                                            <rect key="frame" x="10" y="0.0" width="438" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -2606,10 +2606,10 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="XXZ-fo-y3a"/>
-        <segue reference="WIk-YA-VOd"/>
-        <segue reference="Cls-HQ-4Ry"/>
-        <segue reference="lda-Fg-vsm"/>
         <segue reference="8dB-Nx-BB0"/>
+        <segue reference="Cls-HQ-4Ry"/>
+        <segue reference="WIk-YA-VOd"/>
+        <segue reference="XXZ-fo-y3a"/>
+        <segue reference="pyl-lN-f0d"/>
     </inferredMetricsTieBreakers>
 </document>

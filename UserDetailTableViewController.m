@@ -32,7 +32,6 @@
 -(void) setStudent:(Student *)student{
     if (![_student isEqual:student]) {
         _student = student;
-        NSLog(@"Student: %@",_student);
         //Set Title and setup observer
         self.title = _student.firstName;
         
@@ -160,6 +159,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+-(BOOL) tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath{
+    //Make custom menu
+    UIMenuController* menu = [UIMenuController sharedMenuController];
+    
 }
 
 #pragma mark - Select Current Test Methods

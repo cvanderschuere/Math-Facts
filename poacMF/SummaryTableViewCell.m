@@ -21,8 +21,8 @@
         self.lengthLabel.text = [NSString stringWithFormat:@"%.0f",[result.endDate timeIntervalSinceDate:result.startDate]];
     }
     else {
-        self.dateLabel.text = @"No Tests";
-        self.setLabel.text = self.correctLabel.text = self.incorrectLabel.text = self.lengthLabel.text = nil;
+        self.setLabel.text = @"No Timings";
+        self.dateLabel.text = self.correctLabel.text = self.incorrectLabel.text = self.lengthLabel.text = nil;
     }
 }
 
