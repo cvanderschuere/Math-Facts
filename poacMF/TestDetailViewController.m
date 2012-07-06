@@ -152,6 +152,7 @@
     y.titleOffset                 = 40.0f;
     y.titleLocation               = CPTDecimalFromFloat(20.0f);
     y.visibleRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(55.0f)];
+    y.axisConstraints = [CPTConstraints constraintWithLowerOffset:0.0f];
     
     /*
     //Correct Scatter Plot
@@ -278,14 +279,14 @@
 {
 	// Impose a limit on how far user can scroll in x
 	if ( coordinate == CPTCoordinateX ) {
-		CPTPlotRange *maxRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(self.testResults.count+5)];
+		CPTPlotRange *maxRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(self.testResults.count+1)];
 		CPTMutablePlotRange *changedRange = [newRange mutableCopy];
 		[changedRange shiftEndToFitInRange:maxRange];
 		[changedRange shiftLocationToFitInRange:maxRange];
 		newRange = changedRange;
 	}
     else {
-        CPTPlotRange *maxRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(self.maxNumberY + 5.0)];
+        CPTPlotRange *maxRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(self.maxNumberY + 10)];
 		CPTMutablePlotRange *changedRange = [newRange mutableCopy];
 		[changedRange shiftEndToFitInRange:maxRange];
 		[changedRange shiftLocationToFitInRange:maxRange];

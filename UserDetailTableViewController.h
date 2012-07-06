@@ -7,17 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CoreDataTableViewController.h"
+#import "CoreDataViewController.h"
 #import "SelectCurrentTestTableViewController.h"
 #import "Student.h"
 
 
-@interface UserDetailTableViewController : CoreDataTableViewController <UIPopoverControllerDelegate,SelectTestProtocol>
+@interface UserDetailTableViewController : CoreDataViewController <UIPopoverControllerDelegate,SelectTestProtocol,CPTPlotDataSource,CPTPlotSpaceDelegate>
 
 @property (nonatomic, strong) Student* student;
 @property (nonatomic, strong) UIPopoverController *popover;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *editButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
+@property (nonatomic, weak) IBOutlet CPTGraphHostingView *graphView;
+
 
 - (IBAction)selectCurrentTest:(id)sender;
 
