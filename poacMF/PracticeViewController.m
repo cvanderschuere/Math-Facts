@@ -263,7 +263,7 @@
         }
         
         //Load new first question: check for duplicate question
-        if ([previousQuestion isEqual:self.questionsToAsk.lastObject]) {
+        if ([previousQuestion.objectID isEqual:[self.questionsToAsk.lastObject objectID]]) {
             //Skip to next question
             [self.questionsToAsk insertObject:previousQuestion atIndex:0];
             [self.questionsToAsk removeLastObject];

@@ -182,7 +182,7 @@
     self.graphView.hostedGraph             = graph;
     graph.plotAreaFrame.masksToBorder = NO;
     
-    graph.paddingLeft   = 60;
+    graph.paddingLeft   = 58;
     graph.paddingTop    = 0;
     graph.paddingRight  = 0;
     graph.paddingBottom = 23;
