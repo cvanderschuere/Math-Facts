@@ -31,7 +31,7 @@
     [TestFlight takeOff:@"697945e1548f653ac921aafc40670040_MTAwMzE3MjAxMi0wNi0xNCAyMDowNTozMi4zMjk2NDg"];
     
 
-    
+    application.networkActivityIndicatorVisible = YES;
     [self setupDatabase];
 
 	return YES;
@@ -104,6 +104,7 @@
                             if (succeed) {
                                 [self setReadyToLogin:YES];
                                 [self addInitalData:self.database];
+                                [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                             }
                         }];
                 }];
@@ -115,7 +116,7 @@
         [self.database openWithCompletionHandler:^(BOOL success) {
             NSLog(@"\nOpening Document %@\n",success?@"Succesful":@"Un Successful"); 
             [self setReadyToLogin:success];
-            
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
             /*
                                         //DEBUG INFORMATION//
             NSFetchRequest* fetch = [NSFetchRequest fetchRequestWithEntityName:@"Result"];
@@ -133,6 +134,7 @@
     else if (self.database.documentState == UIDocumentStateNormal) {
         // already open and ready to use
         [self setReadyToLogin:YES];
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     }
 
 }

@@ -13,6 +13,7 @@
 @interface SubjectDetailViewController : UIViewController <AQGridViewDataSource, AQGridViewDelegate, UIActionSheetDelegate, TestResultProtocol>{
     NSUInteger _emptyCellIndex;
 }
+- (IBAction)showResultsGraph:(id)sender;
 
 @property (nonatomic, strong) Student *currentStudent;
 @property (nonatomic, strong) AQGridView *gridView;

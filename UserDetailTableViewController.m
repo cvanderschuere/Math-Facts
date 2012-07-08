@@ -87,7 +87,7 @@
             [self performFetchWithFRC:newfrc]; 
         } else {
             if (self.debug) NSLog(@"[%@ %@] reset to nil", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-            [self.tableView reloadData];
+            [self.graphView.hostedGraph reloadData];
         }
     }
 }
@@ -185,13 +185,13 @@
     graph.paddingLeft   = 58;
     graph.paddingTop    = 0;
     graph.paddingRight  = 0;
-    graph.paddingBottom = 21;
+    graph.paddingBottom = 40;
     
     // Add plot space for horizontal bar charts
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
     plotSpace.allowsUserInteraction = YES;
     plotSpace.delegate = self;
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(55.0f)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0f) length:CPTDecimalFromFloat(65.0f)];
     if (self.graphTimingsFetchedResultsController.fetchedObjects.count>8) {
         float length = UIInterfaceOrientationIsLandscape(self.interfaceOrientation)?9.0:5.0;
         plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(self.graphTimingsFetchedResultsController.fetchedObjects.count - length + .5) length:CPTDecimalFromFloat(length)];
@@ -214,16 +214,15 @@
     xStyle.fontSize = 10;
 	NSMutableArray *customLabels = [NSMutableArray array];
     
-    /* //Use date as label
+    //Use date as label
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = @"MM/dd";
-    */
     
 	[self.graphTimingsFetchedResultsController.fetchedObjects enumerateObjectsUsingBlock:^(Result* result, NSUInteger idx, BOOL *stop){
         //Use Date formatter to make date
-       // NSString *dateString = [dateFormatter stringFromDate:result.startDate];
+       NSString *dateString = [dateFormatter stringFromDate:result.startDate];
         
-		CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"%@ (%@)",result.test.questionSet.typeSymbol, result.test.questionSet.name] textStyle:x.labelTextStyle];
+		CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"%@ (%@)\n   %@",result.test.questionSet.typeSymbol, result.test.questionSet.name,dateString] textStyle:x.labelTextStyle];
 		newLabel.tickLocation = [[NSDecimalNumber numberWithFloat:(idx+1)] decimalValue];
         newLabel.alignment = CPTAlignmentCenter;
         newLabel.offset = 2.0f;
@@ -247,8 +246,8 @@
     y.orthogonalCoordinateDecimal = CPTDecimalFromString(@"0");
     y.title                       = @"Questions / Minute";
     y.titleOffset                 = 40.0f;
-    y.titleLocation               = CPTDecimalFromFloat(20.0f);
-    y.visibleRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(55.0f)];
+    y.titleLocation               = CPTDecimalFromFloat(30.0f);
+    y.visibleRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0f) length:CPTDecimalFromFloat(65.0f)];
     y.axisConstraints = [CPTConstraints constraintWithLowerOffset:0.0f];
 
     
@@ -353,7 +352,7 @@
 		newRange = changedRange;
 	}
     else {
-        CPTPlotRange *maxRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(self.maxNumberY + 10)];
+        CPTPlotRange *maxRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0f) length:CPTDecimalFromFloat(self.maxNumberY + 10)];
 		CPTMutablePlotRange *changedRange = [newRange mutableCopy];
 		[changedRange shiftEndToFitInRange:maxRange];
 		[changedRange shiftLocationToFitInRange:maxRange];
@@ -361,6 +360,11 @@
     }
     
 	return newRange;
+}
+-(BOOL) plotSpace:(CPTPlotSpace *)space shouldScaleBy:(CGFloat)interactionScale aboutPoint:(CGPoint)interactionPoint{
+    NSLog(@"Scale: %f",interactionScale);
+    return NO;
+    
 }
 
 #pragma mark - NSFetchedResultsController Delegate

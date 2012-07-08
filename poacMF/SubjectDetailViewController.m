@@ -9,17 +9,19 @@
 #import "SubjectDetailViewController.h"
 #import "Test.h"
 #import "TestSelectCell.h"
+#import "StudentGraphPopoverViewController.h"
 
 @interface SubjectDetailViewController ()
 @property (nonatomic, strong) NSMutableArray *subjectTests;
 @property (nonatomic, strong) UIActionSheet* logoutSheet;
+@property (nonatomic, strong) UIPopoverController *resultsPopover;
 
 @end
 
 @implementation SubjectDetailViewController
-
 @synthesize subjectTests = _subjectTests, gridView = _gridView, currentStudent = _currentStudent;
 @synthesize logoutSheet = _logoutSheet;
+@synthesize resultsPopover = _resultsPopover;
 
 -(void) setCurrentStudent:(Student *)currentStudent{
     if (![currentStudent isEqual:_currentStudent]) {
@@ -357,4 +359,20 @@
 
 
 
+- (void)viewDidUnload {
+    [super viewDidUnload];
+}
+- (IBAction)showResultsGraph:(id)sender {
+    if (self.resultsPopover.popoverVisible) {
+        [self.resultsPopover dismissPopoverAnimated:YES];
+    }
+    else {
+        StudentGraphPopoverViewController *graphVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StudentGraphPopoverViewController"];
+        graphVC.resultsArray = self.currentStudent.results.allObjects;
+        
+        self.resultsPopover = [[UIPopoverController alloc] initWithContentViewController:graphVC];
+        [self.resultsPopover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
+    
+}
 @end

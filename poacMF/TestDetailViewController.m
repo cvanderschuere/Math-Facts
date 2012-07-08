@@ -100,13 +100,13 @@
     graph.paddingLeft   = 60;
     graph.paddingTop    = 0;
     graph.paddingRight  = 0;
-    graph.paddingBottom = 30;
+    graph.paddingBottom = 22;
     
     // Add plot space for horizontal bar charts
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
     plotSpace.allowsUserInteraction = YES;
     plotSpace.delegate = self;
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(55.0f)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(65.0f)];
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(7.0f)];
     
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
@@ -115,6 +115,8 @@
     x.majorTickLineStyle          = nil;
     x.minorTickLineStyle          = nil;
     x.majorIntervalLength = CPTDecimalFromString(@"1");
+    x.axisConstraints = [CPTConstraints constraintWithLowerOffset:0.0f];
+    
     // Define some custom labels for the data elements
 	x.labelingPolicy = CPTAxisLabelingPolicyNone;
 	NSMutableArray *customLabels = [NSMutableArray arrayWithCapacity:self.testResults.count];
@@ -150,8 +152,8 @@
     y.orthogonalCoordinateDecimal = CPTDecimalFromString(@"0");
     y.title                       = @"Questions / Minute";
     y.titleOffset                 = 40.0f;
-    y.titleLocation               = CPTDecimalFromFloat(20.0f);
-    y.visibleRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(55.0f)];
+    y.titleLocation               = CPTDecimalFromFloat(30.0f);
+    y.visibleRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(65.0f)];
     y.axisConstraints = [CPTConstraints constraintWithLowerOffset:0.0f];
     
     /*

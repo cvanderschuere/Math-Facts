@@ -71,10 +71,10 @@
 -(void) viewDidAppear:(BOOL)animated{
     if (self.questionSetToUpdate) {
 		self.nameTextField.text = self.questionSetToUpdate.name;
-		self.typeStepper.enabled = NO;
+		self.typeStepper.hidden = YES;
     }
     else {
-        self.typeStepper.enabled = YES;
+        self.typeStepper.hidden = NO;
     }
 }
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -298,6 +298,9 @@
     }
     else if ([selectedCell.reuseIdentifier isEqualToString:@"questionCell"]) {
         aeQuestion.questionToUpdate = [self.questionArray objectAtIndex:indexPath.row];
+    }
+    else {
+        return;
     }
     
     self.popover = [[UIPopoverController alloc] initWithContentViewController:aeQuestion];

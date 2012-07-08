@@ -86,7 +86,7 @@
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.currentAdmin.managedObjectContext
                                                                           sectionNameKeyPath:@"firstNameInital"
-                                                                                cacheName:nil];
+                                                                                cacheName:@"studentsCache"];
 }
 
 #pragma mark - Table view data source
