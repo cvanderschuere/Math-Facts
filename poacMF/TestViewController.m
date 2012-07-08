@@ -22,6 +22,7 @@
 @property (nonatomic, strong) Result* result;
 @property (nonatomic, strong) NSTimer* updateTimer;
 @property (nonatomic, strong) UIActionSheet *quitSheet;
+@property (nonatomic, strong) NSMutableArray *oldQuestions;
 
 @end
 
@@ -36,7 +37,7 @@
 @synthesize verticalLine = _verticalLine;
 @synthesize numberCorrectLabel = _numberCorrectLabel;
 
-@synthesize test = _test, questionsToAsk = _questionsToAsk, result = _result;
+@synthesize test = _test, questionsToAsk = _questionsToAsk, result = _result, oldQuestions = _oldQuestions;
 @synthesize updateTimer = _updateTimer;
 @synthesize delegate = _delegate;
 @synthesize quitSheet = _quitSheet;
@@ -57,28 +58,28 @@
         
         NSLog(@"Sets: %@",sets);
         
-        NSMutableArray * allOldQuestions = [NSMutableArray array];
+        self.oldQuestions = [NSMutableArray array];
         for (QuestionSet* set in sets) {
-            [allOldQuestions addObjectsFromArray:set.questions.allObjects];
+            [self.oldQuestions addObjectsFromArray:set.questions.allObjects];
         }
-        [allOldQuestions shuffleArray];
+        [self.oldQuestions shuffleArray];
                 
         NSMutableArray* newQuestions = test.questionSet.questions.allObjects.mutableCopy;
         [newQuestions shuffleArray];
         
         self.questionsToAsk = [NSMutableArray array];
         while (newQuestions.count>0) {
-            if (self.questionsToAsk.count%(NEW_OLD_QUESTION_RATIO)==0 || allOldQuestions.count == 0) {
+            if (self.questionsToAsk.count%(NEW_OLD_QUESTION_RATIO)==0 || self.oldQuestions.count == 0) {
                 //Add new question every third question
                 [self.questionsToAsk addObject:newQuestions.lastObject];
                 [newQuestions removeLastObject];
             }
             else {
                 //Add old question in random order
-                Question *oldQuestion = [allOldQuestions objectAtIndex:arc4random()%allOldQuestions.count];
+                Question *oldQuestion = [self.oldQuestions objectAtIndex:arc4random()%self.oldQuestions.count];
                 
                 [self.questionsToAsk addObject:oldQuestion];
-                [allOldQuestions removeObject:oldQuestion];
+                [self.oldQuestions removeObject:oldQuestion];
             }
         }
     }
@@ -187,6 +188,43 @@
         self.timeLabel.text = [NSString stringWithFormat:@"%d s",(int)round(interval)];
     }
 }
+-(void) shuffleQuestions{
+    //Filter out all old questions
+    NSMutableArray *arrayOfNewQuestions = [self.questionsToAsk filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"questionSet.difficultyLevel = %@",self.test.questionSet.difficultyLevel]].mutableCopy;
+    
+    int numberToAdd = self.questionsToAsk.count - arrayOfNewQuestions.count;
+    
+    //Check: Not enough old questions to refill array
+    if (self.oldQuestions.count < numberToAdd) {
+        //Reload all previous questions
+        NSFetchRequest *previousQuestionSet = [NSFetchRequest fetchRequestWithEntityName:@"QuestionSet"];
+        previousQuestionSet.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"difficultyLevel" ascending:YES]];
+        previousQuestionSet.predicate = [NSPredicate predicateWithFormat:@"difficultyLevel < %@ AND type == %@",self.test.questionSet.difficultyLevel,self.test.questionSet.type];
+        NSMutableArray *sets = [self.test.managedObjectContext executeFetchRequest:previousQuestionSet error:NULL].mutableCopy;
+        
+        //Cummalate old questions
+        self.oldQuestions = [NSMutableArray array];
+        for (QuestionSet* set in sets) {
+            [self.oldQuestions addObjectsFromArray:set.questions.allObjects];
+        }
+        [self.oldQuestions shuffleArray];
+    }
+    
+    for (int numberAdded = 0; numberAdded < numberToAdd; numberAdded++) {
+        //Add questions from oldQuestions at random
+        Question *oldQuestion = [self.oldQuestions objectAtIndex:arc4random()%self.oldQuestions.count];
+        [arrayOfNewQuestions addObject:oldQuestion];
+        
+        //Remove old question so its not asked again
+        [self.oldQuestions removeObject:oldQuestion];
+    }
+    
+    self.questionsToAsk = arrayOfNewQuestions;
+    //Shuffle for good measure
+    [self.questionsToAsk shuffleArray];
+    
+}
+
 -(void) loadNextQuestion{
     if (self.questionsToAsk.count>0) {
         Question* previousQuestion = self.questionsToAsk.lastObject;
@@ -197,7 +235,7 @@
         
         //If gone through entire array...shuffle
         if ((self.result.correctResponses.count + self.result.incorrectResponses.count) % self.questionsToAsk.count == 0)
-            [self.questionsToAsk shuffleArray];
+            [self shuffleQuestions];
         
         //Load new first question: check for duplicate question
         if ([previousQuestion.objectID isEqual:[self.questionsToAsk.lastObject objectID]]) {
