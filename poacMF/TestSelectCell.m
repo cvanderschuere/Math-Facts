@@ -10,7 +10,7 @@
 
 @implementation TestSelectCell
 
-@synthesize difficultyLevel = _difficultyLevel;
+@synthesize name = _name;
 @synthesize locked = _locked;
 @synthesize passedLevel = _passedLevel;
 
@@ -23,8 +23,8 @@
         [self.contentView addSubview:colorView];
                 
         //Create label in center
-        UILabel *levelLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 30, frame.size.width-60, frame.size.height-60)];
-        levelLabel.font = [UIFont fontWithName:@"Marker Felt" size:40];
+        UILabel *levelLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 30, frame.size.width-30, frame.size.height-60)];
+        levelLabel.font = [UIFont fontWithName:@"Marker Felt" size:25];
         levelLabel.textColor = [UIColor whiteColor];
         levelLabel.textAlignment = UITextAlignmentCenter;
         levelLabel.backgroundColor = [UIColor clearColor];
@@ -84,12 +84,12 @@
     
     
 }
--(void) setDifficultyLevel:(NSNumber *)difficultyLevel{
-    _difficultyLevel = difficultyLevel;
+-(void) setName:(NSString *)name{
+    _name = name;
     
     //Set difficult Label
     UILabel* difficultyLabel = (UILabel*) [self.contentView viewWithTag:4];
-    difficultyLabel.text = difficultyLevel.stringValue;
+    difficultyLabel.text = name;
 }
 -(void) setLocked:(BOOL)locked{
     _locked = locked;

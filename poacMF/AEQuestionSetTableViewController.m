@@ -140,8 +140,10 @@
     }
     
     //Assign Variables
-    self.questionSetToUpdate.name = self.nameTextField.text;    
-    self.questionSetToUpdate.type = [NSNumber numberWithDouble:self.typeStepper.value];
+    self.questionSetToUpdate.name = self.nameTextField.text;  
+    if (self.questionSetToUpdate.type == nil) {
+        self.questionSetToUpdate.type = [NSNumber numberWithDouble:self.typeStepper.value]; //Disable Editing type
+    }
          
     //Remove all current question associations
     [self.questionSetToUpdate removeQuestions:self.questionSetToUpdate.questions];

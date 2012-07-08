@@ -70,7 +70,7 @@
         [self.tableView reloadData];
     }
     else {
-        
+        [self.graphView.hostedGraph reloadData];
     }
 }
 
@@ -362,7 +362,6 @@
 	return newRange;
 }
 -(BOOL) plotSpace:(CPTPlotSpace *)space shouldScaleBy:(CGFloat)interactionScale aboutPoint:(CGPoint)interactionPoint{
-    NSLog(@"Scale: %f",interactionScale);
     return NO;
     
 }

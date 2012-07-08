@@ -200,7 +200,7 @@
     if ([object isKindOfClass:[Test class]]) {
         Test *test = object;
         
-        cell.difficultyLevel = [NSNumber numberWithInt:test.questionSet.difficultyLevel.intValue +1];
+        cell.name = test.questionSet.name;
         cell.locked = NO;
         
         
@@ -241,7 +241,7 @@
     else{
         //Question Set
         cell.locked = YES;
-        cell.difficultyLevel = [NSNumber numberWithInt:[object difficultyLevel].intValue +1];
+        cell.name = [object name];
         cell.passedLevel = [NSNumber numberWithInt:-1];
         cell.layer.borderWidth = 0;
     }
@@ -288,6 +288,7 @@
 -(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     if ([actionSheet.title isEqualToString:@"Logout?"]) {
         if (buttonIndex == 0) {
+            [self.resultsPopover dismissPopoverAnimated:YES];
             [self.parentViewController dismissViewControllerAnimated:YES completion:NULL];
         }
     }

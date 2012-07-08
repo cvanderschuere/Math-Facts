@@ -165,16 +165,20 @@
 		return;
 	}//end if
     
-    //Create new student if necessary
-    if (!self.studentToUpdate) {
-        self.studentToUpdate = [NSEntityDescription insertNewObjectForEntityForName:@"Student" inManagedObjectContext:self.createdStudentsAdmin.managedObjectContext];
-        [self.createdStudentsAdmin addStudentsObject:self.studentToUpdate];
-    }
-	if (![self.studentToUpdate.username isEqualToString:self.usernameTF.text.lowercaseString]) {
+    //Delete cache for existing student
+    
+    if (self.studentToUpdate && ![self.studentToUpdate.username isEqualToString:self.usernameTF.text.lowercaseString]) {
         [NSFetchedResultsController deleteCacheWithName:[@"studentDetailTestCache" stringByAppendingString:self.studentToUpdate.username]];
         [NSFetchedResultsController deleteCacheWithName:[@"studentDetailResultCache" stringByAppendingString:self.studentToUpdate.username]];
          self.studentToUpdate.username = self.usernameTF.text.lowercaseString;
     }
+    //Create new student if necessary
+    if (!self.studentToUpdate) {
+        self.studentToUpdate = [NSEntityDescription insertNewObjectForEntityForName:@"Student" inManagedObjectContext:self.createdStudentsAdmin.managedObjectContext];
+        self.studentToUpdate.username = self.usernameTF.text.lowercaseString;
+        [self.createdStudentsAdmin addStudentsObject:self.studentToUpdate];
+    }
+	
     
     self.studentToUpdate.firstName = self.firstNameTF.text;
     self.studentToUpdate.lastName = self.lastNameTF.text;
