@@ -73,10 +73,10 @@
     }
     
     //If question has been changed (or still is blank)...create new one and tell delegate to disasociate new one
-    if ((self.contextToCreateIn || self.questionToUpdate) && ((self.questionToUpdate.x && self.questionToUpdate.x.doubleValue != self.xStepper.value) || (self.questionToUpdate.y && self.questionToUpdate.y.doubleValue != self.yStepper.value) || (self.questionToUpdate.z && self.questionToUpdate.z.doubleValue != self.zStepper.value))) {  
+    if ((self.contextToCreateIn && !self.questionToUpdate) || (self.questionToUpdate && ((self.questionToUpdate.x && self.questionToUpdate.x.doubleValue != self.xStepper.value) || (self.questionToUpdate.y && self.questionToUpdate.y.doubleValue != self.yStepper.value) || (self.questionToUpdate.z && self.questionToUpdate.z.doubleValue != self.zStepper.value)))) {  
                 
         //Create new question
-        Question* newQuestion = [NSEntityDescription insertNewObjectForEntityForName:@"Question" inManagedObjectContext:self.questionToUpdate?self.contextToCreateIn:self.questionToUpdate.managedObjectContext];
+        Question* newQuestion = [NSEntityDescription insertNewObjectForEntityForName:@"Question" inManagedObjectContext:self.questionToUpdate?self.questionToUpdate.managedObjectContext:self.contextToCreateIn];
         
         if (self.questionToUpdate)
             newQuestion.questionOrder = self.questionToUpdate.questionOrder; //Set question order for question its replacing

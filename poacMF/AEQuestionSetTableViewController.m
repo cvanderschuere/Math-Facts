@@ -71,8 +71,10 @@
 -(void) viewDidAppear:(BOOL)animated{
     if (self.questionSetToUpdate) {
 		self.nameTextField.text = self.questionSetToUpdate.name;
-		self.typeStepper.value = self.questionSetToUpdate.type.intValue;
-        [self stepperUpdated: self.typeStepper];
+		self.typeStepper.enabled = NO;
+    }
+    else {
+        self.typeStepper.enabled = YES;
     }
 }
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -295,7 +297,6 @@
         aeQuestion.contextToCreateIn = self.administratorToCreateIn?self.administratorToCreateIn.managedObjectContext:self.questionSetToUpdate.managedObjectContext;
     }
     else if ([selectedCell.reuseIdentifier isEqualToString:@"questionCell"]) {
-        aeQuestion.contextToCreateIn = self.administratorToCreateIn?self.administratorToCreateIn.managedObjectContext:self.questionSetToUpdate.managedObjectContext;
         aeQuestion.questionToUpdate = [self.questionArray objectAtIndex:indexPath.row];
     }
     
