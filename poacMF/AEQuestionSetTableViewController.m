@@ -140,8 +140,7 @@
     //Assign Variables
     self.questionSetToUpdate.name = self.nameTextField.text;    
     self.questionSetToUpdate.type = [NSNumber numberWithDouble:self.typeStepper.value];
-     
-   
+         
     //Remove all current question associations
     [self.questionSetToUpdate removeQuestions:self.questionSetToUpdate.questions];
     
@@ -163,9 +162,12 @@
     
     [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[self.questionArray indexOfObject:newQuestion] inSection:1]] withRowAnimation:UITableViewRowAnimationBottom];
 }
--(void) didUpdateQuestion:(Question *)updatedQuestion{
-    [self.questionArray replaceObjectAtIndex:updatedQuestion.questionOrder.intValue withObject:updatedQuestion];
-    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:updatedQuestion.questionOrder.intValue inSection:1]] withRowAnimation:UITableViewRowAnimationFade];
+-(void) didUpdateQuestion:(Question *)updatedQuestion toQuestion:(Question *)newQuestion{
+    [self.questionArray replaceObjectAtIndex:[self.questionArray indexOfObject:updatedQuestion] withObject:newQuestion];
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
+    
+    //Add new question to created questions and update question to array to be disasociated
+    [self.createdQuestions addObject:newQuestion];
 }
 #pragma mark - Table view data source
 
@@ -293,8 +295,8 @@
         aeQuestion.contextToCreateIn = self.administratorToCreateIn?self.administratorToCreateIn.managedObjectContext:self.questionSetToUpdate.managedObjectContext;
     }
     else if ([selectedCell.reuseIdentifier isEqualToString:@"questionCell"]) {
-        //aeQuestion.questionToUpdate = [self.questionArray objectAtIndex:indexPath.row];
-        return; //Disable editing questions: prevents logic error in student respones
+        aeQuestion.contextToCreateIn = self.administratorToCreateIn?self.administratorToCreateIn.managedObjectContext:self.questionSetToUpdate.managedObjectContext;
+        aeQuestion.questionToUpdate = [self.questionArray objectAtIndex:indexPath.row];
     }
     
     self.popover = [[UIPopoverController alloc] initWithContentViewController:aeQuestion];

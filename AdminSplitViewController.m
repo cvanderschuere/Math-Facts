@@ -86,7 +86,7 @@
 
 #pragma mark - UISplitViewDelegate Methods
 -(BOOL) splitViewController:(UISplitViewController *)svc shouldHideViewController:(UIViewController *)vc inOrientation:(UIInterfaceOrientation)orientation{
-    return NO;
+    return NO; //Always show
 }
 -(void) splitViewController:(UISplitViewController *)svc willShowViewController:(UIViewController *)aViewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem{
 }

@@ -170,8 +170,12 @@
         self.studentToUpdate = [NSEntityDescription insertNewObjectForEntityForName:@"Student" inManagedObjectContext:self.createdStudentsAdmin.managedObjectContext];
         [self.createdStudentsAdmin addStudentsObject:self.studentToUpdate];
     }
-	
-    self.studentToUpdate.username = self.usernameTF.text.lowercaseString;
+	if (![self.studentToUpdate.username isEqualToString:self.usernameTF.text.lowercaseString]) {
+        [NSFetchedResultsController deleteCacheWithName:[@"studentDetailTestCache" stringByAppendingString:self.studentToUpdate.username]];
+        [NSFetchedResultsController deleteCacheWithName:[@"studentDetailResultCache" stringByAppendingString:self.studentToUpdate.username]];
+         self.studentToUpdate.username = self.usernameTF.text.lowercaseString;
+    }
+    
     self.studentToUpdate.firstName = self.firstNameTF.text;
     self.studentToUpdate.lastName = self.lastNameTF.text;
     self.studentToUpdate.password = self.passwordTF.text;
@@ -196,6 +200,8 @@
         self.studentToUpdate.defaultTestLength = [NSNumber numberWithDouble:self.testLengthStepper.value];
         self.studentToUpdate.defaultPassCriteria = [NSNumber numberWithDouble:self.passCriteriaStepper.value];
         self.studentToUpdate.defaultMaximumIncorrect = [NSNumber numberWithDouble:self.maximumIncorrectStepper.value];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SaveDatabase" object:nil];
     }
     
     
@@ -229,6 +235,7 @@
     self.studentToUpdate.defaultPassCriteria = [NSNumber numberWithDouble:self.passCriteriaStepper.value];
     self.studentToUpdate.defaultMaximumIncorrect = [NSNumber numberWithDouble:self.maximumIncorrectStepper.value];    
     [self dismissModalViewControllerAnimated:YES];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SaveDatabase" object:nil];
 }
 
 #pragma mark - UITextField Delegate

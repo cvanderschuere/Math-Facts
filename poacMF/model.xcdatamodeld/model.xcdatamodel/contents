@@ -84,7 +84,7 @@
     <elements>
         <element name="Administrator" positionX="-216" positionY="-288" width="128" height="75"/>
         <element name="Practice" positionX="36" positionY="120" width="128" height="105"/>
-        <element name="Question" positionX="387" positionY="126" width="128" height="105"/>
+        <element name="Question" positionX="387" positionY="126" width="128" height="135"/>
         <element name="QuestionSet" positionX="214" positionY="-315" width="128" height="165"/>
         <element name="Response" positionX="216" positionY="303" width="128" height="90"/>
         <element name="Result" positionX="-333" positionY="336" width="128" height="165"/>

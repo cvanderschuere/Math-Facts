@@ -196,7 +196,7 @@
         [self.questionsToAsk removeLastObject];
         
         //If gone through entire array...shuffle
-        if (self.result.correctResponses.count + self.result.incorrectResponses.count == self.questionsToAsk.count)
+        if ((self.result.correctResponses.count + self.result.incorrectResponses.count) % self.questionsToAsk.count == 0)
             [self.questionsToAsk shuffleArray];
         
         //Load new first question: check for duplicate question

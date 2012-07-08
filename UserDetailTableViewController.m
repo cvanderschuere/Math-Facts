@@ -34,7 +34,7 @@
 @synthesize correctPlot = _correctPlot, incorrectPlot = _incorrectPlot, maxNumberY = _maxNumberY;
 
 -(void) setStudent:(Student *)student{
-    if (![_student isEqual:student]) {
+    if (![_student.username isEqualToString:student.username]) {
         _student = student;
         //Set Title and setup observer
         self.title = _student.firstName;
@@ -158,19 +158,19 @@
 {
     //Create fetch for all tests for student; Section by current
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Test"];
-    request.sortDescriptors = [NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:@"isCurrentTest" ascending:NO selector:@selector(compare:)],[NSSortDescriptor sortDescriptorWithKey:@"questionSet.type" ascending:YES selector:@selector(compare:)],[NSSortDescriptor sortDescriptorWithKey:@"questionSet.difficultyLevel" ascending:YES selector:@selector(compare:)],[NSSortDescriptor sortDescriptorWithKey:@"questionSet.name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)],nil];
+    request.sortDescriptors = [NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:@"isCurrentTest" ascending:NO selector:@selector(compare:)],[NSSortDescriptor sortDescriptorWithKey:@"questionSet.type" ascending:NO selector:@selector(compare:)],[NSSortDescriptor sortDescriptorWithKey:@"questionSet.difficultyLevel" ascending:NO selector:@selector(compare:)],[NSSortDescriptor sortDescriptorWithKey:@"questionSet.name" ascending:NO selector:@selector(localizedCaseInsensitiveCompare:)],nil];
     request.predicate = [NSPredicate predicateWithFormat:@"student.username == %@",self.student.username];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.student.managedObjectContext
                                                                           sectionNameKeyPath:@"isCurrentTest"
-                                                                                   cacheName:nil];
+                                                                                   cacheName:[@"studentDetailTestCache" stringByAppendingString:self.student.username]];
     
     //Fetch all timings with current student
     NSFetchRequest *timingRequest = [NSFetchRequest fetchRequestWithEntityName:@"Result"];
     timingRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES]];
     timingRequest.predicate = [NSPredicate predicateWithFormat:@"student.username == %@ AND isPractice == %@",self.student.username,[NSNumber numberWithBool:NO]];
-    self.graphTimingsFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:timingRequest managedObjectContext:self.student.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+    self.graphTimingsFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:timingRequest managedObjectContext:self.student.managedObjectContext sectionNameKeyPath:nil cacheName:[@"studentDetailResultCache" stringByAppendingString:self.student.username]];
     
 }
 #pragma mark - Graph Methods
@@ -185,7 +185,7 @@
     graph.paddingLeft   = 58;
     graph.paddingTop    = 0;
     graph.paddingRight  = 0;
-    graph.paddingBottom = 23;
+    graph.paddingBottom = 21;
     
     // Add plot space for horizontal bar charts
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
@@ -206,6 +206,8 @@
     x.majorTickLineStyle          = nil;
     x.minorTickLineStyle          = nil;
     x.majorIntervalLength = CPTDecimalFromString(@".5");
+    x.axisConstraints = [CPTConstraints constraintWithLowerOffset:0.0f];
+
     
     x.labelingPolicy = CPTAxisLabelingPolicyNone;
     CPTMutableTextStyle *xStyle = x.labelTextStyle.mutableCopy;
@@ -224,7 +226,7 @@
 		CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"%@ (%@)",result.test.questionSet.typeSymbol, result.test.questionSet.name] textStyle:x.labelTextStyle];
 		newLabel.tickLocation = [[NSDecimalNumber numberWithFloat:(idx+1)] decimalValue];
         newLabel.alignment = CPTAlignmentCenter;
-        newLabel.offset = .5f;
+        newLabel.offset = 2.0f;
 		[customLabels addObject:newLabel];
         
         //Checkf if new max Y number
@@ -344,7 +346,7 @@
 {
 	// Impose a limit on how far user can scroll in x
 	if ( coordinate == CPTCoordinateX ) {
-		CPTPlotRange *maxRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.5f) length:CPTDecimalFromFloat(self.graphTimingsFetchedResultsController.fetchedObjects.count+.5)];
+		CPTPlotRange *maxRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.5f) length:CPTDecimalFromFloat(self.graphTimingsFetchedResultsController.fetchedObjects.count)];
 		CPTMutablePlotRange *changedRange = [newRange mutableCopy];
 		[changedRange shiftEndToFitInRange:maxRange];
 		[changedRange shiftLocationToFitInRange:maxRange];
@@ -374,20 +376,20 @@
             switch(type)
             {
                 case NSFetchedResultsChangeInsert:
-                    [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                    [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                     break;
                     
                 case NSFetchedResultsChangeDelete:
-                    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                     break;
                     
                 case NSFetchedResultsChangeUpdate:
-                    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                     break;
                     
                 case NSFetchedResultsChangeMove:
-                    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-                    [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                     break;
             }
         }

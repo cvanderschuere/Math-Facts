@@ -72,20 +72,26 @@
 		return;
     }
     
-    if (self.contextToCreateIn) {
-        //Create New question or update old
-        BOOL isEditing = YES;
-        //Create new student if necessary
-        if (!self.questionToUpdate) {
-            self.questionToUpdate = [NSEntityDescription insertNewObjectForEntityForName:@"Question" inManagedObjectContext:self.contextToCreateIn];
-            isEditing = NO;
-        }
+    //If question has been changed (or still is blank)...create new one and tell delegate to disasociate new one
+    if ((self.contextToCreateIn || self.questionToUpdate) && ((self.questionToUpdate.x && self.questionToUpdate.x.doubleValue != self.xStepper.value) || (self.questionToUpdate.y && self.questionToUpdate.y.doubleValue != self.yStepper.value) || (self.questionToUpdate.z && self.questionToUpdate.z.doubleValue != self.zStepper.value))) {  
+                
+        //Create new question
+        Question* newQuestion = [NSEntityDescription insertNewObjectForEntityForName:@"Question" inManagedObjectContext:self.questionToUpdate?self.contextToCreateIn:self.questionToUpdate.managedObjectContext];
         
-        self.questionToUpdate.x = self.xStepper.value != -1?[NSNumber numberWithDouble:self.xStepper.value]:nil;
-        self.questionToUpdate.y = self.yStepper.value != -1?[NSNumber numberWithDouble:self.yStepper.value]:nil;
-        self.questionToUpdate.z = self.zStepper.value != -1?[NSNumber numberWithDouble:self.zStepper.value]:nil;
+        if (self.questionToUpdate)
+            newQuestion.questionOrder = self.questionToUpdate.questionOrder; //Set question order for question its replacing
+        
+        newQuestion.x = self.xStepper.value != -1?[NSNumber numberWithDouble:self.xStepper.value]:nil;
+        newQuestion.y = self.yStepper.value != -1?[NSNumber numberWithDouble:self.yStepper.value]:nil;
+        newQuestion.z = self.zStepper.value != -1?[NSNumber numberWithDouble:self.zStepper.value]:nil;
             
-        isEditing?[self.delegate didUpdateQuestion:self.questionToUpdate]:[self.delegate didCreateQuestion:self.questionToUpdate];
+        
+        //Disasociate old and add new
+        self.questionToUpdate?[self.delegate didUpdateQuestion:self.questionToUpdate toQuestion:newQuestion]:[self.delegate didCreateQuestion:newQuestion];
+    
+        if(self.questionToUpdate && self.questionToUpdate.responses.count==0)
+            [self.questionToUpdate.managedObjectContext deleteObject:self.questionToUpdate]; //Remove questions that havent been used
+    
     }
 }
 

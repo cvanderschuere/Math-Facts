@@ -251,7 +251,7 @@
         }
         
         //If gone through entire array...shuffle
-        if ((self.result.correctResponses.count + self.result.incorrectResponses.count == self.questionsToAsk.count)|| self.questionsNeedShuffle){
+        if (((self.result.correctResponses.count + self.result.incorrectResponses.count) % self.questionsToAsk.count == 0 )|| self.questionsNeedShuffle){
             if (self.errorQueue.count>0) {
                 //Cant shuffle now, shuffle when error array empty
                 self.questionsNeedShuffle = YES;

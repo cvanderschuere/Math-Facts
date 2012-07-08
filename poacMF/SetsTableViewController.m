@@ -101,7 +101,7 @@
 }
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
-    return nil;//[self.fetchedResultsController sectionIndexTitles];
+    return [self.fetchedResultsController sectionIndexTitles];
 }
 - (NSString *)controller:(NSFetchedResultsController *)controller sectionIndexTitleForSectionName:(NSString *)sectionName{
     //Customize Section index titles

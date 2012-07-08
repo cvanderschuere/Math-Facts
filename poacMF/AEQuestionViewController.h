@@ -13,7 +13,7 @@
 @protocol AEQuestionProtocol <NSObject>
 
 -(void) didCreateQuestion:(Question*)newQuestion;
--(void) didUpdateQuestion:(Question*) updatedQuestion;
+-(void) didUpdateQuestion:(Question*) updatedQuestion toQuestion:(Question*)newQuestion;
 
 @end
 
