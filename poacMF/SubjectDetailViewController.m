@@ -33,13 +33,13 @@
         }]] anyObject];
         
         if (currentTest)
-            [self updateDateForType:currentTest.questionSet];
+            [self updateDataForType:currentTest.questionSet];
         else {
             self.title = @"No assigned timings";
         }
     }
 }
--(void) updateDateForType: (QuestionSet*) questionSet{
+-(void) updateDataForType: (QuestionSet*) questionSet{
     if (!questionSet)
         return;
     
@@ -59,29 +59,35 @@
     questionSets.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"difficultyLevel" ascending:YES]];
     questionSets.predicate = [NSPredicate predicateWithFormat:@"type == %@",questionSet.type];
     
-    NSMutableArray *subjectTests = [_currentStudent.managedObjectContext executeFetchRequest:questionSets error:NULL].mutableCopy;  
+    NSMutableArray *subjectQuestionSets = [_currentStudent.managedObjectContext executeFetchRequest:questionSets error:NULL].mutableCopy;  
     
     //Replace with tests
+    int lastFoundIndex = 0;
+    
     for (Test* test in testsOfSubject) {
-        [subjectTests replaceObjectAtIndex:[subjectTests indexOfObjectIdenticalTo:test.questionSet] withObject:test];
+        //Go thru array one by one and place test... more time consuming than previous method but prevents error when objects not finished saving
+        NSUInteger index = [subjectQuestionSets indexOfObjectAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(lastFoundIndex, subjectQuestionSets.count - lastFoundIndex)] options:nil passingTest:^BOOL(QuestionSet* set, NSUInteger idx, BOOL*stop){
+            //Only look for question sets
+            if ([set isKindOfClass:[Test class]])
+                return NO;
+            
+            if ([set.difficultyLevel isEqualToNumber:test.questionSet.difficultyLevel] && [set.type isEqualToNumber:test.questionSet.type] && [set.name isEqualToString:test.questionSet.name]) {
+                *stop = YES;
+                return YES;
+            }
+            return NO;
+        }];
+        if (index != NSNotFound){
+            [subjectQuestionSets replaceObjectAtIndex:index withObject:test]; //Place Test
+            lastFoundIndex = index;
+        }
     }
-    self.subjectTests = subjectTests;
+    self.subjectTests = subjectQuestionSets;
 
 }
 
 -(void) setSubjectTests:(NSMutableArray *)subjectTests{
     if (![_subjectTests isEqualToArray:subjectTests]) {
-        /*
-        //Sort incoming data
-        [subjectTests sortUsingComparator:^NSComparisonResult(Test* test1, Test* test2){
-            //Sort by difficulty of question set
-            return [test1.questionSet.difficultyLevel compare:test2.questionSet.difficultyLevel];            
-        }];
-        for (Test* test in subjectTests) {
-            NSLog(@"Test: %@",test.questionSet.difficultyLevel);
-        }
-        */
-        
         //Set value and reload data
         _subjectTests = subjectTests;
         [self.gridView reloadData];
@@ -156,8 +162,7 @@
     [self.logoutSheet showFromBarButtonItem:sender animated:YES];
     
     //Save on logout
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SaveDatabase" object:nil];
-
+ 
 }//end method
 
 #pragma mark - GridView Data Source
@@ -341,7 +346,7 @@
         if (nextQs.count >0) {
             QuestionSet *nextQuestionSet = [nextQs objectAtIndex:0];
             [self.currentStudent selectQuestionSet:nextQuestionSet];
-            [self updateDateForType:nextQuestionSet];
+            [self updateDataForType:nextQuestionSet];
         }
         else {
             //No more question sets

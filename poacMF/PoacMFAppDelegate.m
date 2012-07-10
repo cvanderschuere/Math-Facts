@@ -75,6 +75,7 @@
 }//end method
 #pragma mark - Database methods
 -(void) setupDatabase{
+    [self setReadyToLogin:NO];
     
     //Init managedDocument
     NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];

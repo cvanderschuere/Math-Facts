@@ -26,6 +26,7 @@
 @implementation LoginViewController
 @synthesize errorLabel = _errorLabel;
 @synthesize buildString = _buildString;
+@synthesize documentStateActivityIndicator = _documentStateActivityIndicator;
 @synthesize loginButton = _loginButton;
 @synthesize userNameTextField = _userNameTextField, passwordTextField = _passwordTextField, readyToLogin = _readyToLogin;
 
@@ -34,10 +35,12 @@
     if (_readyToLogin) {
         //enableLogin
         self.loginButton.enabled = YES;
+        [self.documentStateActivityIndicator stopAnimating];
     }
     else {
         //DisableLogin
         self.loginButton.enabled = NO;
+        [self.documentStateActivityIndicator startAnimating];
     }
 }
 
@@ -131,7 +134,7 @@
 #pragma mark - View lifecycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-	
+    	
 	CGRect frame = CGRectMake(10, 6, 280, 30);
 	if ((self.interfaceOrientation == UIInterfaceOrientationPortrait) || 
 		(self.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown))
@@ -150,6 +153,11 @@
 	[super viewWillAppear:YES];
     //self.userNameTextField.text = @"admin";
 	//self.passwordTextField.text = @"poacmf";
+    
+    //Get document state to make sure can login
+    PoacMFAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    self.readyToLogin = appDelegate.database.documentState == UIDocumentStateNormal;
+    
 }//end method
 
 #pragma mark Rotation
@@ -160,7 +168,6 @@
 #pragma mark UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *) textField {
 	[textField resignFirstResponder];
-	//[self.passwordTextField resignFirstResponder];
 	return YES;
 }//end method
 
@@ -168,6 +175,7 @@
     [self setLoginButton:nil];
     [self setErrorLabel:nil];
     [self setBuildString:nil];
+    [self setDocumentStateActivityIndicator:nil];
     [super viewDidUnload];
 }
 @end

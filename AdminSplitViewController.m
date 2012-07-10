@@ -49,16 +49,32 @@
 -(void) didSelectObject:(id)aObject{
     UINavigationController *navController = [self.viewControllers lastObject];
     if ([aObject isKindOfClass:[Student class]]) {
-        //Detail view should be userDetailView
-        UserDetailTableViewController *detailTVC = [self.storyboard instantiateViewControllerWithIdentifier:@"UserDetailTableViewController"];
-        [detailTVC setStudent:aObject];
-        [navController setViewControllers:[NSArray arrayWithObject:detailTVC] animated:NO];
+        UserDetailTableViewController *detailTVC = nil;
+        //Check if this is the current student being shown
+        if (navController.viewControllers.count>0 && [[navController.viewControllers objectAtIndex:0] isKindOfClass:[UserDetailTableViewController class]])
+        {
+            detailTVC = [navController.viewControllers objectAtIndex:0];
+            [detailTVC setStudent:aObject];
+        }
+        else {
+            UserDetailTableViewController *detailTVC = [self.storyboard instantiateViewControllerWithIdentifier:@"UserDetailTableViewController"];
+            [detailTVC setStudent:aObject];
+            [navController setViewControllers:[NSArray arrayWithObject:detailTVC] animated:NO];
+        }
     }
     else if ([aObject isKindOfClass:[QuestionSet class]]) {
-        //Detail view should be userDetailView
-        QuestionSetDetailTableViewController *detailTVC = [self.storyboard instantiateViewControllerWithIdentifier:@"QuestionSetDetailTableViewController"];
-        [detailTVC setQuestionSet:aObject];
-        [navController setViewControllers:[NSArray arrayWithObject:detailTVC] animated:NO];
+        QuestionSetDetailTableViewController *detailTVC = nil;
+        //Check if this is the current student being shown
+        if (navController.viewControllers.count>0 && [[navController.viewControllers objectAtIndex:0] isKindOfClass:[QuestionSetDetailTableViewController class]])
+        {
+            detailTVC = [navController.viewControllers objectAtIndex:0];
+            [detailTVC setQuestionSet:aObject];
+        }
+        else {
+            QuestionSetDetailTableViewController *detailTVC = [self.storyboard instantiateViewControllerWithIdentifier:@"QuestionSetDetailTableViewController"];
+            [detailTVC setQuestionSet:aObject];
+            [navController setViewControllers:[NSArray arrayWithObject:detailTVC] animated:NO];
+        }
     }
     
 }

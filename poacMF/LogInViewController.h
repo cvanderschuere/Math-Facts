@@ -16,6 +16,7 @@
 @property (nonatomic) BOOL readyToLogin;
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 @property (weak, nonatomic) IBOutlet UILabel *buildString;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *documentStateActivityIndicator;
 
 -(IBAction) loginTapped;
 - (IBAction)sendFeedback:(id)sender;
