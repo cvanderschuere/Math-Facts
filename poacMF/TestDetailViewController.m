@@ -156,33 +156,6 @@
     y.visibleRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(65.0f)];
     y.axisConstraints = [CPTConstraints constraintWithLowerOffset:0.0f];
     
-    /*
-    //Correct Scatter Plot
-    CPTScatterPlot *dataSourceLinePlot = [[CPTScatterPlot alloc] init];
-    dataSourceLinePlot.identifier = @"Green Plot";
-    
-    CPTMutableLineStyle *lineStyle = [dataSourceLinePlot.dataLineStyle mutableCopy];
-    lineStyle.lineWidth              = 3.f;
-    lineStyle.lineColor              = [CPTColor greenColor];
-    lineStyle.dashPattern            = [NSArray arrayWithObjects:[NSNumber numberWithFloat:5.0f], [NSNumber numberWithFloat:5.0f], nil];
-    dataSourceLinePlot.dataLineStyle = lineStyle;
-    
-    dataSourceLinePlot.dataSource = self;
-    
-    // Put an area gradient under the plot above
-    CPTColor *areaColor       = [CPTColor colorWithComponentRed:0.3 green:1.0 blue:0.3 alpha:0.8];
-    CPTGradient *areaGradient = [CPTGradient gradientWithBeginningColor:areaColor endingColor:[CPTColor clearColor]];
-    areaGradient.angle = -90.0f;
-    CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];
-    dataSourceLinePlot.areaFill      = areaGradientFill;
-    dataSourceLinePlot.areaBaseValue = CPTDecimalFromString(@"1.75");
-    
-    // Animate in the new plot, as an example
-    dataSourceLinePlot.opacity        = 0.0f;
-    dataSourceLinePlot.cachePrecision = CPTPlotCachePrecisionAuto;
-    [graph addPlot:dataSourceLinePlot toPlotSpace:plotSpace];
-    */
-
     // Correct plot
     CPTBarPlot *barPlot = [CPTBarPlot tubularBarPlotWithColor:[CPTColor lightGrayColor] horizontalBars:NO];
     barPlot.baseValue  = CPTDecimalFromString(@"0");
@@ -316,11 +289,17 @@
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"resultCell"];
     
     //Customize Cell
-    cell.textLabel.text = [NSDateFormatter localizedStringFromDate:[[indexPath.section==0?self.testResults:self.practiceResults objectAtIndex:indexPath.row] startDate]  dateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterShortStyle];
+    Result *result = [indexPath.section==0?self.testResults:self.practiceResults objectAtIndex:indexPath.row];
+    
+    cell.textLabel.text = [NSDateFormatter localizedStringFromDate:[result startDate]  dateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterShortStyle];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"Correct: %d / Incorrect: %d",result.correctResponses.count,result.incorrectResponses.count];
+    
     if (indexPath.section == 0) {
         //Determine if timing was passed
-        Result* result = [self.testResults objectAtIndex:indexPath.row];
         cell.imageView.image = result.didPass.boolValue?[UIImage imageNamed:@"passStamp"]:nil;
+    }
+    else {
+        cell.imageView.image = nil;
     }
     return cell;
 }

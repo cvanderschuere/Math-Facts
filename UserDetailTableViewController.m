@@ -12,6 +12,7 @@
 #import "QuestionSet.h"
 #import "Administrator.h"
 #import "AEUserTableViewController.h"
+#import "ResultDetailViewController.h"
 
 @interface UserDetailTableViewController ()
 
@@ -71,6 +72,48 @@
     }
     else {
         [self.graphView.hostedGraph reloadData];
+        
+        //Reload information
+        CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace*) self.graphView.hostedGraph.defaultPlotSpace;
+        plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0f) length:CPTDecimalFromFloat(65.0f)];
+        if (self.graphTimingsFetchedResultsController.fetchedObjects.count>8) {
+            float length = UIInterfaceOrientationIsLandscape(self.interfaceOrientation)?9.0:5.0;
+            plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(self.graphTimingsFetchedResultsController.fetchedObjects.count - length + .5) length:CPTDecimalFromFloat(length)];
+        }
+        else {
+            plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.5f) length:CPTDecimalFromFloat(UIInterfaceOrientationIsLandscape(self.interfaceOrientation)?9.0:5.0)];
+        }
+        
+        //Reload labels
+        CPTXYAxisSet *axisSet = (CPTXYAxisSet *)self.graphView.hostedGraph.axisSet;
+        CPTXYAxis *x          = axisSet.xAxis;
+
+        NSMutableArray *customLabels = [NSMutableArray array];
+        
+        //Use date as label
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.dateFormat = @"MM/dd";
+        
+        [self.graphTimingsFetchedResultsController.fetchedObjects enumerateObjectsUsingBlock:^(Result* result, NSUInteger idx, BOOL *stop){
+            //Use Date formatter to make date
+            NSString *dateString = [dateFormatter stringFromDate:result.startDate];
+            
+            CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"%@ (%@)\n   %@",result.test.questionSet.typeSymbol, result.test.questionSet.name,dateString] textStyle:x.labelTextStyle];
+            newLabel.tickLocation = [[NSDecimalNumber numberWithFloat:(idx+1)] decimalValue];
+            newLabel.alignment = CPTAlignmentCenter;
+            newLabel.offset = 2.0f;
+            [customLabels addObject:newLabel];
+            
+            //Checkf if new max Y number
+            if (self.maxNumberY < result.correctResponses.count)
+                self.maxNumberY = result.correctResponses.count;
+            if (self.maxNumberY < result.incorrectResponses.count)
+                self.maxNumberY = result.incorrectResponses.count;        
+        }];
+        
+        x.axisLabels = [NSSet setWithArray:customLabels];
+
+
     }
 }
 
@@ -142,7 +185,13 @@
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"showTestSegue"]) {
         //Get selected test from frc and pass it along
-        Test* selectedTest = [self.fetchedResultsController objectAtIndexPath:[self.tableView indexPathForCell:sender]];
+        Test *selectedTest = nil;
+        if ([sender isKindOfClass:[UITableViewCell class]]) {
+            selectedTest = [self.fetchedResultsController objectAtIndexPath:[self.tableView indexPathForCell:sender]];
+        }
+        else if ([sender isKindOfClass:[Test class]]) {
+            selectedTest = sender;
+        }
         [segue.destinationViewController setTest:selectedTest];
     }
     else if ([segue.identifier isEqualToString:@"editStudentSegue"]) {
@@ -150,6 +199,9 @@
         [[[segue.destinationViewController viewControllers] lastObject] setCreatedStudentsAdmin:self.student.administrator];
         [[[segue.destinationViewController viewControllers] lastObject] setStudentToUpdate:self.student];
 
+    }
+    else if ([segue.identifier isEqualToString:@"showResultSegue"]) {
+        [segue.destinationViewController setResult:sender];
     }
 }
 
@@ -191,6 +243,7 @@
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
     plotSpace.allowsUserInteraction = YES;
     plotSpace.delegate = self;
+    /*
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0f) length:CPTDecimalFromFloat(65.0f)];
     if (self.graphTimingsFetchedResultsController.fetchedObjects.count>8) {
         float length = UIInterfaceOrientationIsLandscape(self.interfaceOrientation)?9.0:5.0;
@@ -199,7 +252,7 @@
     else {
         plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.5f) length:CPTDecimalFromFloat(UIInterfaceOrientationIsLandscape(self.interfaceOrientation)?9.0:5.0)];
     }
-    
+    */
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
     x.axisLineStyle               = nil;
@@ -212,6 +265,8 @@
     x.labelingPolicy = CPTAxisLabelingPolicyNone;
     CPTMutableTextStyle *xStyle = x.labelTextStyle.mutableCopy;
     xStyle.fontSize = 10;
+    
+    /*
 	NSMutableArray *customLabels = [NSMutableArray array];
     
     //Use date as label
@@ -236,7 +291,7 @@
 }];
     
 	x.axisLabels = [NSSet setWithArray:customLabels];
-    
+    */
     CPTXYAxis *y = axisSet.yAxis;
     y.axisLineStyle               = nil;
     y.majorTickLineStyle          = nil;
@@ -269,6 +324,7 @@
     self.correctPlot.plotSymbol = plotSymbol;
     
     self.correctPlot.dataSource = self;
+    self.correctPlot.delegate = self;
     [graph addPlot:self.correctPlot];
     
     // Create a incorrect plot
@@ -287,8 +343,10 @@
     plotSymbol.lineStyle     = lineStyle;
     plotSymbol.size          = CGSizeMake(5.0, 5.0);
     self.incorrectPlot.plotSymbol = plotSymbol;
+
     
     self.incorrectPlot.dataSource = self;
+    self.incorrectPlot.delegate = self;
     [graph addPlot:self.incorrectPlot];
 }
 
@@ -365,7 +423,10 @@
     return NO;
     
 }
-
+-(void) scatterPlot:(CPTScatterPlot *)plot plotSymbolWasSelectedAtRecordIndex:(NSUInteger)index{
+    Result *selectedResult = [self.graphTimingsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
+    [self performSegueWithIdentifier:@"showResultSegue" sender:selectedResult];
+}
 #pragma mark - NSFetchedResultsController Delegate
 - (void)controller:(NSFetchedResultsController *)controller
    didChangeObject:(id)anObject
@@ -402,6 +463,8 @@
         {
             [self.correctPlot reloadDataInIndexRange:NSMakeRange(newIndexPath.row, 1)];
             [self.incorrectPlot reloadDataInIndexRange:NSMakeRange(newIndexPath.row, 1)];
+            
+            //TODO: Insert custom label as well
         }
 
     }
@@ -443,7 +506,7 @@
     //Customize Cell
     cell.textLabel.text = [NSString stringWithFormat:@"%@: %@",test.questionSet.typeName,test.questionSet.name];
     cell.imageView.image = test.passed.boolValue?[UIImage imageNamed:@"passStamp"]:nil;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"Attempts: %d",test.results.count];
+    cell.detailTextLabel.text = test.results.count>0?[NSString stringWithFormat:@"Attempts: %d",test.results.count]:@"Unattempted";
     
     return cell;
 }

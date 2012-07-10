@@ -12,7 +12,7 @@
 #import "Student.h"
 
 
-@interface UserDetailTableViewController : CoreDataViewController <UIPopoverControllerDelegate,SelectTestProtocol,CPTPlotDataSource,CPTPlotSpaceDelegate>
+@interface UserDetailTableViewController : CoreDataViewController <UIPopoverControllerDelegate,SelectTestProtocol,CPTPlotDataSource,CPTPlotSpaceDelegate,CPTScatterPlotDelegate>
 
 @property (nonatomic, strong) Student* student;
 @property (nonatomic, strong) UIPopoverController *popover;

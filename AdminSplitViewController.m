@@ -51,7 +51,7 @@
     if ([aObject isKindOfClass:[Student class]]) {
         UserDetailTableViewController *detailTVC = nil;
         //Check if this is the current student being shown
-        if (navController.viewControllers.count>0 && [[navController.viewControllers objectAtIndex:0] isKindOfClass:[UserDetailTableViewController class]])
+        if (navController.viewControllers.count>0 && [navController.viewControllers.lastObject isKindOfClass:[UserDetailTableViewController class]])
         {
             detailTVC = [navController.viewControllers objectAtIndex:0];
             [detailTVC setStudent:aObject];
@@ -65,7 +65,7 @@
     else if ([aObject isKindOfClass:[QuestionSet class]]) {
         QuestionSetDetailTableViewController *detailTVC = nil;
         //Check if this is the current student being shown
-        if (navController.viewControllers.count>0 && [[navController.viewControllers objectAtIndex:0] isKindOfClass:[QuestionSetDetailTableViewController class]])
+        if (navController.viewControllers.count>0 && [navController.viewControllers.lastObject isKindOfClass:[QuestionSetDetailTableViewController class]])
         {
             detailTVC = [navController.viewControllers objectAtIndex:0];
             [detailTVC setQuestionSet:aObject];

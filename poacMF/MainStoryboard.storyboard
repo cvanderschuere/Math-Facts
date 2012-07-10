@@ -1188,7 +1188,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="resultCell" textLabel="3I4-bA-KnB" style="IBUITableViewCellStyleDefault" id="pFP-pp-oD5">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="resultCell" textLabel="3I4-bA-KnB" detailTextLabel="22M-Py-jnh" style="IBUITableViewCellStyleValue1" id="pFP-pp-oD5">
                                         <rect key="frame" x="0.0" y="54" width="768" height="46"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -1196,10 +1196,17 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3I4-bA-KnB">
-                                                    <rect key="frame" x="10" y="0.0" width="638" height="43"/>
+                                                    <rect key="frame" x="10" y="11" width="35" height="21"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="22M-Py-jnh">
+                                                    <rect key="frame" x="604" y="11" width="44" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.2196078431372549" green="0.32941176470588235" blue="0.52941176470588236" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
                                             </subviews>
@@ -1237,7 +1244,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="2030" y="-4829"/>
+            <point key="canvasLocation" x="1674" y="-5565"/>
         </scene>
         <!--Adjust Test Popover View Controller-->
         <scene sceneID="WBh-DT-fPa">
@@ -2092,6 +2099,7 @@
                     <connections>
                         <outlet property="graphView" destination="SUV-tn-OTi" id="JgX-us-mVC"/>
                         <outlet property="tableView" destination="1bn-bs-EFj" id="UQc-Vj-iBp"/>
+                        <segue destination="EJ3-lU-cfL" kind="push" identifier="showResultSegue" id="Zlf-qc-6l8"/>
                     </connections>
                 </viewController>
             </objects>
@@ -2690,10 +2698,11 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="pyl-lN-f0d"/>
         <segue reference="WIk-YA-VOd"/>
         <segue reference="8dB-Nx-BB0"/>
-        <segue reference="ddt-OJ-p9G"/>
         <segue reference="301-nB-hIK"/>
-        <segue reference="pyl-lN-f0d"/>
+        <segue reference="ddt-OJ-p9G"/>
+        <segue reference="lY2-Cb-wKq"/>
     </inferredMetricsTieBreakers>
 </document>
