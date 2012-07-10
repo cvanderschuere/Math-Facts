@@ -105,6 +105,8 @@
         }
         
         self.typeLabel.text = defaultString;
+        
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
     }
 }
 -(IBAction) cancelClicked {
@@ -211,11 +213,31 @@
         UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"questionCell"];
         Question *question = (Question*) [self.questionArray objectAtIndex:indexPath.row];
         
-        cell.textLabel.text = [NSString stringWithFormat:@"%@ %@ %@ = %@",question.x?question.x.stringValue:@"__",self.questionSetToUpdate?self.questionSetToUpdate.typeSymbol:@"?",question.y?question.y.stringValue:@"__",question.z?question.z.stringValue:@"__"];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ %@ %@ = %@",question.x?question.x.stringValue:@"__",self.questionSetToUpdate?self.questionSetToUpdate.typeSymbol:[self operatorSymbolForType:[NSNumber numberWithDouble:self.typeStepper.value]],question.y?question.y.stringValue:@"__",question.z?question.z.stringValue:@"__"];
         
         return cell;
     }
     return nil;
+}
+-(NSString*) operatorSymbolForType:(NSNumber*)type{
+    switch (type.intValue) {
+        case QUESTION_TYPE_MATH_ADDITION:
+            return @"+";
+            break;
+        case QUESTION_TYPE_MATH_SUBTRACTION:
+            return @"-";
+            break;
+        case QUESTION_TYPE_MATH_MULTIPLICATION:
+            return @"x";
+            break;
+        case QUESTION_TYPE_MATH_DIVISION:
+            return @"/";
+            break;
+        default:
+            return @"?";
+            break;
+    }
+
 }
 
 
@@ -293,7 +315,7 @@
     
     AEQuestionViewController *aeQuestion = [self.storyboard instantiateViewControllerWithIdentifier:@"AEQuestionViewController"];
     aeQuestion.delegate = self;
-    aeQuestion.operatorSymbol = self.questionSetToUpdate.typeSymbol;
+    aeQuestion.questionType = [NSNumber numberWithDouble:self.typeStepper.value];
 
     if ([selectedCell.reuseIdentifier isEqualToString:@"addQuestionCell"]) {
         aeQuestion.contextToCreateIn = self.administratorToCreateIn?self.administratorToCreateIn.managedObjectContext:self.questionSetToUpdate.managedObjectContext;

@@ -28,7 +28,7 @@
 
 @property (nonatomic, strong) Question *questionToUpdate;
 @property (nonatomic, strong) NSManagedObjectContext *contextToCreateIn;
-@property (nonatomic, strong) NSString *operatorSymbol;
+@property (nonatomic, strong) NSNumber *questionType;
 @property (nonatomic, weak) id<AEQuestionProtocol> delegate;
 
 //IBOutlets

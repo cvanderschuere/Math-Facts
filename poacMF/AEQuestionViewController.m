@@ -21,7 +21,7 @@
 @synthesize yLabel = _yLabel;
 @synthesize zLabel = _zLabel;
 
-@synthesize questionToUpdate = _questionToUpdate, contextToCreateIn = _contextToCreateIn, operatorSymbol = _operatorSymbol;
+@synthesize questionToUpdate = _questionToUpdate, contextToCreateIn = _contextToCreateIn, questionType = _questionType;
 @synthesize delegate = _delegate;
 
 #pragma mark - View Lifecycle
@@ -50,7 +50,24 @@
     else{
         self.title = @"Create Question";
         self.zStepper.value = -1;
-        self.operatorLabel.text = self.operatorSymbol?self.operatorSymbol:@"?";
+        
+        switch (self.questionType.intValue) {
+            case QUESTION_TYPE_MATH_ADDITION:
+                self.operatorLabel.text = @"+";
+                break;
+            case QUESTION_TYPE_MATH_SUBTRACTION:
+                self.operatorLabel.text = @"-";
+                break;
+            case QUESTION_TYPE_MATH_MULTIPLICATION:
+                self.operatorLabel.text = @"x";
+                break;
+            case QUESTION_TYPE_MATH_DIVISION:
+                self.operatorLabel.text = @"/";
+                break;
+            default:
+                self.operatorLabel.text = @"?";
+                break;
+        }
     }
     
 }
