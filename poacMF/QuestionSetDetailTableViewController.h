@@ -14,5 +14,7 @@
 
 @property (nonatomic, strong) QuestionSet *questionSet;
 @property (nonatomic, strong) UIPopoverController *popover;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *editButton;
+@property (strong, nonatomic) UIBarButtonItem *revealMasterButton;
 
 @end

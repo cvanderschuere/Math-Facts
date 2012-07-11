@@ -35,10 +35,13 @@
     }
     
     //Setup currentAdmin and delegate
-    if ([self.parentViewController respondsToSelector:@selector(currentAdmin)] && [self.viewControllers.lastObject respondsToSelector:@selector(setCurrentAdmin:)]) {
-        [self.viewControllers.lastObject setCurrentAdmin:[self.parentViewController performSelector:@selector(currentAdmin)]];
-        [self.viewControllers.lastObject setDelegate:self.parentViewController];
+    if ([self.splitViewController respondsToSelector:@selector(currentAdmin)] && [self.viewControllers.lastObject respondsToSelector:@selector(setCurrentAdmin:)]) {
+        [self.viewControllers.lastObject setCurrentAdmin:[self.splitViewController performSelector:@selector(currentAdmin)]];
+        [self.viewControllers.lastObject setDelegate:self.splitViewController];
     }
+    
+    
+    
 }
 
 #pragma mark - Rotation Handling

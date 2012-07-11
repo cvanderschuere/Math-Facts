@@ -36,7 +36,7 @@
     [super viewDidLoad];
     
     //Setup ViewController Switcher Toolbar
-    UISegmentedControl *segControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Users",@"Sets", nil]];
+    UISegmentedControl *segControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Students",@"Sets", nil]];
     segControl.segmentedControlStyle = UISegmentedControlStyleBar;
     segControl.selectedSegmentIndex = 0;
     [segControl addTarget:self.navigationController action:@selector(switchViewController:) forControlEvents:UIControlEventValueChanged];

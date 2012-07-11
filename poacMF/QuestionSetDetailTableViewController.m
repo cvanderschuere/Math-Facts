@@ -16,6 +16,7 @@
 @end
 
 @implementation QuestionSetDetailTableViewController
+@synthesize editButton = _editButton, revealMasterButton = _revealMasterButton;
 
 @synthesize questionSet = _questionSet, popover = _popover;
 
@@ -28,12 +29,12 @@
         
         //Setup frc
         if(_questionSet){
-            self.navigationItem.rightBarButtonItem.enabled = self.navigationItem.leftBarButtonItem.enabled = YES;
+            self.editButton.enabled = self.revealMasterButton.enabled = YES;
             [self setupFetchedResultsController];
         }
         
         else {
-            self.navigationItem.rightBarButtonItem.enabled = self.navigationItem.leftBarButtonItem.enabled = NO;
+            self.editButton.enabled = self.revealMasterButton.enabled = NO;
             self.fetchedResultsController = nil;
         }
     }
@@ -52,6 +53,7 @@
 
 - (void)viewDidUnload
 {
+    [self setEditButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

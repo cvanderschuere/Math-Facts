@@ -26,7 +26,7 @@
         [self.popupQuery dismissWithClickedButtonIndex:-1 animated:animated]; //Dismiss logout action sheet on logout
 }
 #pragma mark - IBActions
--(IBAction)toggleEditMode:(id)sender{
+-(IBAction)toggleEditMode:(UIBarButtonItem*)sender{
     self.tableView.editing = !self.tableView.editing;
 }
 -(IBAction)logout:(id)sender{
@@ -39,7 +39,8 @@
                                                             delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"Logout" 
                                                    otherButtonTitles:@"Cancel", nil, nil];
     self.popupQuery.actionSheetStyle = UIActionSheetStyleBlackOpaque;
-    [self.popupQuery showFromBarButtonItem:sender animated:YES];
+    
+    [self.popupQuery showInView:self.splitViewController.view];
     
     //Save on logout
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SaveDatabase" object:nil];

@@ -437,7 +437,7 @@
             </objects>
             <point key="canvasLocation" x="-2749" y="-2130"/>
         </scene>
-        <!--Users Table View Controller - Users-->
+        <!--Users Table View Controller - Students-->
         <scene sceneID="Foe-lt-VFm">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zCI-jv-0zx" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -484,7 +484,7 @@
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" title="Users" id="m8M-L2-WXz">
+                    <navigationItem key="navigationItem" title="Students" id="m8M-L2-WXz">
                         <barButtonItem key="leftBarButtonItem" systemItem="edit" id="bSn-mZ-c0l">
                             <connections>
                                 <action selector="toggleEditMode:" destination="m3L-O9-a6Q" id="Q91-IK-bqb"/>
@@ -1375,7 +1375,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="onS-1l-8my" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="EJ3-lU-cfL" customClass="ResultDetailViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="3gg-xT-5Jw">
-                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <rect key="frame" x="0.0" y="64" width="768" height="916"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
@@ -1512,6 +1512,9 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="editButton" destination="mZw-kY-YaG" id="GK2-CV-97u"/>
+                    </connections>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="763" y="-1900"/>
@@ -2097,13 +2100,14 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="editButton" destination="3Z8-v2-ph6" id="Ogi-BJ-uhg"/>
                         <outlet property="graphView" destination="SUV-tn-OTi" id="JgX-us-mVC"/>
                         <outlet property="tableView" destination="1bn-bs-EFj" id="UQc-Vj-iBp"/>
                         <segue destination="EJ3-lU-cfL" kind="push" identifier="showResultSegue" id="Zlf-qc-6l8"/>
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="355" y="-4895"/>
+            <point key="canvasLocation" x="236" y="-4896"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="pDg-bU-UvF">
@@ -2604,6 +2608,9 @@
         </class>
         <class className="QuestionSetDetailTableViewController" superclassName="CoreDataTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/QuestionSetDetailTableViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="editButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
         </class>
         <class className="ResultDetailViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ResultDetailViewController.h"/>
@@ -2698,11 +2705,11 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="pyl-lN-f0d"/>
         <segue reference="WIk-YA-VOd"/>
-        <segue reference="8dB-Nx-BB0"/>
+        <segue reference="Zlf-qc-6l8"/>
         <segue reference="301-nB-hIK"/>
-        <segue reference="ddt-OJ-p9G"/>
-        <segue reference="lY2-Cb-wKq"/>
+        <segue reference="lda-Fg-vsm"/>
+        <segue reference="mjs-n6-7sf"/>
+        <segue reference="8dB-Nx-BB0"/>
     </inferredMetricsTieBreakers>
 </document>

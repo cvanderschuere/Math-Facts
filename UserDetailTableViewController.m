@@ -14,6 +14,9 @@
 #import "AEUserTableViewController.h"
 #import "ResultDetailViewController.h"
 
+#define LANDSCAPE_GRAPH_WIDTH 9.0f
+#define PORTRAIT_GRAPH_WIDTH 14.0f
+
 @interface UserDetailTableViewController ()
 
 //Graph
@@ -28,6 +31,7 @@
 @implementation UserDetailTableViewController
 @synthesize editButton = _editButton;
 @synthesize shareButton = _shareButton;
+@synthesize revealMasterButton = _revealMasterButton;
 @synthesize student = _student;
 @synthesize popover = _popover;
 @synthesize graphView = _graphView;
@@ -41,12 +45,12 @@
         self.title = _student.firstName;
         
         if (_student){   //Enable Button Segues
-            self.shareButton.enabled = self.navigationItem.leftBarButtonItem.enabled = self.navigationItem.rightBarButtonItem.enabled = YES;
+            self.shareButton.enabled = self.editButton.enabled = self.revealMasterButton.enabled = YES;
             [self setupFetchedResultsController];
         }
         else {   //Disable and clear tableview
             self.fetchedResultsController = nil;
-            self.shareButton.enabled = self.navigationItem.leftBarButtonItem.enabled = self.navigationItem.rightBarButtonItem.enabled = NO;
+            self.shareButton.enabled = self.editButton.enabled = self.revealMasterButton.enabled = NO;
         }
     }
 }
@@ -71,23 +75,35 @@
         [self.tableView reloadData];
     }
     else {
+        /*
+        if (!self.correctPlot && !self.incorrectPlot) {
+            [self constructGraph];
+        }
+         */
         [self.graphView.hostedGraph reloadData];
         
-        //Reload information
+        //**Reload information**//
+        
         CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace*) self.graphView.hostedGraph.defaultPlotSpace;
         plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0f) length:CPTDecimalFromFloat(65.0f)];
         if (self.graphTimingsFetchedResultsController.fetchedObjects.count>8) {
-            float length = UIInterfaceOrientationIsLandscape(self.interfaceOrientation)?9.0:5.0;
+            float length = UIInterfaceOrientationIsLandscape(self.interfaceOrientation)?LANDSCAPE_GRAPH_WIDTH:PORTRAIT_GRAPH_WIDTH;
             plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(self.graphTimingsFetchedResultsController.fetchedObjects.count - length + .5) length:CPTDecimalFromFloat(length)];
         }
         else {
-            plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.5f) length:CPTDecimalFromFloat(UIInterfaceOrientationIsLandscape(self.interfaceOrientation)?9.0:5.0)];
+            plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.5f) length:CPTDecimalFromFloat(UIInterfaceOrientationIsLandscape(self.interfaceOrientation)?LANDSCAPE_GRAPH_WIDTH:PORTRAIT_GRAPH_WIDTH)];
         }
         
         //Reload labels
         CPTXYAxisSet *axisSet = (CPTXYAxisSet *)self.graphView.hostedGraph.axisSet;
         CPTXYAxis *x          = axisSet.xAxis;
-
+        
+        //Set custom font size for labels
+        CPTMutableTextStyle *xStyle = x.labelTextStyle.mutableCopy;
+        xStyle.fontSize = 12.0f;
+        xStyle.textAlignment = CPTTextAlignmentCenter;
+        x.labelTextStyle = xStyle;
+        
         NSMutableArray *customLabels = [NSMutableArray array];
         
         //Use date as label
@@ -98,7 +114,7 @@
             //Use Date formatter to make date
             NSString *dateString = [dateFormatter stringFromDate:result.startDate];
             
-            CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"%@ (%@)\n   %@",result.test.questionSet.typeSymbol, result.test.questionSet.name,dateString] textStyle:x.labelTextStyle];
+            CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"%@ (%@)\n %@",result.test.questionSet.typeSymbol, result.test.questionSet.name,dateString] textStyle:x.labelTextStyle];
             newLabel.tickLocation = [[NSDecimalNumber numberWithFloat:(idx+1)] decimalValue];
             newLabel.alignment = CPTAlignmentCenter;
             newLabel.offset = 2.0f;
@@ -140,13 +156,16 @@
 {
     [super viewDidLoad];
     
+    //Things to do only once when created    
+    [self constructGraph];
+    [self performFetchWithFRC:self.graphTimingsFetchedResultsController];
+    
+    
     //Only enable segues if student exists
     if (_student)   
-        self.shareButton.enabled = self.navigationItem.leftBarButtonItem.enabled = self.navigationItem.rightBarButtonItem.enabled = YES;
+        self.shareButton.enabled = self.editButton.enabled = self.revealMasterButton.enabled = YES;
     else    //Disable
-        self.shareButton.enabled = self.navigationItem.leftBarButtonItem.enabled = self.navigationItem.rightBarButtonItem.enabled = NO;
-
-    [self constructGraph];
+        self.shareButton.enabled = self.editButton.enabled = self.revealMasterButton.enabled = NO;
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -159,6 +178,7 @@
 {
     [self setEditButton:nil];
     [self setShareButton:nil];
+    [self setEditButton:nil];
     [super viewDidUnload];
     
     // Release any retained subviews of the main view.
@@ -174,11 +194,11 @@
 {
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graphView.hostedGraph.defaultPlotSpace;
     if (self.graphTimingsFetchedResultsController.fetchedObjects.count>8) {
-        float length = UIInterfaceOrientationIsLandscape(toInterfaceOrientation)?9.0:5.0;
+        float length = UIInterfaceOrientationIsLandscape(toInterfaceOrientation)?LANDSCAPE_GRAPH_WIDTH:PORTRAIT_GRAPH_WIDTH;
         plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(self.graphTimingsFetchedResultsController.fetchedObjects.count - length + .5) length:CPTDecimalFromFloat(length)];
     }
     else {
-        plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.5f) length:CPTDecimalFromFloat(UIInterfaceOrientationIsLandscape(toInterfaceOrientation)?9.0:5.0)];
+        plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.5f) length:CPTDecimalFromFloat(UIInterfaceOrientationIsLandscape(toInterfaceOrientation)?LANDSCAPE_GRAPH_WIDTH:PORTRAIT_GRAPH_WIDTH)];
     }
 }
 #pragma mark - Storyboard
@@ -243,16 +263,7 @@
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
     plotSpace.allowsUserInteraction = YES;
     plotSpace.delegate = self;
-    /*
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0f) length:CPTDecimalFromFloat(65.0f)];
-    if (self.graphTimingsFetchedResultsController.fetchedObjects.count>8) {
-        float length = UIInterfaceOrientationIsLandscape(self.interfaceOrientation)?9.0:5.0;
-        plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(self.graphTimingsFetchedResultsController.fetchedObjects.count - length + .5) length:CPTDecimalFromFloat(length)];
-    }
-    else {
-        plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.5f) length:CPTDecimalFromFloat(UIInterfaceOrientationIsLandscape(self.interfaceOrientation)?9.0:5.0)];
-    }
-    */
+ 
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
     x.axisLineStyle               = nil;
@@ -266,32 +277,6 @@
     CPTMutableTextStyle *xStyle = x.labelTextStyle.mutableCopy;
     xStyle.fontSize = 10;
     
-    /*
-	NSMutableArray *customLabels = [NSMutableArray array];
-    
-    //Use date as label
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"MM/dd";
-    
-	[self.graphTimingsFetchedResultsController.fetchedObjects enumerateObjectsUsingBlock:^(Result* result, NSUInteger idx, BOOL *stop){
-        //Use Date formatter to make date
-       NSString *dateString = [dateFormatter stringFromDate:result.startDate];
-        
-		CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"%@ (%@)\n   %@",result.test.questionSet.typeSymbol, result.test.questionSet.name,dateString] textStyle:x.labelTextStyle];
-		newLabel.tickLocation = [[NSDecimalNumber numberWithFloat:(idx+1)] decimalValue];
-        newLabel.alignment = CPTAlignmentCenter;
-        newLabel.offset = 2.0f;
-		[customLabels addObject:newLabel];
-        
-        //Checkf if new max Y number
-        if (self.maxNumberY < result.correctResponses.count)
-            self.maxNumberY = result.correctResponses.count;
-        if (self.maxNumberY < result.incorrectResponses.count)
-            self.maxNumberY = result.incorrectResponses.count;        
-}];
-    
-	x.axisLabels = [NSSet setWithArray:customLabels];
-    */
     CPTXYAxis *y = axisSet.yAxis;
     y.axisLineStyle               = nil;
     y.majorTickLineStyle          = nil;
@@ -323,6 +308,7 @@
     plotSymbol.size          = CGSizeMake(5.0, 5.0);
     self.correctPlot.plotSymbol = plotSymbol;
     
+    
     self.correctPlot.dataSource = self;
     self.correctPlot.delegate = self;
     [graph addPlot:self.correctPlot];
@@ -348,6 +334,9 @@
     self.incorrectPlot.dataSource = self;
     self.incorrectPlot.delegate = self;
     [graph addPlot:self.incorrectPlot];
+    
+    //Make symbol hit easy
+    self.correctPlot.plotSymbolMarginForHitDetection = self.incorrectPlot.plotSymbolMarginForHitDetection = 15.0f;;
 }
 
 #pragma mark -

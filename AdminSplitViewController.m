@@ -11,14 +11,18 @@
 #import "UserDetailTableViewController.h"
 #import "QuestionSetDetailTableViewController.h"
 #import "Student.h"
+#import "SegmentedControlNavigationController.h"
 
 @interface AdminSplitViewController ()
+
+@property (nonatomic, strong) UIPopoverController* masterPopoverController;
 
 @end
 
 @implementation AdminSplitViewController
 
 @synthesize currentAdmin = _currentAdmin;
+@synthesize masterPopoverController = _masterPopoverController;
 
 -(void) setCurrentAdmin:(Administrator *)currentAdmin{
     if (![_currentAdmin isEqual:currentAdmin]) {
@@ -41,6 +45,8 @@
         self.delegate = self;
         AdminMasterTableViewController *adminMaster = [[[self.viewControllers objectAtIndex:0] viewControllers] lastObject];
         adminMaster.delegate = self;
+        
+        self.delegate = self;
     }
     return self;
 }
@@ -59,6 +65,16 @@
         else {
             UserDetailTableViewController *detailTVC = [self.storyboard instantiateViewControllerWithIdentifier:@"UserDetailTableViewController"];
             [detailTVC setStudent:aObject];
+            
+            //Check if needs to show revealMaster button
+            if ([[navController.viewControllers objectAtIndex:0] revealMasterButton]) {
+                UIBarButtonItem *masterButton = [[navController.viewControllers objectAtIndex:0] revealMasterButton];
+                masterButton.title = @"Students";
+
+                [detailTVC.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:[[navController.viewControllers objectAtIndex:0] revealMasterButton],detailTVC.navigationItem.leftBarButtonItem, nil] animated:NO];
+                detailTVC.revealMasterButton = masterButton;
+            }
+            
             [navController setViewControllers:[NSArray arrayWithObject:detailTVC] animated:NO];
         }
     }
@@ -73,6 +89,17 @@
         else {
             QuestionSetDetailTableViewController *detailTVC = [self.storyboard instantiateViewControllerWithIdentifier:@"QuestionSetDetailTableViewController"];
             [detailTVC setQuestionSet:aObject];
+            
+            NSLog(@"NavController %@",navController.viewControllers);
+            //Check if needs to show revealMaster button
+            if ([[navController.viewControllers objectAtIndex:0] revealMasterButton]) {
+                UIBarButtonItem *masterButton = [[navController.viewControllers objectAtIndex:0] revealMasterButton];
+                masterButton.title = @"Sets";
+                
+                [detailTVC.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:masterButton,detailTVC.navigationItem.leftBarButtonItem, nil] animated:NO];
+                detailTVC.revealMasterButton = masterButton;
+            }
+
             [navController setViewControllers:[NSArray arrayWithObject:detailTVC] animated:NO];
         }
     }
@@ -98,14 +125,34 @@
     }
 
 }
-
 #pragma mark - UISplitViewDelegate Methods
 -(BOOL) splitViewController:(UISplitViewController *)svc shouldHideViewController:(UIViewController *)vc inOrientation:(UIInterfaceOrientation)orientation{
-    return NO; //Always show
+    NSLog(@"Controlers: %@",svc.viewControllers);
+    return UIInterfaceOrientationIsPortrait(orientation);
+}
+-(void) splitViewController:(UISplitViewController *)svc willHideViewController:(SegmentedControlNavigationController *)aViewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)pc{
+    UserDetailTableViewController* detailController = [[[svc.viewControllers objectAtIndex:1] viewControllers] objectAtIndex:0];
+    NSLog(@"ViewControllers:%@ Navitation Items:%@",detailController,detailController.navigationItem.leftBarButtonItems);
+    barButtonItem.title = [[[[svc.viewControllers objectAtIndex:1] viewControllers] objectAtIndex:0] isKindOfClass:[UserDetailTableViewController class]]?@"Students":@"Sets";
+    detailController.revealMasterButton = barButtonItem;
+    [detailController.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:barButtonItem,detailController.navigationItem.leftBarButtonItem, nil] animated:NO];
 }
 -(void) splitViewController:(UISplitViewController *)svc willShowViewController:(UIViewController *)aViewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem{
+    UserDetailTableViewController* detailController = [[[svc.viewControllers objectAtIndex:1] viewControllers] objectAtIndex:0];
+    NSLog(@"ViewControllers:%@ Navitation Items:%@",detailController,detailController.navigationItem.leftBarButtonItems);
+    
+    //Remove button
+    detailController.revealMasterButton = nil;
+    if (detailController.navigationItem.leftBarButtonItems.count>1)
+        [detailController.navigationItem setLeftBarButtonItem:[detailController.navigationItem.leftBarButtonItems objectAtIndex:1] animated:NO];
 }
-
+-(void) splitViewController:(UISplitViewController *)svc popoverController:(UIPopoverController *)pc willPresentViewController:(UIViewController *)aViewController{
+    self.masterPopoverController = pc;
+}
+-(void) viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.masterPopoverController dismissPopoverAnimated:animated];
+}
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return YES;

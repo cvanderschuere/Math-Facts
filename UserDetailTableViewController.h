@@ -18,6 +18,7 @@
 @property (nonatomic, strong) UIPopoverController *popover;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *editButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
+@property (strong, nonatomic) UIBarButtonItem *revealMasterButton;
 @property (nonatomic, weak) IBOutlet CPTGraphHostingView *graphView;
 
 

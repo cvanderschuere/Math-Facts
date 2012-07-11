@@ -151,8 +151,8 @@
 
 -(void) viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:YES];
-    //self.userNameTextField.text = @"admin";
-	//self.passwordTextField.text = @"poacmf";
+    self.userNameTextField.text = @"admin";
+	self.passwordTextField.text = @"poacmf";
     
     //Get document state to make sure can login
     PoacMFAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
