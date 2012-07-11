@@ -7,7 +7,7 @@
 //
 
 #import "Student.h"
-#import "Administrator.h"
+#import "Course.h"
 #import "Result.h"
 #import "Test.h"
 
@@ -21,7 +21,7 @@
 @dynamic numberOfDistractionQuestions;
 @dynamic idNumber;
 @dynamic notes;
-@dynamic administrator;
+@dynamic course;
 @dynamic results;
 @dynamic tests;
 

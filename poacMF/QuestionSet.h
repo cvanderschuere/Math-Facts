@@ -10,7 +10,7 @@
 #import <CoreData/CoreData.h>
 #import "Question.h"
 
-@class Administrator, Question, Test;
+@class Course, Question, Test;
 
 #define QUESTION_TYPE_MATH_ADDITION         0
 #define QUESTION_TYPE_MATH_SUBTRACTION      1
@@ -25,7 +25,7 @@
 @property (nonatomic, retain) NSNumber * type;
 @property (nonatomic, retain) NSString * typeName;
 @property (nonatomic, retain) NSString * typeSymbol;
-@property (nonatomic, retain) Administrator *administrator;
+@property (nonatomic, retain) Course *course;
 @property (nonatomic, retain) NSSet *questions;
 @property (nonatomic, retain) NSSet *tests;
 @end

@@ -16,11 +16,11 @@
 
 @implementation SetsTableViewController
 
-@synthesize currentAdmin = _currentAdmin;
+@synthesize currentCourse = _currentCourse;
 
--(void) setCurrentAdmin:(Administrator *)currentAdmin{
-    if (![_currentAdmin isEqual:currentAdmin]) {
-        _currentAdmin = currentAdmin;
+-(void) setCurrentCourse:(Course *)currentCourse{
+    if (![_currentCourse isEqual:currentCourse]) {
+        _currentCourse = currentCourse;
         [self setupFetchedResultsController];
     }
 }
@@ -60,13 +60,13 @@
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"addQuestionSetSegue"]) {
-        [[[segue.destinationViewController viewControllers] lastObject] setAdministratorToCreateIn:self.currentAdmin];
+        [[[segue.destinationViewController viewControllers] lastObject] setCourseToCreateIn:self.currentCourse];
     }
     else if ([segue.identifier isEqualToString:@"editQuestionSetSegue"]) {
         [[[segue.destinationViewController viewControllers] lastObject] setQuestionSetToUpdate:sender];
     }
     else if ([segue.identifier isEqualToString:@"summarySegueSet"]) {
-        [[[segue.destinationViewController viewControllers] lastObject] setCurrentAdmin:self.currentAdmin];
+        [[[segue.destinationViewController viewControllers] lastObject] setCourse:self.currentCourse];
     }
 }
 
@@ -74,13 +74,13 @@
 #pragma mark - NSFetchedResultsController Methods
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
-    //Fetch all question sets of currentAdmin; Sort by type
+    //Fetch all question sets of currentCourse; Sort by type
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"QuestionSet"];
     request.sortDescriptors = [NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:@"type" ascending:YES selector:@selector(compare:)],[NSSortDescriptor sortDescriptorWithKey:@"difficultyLevel" ascending:YES selector:@selector(compare:)],[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)],nil];
-    request.predicate = [NSPredicate predicateWithFormat:@"administrator.username == %@",self.currentAdmin.username];
+    request.predicate = [NSPredicate predicateWithFormat:@"course.name == %@",self.currentCourse.name];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
-                                                                        managedObjectContext:self.currentAdmin.managedObjectContext
+                                                                        managedObjectContext:self.currentCourse.managedObjectContext
                                                                           sectionNameKeyPath:@"typeName"
                                                                                    cacheName:@"questionSetsCache"];
 }

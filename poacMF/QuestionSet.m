@@ -7,7 +7,7 @@
 //
 
 #import "QuestionSet.h"
-#import "Administrator.h"
+#import "Course.h"
 
 @implementation QuestionSet
 
@@ -17,7 +17,7 @@
 @dynamic type;
 @dynamic typeName;
 @dynamic typeSymbol;
-@dynamic administrator;
+@dynamic course;
 @dynamic questions;
 @dynamic tests;
 

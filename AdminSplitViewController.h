@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Administrator.h"
+#import "Course.h"
 #import "UsersTableViewController.h"
 #import "SetsTableViewController.h"
 
 
 @interface AdminSplitViewController : UISplitViewController <UISplitViewControllerDelegate, AdminSplitViewCommunicationDelegate>
 
-@property (nonatomic, strong) Administrator* currentAdmin;
+@property (nonatomic, strong) Course* currentCourse;
 
 @end

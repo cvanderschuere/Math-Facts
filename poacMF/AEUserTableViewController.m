@@ -45,7 +45,7 @@
 @synthesize testLengthLabel = _testLengthLabel;
 @synthesize passCriteriaLabel = _passCriteriaLabel;
 @synthesize usernameTF = _usernameTF, firstNameTF = _firstNameTF, lastNameTF = _lastNameTF, passwordTF = _passwordTF, emailAddressTF = _emailAddressTF;
-@synthesize studentToUpdate = _studentToUpdate, createdStudentsAdmin = _createdStudentsAdmin;
+@synthesize studentToUpdate = _studentToUpdate, courseToCreateIn = _courseToCreateIn;
 @synthesize practiceLengthLabel = _practiceLengthLabel, practiceLengthStepper = _practiceLengthStepper;
 
 
@@ -143,7 +143,7 @@
 	}//end if
     else {
         //Check if username is unique or the same username as before
-        if (![Student isUserNameUnique:self.usernameTF.text inContext:self.studentToUpdate?self.studentToUpdate.managedObjectContext:self.createdStudentsAdmin.managedObjectContext] && ![self.studentToUpdate.username isEqualToString:self.usernameTF.text.lowercaseString]) {
+        if (![Student isUserNameUnique:self.usernameTF.text inContext:self.studentToUpdate?self.studentToUpdate.managedObjectContext:self.courseToCreateIn.managedObjectContext] && ![self.studentToUpdate.username isEqualToString:self.usernameTF.text.lowercaseString]) {
             NSString *msg = @"Username already used.";
             [al showAlertFromDelegate:self withWarning:msg];
             return;
@@ -174,9 +174,9 @@
     }
     //Create new student if necessary
     if (!self.studentToUpdate) {
-        self.studentToUpdate = [NSEntityDescription insertNewObjectForEntityForName:@"Student" inManagedObjectContext:self.createdStudentsAdmin.managedObjectContext];
+        self.studentToUpdate = [NSEntityDescription insertNewObjectForEntityForName:@"Student" inManagedObjectContext:self.courseToCreateIn.managedObjectContext];
         self.studentToUpdate.username = self.usernameTF.text.lowercaseString;
-        [self.createdStudentsAdmin addStudentsObject:self.studentToUpdate];
+        [self.courseToCreateIn addStudentsObject:self.studentToUpdate];
     }
 	
     

@@ -7,10 +7,12 @@
 //
 
 #import "Administrator.h"
+#import "Course.h"
 
 
 @implementation Administrator
 
+@dynamic course;
 @dynamic students;
 @dynamic questionSets;
 

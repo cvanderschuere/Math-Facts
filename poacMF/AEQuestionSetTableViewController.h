@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "QuestionSet.h"
-#import "Administrator.h"
+#import "Course.h"
 #import "AEQuestionViewController.h"
 
 /*
@@ -17,7 +17,7 @@
     //Add QuestionSet
     
         //Save
-            //Create Question Set (Set administrator)
+            //Create Question Set (Set course)
             //Assign values 
             //Use array of questions to assign to question set 
         //Cancel
@@ -41,6 +41,6 @@
 @interface AEQuestionSetTableViewController : UITableViewController <UITextFieldDelegate, AEQuestionProtocol>
 
 @property (nonatomic, strong) QuestionSet *questionSetToUpdate;
-@property (nonatomic, strong) Administrator *administratorToCreateIn;
+@property (nonatomic, strong) Course *courseToCreateIn;
 
 @end

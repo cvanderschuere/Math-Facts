@@ -32,7 +32,7 @@
 @end
 
 @implementation AEQuestionSetTableViewController
-@synthesize questionSetToUpdate = _questionSetToUpdate, administratorToCreateIn = _administratorToCreateIn, nameTextField = _nameTextField;
+@synthesize questionSetToUpdate = _questionSetToUpdate, courseToCreateIn = _courseToCreateIn, nameTextField = _nameTextField;
 @synthesize typeStepper = _typeStepper, typeLabel = _typeLabel, questionArray = _questionArray;
 @synthesize popover = _popover, createdQuestions = _createdQuestions, deletedQuestions = _deletedQuestions;
 @synthesize isEditing = _isEditing;
@@ -112,7 +112,7 @@
 -(IBAction) cancelClicked {
     //Delete all questions created this session
     for (Question* createdQuestion in self.createdQuestions) {
-        [self.administratorToCreateIn.managedObjectContext deleteObject:createdQuestion];
+        [self.courseToCreateIn.managedObjectContext deleteObject:createdQuestion];
     }
     
     //Dismiss View
@@ -136,9 +136,9 @@
 
     //Create questionSet if necessary
     if (!self.questionSetToUpdate) {
-        self.questionSetToUpdate = [NSEntityDescription insertNewObjectForEntityForName:@"QuestionSet" inManagedObjectContext:self.administratorToCreateIn.managedObjectContext];
-        self.questionSetToUpdate.difficultyLevel = [NSNumber numberWithInt:self.administratorToCreateIn.questionSets.count];
-        self.questionSetToUpdate.administrator = self.administratorToCreateIn;
+        self.questionSetToUpdate = [NSEntityDescription insertNewObjectForEntityForName:@"QuestionSet" inManagedObjectContext:self.courseToCreateIn.managedObjectContext];
+        self.questionSetToUpdate.difficultyLevel = [NSNumber numberWithInt:self.courseToCreateIn.questionSets.count];
+        self.questionSetToUpdate.course = self.courseToCreateIn;
     }
     
     //Assign Variables
@@ -318,7 +318,7 @@
     aeQuestion.questionType = [NSNumber numberWithDouble:self.typeStepper.value];
 
     if ([selectedCell.reuseIdentifier isEqualToString:@"addQuestionCell"]) {
-        aeQuestion.contextToCreateIn = self.administratorToCreateIn?self.administratorToCreateIn.managedObjectContext:self.questionSetToUpdate.managedObjectContext;
+        aeQuestion.contextToCreateIn = self.courseToCreateIn?self.courseToCreateIn.managedObjectContext:self.questionSetToUpdate.managedObjectContext;
     }
     else if ([selectedCell.reuseIdentifier isEqualToString:@"questionCell"]) {
         aeQuestion.questionToUpdate = [self.questionArray objectAtIndex:indexPath.row];

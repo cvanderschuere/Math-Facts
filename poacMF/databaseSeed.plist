@@ -38,6 +38,8 @@
 			<string>test</string>
 		</dict>
 	</array>
+	<key>name</key>
+	<string>Example Course</string>
 	<key>Questions Sets</key>
 	<array>
 		<array>

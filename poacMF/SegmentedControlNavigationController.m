@@ -34,9 +34,9 @@
             break;
     }
     
-    //Setup currentAdmin and delegate
-    if ([self.splitViewController respondsToSelector:@selector(currentAdmin)] && [self.viewControllers.lastObject respondsToSelector:@selector(setCurrentAdmin:)]) {
-        [self.viewControllers.lastObject setCurrentAdmin:[self.splitViewController performSelector:@selector(currentAdmin)]];
+    //Setup current course and delegate
+    if ([self.splitViewController respondsToSelector:@selector(currentCourse)] && [self.viewControllers.lastObject respondsToSelector:@selector(setCurrentCourse:)]) {
+        [self.viewControllers.lastObject setCurrentCourse:[self.splitViewController performSelector:@selector(currentCourse)]];
         [self.viewControllers.lastObject setDelegate:self.splitViewController];
     }
     

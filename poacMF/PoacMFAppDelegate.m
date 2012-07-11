@@ -10,6 +10,7 @@
 #import "LoginViewController.h"
 #import "Administrator.h"
 #import "Student.h"
+#import "Course.h"
 #import "AppConstants.h"
 #import "QuestionSet.h"
 #import "Question.h"
@@ -152,25 +153,25 @@
         //Load information for plist
         NSDictionary *seedDict = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"databaseSeed" ofType:@"plist"]];
         
+        //Create Course
+        Course *newCourse = [NSEntityDescription insertNewObjectForEntityForName:@"Course" inManagedObjectContext:document.managedObjectContext];
+        newCourse.name = [seedDict objectForKey:@"name"];
+        
         //Add inital Administrators
         NSArray* seedAdmins = [seedDict objectForKey:@"Administrators"];
-        NSMutableArray *createdAdmins = [NSMutableArray arrayWithCapacity:seedAdmins.count];
-        Administrator * newAdmin = nil;
         if ([Administrator isUserNameUnique:[[seedAdmins lastObject] objectForKey:@"username"] inContext:document.managedObjectContext]) {
-            newAdmin = [NSEntityDescription insertNewObjectForEntityForName:@"Administrator" inManagedObjectContext:document.managedObjectContext];
+            Administrator* newAdmin = [NSEntityDescription insertNewObjectForEntityForName:@"Administrator" inManagedObjectContext:document.managedObjectContext];
             [newAdmin setValuesForKeysWithDictionary:[seedAdmins lastObject]];
-            [createdAdmins addObject:newAdmin];
+            [newCourse addAdministratorsObject:newAdmin];
         }
         
         //Add inital Students
         NSArray* seedStudents = [seedDict objectForKey:@"Students"];
-        NSMutableArray *createdStudents = [NSMutableArray arrayWithCapacity:seedStudents.count];
         for (NSDictionary* user in seedStudents) {
             if ([Student isUserNameUnique:[user objectForKey:@"username"] inContext:document.managedObjectContext]) {
                 Student * newStudent = [NSEntityDescription insertNewObjectForEntityForName:@"Student" inManagedObjectContext:document.managedObjectContext];
                 [newStudent setValuesForKeysWithDictionary:user];
-                newStudent.administrator = newAdmin;
-                [createdStudents addObject:newStudent];
+                [newCourse addStudentsObject:newStudent];
             }
         }
         
@@ -202,7 +203,7 @@
                 }];
                 
                 //Add new question set to all new admins
-                [newAdmin addQuestionSetsObject:qSet];
+                [newCourse addQuestionSetsObject:qSet];
             }];
         }
     }];

@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "Student.h"
-#import "Administrator.h"
+#import "Course.h"
 
 @interface AEUserTableViewController : UITableViewController <UITextFieldDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) Student* studentToUpdate;
-@property (nonatomic, strong) Administrator* createdStudentsAdmin;
+@property (nonatomic, strong) Course* courseToCreateIn;
 @end

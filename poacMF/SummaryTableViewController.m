@@ -18,11 +18,11 @@
 
 @implementation SummaryTableViewController
 @synthesize studentInfoDict = _studentInfoDict;
-@synthesize currentAdmin = _currentAdmin;
+@synthesize currentCourse = _currentCourse;
 
--(void) setCurrentAdmin:(Administrator *)currentAdmin{
-    if (![_currentAdmin isEqual:currentAdmin]) {
-        _currentAdmin = currentAdmin;
+-(void) setCurrentCourse:(Course *)currentCourse{
+    if (![_currentCourse isEqual:currentCourse]) {
+        _currentCourse = currentCourse;
         [self setupFetchedResultsController];
     }
 }
@@ -54,13 +54,13 @@
 #pragma mark - NSFetchedResultsController Methods
 - (void)setupFetchedResultsController
 {
-    //Create fetch for all students with this administrator
+    //Create fetch for all students with this course
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Student"];
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]];
-    request.predicate = [NSPredicate predicateWithFormat:@"administrator.username == %@",self.currentAdmin.username];
+    request.predicate = [NSPredicate predicateWithFormat:@"course.name == %@",self.currentCourse.name];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
-                                                                        managedObjectContext:self.currentAdmin.managedObjectContext
+                                                                        managedObjectContext:self.currentCourse.managedObjectContext
                                                                           sectionNameKeyPath:@"firstNameInital"
                                                                                    cacheName:nil];
 }

@@ -10,11 +10,14 @@
 #import <CoreData/CoreData.h>
 #import "User.h"
 
+@class Course;
 
 @interface Administrator : User
 
+@property (nonatomic, retain) Course *course;
 @property (nonatomic, retain) NSSet *students;
 @property (nonatomic, retain) NSSet *questionSets;
+
 @end
 
 @interface Administrator (CoreDataGeneratedAccessors)

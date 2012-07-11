@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CoreDataTableViewController.h"
-#import "Administrator.h"
+#import "Course.h"
 #import "Student.h"
 
 @protocol SelectTestProtocol <NSObject>

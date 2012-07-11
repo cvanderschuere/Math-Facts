@@ -21,11 +21,11 @@
 
 @implementation UsersTableViewController
 
-@synthesize currentAdmin = _currentAdmin;
+@synthesize currentCourse = _currentCourse;
 
--(void) setCurrentAdmin:(Administrator *)currentAdmin{
-    if (![_currentAdmin isEqual:currentAdmin]) {
-        _currentAdmin = currentAdmin;
+-(void) setCurrentCourse:(Course *)currentCourse{
+    if (![_currentCourse isEqual:currentCourse]) {
+        _currentCourse = currentCourse;
         [self setupFetchedResultsController];
     }
 }
@@ -65,26 +65,26 @@
 }
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"addStudentSegue"]) {
-        [[[segue.destinationViewController viewControllers] lastObject] setCreatedStudentsAdmin:self.currentAdmin];
+        [[[segue.destinationViewController viewControllers] lastObject] setCourseToCreateIn:self.currentCourse];
     }
     else if ([segue.identifier isEqualToString:@"editStudentSegue"]) {
         [[[segue.destinationViewController viewControllers] lastObject] setStudentToUpdate:sender];
     }
     else if ([segue.identifier isEqualToString:@"summarySegueUser"]) {
-        [[[segue.destinationViewController viewControllers] lastObject] setCurrentAdmin:self.currentAdmin];
+        [[[segue.destinationViewController viewControllers] lastObject] setCurrentCourse:self.currentCourse];
     }    
 }
 
 #pragma mark - NSFetchedResultsController Methods
 - (void)setupFetchedResultsController
 {
-    //Fetch all students of currentAdmin
+    //Fetch all students of currentCourse
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Student"];
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]];
-    request.predicate = [NSPredicate predicateWithFormat:@"administrator.username == %@",self.currentAdmin.username];
+    request.predicate = [NSPredicate predicateWithFormat:@"course.name == %@",self.currentCourse.name];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
-                                                                        managedObjectContext:self.currentAdmin.managedObjectContext
+                                                                        managedObjectContext:self.currentCourse.managedObjectContext
                                                                           sectionNameKeyPath:@"firstNameInital"
                                                                                 cacheName:@"studentsCache"];
 }

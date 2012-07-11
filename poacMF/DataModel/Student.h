@@ -10,7 +10,7 @@
 #import <CoreData/CoreData.h>
 #import "User.h"
 
-@class Administrator, Result, Test, QuestionSet;
+@class Course, Result, Test, QuestionSet;
 
 @interface Student : User
 
@@ -21,7 +21,7 @@
 @property (nonatomic, retain) NSNumber * numberOfDistractionQuestions;
 @property (nonatomic, retain) NSNumber * idNumber;
 @property (nonatomic, retain) NSString * notes;
-@property (nonatomic, retain) Administrator *administrator;
+@property (nonatomic, retain) Course *course;
 @property (nonatomic, retain) NSSet *results;
 @property (nonatomic, retain) NSSet *tests;
 

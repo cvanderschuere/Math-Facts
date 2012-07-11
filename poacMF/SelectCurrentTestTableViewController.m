@@ -50,10 +50,10 @@
 #pragma mark - NSFetchedResultsController Methods
  - (void)setupFetchedResultsController
 {
-   //Fetch all question sets of current admin; sort by typeName  
+   //Fetch all question sets of current course; sort by typeName  
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"QuestionSet"];
     request.sortDescriptors = [NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:@"type" ascending:YES selector:@selector(compare:)],[NSSortDescriptor sortDescriptorWithKey:@"difficultyLevel" ascending:YES selector:@selector(compare:)],[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)],nil];
-    request.predicate = [NSPredicate predicateWithFormat:@"administrator.username == %@",self.student.administrator.username];
+    request.predicate = [NSPredicate predicateWithFormat:@"course.name == %@",self.student.course.name];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.student.managedObjectContext

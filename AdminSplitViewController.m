@@ -21,16 +21,16 @@
 
 @implementation AdminSplitViewController
 
-@synthesize currentAdmin = _currentAdmin;
+@synthesize currentCourse = _currentCourse;
 @synthesize masterPopoverController = _masterPopoverController;
 
--(void) setCurrentAdmin:(Administrator *)currentAdmin{
-    if (![_currentAdmin isEqual:currentAdmin]) {
-        _currentAdmin = currentAdmin;
+-(void) setCurrentCourse:(Course *)currentCourse{
+    if (![_currentCourse isEqual:currentCourse]) {
+        _currentCourse = currentCourse;
         //Pass it on to whatever viewcontroller want it
         for (UINavigationController* vc in self.viewControllers) {
-            if ([[[vc viewControllers] lastObject] respondsToSelector:@selector(setCurrentAdmin:)]) {
-                [[[vc viewControllers] lastObject] performSelector:@selector(setCurrentAdmin:) withObject:_currentAdmin];
+            if ([[[vc viewControllers] lastObject] respondsToSelector:@selector(setCurrentCourse:)]) {
+                [[[vc viewControllers] lastObject] performSelector:@selector(setCurrentCourse:) withObject:_currentCourse];
             }
             if ([vc.viewControllers.lastObject respondsToSelector:@selector(setDelegate:)]) {
                 [vc.viewControllers.lastObject performSelector:@selector(setDelegate:) withObject:self];

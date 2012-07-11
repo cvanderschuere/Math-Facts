@@ -10,7 +10,7 @@
 #import "AppConstants.h"
 #import "Test.h"
 #import "QuestionSet.h"
-#import "Administrator.h"
+#import "Course.h"
 #import "AEUserTableViewController.h"
 #import "ResultDetailViewController.h"
 
@@ -216,7 +216,7 @@
     }
     else if ([segue.identifier isEqualToString:@"editStudentSegue"]) {
         //Pass student to update
-        [[[segue.destinationViewController viewControllers] lastObject] setCreatedStudentsAdmin:self.student.administrator];
+        [[[segue.destinationViewController viewControllers] lastObject] setCourseToCreateIn:self.student.course];
         [[[segue.destinationViewController viewControllers] lastObject] setStudentToUpdate:self.student];
 
     }

@@ -9,12 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "AdminSplitViewController.h"
 #import "AdminMasterTableViewController.h"
-#import "Administrator.h"
+#import "Course.h"
 
 
 @interface UsersTableViewController : AdminMasterTableViewController
 
-@property (nonatomic,strong) Administrator *currentAdmin;
+@property (nonatomic,strong) Course *currentCourse;
 
 
 

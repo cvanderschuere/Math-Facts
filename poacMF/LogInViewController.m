@@ -88,7 +88,7 @@
             //Check password
             if ([[users.lastObject password] isEqualToString:self.passwordTextField.text]) {
                 Administrator* admin = [users lastObject];
-                [self performSegueWithIdentifier:@"adminUserSegue" sender:admin];
+                [self performSegueWithIdentifier:@"adminUserSegue" sender:admin.course];
             }
             else {
                 //Incorrect Password
@@ -120,7 +120,7 @@
 #pragma mark - Storyboard Segues
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"adminUserSegue"]) {
-        [segue.destinationViewController setCurrentAdmin:sender];
+        [segue.destinationViewController setCurrentCourse:sender];
     }
     else if ([segue.identifier isEqualToString:@"studentUserSegue"]) {
         SubjectDetailViewController *progressVC = (SubjectDetailViewController *) [[segue.destinationViewController viewControllers] lastObject];

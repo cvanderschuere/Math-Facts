@@ -9,12 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "Test.h"
 #import "Result.h"
-#import "Administrator.h"
+#import "Course.h"
 #import "CoreDataTableViewController.h"
 
 @interface SummaryTableViewController : CoreDataTableViewController
 
-@property (nonatomic, strong) Administrator *currentAdmin;
+@property (nonatomic, strong) Course *currentCourse;
 - (IBAction)done:(id)sender;
 
 @end
