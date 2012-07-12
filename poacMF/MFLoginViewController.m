@@ -56,12 +56,12 @@
 @synthesize selectedDocument = _selectedDocument;
 
 #pragma mark - Use Document
--(void) setSelectedDocument:(UIManagedDocument *)selectedDocument{
+-(void) setSelectedDocument:(UIManagedDocument *)selectedDocument{    
+    
     if (![_selectedDocument isEqual:selectedDocument]) {
         [self.documentStateActivityIndicator startAnimating];
-        self.loginButton.enabled = NO;
         
-        if (_selectedDocument) {
+        if (_selectedDocument && _selectedDocument.documentState == UIDocumentStateNormal) {
             //Close current document first
             [_selectedDocument closeWithCompletionHandler:^(BOOL success){
                 //Transition to new document
@@ -71,19 +71,20 @@
                     if (_selectedDocument.documentState == UIDocumentStateClosed) {
                         [_selectedDocument openWithCompletionHandler:^(BOOL success){
                             [self.documentStateActivityIndicator stopAnimating];
-                            if (success) {
-                                self.loginButton.enabled = YES;
-                            }
+                            self.loginButton.enabled = success;
+
                         }];
                     }
                     else {
                         NSLog(@"\n\n\nDocument Error\n\n\n");
                         [self.documentStateActivityIndicator stopAnimating];
+                        self.loginButton.enabled = NO;
                     }
                 }
                 else {
                     NSLog(@"Document State Normal");
                     [self.documentStateActivityIndicator stopAnimating];
+                    self.loginButton.enabled = YES;
                 }
 
             }];
@@ -95,19 +96,20 @@
                 if (_selectedDocument.documentState == UIDocumentStateClosed) {
                     [_selectedDocument openWithCompletionHandler:^(BOOL success){
                         [self.documentStateActivityIndicator stopAnimating];
-                        if (success) {
-                            self.loginButton.enabled = YES;
-                        }
+                        self.loginButton.enabled = success;
                     }];
                 }
                 else {
                     NSLog(@"\n\n\nDocument Error\n\n\n");
                     [self.documentStateActivityIndicator stopAnimating];
+                    self.loginButton.enabled = NO;
                 }
             }
             else {
                 NSLog(@"Document State Normal");
                 [self.documentStateActivityIndicator stopAnimating];
+                self.loginButton.enabled = YES;
+
             }
         }
     }
@@ -349,7 +351,12 @@
 
 -(IBAction) loginTapped {
 	AppLibrary *al = [[AppLibrary alloc] init];
-
+    
+    //Check if document is being loaded
+    if(self.documentStateActivityIndicator.isAnimating){
+        [al showAlertFromDelegate:self withWarning:@"Course is loading..."];
+        return;
+    }
     //Check for valid document
     if (!self.selectedDocument) {
         [al showAlertFromDelegate:self withWarning:@"Please select a course"];
@@ -508,6 +515,21 @@
 
 #pragma mark - Document Select Delegate
 -(void) didSelectDocumentWithURL:(NSURL *)url{
+    if (!url) {
+        //Clear selection
+        [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"selectedDocumentURL"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        self.selectedDocument = nil;
+        
+        self.selectCourseBarButton.title = @"Select Document";
+        
+        //Dismiss
+        [self.coursePopover dismissPopoverAnimated:YES];
+        return;
+    }
+    
+    
     //UpdateSettings
     [[NSUserDefaults standardUserDefaults] setObject:[url absoluteString] forKey:@"selectedDocumentURL"];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -524,6 +546,13 @@
     
     //Dismiss
     [self.coursePopover dismissPopoverAnimated:YES];
+}
+-(void) didDeleteDocumentWithURL:(NSURL*) deletedURL{
+    if ([deletedURL isEqual:self.selectedDocument.fileURL]) {
+        [self didSelectDocumentWithURL:nil];
+    }
+    
+    [self removeCloudURL:deletedURL];    
 }
 
 #pragma mark - Dealloc

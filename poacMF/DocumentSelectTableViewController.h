@@ -12,6 +12,7 @@
 @protocol DocumentSelectProtocol <NSObject>
 
 -(void) didSelectDocumentWithURL:(NSURL*) url;
+-(void) didDeleteDocumentWithURL:(NSURL*) deletedURL;
 
 @end
 
@@ -23,5 +24,6 @@
 @property (nonatomic, strong) UIManagedDocument *selectedDocument;
 @property (nonatomic, weak) id<DocumentSelectProtocol> delegate;
 
+- (IBAction)toggleEditMode:(id)sender;
 
 @end

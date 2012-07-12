@@ -38,6 +38,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Courses" id="dFL-i0-0WA">
+                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="SRO-zZ-gHL">
+                            <connections>
+                                <action selector="toggleEditMode:" destination="daL-EW-r5K" id="MbF-ep-rvu"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="xQZ-4o-3qm">
                             <connections>
                                 <segue destination="AJg-9M-l3X" kind="push" identifier="createCourseSegue" id="UXC-lt-1B6"/>
@@ -48,7 +53,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="-3913" y="-1064"/>
+            <point key="canvasLocation" x="-4126" y="-1104"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="1NK-KG-zMm">
@@ -2759,6 +2764,9 @@
         </class>
         <class className="DocumentSelectTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/DocumentSelectTableViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="toggleEditMode:"/>
+            </relationships>
         </class>
         <class className="MFLoginViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MFLoginViewController.h"/>

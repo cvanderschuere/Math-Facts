@@ -9,6 +9,8 @@
 #import "AECourseTableViewController.h"
 #import "DocumentSelectTableViewController.h"
 #import "Course.h"
+#import "QuestionSet.h"
+#import "Question.h"
 #import "Administrator.h"
 #import "AppLibrary.h"
 
@@ -104,15 +106,25 @@
     if (self.admin1Password.text.length == 0) {
         return [lib showAlertFromDelegate:self withWarning:@"Must enter administrator"];
     }
+    
+    UIAlertView* exampleQuestionsAlert = [[UIAlertView alloc] initWithTitle:@"Example Questions" message:@"Would you like to import default questions into this course"  delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    [exampleQuestionsAlert show];
      
+}
+-(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if ([alertView.title isEqualToString:@"Example Questions"]) {
+        [self createCourseWithExampleQuestions:buttonIndex != 0];
+    }
     
     
+}
+-(void) createCourseWithExampleQuestions:(BOOL)useExampleQuestions{
     NSURL *url = [self.icloudSwitch.on?[self iCloudDocumentsURL]:[self localDocumentsDirectoryURL] URLByAppendingPathComponent:self.nameTextField.text];
     url = [url URLByAppendingPathExtension:@"mfCourse"];
-
+    
     NSLog(@"URL: %@",url);
     UIManagedDocument *newDocument = [[UIManagedDocument alloc] initWithFileURL:url];
-        
+    
     if (![[NSFileManager defaultManager] fileExistsAtPath:[newDocument.fileURL path]]) {
         [self.delegate didStartCreatingCourseWithURL:newDocument.fileURL inICloud:self.icloudSwitch.on];
         
@@ -131,7 +143,10 @@
                     
                     [newCourse addAdministratorsObject:newAdmin];
                     
-                    [newDocument saveToURL:newDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:^(BOOL success){
+                    if (useExampleQuestions)
+                        [self addDefaultQuestionSetsToCourse:newCourse];
+                    
+                    [newDocument closeWithCompletionHandler:^(BOOL success){
                         [self.delegate didFinishCreatingCourseWithURL:newDocument.fileURL inICloud:self.icloudSwitch.on];
                     }];
                 }];
@@ -146,5 +161,42 @@
         UIAlertView *duplicateAlert = [[UIAlertView alloc] initWithTitle:@"Duplicate" message:@"Course with this name already exists." delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles: nil];
         [duplicateAlert show];
     }
+
+}
+-(void) addDefaultQuestionSetsToCourse:(Course*)course{
+    //Load information for plist
+    NSDictionary *seedDict = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"databaseSeed" ofType:@"plist"]];
+    //Add inital question set to new admins
+    NSArray* seedQuestionSets = [seedDict objectForKey:@"Questions Sets"];
+    
+    //Step through each type
+    for (NSArray* setTypeArray in seedQuestionSets) {
+        NSNumber* setType = [setTypeArray objectAtIndex:0];
+        
+        //Step through each set
+        [[setTypeArray objectAtIndex:1] enumerateObjectsUsingBlock:^(NSDictionary *questionSet,NSUInteger idx, BOOL *stop){
+            //Create QuestionSet
+            QuestionSet *qSet = [NSEntityDescription insertNewObjectForEntityForName:@"QuestionSet" inManagedObjectContext:course.managedObjectContext];
+            qSet.name = [NSString stringWithFormat:@"Set %d",idx+1];
+            qSet.type = setType;
+            qSet.difficultyLevel = [NSNumber numberWithInt:idx];
+            
+            //Set through each question
+            [[questionSet objectForKey:@"questions"] enumerateObjectsUsingBlock:^(NSArray* question, NSUInteger idx, BOOL *stop){
+                Question* newQuestion = [NSEntityDescription insertNewObjectForEntityForName:@"Question" inManagedObjectContext:course.managedObjectContext];
+                
+                // -1 signifies the blank in the question
+                newQuestion.x = [[question objectAtIndex:0] intValue]>=0?[question objectAtIndex:0]:nil;
+                newQuestion.y = [[question objectAtIndex:1] intValue]>=0?[question objectAtIndex:1]:nil;
+                newQuestion.z = [[question objectAtIndex:2] intValue]>=0?[question objectAtIndex:2]:nil;
+                newQuestion.questionOrder = [NSNumber numberWithInt:idx];
+                [qSet addQuestionsObject:newQuestion];
+            }];
+            
+            //Add new question set to all new admins
+            [course addQuestionSetsObject:qSet];
+        }];
+    }
+
 }
 @end

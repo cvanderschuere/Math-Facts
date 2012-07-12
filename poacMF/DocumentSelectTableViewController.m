@@ -95,19 +95,24 @@
 }
 */
 
-/*
+
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
+        //Get deleted URL
+        NSURL *deletedURL = [indexPath.section == 0?self.icloudDocuments:self.localDocuments objectAtIndex:indexPath.row];
+        [self.delegate didDeleteDocumentWithURL:deletedURL];
+        
+        //Delete url
+        [indexPath.section == 0?self.icloudDocuments:self.localDocuments removeObject:deletedURL];
+        
+        // Delete the row from the tableView
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+        
+    } 
 }
-*/
+
 
 /*
 // Override to support rearranging the table view.
@@ -124,7 +129,9 @@
     return YES;
 }
 */
-
+- (IBAction)toggleEditMode:(id)sender {
+    self.tableView.editing = !self.tableView.editing;
+}
 #pragma mark - Segue
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"createCourseSegue"]) {
@@ -164,5 +171,4 @@
 
     [self.delegate didSelectDocumentWithURL:[indexPath.section == 0?self.icloudDocuments:self.localDocuments objectAtIndex:indexPath.row]];
 }
-
 @end
