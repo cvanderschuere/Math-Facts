@@ -66,7 +66,7 @@
         [[[segue.destinationViewController viewControllers] lastObject] setQuestionSetToUpdate:sender];
     }
     else if ([segue.identifier isEqualToString:@"summarySegueSet"]) {
-        [[[segue.destinationViewController viewControllers] lastObject] setCourse:self.currentCourse];
+        [[[segue.destinationViewController viewControllers] lastObject] setCurrentCourse:self.currentCourse];
     }
 }
 

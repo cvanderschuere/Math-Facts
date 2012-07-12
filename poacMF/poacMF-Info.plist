@@ -6,6 +6,25 @@
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
 	<string>poacMath</string>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>mfCourse</string>
+			</array>
+			<key>CFBundleTypeIconFiles</key>
+			<array>
+				<string>icon</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>mfCourse</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>com.poac.mathfacts.mfCourse</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleExecutable</key>
 	<string>poacMF</string>
 	<key>CFBundleGetInfoString</key>
@@ -42,6 +61,30 @@
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>com.apple.package</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Math Facts Course</string>
+			<key>UTTypeIdentifier</key>
+			<string>com.poac.mathfacts.mfCourse</string>
+			<key>UTTypeSize320IconFile</key>
+			<string>icon</string>
+			<key>UTTypeSize64IconFile</key>
+			<string>icon</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>mfCourse</string>
+				</array>
+			</dict>
+		</dict>
 	</array>
 </dict>
 </plist>

@@ -57,26 +57,63 @@
 
 #pragma mark - Use Document
 -(void) setSelectedDocument:(UIManagedDocument *)selectedDocument{
-    [self.documentStateActivityIndicator startAnimating];
-    self.loginButton.enabled = NO;
-    
-    if (_selectedDocument) {
-        //Close current document first
-        [_selectedDocument closeWithCompletionHandler:NULL];
-    }
-    
-    _selectedDocument = selectedDocument;
-    //Open new document
-    if (_selectedDocument.documentState != UIDocumentStateNormal) {
-        if (_selectedDocument.documentState == UIDocumentStateClosed) {
-            [_selectedDocument openWithCompletionHandler:^(BOOL success){
-                [self.documentStateActivityIndicator stopAnimating];
-                if (success) {
-                    self.loginButton.enabled = YES;
+    if (![_selectedDocument isEqual:selectedDocument]) {
+        [self.documentStateActivityIndicator startAnimating];
+        self.loginButton.enabled = NO;
+        
+        if (_selectedDocument) {
+            //Close current document first
+            [_selectedDocument closeWithCompletionHandler:^(BOOL success){
+                //Transition to new document
+                _selectedDocument = selectedDocument;
+                //Open new document
+                if (_selectedDocument.documentState != UIDocumentStateNormal) {
+                    if (_selectedDocument.documentState == UIDocumentStateClosed) {
+                        [_selectedDocument openWithCompletionHandler:^(BOOL success){
+                            [self.documentStateActivityIndicator stopAnimating];
+                            if (success) {
+                                self.loginButton.enabled = YES;
+                            }
+                        }];
+                    }
+                    else {
+                        NSLog(@"\n\n\nDocument Error\n\n\n");
+                        [self.documentStateActivityIndicator stopAnimating];
+                    }
                 }
+                else {
+                    NSLog(@"Document State Normal");
+                    [self.documentStateActivityIndicator stopAnimating];
+                }
+
             }];
         }
         else {
+            _selectedDocument = selectedDocument;
+            //Open new document
+            if (_selectedDocument.documentState != UIDocumentStateNormal) {
+                if (_selectedDocument.documentState == UIDocumentStateClosed) {
+                    [_selectedDocument openWithCompletionHandler:^(BOOL success){
+                        [self.documentStateActivityIndicator stopAnimating];
+                        if (success) {
+                            self.loginButton.enabled = YES;
+                        }
+                    }];
+                }
+                else {
+                    NSLog(@"\n\n\nDocument Error\n\n\n");
+                    [self.documentStateActivityIndicator stopAnimating];
+                }
+            }
+            else {
+                NSLog(@"Document State Normal");
+                [self.documentStateActivityIndicator stopAnimating];
+            }
+        }
+    }
+    else {
+        //Using same docuent...double check that it's open
+        if (_selectedDocument.documentState != UIDocumentStateNormal) {
             NSLog(@"\n\n\nDocument Error\n\n\n");
         }
     }
@@ -202,46 +239,16 @@
         url = [self filePackageURLForCloudURL:url];
         if (url && ![documents containsObject:url]) [documents addObject:url];  // in case a file package contains multiple files, don't add twice
     }
+    
     self.iCloudDocuments = documents;
-    [self.iCloudQuery enableUpdates];
-}
-
-#pragma mark - View Controller Lifecycle
-
-// 9. Start up the iCloudQuery in viewWillAppear: if not already started
-// 12. Turn iCloudQuery updates on and off as we appear/disappear from the screen
-
-// 38. Since changes that WE make to the ubiquitous key-value store don't generate an NSNotification,
-//      we are responsible for updating our UI when we change it.
-//     We'll be cheap here and just reload ourselves each time we appear!
-//     Probably would be a lot better to have our own internal NSNotification or some such.
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
     
-    //Load iCloud documents
-    if (![self.iCloudQuery isStarted]) [self.iCloudQuery startQuery];
-    [self.iCloudQuery enableUpdates];
-    
-    //Load Local documents
-    [self loadLocalDocuments];
-    
-    //Set selected document from iCloud key value
+    //Check if selected document is available
     NSURL* selectedURL = [NSURL URLWithString:[[NSUserDefaults standardUserDefaults] objectForKey:@"selectedDocumentURL"]];
-    if (selectedURL && ([self.iCloudDocuments containsObject:selectedURL] || [self.localDocuments containsObject:selectedURL])) {
+    if (selectedURL && ([self.iCloudDocuments containsObject:selectedURL])) {
         [self didSelectDocumentWithURL:selectedURL];
     }
     
-    //Autofill for testing
-    self.userNameTextField.text = @"admin";
-	self.passwordTextField.text = @"poacmf";
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [self.iCloudQuery disableUpdates];
-    [super viewWillDisappear:animated];
+    [self.iCloudQuery enableUpdates];
 }
 
 #pragma mark - Misc
@@ -435,7 +442,42 @@
     appDelegate.documentToSave = (SPManagedDocument*) self.selectedDocument;
 }
 
-#pragma mark - View lifecycle
+#pragma mark - View Controller Lifecycle
+
+// 9. Start up the iCloudQuery in viewWillAppear: if not already started
+// 12. Turn iCloudQuery updates on and off as we appear/disappear from the screen
+
+// 38. Since changes that WE make to the ubiquitous key-value store don't generate an NSNotification,
+//      we are responsible for updating our UI when we change it.
+//     We'll be cheap here and just reload ourselves each time we appear!
+//     Probably would be a lot better to have our own internal NSNotification or some such.
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    //Load iCloud documents
+    if (![self.iCloudQuery isStarted]) [self.iCloudQuery startQuery];
+    [self.iCloudQuery enableUpdates];
+    
+    //Set selected document from iCloud key value
+    NSURL* selectedURL = [NSURL URLWithString:[[NSUserDefaults standardUserDefaults] objectForKey:@"selectedDocumentURL"]];
+    NSLog(@"Selected: %@ \n iCloud: %@\n Local: %@",selectedURL.absoluteString,self.iCloudDocuments,self.localDocuments);
+    if (selectedURL && ([self.iCloudDocuments containsObject:selectedURL] || [self.localDocuments containsObject:selectedURL])) {
+        [self didSelectDocumentWithURL:selectedURL];
+    }
+    
+    //Autofill for testing
+    self.userNameTextField.text = @"admin";
+	self.passwordTextField.text = @"poacmf";
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self.iCloudQuery disableUpdates];
+    [super viewWillDisappear:animated];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
         
@@ -445,6 +487,16 @@
 	NSString *version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
 	NSString *build = [infoDictionary objectForKey:@"CFBundleVersion"];
 	self.buildString.text = [NSString stringWithFormat:@"%@ v%@ (build %@)",name,version,build];
+    
+    //Load Local documents
+    [self loadLocalDocuments];
+
+    //Load selected document from app delegate
+    PoacMFAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    if (appDelegate.documentToSave) {
+         _selectedDocument = (UIManagedDocument*) appDelegate.documentToSave;
+    }
+   
     
 }//end method
 
@@ -456,15 +508,15 @@
 
 #pragma mark - Document Select Delegate
 -(void) didSelectDocumentWithURL:(NSURL *)url{
+    //UpdateSettings
+    [[NSUserDefaults standardUserDefaults] setObject:[url absoluteString] forKey:@"selectedDocumentURL"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
     //Create document with this file url
     UIManagedDocument *selectDoc = [[UIManagedDocument alloc] initWithFileURL:url];
     [self setPersistentStoreOptionsInDocument:selectDoc];
     self.selectedDocument = selectDoc; //Opens
-        
-    //Update Settings
-    [[NSUserDefaults standardUserDefaults] setObject:[url absoluteString] forKey:@"selectedDocumentURL"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
+            
     NSLog(@"FileType: %@",self.selectedDocument.fileType);
     
     //Update UI

@@ -532,6 +532,9 @@
 -(void) didSelectQuestionSet:(QuestionSet*)selectedQuestionSet{
     [self.student selectQuestionSet:selectedQuestionSet];
     [self.popover dismissPopoverAnimated:YES];
+    
+    //Save
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SaveDatabase" object:nil];
 }
 
 @end

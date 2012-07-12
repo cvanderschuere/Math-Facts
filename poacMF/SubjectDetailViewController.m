@@ -16,6 +16,7 @@
 @property (nonatomic, strong) UIActionSheet* logoutSheet;
 @property (nonatomic, strong) UIPopoverController *resultsPopover;
 
+@property (nonatomic, strong) Test* currentTest;
 @end
 
 @implementation SubjectDetailViewController
@@ -25,15 +26,27 @@
 
 -(void) setCurrentStudent:(Student *)currentStudent{
     if (![currentStudent isEqual:_currentStudent]) {
+        //Remove old observer
+        [[NSNotificationCenter defaultCenter] removeObserver:self  // remove observing of old document (if any)
+                                                        name:NSPersistentStoreDidImportUbiquitousContentChangesNotification
+                                                      object:_currentStudent.managedObjectContext.persistentStoreCoordinator];
+
+            
         _currentStudent = currentStudent;
         
+        //Register for iCloud updates
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(documentContentsChanged:)
+                                                     name:NSPersistentStoreDidImportUbiquitousContentChangesNotification
+                                                   object:_currentStudent.managedObjectContext.persistentStoreCoordinator];
+        
         //Find current test
-        Test* currentTest = [[currentStudent.tests filteredSetUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(Test* evaluatedObject,NSDictionary* bindings){
+        self.currentTest = [[currentStudent.tests filteredSetUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(Test* evaluatedObject,NSDictionary* bindings){
             return evaluatedObject.isCurrentTest.boolValue;
         }]] anyObject];
         
-        if (currentTest)
-            [self updateDataForType:currentTest.questionSet];
+        if (self.currentTest)
+            [self updateDataForType:self.currentTest.questionSet];
         else {
             self.title = @"No assigned timings";
         }
@@ -161,8 +174,8 @@
     self.logoutSheet.delegate = self;
     [self.logoutSheet showFromBarButtonItem:sender animated:YES];
     
-    //Save on logout
- 
+    //Save
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SaveDatabase" object:nil]; 
 }//end method
 
 #pragma mark - GridView Data Source
@@ -381,4 +394,34 @@
     }
     
 }
+#pragma mark - iCloud
+- (void)documentContentsChanged:(NSNotification *)notification
+{
+    [self.currentStudent.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
+    
+    //Update UI
+    //Find current test
+    Test* currentTest = [[self.currentStudent.tests filteredSetUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(Test* evaluatedObject,NSDictionary* bindings){
+        return evaluatedObject.isCurrentTest.boolValue;
+    }]] anyObject];
+    
+    if (![currentTest isEqual:self.currentTest]) {
+        //Current test has changed
+        self.currentTest = currentTest;
+        
+        //Update UI=]
+        if (self.currentTest)
+            [self updateDataForType:self.currentTest.questionSet];
+        else {
+            self.title = @"No assigned timings";
+        }
+    }
+    
+}
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
 @end

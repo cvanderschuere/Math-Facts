@@ -21,8 +21,46 @@
 @synthesize documentToSave = _documentToSave;
 @synthesize currentUser = _currentUser;
 
-//end method
+-(void) setDocumentToSave:(SPManagedDocument *)documentToSave{
+    if (![_documentToSave isEqual:documentToSave]) {
+        //Remove old observer
+        [[NSNotificationCenter defaultCenter] removeObserver:self  // remove observing of old document (if any)
+                                                        name:UIDocumentStateChangedNotification
+                                                      object:_documentToSave];
 
+        //Switch to new document
+        _documentToSave = documentToSave;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(documentStateChanged:)
+                                                     name:UIDocumentStateChangedNotification
+                                                   object:_documentToSave];
+    }
+}
+- (void)documentStateChanged:(NSNotification *)notification
+{
+    if (self.documentToSave.documentState & UIDocumentStateInConflict) {
+        // look at the changes in notification's userInfo and resolve conflicts
+        //   or just take the latest version (by doing nothing)
+        // in any case (even if you do nothing and take latest version),
+        //   mark all old versions resolved ...
+        NSArray *conflictingVersions = [NSFileVersion unresolvedConflictVersionsOfItemAtURL:self.documentToSave.fileURL];
+        for (NSFileVersion *version in conflictingVersions) {
+            version.resolved = YES;
+        }
+        // ... and remove the old version files in a separate thread
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSFileCoordinator *coordinator = [[NSFileCoordinator alloc] initWithFilePresenter:nil];
+            NSError *error;
+            [coordinator coordinateWritingItemAtURL:self.documentToSave.fileURL options:NSFileCoordinatorWritingForDeleting error:&error byAccessor:^(NSURL *newURL) {
+                [NSFileVersion removeOtherVersionsOfItemAtURL:self.documentToSave.fileURL error:NULL];
+            }];
+            if (error) NSLog(@"[%@ %@] %@ (%@)", NSStringFromClass([self class]), NSStringFromSelector(_cmd), error.localizedDescription, error.localizedFailureReason);
+        });
+    } else if (self.documentToSave.documentState & UIDocumentStateSavingError) {
+        // try again?
+    }
+}
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -33,31 +71,7 @@
     
 
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"hasCreatedDefaultCourse"]) {
-        application.networkActivityIndicatorVisible = YES;
-        //Create localDocument
-        NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-        url = [url URLByAppendingPathComponent:@"Default Course"];
-        //url = [url URLByAppendingPathExtension:@"mfc"];
-        SPManagedDocument *defaultDocument = [[SPManagedDocument alloc] initWithFileURL:url];
-        
-        [defaultDocument saveToURL:defaultDocument.fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success){
-            if (success) {
-                //Add inital data
-                [defaultDocument openWithCompletionHandler:^(BOOL success){
-                    if (success) {
-                        [self addInitalData:defaultDocument];
-                        [defaultDocument closeWithCompletionHandler:^(BOOL success){
-                            if (success) {
-                                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasCreatedDefaultCourse"];
-                                [[NSUserDefaults standardUserDefaults] synchronize];
-                                
-                                application.networkActivityIndicatorVisible = NO;
-                            }
-                        }];
-                    }
-                }];
-            } 
-        }];
+        [self createDefaultCourseWithApplication:application];
     }
     
     //Test iCloud
@@ -71,7 +85,43 @@
     }
 
 	return YES;
+    
+    //Register for iCloud updates
+    [[NSNotificationCenter defaultCenter]addObserver:self
+                                            selector:@selector(iCloudDidUpdateDocument:)
+                                                name:NSPersistentStoreDidImportUbiquitousContentChangesNotification
+                                              object:nil];
+    
 }//end method
+-(void) createDefaultCourseWithApplication:(UIApplication*)application{
+    application.networkActivityIndicatorVisible = YES;
+    //Create localDocument
+    NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    url = [url URLByAppendingPathComponent:@"Default Course"];
+    url = [url URLByAppendingPathExtension:@"mfCourse"];
+    SPManagedDocument *defaultDocument = [[SPManagedDocument alloc] initWithFileURL:url];
+    
+    [defaultDocument saveToURL:defaultDocument.fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success){
+        if (success) {
+            //Add inital data
+            [defaultDocument openWithCompletionHandler:^(BOOL success){
+                if (success) {
+                    [self addInitalData:defaultDocument];
+                    [defaultDocument saveToURL:defaultDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:^(BOOL success){
+                        if (success) {
+                            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasCreatedDefaultCourse"];
+                            [[NSUserDefaults standardUserDefaults] synchronize];
+                            
+                            application.networkActivityIndicatorVisible = NO;
+                        }
+                    }];
+                }
+            }];
+        } 
+    }];
+
+}
+#pragma mark - iCloud
 
 - (void)applicationWillResignActive:(UIApplication *)application {
 	/*

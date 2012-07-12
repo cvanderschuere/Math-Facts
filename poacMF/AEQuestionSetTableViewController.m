@@ -156,6 +156,9 @@
     
     NSLog(@"Updated Question Set: %@", self.questionSetToUpdate);
     
+    //Save
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SaveDatabase" object:nil];    
+    
 	[self dismissModalViewControllerAnimated:YES];
 }//end method
 -(void) didCreateQuestion:(Question*)newQuestion{

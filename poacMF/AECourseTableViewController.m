@@ -10,6 +10,7 @@
 #import "DocumentSelectTableViewController.h"
 #import "Course.h"
 #import "Administrator.h"
+#import "AppLibrary.h"
 
 @interface AECourseTableViewController ()
 
@@ -92,11 +93,27 @@
 
 #pragma mark - IBActions
 - (IBAction)courseSaved:(id)sender {
+    //Check validity of information
+    AppLibrary *lib = [[AppLibrary alloc] init];
+    if (self.nameTextField.text.length == 0) {
+        return [lib showAlertFromDelegate:self withWarning:@"Must enter name"];
+    }   
+    if (self.admin1Username.text.length == 0) {
+        return [lib showAlertFromDelegate:self withWarning:@"Must enter administrator"];
+    }
+    if (self.admin1Password.text.length == 0) {
+        return [lib showAlertFromDelegate:self withWarning:@"Must enter administrator"];
+    }
+     
+    
+    
     NSURL *url = [self.icloudSwitch.on?[self iCloudDocumentsURL]:[self localDocumentsDirectoryURL] URLByAppendingPathComponent:self.nameTextField.text];
+    url = [url URLByAppendingPathExtension:@"mfCourse"];
+
     NSLog(@"URL: %@",url);
     UIManagedDocument *newDocument = [[UIManagedDocument alloc] initWithFileURL:url];
         
-    if (![[NSFileManager defaultManager] fileExistsAtPath:[newDocument.fileURL path]] || self.admin1Username.text.length == 0 || self.admin1Password.text.length == 0 || self.nameTextField.text.length == 0) {
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[newDocument.fileURL path]]) {
         [self.delegate didStartCreatingCourseWithURL:newDocument.fileURL inICloud:self.icloudSwitch.on];
         
         // does not exist on disk, so create it
@@ -123,7 +140,6 @@
         
         //Dismiss
         [self.presentingViewController dismissModalViewControllerAnimated:YES];
-
     }
     else {
         //Error: File already exists

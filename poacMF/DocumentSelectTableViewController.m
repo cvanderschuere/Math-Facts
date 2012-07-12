@@ -135,12 +135,14 @@
 -(void) didStartCreatingCourseWithURL:(NSURL *)newCourseURL inICloud:(BOOL)inICloud{
     //Update Data  
     [inICloud?self.icloudDocuments:self.localDocuments addObject:newCourseURL];
-    [self.tableView reloadData];
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[inICloud?self.icloudDocuments:self.localDocuments indexOfObject:newCourseURL] inSection:inICloud?0:1];
+    [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewScrollPositionBottom];
     
     [self.navigationController popToViewController:self animated:YES];
     
     //Animate loading
-    UITableViewCell *newCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[inICloud?self.icloudDocuments:self.localDocuments indexOfObject:newCourseURL] inSection:inICloud?0:1]];
+    UITableViewCell *newCell = [self.tableView cellForRowAtIndexPath:indexPath];
     UIActivityIndicatorView *spinner = (UIActivityIndicatorView*) [newCell viewWithTag:10];
     [spinner startAnimating];
     

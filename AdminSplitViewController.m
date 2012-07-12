@@ -26,7 +26,20 @@
 
 -(void) setCurrentCourse:(Course *)currentCourse{
     if (![_currentCourse isEqual:currentCourse]) {
+        //Remove old observer
+        [[NSNotificationCenter defaultCenter] removeObserver:self  // remove observing of old document (if any)
+                                                        name:NSPersistentStoreDidImportUbiquitousContentChangesNotification
+                                                      object:_currentCourse.managedObjectContext.persistentStoreCoordinator];
+
+        
         _currentCourse = currentCourse;
+        
+        //Register for iCloud
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(documentContentsChanged:)
+                                                     name:NSPersistentStoreDidImportUbiquitousContentChangesNotification
+                                                   object:_currentCourse.managedObjectContext.persistentStoreCoordinator];
+        
         //Pass it on to whatever viewcontroller want it
         for (UINavigationController* vc in self.viewControllers) {
             if ([[[vc viewControllers] lastObject] respondsToSelector:@selector(setCurrentCourse:)]) {
@@ -157,5 +170,17 @@
 {
     return YES;
 }
+#pragma mark - iCloud
+- (void)documentContentsChanged:(NSNotification *)notification
+{
+    [self.currentCourse.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
+}
+
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 
 @end

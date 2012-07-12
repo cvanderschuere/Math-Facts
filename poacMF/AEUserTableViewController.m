@@ -205,6 +205,7 @@
         self.studentToUpdate.defaultPassCriteria = [NSNumber numberWithDouble:self.passCriteriaStepper.value];
         self.studentToUpdate.defaultMaximumIncorrect = [NSNumber numberWithDouble:self.maximumIncorrectStepper.value];
         
+        //Save
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SaveDatabase" object:nil];
     }
     
