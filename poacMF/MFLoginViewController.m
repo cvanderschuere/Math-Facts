@@ -64,59 +64,41 @@
         if (_selectedDocument && _selectedDocument.documentState == UIDocumentStateNormal) {
             //Close current document first
             [_selectedDocument closeWithCompletionHandler:^(BOOL success){
-                //Transition to new document
-                _selectedDocument = selectedDocument;
-                //Open new document
-                if (_selectedDocument.documentState != UIDocumentStateNormal) {
-                    if (_selectedDocument.documentState == UIDocumentStateClosed) {
-                        [_selectedDocument openWithCompletionHandler:^(BOOL success){
-                            [self.documentStateActivityIndicator stopAnimating];
-                            self.loginButton.enabled = success;
-
-                        }];
-                    }
-                    else {
-                        NSLog(@"\n\n\nDocument Error\n\n\n");
-                        [self.documentStateActivityIndicator stopAnimating];
-                        self.loginButton.enabled = NO;
-                    }
-                }
-                else {
-                    NSLog(@"Document State Normal");
-                    [self.documentStateActivityIndicator stopAnimating];
-                    self.loginButton.enabled = YES;
-                }
-
+                NSLog(@"Closing Course %@ %@",[_selectedDocument.fileURL.lastPathComponent stringByDeletingPathExtension],success?@"Success":@"Unsuccessful");
             }];
         }
-        else {
-            _selectedDocument = selectedDocument;
-            //Open new document
-            if (_selectedDocument.documentState != UIDocumentStateNormal) {
-                if (_selectedDocument.documentState == UIDocumentStateClosed) {
-                    [_selectedDocument openWithCompletionHandler:^(BOOL success){
-                        [self.documentStateActivityIndicator stopAnimating];
-                        self.loginButton.enabled = success;
-                    }];
-                }
-                else {
-                    NSLog(@"\n\n\nDocument Error\n\n\n");
+        
+        //Open new document
+        _selectedDocument = selectedDocument;
+
+        if (_selectedDocument.documentState != UIDocumentStateNormal) {
+            if (_selectedDocument.documentState == UIDocumentStateClosed) {
+                [_selectedDocument openWithCompletionHandler:^(BOOL success){
+                    NSLog(@"Openning Course %@ %@",[_selectedDocument.fileURL.lastPathComponent stringByDeletingPathExtension],success?@"Success":@"Unsuccessful");
                     [self.documentStateActivityIndicator stopAnimating];
-                    self.loginButton.enabled = NO;
-                }
+                    self.loginButton.enabled = success;
+                }];
             }
             else {
-                NSLog(@"Document State Normal");
+                NSLog(@"\n\n\nDocument Error\n\n\n");
                 [self.documentStateActivityIndicator stopAnimating];
-                self.loginButton.enabled = YES;
-
+                self.loginButton.enabled = NO;
             }
+        }
+        else {
+            NSLog(@"Document State Normal");
+            [self.documentStateActivityIndicator stopAnimating];
+            self.loginButton.enabled = YES;
+
         }
     }
     else {
         //Using same docuent...double check that it's open
         if (_selectedDocument.documentState != UIDocumentStateNormal) {
             NSLog(@"\n\n\nDocument Error\n\n\n");
+        }
+        else {
+            NSLog(@"Using current selected document");
         }
     }
 }
@@ -357,12 +339,17 @@
         [al showAlertFromDelegate:self withWarning:@"Course is loading..."];
         return;
     }
-    //Check for valid document
+        //Check for valid document
     if (!self.selectedDocument) {
         [al showAlertFromDelegate:self withWarning:@"Please select a course"];
         return;
     }
-    
+    //Check if document is being loaded
+    if(self.selectedDocument.documentState != UIDocumentStateNormal){
+        [al showAlertFromDelegate:self withWarning:@"Error with course document"];
+        return;
+    }
+
 	//check if username entered
 	if (nil == self.userNameTextField.text){
         NSLog(@"UserName: %@",self.userNameTextField);
@@ -414,6 +401,13 @@
             NSLog(@"Does not match ANY user");
             UIAlertView *userDoesntExistAlert = [[UIAlertView alloc] initWithTitle:@"Invalid Username" message:nil delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
             [userDoesntExistAlert show];
+            
+            //Fetch all users
+            NSFetchRequest* allUserFetch = [NSFetchRequest fetchRequestWithEntityName:@"User"];
+            allUserFetch.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"username" ascending:YES]];
+            
+            NSLog(@"Total Users: %d", [self.selectedDocument.managedObjectContext countForFetchRequest:allUserFetch error:NULL]);
+            
         }
         else{
             NSLog(@"Error: Matches %d admin",users.count);
@@ -522,7 +516,7 @@
         
         self.selectedDocument = nil;
         
-        self.selectCourseBarButton.title = @"Select Document";
+        self.selectCourseBarButton.title = @"Select Course";
         
         //Dismiss
         [self.coursePopover dismissPopoverAnimated:YES];

@@ -146,8 +146,12 @@
                     if (useExampleQuestions)
                         [self addDefaultQuestionSetsToCourse:newCourse];
                     
-                    [newDocument closeWithCompletionHandler:^(BOOL success){
-                        [self.delegate didFinishCreatingCourseWithURL:newDocument.fileURL inICloud:self.icloudSwitch.on];
+                    [newDocument saveToURL:newDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:^(BOOL success){
+                        if (success) {
+                            [newDocument closeWithCompletionHandler:^(BOOL success){
+                                [self.delegate didFinishCreatingCourseWithURL:newDocument.fileURL inICloud:self.icloudSwitch.on];
+                            }];
+                        }
                     }];
                 }];
             }
