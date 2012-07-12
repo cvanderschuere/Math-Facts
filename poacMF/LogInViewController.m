@@ -8,7 +8,6 @@
 
 #import "LoginViewController.h"
 
-#import <QuartzCore/QuartzCore.h>
 #import "PoacMFAppDelegate.h"
 #import "AppLibrary.h"
 #import "AppConstants.h"

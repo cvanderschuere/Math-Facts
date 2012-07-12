@@ -34,7 +34,7 @@
         }
         
         else {
-            self.editButton.enabled = self.revealMasterButton.enabled = NO;
+            self.editButton.enabled = NO;
             self.fetchedResultsController = nil;
         }
     }

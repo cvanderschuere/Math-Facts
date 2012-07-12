@@ -19,10 +19,12 @@
 
 }
 @property (nonatomic, strong) UIWindow *window;
-@property (nonatomic, strong)  SPManagedDocument* database;
+@property (nonatomic, strong)  SPManagedDocument* documentToSave;
 @property (nonatomic, strong)	User		*currentUser;
 
 
 -(void) saveDatabase;
+
+-(void) createInitalDocument;
 
 @end

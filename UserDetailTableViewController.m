@@ -50,7 +50,7 @@
         }
         else {   //Disable and clear tableview
             self.fetchedResultsController = nil;
-            self.shareButton.enabled = self.editButton.enabled = self.revealMasterButton.enabled = NO;
+            self.shareButton.enabled = self.editButton.enabled = NO;
         }
     }
 }
@@ -165,7 +165,7 @@
     if (_student)   
         self.shareButton.enabled = self.editButton.enabled = self.revealMasterButton.enabled = YES;
     else    //Disable
-        self.shareButton.enabled = self.editButton.enabled = self.revealMasterButton.enabled = NO;
+        self.shareButton.enabled = self.editButton.enabled = NO;
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;

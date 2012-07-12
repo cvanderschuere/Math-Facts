@@ -6,11 +6,55 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
     </dependencies>
     <scenes>
+        <!--Document Select Table View Controller - Courses-->
+        <scene sceneID="4qj-tr-q0V">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XA9-f7-Af0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController storyboardIdentifier="DocumentSelectTableViewController" id="daL-EW-r5K" customClass="DocumentSelectTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Jdh-US-vtF">
+                        <rect key="frame" x="0.0" y="64" width="300" height="450"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DocumentCell" id="mwe-Wf-RtV">
+                                <rect key="frame" x="0.0" y="34" width="300" height="46"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="10" y="1" width="280" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <activityIndicatorView hidden="YES" opaque="NO" tag="10" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="kzH-0G-JX8">
+                                            <rect key="frame" x="240" y="12" width="20" height="20"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
+                                        </activityIndicatorView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="daL-EW-r5K" id="Uaj-iP-CvA"/>
+                            <outlet property="delegate" destination="daL-EW-r5K" id="kzy-Sa-asU"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Courses" id="dFL-i0-0WA">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="xQZ-4o-3qm">
+                            <connections>
+                                <segue destination="AJg-9M-l3X" kind="push" identifier="createCourseSegue" id="UXC-lt-1B6"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="-3913" y="-1064"/>
+        </scene>
         <!--Login View Controller-->
         <scene sceneID="1NK-KG-zMm">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oVb-1W-3uC" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="rPp-Vw-Shc" customClass="LoginViewController" sceneMemberID="viewController">
+                <viewController id="rPp-Vw-Shc" customClass="MFLoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kQM-ju-3En">
                         <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -71,6 +115,11 @@
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
+                                    <barButtonItem title="Select Course" width="131" id="SOc-5s-3ZP">
+                                        <connections>
+                                            <action selector="selectCourse:" destination="rPp-Vw-Shc" id="adb-S7-PE0"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="WVL-x5-RRs"/>
                                     <barButtonItem title="Math Facts" width="259" style="plain" id="088-sy-Poh"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="sZZ-46-igq"/>
@@ -92,6 +141,7 @@
                         <outlet property="errorLabel" destination="sem-lQ-kAh" id="iYW-SO-EMk"/>
                         <outlet property="loginButton" destination="qGg-uM-VKC" id="bwd-gB-oJc"/>
                         <outlet property="passwordTextField" destination="4dt-7q-O5N" id="PfG-Q5-5cA"/>
+                        <outlet property="selectCourseBarButton" destination="SOc-5s-3ZP" id="lAS-De-wet"/>
                         <outlet property="userNameTextField" destination="o7a-z9-6pT" id="Xjf-Hv-Y03"/>
                         <segue destination="3ep-aq-AKb" kind="modal" identifier="studentUserSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="eOw-0P-hIT"/>
                         <segue destination="RwQ-Ii-5H6" kind="custom" identifier="adminUserSegue" customClass="LoginSegue" id="eTt-kJ-Gbx"/>
@@ -570,7 +620,7 @@
                     </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="-363" y="-824"/>
+            <point key="canvasLocation" x="611" y="-824"/>
         </scene>
         <!--Summary Table View Controller - S-->
         <scene sceneID="84X-yV-V0g">
@@ -795,7 +845,7 @@
                     <modalFormSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="2326" y="-489"/>
+            <point key="canvasLocation" x="3300" y="-489"/>
         </scene>
         <!--AE User Tableview Controller-->
         <scene sceneID="pZp-oP-fzx">
@@ -1133,7 +1183,7 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="-999" y="-1458"/>
+            <point key="canvasLocation" x="-25" y="-1458"/>
         </scene>
         <!--Select Current Test Table View Controller-->
         <scene sceneID="n35-xv-e4Z">
@@ -1517,7 +1567,7 @@
                     </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="763" y="-1900"/>
+            <point key="canvasLocation" x="1737" y="-1900"/>
         </scene>
         <!--Question View Controller-->
         <scene sceneID="cFn-Ym-Gh9">
@@ -1599,7 +1649,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="3353" y="-335"/>
+            <point key="canvasLocation" x="4327" y="-335"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="xYv-ww-lZX">
@@ -2455,7 +2505,7 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="1095" y="-575"/>
+            <point key="canvasLocation" x="2069" y="-575"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="VnP-Yh-chF">
@@ -2474,6 +2524,130 @@
                 </navigationController>
             </objects>
             <point key="canvasLocation" x="201" y="969"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="UXp-aR-zeJ">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ljr-4n-qdB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController storyboardIdentifier="SelectCourseNavController" id="MxO-dp-4wg" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="vV4-Gu-Yxe">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="daL-EW-r5K" kind="relationship" relationship="rootViewController" id="hdo-hP-Oud"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="-5358" y="-1312"/>
+        </scene>
+        <!--Course Table View Controller - Create Course-->
+        <scene sceneID="F06-Y4-HPg">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KGW-bM-ogf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController storyboardIdentifier="AECourseTableViewController" id="AJg-9M-l3X" customClass="AECourseTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Kke-TV-S7h">
+                        <rect key="frame" x="0.0" y="64" width="300" height="400"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection headerTitle="Information" id="3fM-7T-Cdn">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DocumentCell" id="gJw-29-xJD">
+                                        <rect key="frame" x="0.0" y="34" width="300" height="45"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="10" y="1" width="280" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="center" minimumFontSize="17" id="iuy-sr-Kg3">
+                                                    <rect key="frame" x="0.0" y="0.0" width="280" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DocumentCell" id="ckl-eh-Sfl">
+                                        <rect key="frame" x="0.0" y="79" width="300" height="45"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="10" y="0.0" width="280" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Use iCloud:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="E0c-LD-uMQ">
+                                                    <rect key="frame" x="20" y="0.0" width="90" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="BTS-PG-jpH">
+                                                    <rect key="frame" x="181" y="8" width="79" height="27"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="onTintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                </switch>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Administrator" id="wY8-DC-1jL">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DocumentCell" id="Uyh-i6-Zfl">
+                                        <rect key="frame" x="0.0" y="168" width="300" height="46"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="10" y="1" width="280" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="center" minimumFontSize="17" id="3QZ-ud-9kK">
+                                                    <rect key="frame" x="0.0" y="0.0" width="137" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="center" minimumFontSize="17" id="hZI-Dj-STg">
+                                                    <rect key="frame" x="145" y="0.0" width="135" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="AJg-9M-l3X" id="Uwy-fI-YYb"/>
+                            <outlet property="delegate" destination="AJg-9M-l3X" id="Frs-Ic-Rqb"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Create Course" id="Rp5-Bw-GWn">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="jsa-8w-7bA">
+                            <connections>
+                                <action selector="courseSaved:" destination="AJg-9M-l3X" id="L7o-5r-xnu"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="admin1Password" destination="hZI-Dj-STg" id="GFN-wd-efA"/>
+                        <outlet property="admin1Username" destination="3QZ-ud-9kK" id="IGY-6o-a84"/>
+                        <outlet property="icloudSwitch" destination="BTS-PG-jpH" id="nmw-bE-hu7"/>
+                        <outlet property="nameTextField" destination="iuy-sr-Kg3" id="qBO-iH-2Gw"/>
+                    </connections>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="-3442" y="-1037"/>
         </scene>
     </scenes>
     <resources>
@@ -2496,6 +2670,16 @@
         <image name="redX.png" width="300" height="300"/>
     </resources>
     <classes>
+        <class className="AECourseTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AECourseTableViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="courseSaved:"/>
+                <relationship kind="outlet" name="admin1Password" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="admin1Username" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="icloudSwitch" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="nameTextField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
         <class className="AEQuestionSetTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AEQuestionSetTableViewController.h"/>
             <relationships>
@@ -2573,16 +2757,21 @@
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
             </relationships>
         </class>
-        <class className="LoginViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
+        <class className="DocumentSelectTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DocumentSelectTableViewController.h"/>
+        </class>
+        <class className="MFLoginViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MFLoginViewController.h"/>
             <relationships>
                 <relationship kind="action" name="loginTapped"/>
+                <relationship kind="action" name="selectCourse:"/>
                 <relationship kind="action" name="sendFeedback:"/>
                 <relationship kind="outlet" name="buildString" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="documentStateActivityIndicator" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="passwordTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="selectCourseBarButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="userNameTextField" candidateClass="UITextField"/>
             </relationships>
         </class>

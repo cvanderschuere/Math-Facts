@@ -18,7 +18,7 @@
 @implementation PoacMFAppDelegate
 
 @synthesize window = _window;
-@synthesize database = _database;
+@synthesize documentToSave = _documentToSave;
 @synthesize currentUser = _currentUser;
 
 //end method
@@ -32,8 +32,43 @@
     [TestFlight takeOff:@"697945e1548f653ac921aafc40670040_MTAwMzE3MjAxMi0wNi0xNCAyMDowNTozMi4zMjk2NDg"];
     
 
-    application.networkActivityIndicatorVisible = YES;
-    [self setupDatabase];
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"hasCreatedDefaultCourse"]) {
+        application.networkActivityIndicatorVisible = YES;
+        //Create localDocument
+        NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+        url = [url URLByAppendingPathComponent:@"Default Course"];
+        //url = [url URLByAppendingPathExtension:@"mfc"];
+        SPManagedDocument *defaultDocument = [[SPManagedDocument alloc] initWithFileURL:url];
+        
+        [defaultDocument saveToURL:defaultDocument.fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success){
+            if (success) {
+                //Add inital data
+                [defaultDocument openWithCompletionHandler:^(BOOL success){
+                    if (success) {
+                        [self addInitalData:defaultDocument];
+                        [defaultDocument closeWithCompletionHandler:^(BOOL success){
+                            if (success) {
+                                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasCreatedDefaultCourse"];
+                                [[NSUserDefaults standardUserDefaults] synchronize];
+                                
+                                application.networkActivityIndicatorVisible = NO;
+                            }
+                        }];
+                    }
+                }];
+            } 
+        }];
+    }
+    
+    //Test iCloud
+    NSURL *ubiq = [[NSFileManager defaultManager] 
+                   URLForUbiquityContainerIdentifier:nil];
+    if (ubiq) {
+        NSLog(@"iCloud access at %@", ubiq);
+        // TODO: Load document... 
+    } else {
+        NSLog(@"No iCloud access");
+    }
 
 	return YES;
 }//end method
@@ -74,79 +109,8 @@
 	 See also applicationDidEnterBackground:.
 	 */
 }//end method
+
 #pragma mark - Database methods
--(void) setupDatabase{
-    [self setReadyToLogin:NO];
-    
-    //Init managedDocument
-    NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-    url = [url URLByAppendingPathComponent:@"database"];
-    self.database = [[SPManagedDocument alloc] initWithFileURL:url];
-    
-    // Set the persistent store options to point to the cloud
-    //Things to add for iCloud:  PrivateName, NSPersistentStoreUbiquitousContentNameKey,cloudURL, NSPersistentStoreUbiquitousContentURLKey,
-
-    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES],
-                             NSMigratePersistentStoresAutomaticallyOption,
-                             [NSNumber numberWithBool:YES],
-                             NSInferMappingModelAutomaticallyOption,
-                             nil];
-    self.database.persistentStoreOptions = options;
-    
-    //Open Document
-    if (![[NSFileManager defaultManager] fileExistsAtPath:[self.database.fileURL path]]) {
-        // does not exist on disk, so create it
-            //Save...close...open to prevent errors
-        [self.database saveToURL:self.database.fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL succeed){
-            [self setReadyToLogin:NO];
-            if (succeed) {
-                [self.database closeWithCompletionHandler:^(BOOL success){
-                    if (succeed)
-                        [self.database openWithCompletionHandler:^(BOOL success){
-                            if (succeed) {
-                                [self setReadyToLogin:YES];
-                                [self addInitalData:self.database];
-                                [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-                            }
-                        }];
-                }];
-            }
-        }];
-    } 
-    else if (self.database.documentState == UIDocumentStateClosed) {
-        // exists on disk, but we need to open it
-        [self.database openWithCompletionHandler:^(BOOL success) {
-            NSLog(@"\nOpening Document %@\n",success?@"Succesful":@"Un Successful"); 
-            [self setReadyToLogin:success];
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            /*
-                                        //DEBUG INFORMATION//
-            NSFetchRequest* fetch = [NSFetchRequest fetchRequestWithEntityName:@"Result"];
-            fetch.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"endDate" ascending:YES]];
-            NSArray* resultArray = [self.database.managedObjectContext executeFetchRequest:fetch error:NULL];
-            
-            fetch = [NSFetchRequest fetchRequestWithEntityName:@"Test"];
-            fetch.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"testLength" ascending:YES]];
-            NSArray* testArray = [self.database.managedObjectContext executeFetchRequest:fetch error:NULL];
-            
-            NSLog(@"**Database Statistics**\n\n Test (%d): %@ \n\n Result(%d): %@\n\n",testArray.count,testArray,resultArray.count,resultArray);
-             */
-        }];
-    } 
-    else if (self.database.documentState == UIDocumentStateNormal) {
-        // already open and ready to use
-        [self setReadyToLogin:YES];
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    }
-
-}
--(void) setReadyToLogin:(BOOL)ready{
-    //Inform login controller of document state
-    if ([self.window.rootViewController respondsToSelector:@selector(setReadyToLogin:)]) {
-        LoginViewController* loginVC = (LoginViewController*) self.window.rootViewController;
-        loginVC.readyToLogin = ready;
-    } 
-}
 -(void) addInitalData:(SPManagedDocument*)document{
     [document.managedObjectContext performBlockAndWait:^{
     
@@ -208,7 +172,7 @@
         }
     }];
     //Save
-    [document saveToURL:self.database.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:^(BOOL success){
+    [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:^(BOOL success){
         NSLog(@"Save (Save Document) %@",success?@"Successful":@"Unsuccessful");
     }];
 
@@ -216,7 +180,7 @@
 
 -(void) saveDatabase{
     NSLog(@"Saving Document");
-    [self.database saveToURL:self.database.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:^(BOOL success){
+    [self.documentToSave saveToURL:self.documentToSave.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:^(BOOL success){
         NSLog(@"Save (Save Document) %@",success?@"Successful":@"Unsuccessful");
     }];
 }
