@@ -336,5 +336,11 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
+#pragma mark - UITextField Delegate
+-(BOOL) textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
+}
+
 
 @end

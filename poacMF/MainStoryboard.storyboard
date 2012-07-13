@@ -801,6 +801,9 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done"/>
+                                            <connections>
+                                                <outlet property="delegate" destination="ox6-xC-IeO" id="Q2f-CS-Ldr"/>
+                                            </connections>
                                         </textField>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2164,11 +2167,11 @@
             </objects>
             <point key="canvasLocation" x="236" y="-4896"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Form Sheet Dismiss Nav Controller-->
         <scene sceneID="pDg-bU-UvF">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yvr-0T-vWl" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <navigationController id="cOt-oZ-vwf" sceneMemberID="viewController">
+                <navigationController id="cOt-oZ-vwf" customClass="FormSheetDismissNavController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Ep6-Ol-zCT">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
@@ -2493,11 +2496,11 @@
             </objects>
             <point key="canvasLocation" x="602" y="2996"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Form Sheet Dismiss Nav Controller-->
         <scene sceneID="3be-Gz-QMb">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Km9-ya-0ig" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <navigationController id="CMD-Ew-LxY" sceneMemberID="viewController">
+                <navigationController id="CMD-Ew-LxY" customClass="FormSheetDismissNavController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <modalFormSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="fsZ-CJ-Kua">
@@ -2768,6 +2771,9 @@
                 <relationship kind="action" name="toggleEditMode:"/>
             </relationships>
         </class>
+        <class className="FormSheetDismissNavController" superclassName="UINavigationController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FormSheetDismissNavController.h"/>
+        </class>
         <class className="MFLoginViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MFLoginViewController.h"/>
             <relationships>
@@ -2902,11 +2908,11 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="XXZ-fo-y3a"/>
         <segue reference="WIk-YA-VOd"/>
-        <segue reference="Zlf-qc-6l8"/>
-        <segue reference="301-nB-hIK"/>
-        <segue reference="lda-Fg-vsm"/>
-        <segue reference="mjs-n6-7sf"/>
         <segue reference="8dB-Nx-BB0"/>
+        <segue reference="mjs-n6-7sf"/>
+        <segue reference="lda-Fg-vsm"/>
+        <segue reference="Zlf-qc-6l8"/>
     </inferredMetricsTieBreakers>
 </document>

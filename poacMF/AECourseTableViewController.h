@@ -15,7 +15,7 @@
 
 @end
 
-@interface AECourseTableViewController : UITableViewController <UIAlertViewDelegate>
+@interface AECourseTableViewController : UITableViewController <UIAlertViewDelegate, UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UISwitch *icloudSwitch;
 @property (weak, nonatomic) IBOutlet UITextField *admin1Username;

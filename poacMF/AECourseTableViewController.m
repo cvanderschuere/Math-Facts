@@ -200,7 +200,7 @@
     //Load information for plist
     NSDictionary *seedDict = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"databaseSeed" ofType:@"plist"]];
     //Add inital question set to new admins
-    NSArray* seedQuestionSets = [seedDict objectForKey:@"Questions Sets"];
+    NSArray* seedQuestionSets = [seedDict objectForKey:@"Questions Sets New"];
     
     //Step through each type
     for (NSArray* setTypeArray in seedQuestionSets) {
@@ -210,7 +210,7 @@
         [[setTypeArray objectAtIndex:1] enumerateObjectsUsingBlock:^(NSDictionary *questionSet,NSUInteger idx, BOOL *stop){
             //Create QuestionSet
             QuestionSet *qSet = [NSEntityDescription insertNewObjectForEntityForName:@"QuestionSet" inManagedObjectContext:course.managedObjectContext];
-            qSet.name = [NSString stringWithFormat:@"Set %d",idx+1];
+            qSet.name = [questionSet objectForKey:@"name"];
             qSet.type = setType;
             qSet.difficultyLevel = [NSNumber numberWithInt:idx];
             
@@ -231,5 +231,11 @@
         }];
     }
 
+}
+
+#pragma mark - UITextField Delegate
+-(BOOL) textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
 }
 @end
