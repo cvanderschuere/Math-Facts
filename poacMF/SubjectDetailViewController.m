@@ -23,6 +23,7 @@
 @synthesize subjectTests = _subjectTests, gridView = _gridView, currentStudent = _currentStudent;
 @synthesize logoutSheet = _logoutSheet;
 @synthesize resultsPopover = _resultsPopover;
+@synthesize currentTest = _currentTest;
 
 -(void) setCurrentStudent:(Student *)currentStudent{
     if (![currentStudent isEqual:_currentStudent]) {

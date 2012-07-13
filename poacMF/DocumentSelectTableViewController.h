@@ -11,6 +11,8 @@
 
 @protocol DocumentSelectProtocol <NSObject>
 
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *documentStateActivityIndicator;
+
 -(void) didSelectDocumentWithURL:(NSURL*) url;
 -(void) didDeleteDocumentWithURL:(NSURL*) deletedURL;
 

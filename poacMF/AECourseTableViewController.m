@@ -51,7 +51,13 @@
         [self.icloudSwitch setOn:NO animated:animated];
         self.icloudSwitch.enabled = NO;
     }
-   
+    
+    /*
+    //Autofill for testings
+    self.nameTextField.text = [NSString stringWithFormat:@"Test: %d",arc4random()%20];
+    self.admin1Username.text = @"admin";
+	self.admin1Password.text = @"poacmf";
+     */
 }
 
 - (void)viewDidUnload
@@ -82,16 +88,16 @@
 - (NSURL *)iCloudURL
 {
     return [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil];
-    NSLog(@"iCloud Container: %@",[[self iCloudURL] URLByAppendingPathComponent:@"Documents"].absoluteString);
-
 }
 
 - (NSURL *)iCloudDocumentsURL
 {
-    NSLog(@"iCloud URL: %@",[[self iCloudURL] URLByAppendingPathComponent:@"Documents"].absoluteString);
     return [[self iCloudURL] URLByAppendingPathComponent:@"Documents"];
 }
-
+- (NSURL *)iCloudCoreDataLogFilesURL
+{
+    return [[self iCloudURL] URLByAppendingPathComponent:@"CoreData"];
+}
 
 #pragma mark - IBActions
 - (IBAction)courseSaved:(id)sender {
@@ -101,10 +107,10 @@
         return [lib showAlertFromDelegate:self withWarning:@"Must enter name"];
     }   
     if (self.admin1Username.text.length == 0) {
-        return [lib showAlertFromDelegate:self withWarning:@"Must enter administrator"];
+        return [lib showAlertFromDelegate:self withWarning:@"Must enter administrator username"];
     }
     if (self.admin1Password.text.length == 0) {
-        return [lib showAlertFromDelegate:self withWarning:@"Must enter administrator"];
+        return [lib showAlertFromDelegate:self withWarning:@"Must enter administrator password"];
     }
     
     UIAlertView* exampleQuestionsAlert = [[UIAlertView alloc] initWithTitle:@"Example Questions" message:@"Would you like to import default questions into this course"  delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
@@ -118,12 +124,29 @@
     
     
 }
+
+- (void)setPersistentStoreOptionsInDocument:(UIManagedDocument *)document withICloud:(BOOL)useIcloud
+{
+    NSMutableDictionary *options = [NSMutableDictionary dictionary];
+    [options setObject:[NSNumber numberWithBool:YES] forKey:NSMigratePersistentStoresAutomaticallyOption];
+    [options setObject:[NSNumber numberWithBool:YES] forKey:NSInferMappingModelAutomaticallyOption];
+    
+    //iCloud
+    if (useIcloud) {
+        [options setObject:[document.fileURL lastPathComponent] forKey:NSPersistentStoreUbiquitousContentNameKey];
+        [options setObject:[self iCloudCoreDataLogFilesURL] forKey:NSPersistentStoreUbiquitousContentURLKey];
+    }
+    
+    document.persistentStoreOptions = options;
+}
 -(void) createCourseWithExampleQuestions:(BOOL)useExampleQuestions{
     NSURL *url = [self.icloudSwitch.on?[self iCloudDocumentsURL]:[self localDocumentsDirectoryURL] URLByAppendingPathComponent:self.nameTextField.text];
     url = [url URLByAppendingPathExtension:@"mfCourse"];
     
     NSLog(@"URL: %@",url);
     UIManagedDocument *newDocument = [[UIManagedDocument alloc] initWithFileURL:url];
+    [self setPersistentStoreOptionsInDocument:newDocument withICloud:self.icloudSwitch.on];
+    
     
     if (![[NSFileManager defaultManager] fileExistsAtPath:[newDocument.fileURL path]]) {
         [self.delegate didStartCreatingCourseWithURL:newDocument.fileURL inICloud:self.icloudSwitch.on];
@@ -131,21 +154,27 @@
         // does not exist on disk, so create it
         [newDocument saveToURL:newDocument.fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success) {
             if (success) {
-                //Reload Main login screen information
-                
-                [newDocument openWithCompletionHandler:^(BOOL success){
-                    //Add inital Data
+                [newDocument.managedObjectContext performBlock:^{
+                    //Reload Main login screen information
                     Course *newCourse = [NSEntityDescription insertNewObjectForEntityForName:@"Course" inManagedObjectContext:newDocument.managedObjectContext];
-                    
+                        
                     Administrator *newAdmin = [NSEntityDescription insertNewObjectForEntityForName:@"Administrator" inManagedObjectContext:newDocument.managedObjectContext];
-                    newAdmin.username = self.admin1Username.text;
-                    newAdmin.password = self.admin1Password.text;
+                    newAdmin.username = self.admin1Username.text.lowercaseString;
+                    newAdmin.password = self.admin1Password.text.lowercaseString;
                     
                     [newCourse addAdministratorsObject:newAdmin];
                     
                     if (useExampleQuestions)
                         [self addDefaultQuestionSetsToCourse:newCourse];
-                    
+                                        
+                    [newDocument saveToURL:newDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:^(BOOL success){
+                        [newDocument closeWithCompletionHandler:^(BOOL success){
+                            NSLog(@"Creating document intial data %@",success?@"Success":@"Fail");
+                            [self.delegate didFinishCreatingCourseWithURL:newDocument.fileURL inICloud:self.icloudSwitch.on];
+                        }];
+                    }];
+                }];
+                /*
                     [newDocument saveToURL:newDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:^(BOOL success){
                         if (success) {
                             [newDocument closeWithCompletionHandler:^(BOOL success){
@@ -153,7 +182,7 @@
                             }];
                         }
                     }];
-                }];
+                 */
             }
         }];
         

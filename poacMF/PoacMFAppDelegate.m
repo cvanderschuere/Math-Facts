@@ -31,10 +31,44 @@
         //Switch to new document
         _documentToSave = documentToSave;
         
-        [[NSNotificationCenter defaultCenter] addObserver:self
+        /*[[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(documentStateChanged:)
                                                      name:UIDocumentStateChangedNotification
-                                                   object:_documentToSave];
+                                                   object:_documentToSave];*/
+        
+        [[NSNotificationCenter defaultCenter]
+         addObserverForName:UIDocumentStateChangedNotification 
+         object:_documentToSave 
+         queue:nil 
+         usingBlock:^(NSNotification *note) {
+             
+             UIDocumentState state = _documentToSave.documentState;
+             
+             if (state == 0) {
+                 
+                 NSLog(@"Document State Normal");
+                 
+             }
+             
+             if (state & UIDocumentStateClosed) {
+                 
+                 NSLog(@"Document Closed!");
+             }
+             
+             if (state & UIDocumentStateEditingDisabled) {
+                 
+                 NSLog(@"Document Editing Disabled");
+             }
+             
+             if (state & UIDocumentStateSavingError) {
+                 NSLog(@"Saving Error Occurred");
+             }
+             
+             if (state & UIDocumentStateInConflict) {
+                 NSLog(@"Document in conflict");
+             }
+         }];
+
     }
 }
 - (void)documentStateChanged:(NSNotification *)notification
@@ -71,7 +105,7 @@
     
 
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"hasCreatedDefaultCourse"]) {
-        [self createDefaultCourseWithApplication:application];
+        //[self createDefaultCourseWithApplication:application];
     }
     
     //Test iCloud

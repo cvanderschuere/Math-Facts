@@ -58,13 +58,17 @@
 #pragma mark - Use Document
 -(void) setSelectedDocument:(UIManagedDocument *)selectedDocument{    
     
-    if (![_selectedDocument isEqual:selectedDocument]) {
+    if (![_selectedDocument.fileURL isEqual:selectedDocument.fileURL]) {
         [self.documentStateActivityIndicator startAnimating];
         
         if (_selectedDocument && _selectedDocument.documentState == UIDocumentStateNormal) {
             //Close current document first
+            NSString *fileName = [_selectedDocument.fileURL.lastPathComponent stringByDeletingPathExtension];
+            NSLog(@"Starting Close For %@",fileName);
             [_selectedDocument closeWithCompletionHandler:^(BOOL success){
-                NSLog(@"Closing Course %@ %@",[_selectedDocument.fileURL.lastPathComponent stringByDeletingPathExtension],success?@"Success":@"Unsuccessful");
+                NSLog(@"Closing Course %@ %@",[fileName stringByDeletingPathExtension],success?@"Success":@"Unsuccessful");
+                if (!success)
+                    [self printDocumentError:_selectedDocument];
             }];
         }
         
@@ -73,22 +77,27 @@
 
         if (_selectedDocument.documentState != UIDocumentStateNormal) {
             if (_selectedDocument.documentState == UIDocumentStateClosed) {
+                NSString *fileName = [_selectedDocument.fileURL.lastPathComponent stringByDeletingPathExtension];
+                NSLog(@"Starting Open For %@",fileName);
                 [_selectedDocument openWithCompletionHandler:^(BOOL success){
-                    NSLog(@"Openning Course %@ %@",[_selectedDocument.fileURL.lastPathComponent stringByDeletingPathExtension],success?@"Success":@"Unsuccessful");
+                    NSLog(@"Openning Course %@ %@",fileName,success?@"Success":@"Unsuccessful");
                     [self.documentStateActivityIndicator stopAnimating];
-                    self.loginButton.enabled = success;
+                    self.loginButton.enabled = YES;
+                    if (!success)
+                        [self printDocumentError:_selectedDocument];
                 }];
             }
             else {
-                NSLog(@"\n\n\nDocument Error\n\n\n");
+                [self printDocumentError:_selectedDocument];
                 [self.documentStateActivityIndicator stopAnimating];
-                self.loginButton.enabled = NO;
+                self.loginButton.enabled = YES;
             }
         }
         else {
             NSLog(@"Document State Normal");
             [self.documentStateActivityIndicator stopAnimating];
             self.loginButton.enabled = YES;
+            //Close current document first
 
         }
     }
@@ -96,13 +105,33 @@
         //Using same docuent...double check that it's open
         if (_selectedDocument.documentState != UIDocumentStateNormal) {
             NSLog(@"\n\n\nDocument Error\n\n\n");
+            [self printDocumentError:_selectedDocument];
+
         }
         else {
             NSLog(@"Using current selected document");
         }
     }
 }
-
+-(void) printDocumentError:(UIManagedDocument*)document{
+    switch (document.documentState) {
+        case UIDocumentStateClosed:
+            NSLog(@"Document closed");
+            break;
+        case UIDocumentStateEditingDisabled:
+            NSLog(@"Document editing disabled");
+            break;
+        case UIDocumentStateInConflict:
+            NSLog(@"Document in conflict");
+            break;
+        case UIDocumentStateSavingError:
+            NSLog(@"Document saving error");
+            [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+            break;
+        default:
+            break;
+    }
+}
 
 // 5. Implement documents setter to sort the array of urls (and only reload if actual changes)
 // Step 6 below in UITableViewDataSource section
@@ -191,7 +220,6 @@
 
 - (NSURL *)iCloudDocumentsURL
 {
-    NSLog(@"iCloud URL: %@",[[self iCloudURL] URLByAppendingPathComponent:@"Documents"].absoluteString);
     return [[self iCloudURL] URLByAppendingPathComponent:@"Documents"];
 }
 
@@ -372,7 +400,7 @@
     NSArray *users = [self.selectedDocument.managedObjectContext executeFetchRequest:studentLogin error:nil];
     if (users.count == 1) {
         //Check password
-        if ([[users.lastObject password] isEqualToString:self.passwordTextField.text]) {
+        if ([[users.lastObject password] isEqualToString:self.passwordTextField.text.lowercaseString]) {
             Student* currentStudent = [users lastObject];
             [self performSegueWithIdentifier:@"studentUserSegue" sender:currentStudent];
         }
@@ -387,7 +415,7 @@
         users = [self.selectedDocument.managedObjectContext executeFetchRequest:adminLogin error:nil];
         if (users.count == 1) {
             //Check password
-            if ([[users.lastObject password] isEqualToString:self.passwordTextField.text]) {
+            if ([[users.lastObject password] isEqualToString:self.passwordTextField.text.lowercaseString]) {
                 Administrator* admin = [users lastObject];
                 [self performSegueWithIdentifier:@"adminUserSegue" sender:admin.course];
             }
@@ -469,8 +497,8 @@
     }
     
     //Autofill for testing
-    self.userNameTextField.text = @"admin";
-	self.passwordTextField.text = @"poacmf";
+    //self.userNameTextField.text = @"admin";
+	//self.passwordTextField.text = @"poacmf";
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -511,7 +539,7 @@
 -(void) didSelectDocumentWithURL:(NSURL *)url{
     if (!url) {
         //Clear selection
-        [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"selectedDocumentURL"];
+        [[NSUserDefaults standardUserDefaults] setObject:[NSString string] forKey:@"selectedDocumentURL"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
         self.selectedDocument = nil;
@@ -522,8 +550,7 @@
         [self.coursePopover dismissPopoverAnimated:YES];
         return;
     }
-    
-    
+        
     //UpdateSettings
     [[NSUserDefaults standardUserDefaults] setObject:[url absoluteString] forKey:@"selectedDocumentURL"];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -533,8 +560,6 @@
     [self setPersistentStoreOptionsInDocument:selectDoc];
     self.selectedDocument = selectDoc; //Opens
             
-    NSLog(@"FileType: %@",self.selectedDocument.fileType);
-    
     //Update UI
     self.selectCourseBarButton.title = [[url lastPathComponent] stringByDeletingPathExtension];
     
@@ -542,11 +567,12 @@
     [self.coursePopover dismissPopoverAnimated:YES];
 }
 -(void) didDeleteDocumentWithURL:(NSURL*) deletedURL{
+    [self removeCloudURL:deletedURL];    
+
     if ([deletedURL isEqual:self.selectedDocument.fileURL]) {
         [self didSelectDocumentWithURL:nil];
     }
     
-    [self removeCloudURL:deletedURL];    
 }
 
 #pragma mark - Dealloc

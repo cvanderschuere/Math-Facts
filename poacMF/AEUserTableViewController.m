@@ -182,7 +182,7 @@
     
     self.studentToUpdate.firstName = self.firstNameTF.text;
     self.studentToUpdate.lastName = self.lastNameTF.text;
-    self.studentToUpdate.password = self.passwordTF.text;
+    self.studentToUpdate.password = self.passwordTF.text.lowercaseString;
     self.studentToUpdate.emailAddress = self.emailAddressTF.text;
     
     self.studentToUpdate.numberOfDistractionQuestions = [NSNumber numberWithDouble:self.distractionNumberStepper.value];

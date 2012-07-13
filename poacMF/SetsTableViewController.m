@@ -77,7 +77,7 @@
     //Fetch all question sets of currentCourse; Sort by type
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"QuestionSet"];
     request.sortDescriptors = [NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:@"type" ascending:YES selector:@selector(compare:)],[NSSortDescriptor sortDescriptorWithKey:@"difficultyLevel" ascending:YES selector:@selector(compare:)],[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)],nil];
-    request.predicate = [NSPredicate predicateWithFormat:@"course.name == %@",self.currentCourse.name];
+    //request.predicate = [NSPredicate predicateWithFormat:@"course.name == %@",self.currentCourse.name];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.currentCourse.managedObjectContext

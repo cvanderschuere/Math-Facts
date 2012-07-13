@@ -81,7 +81,7 @@
     //Fetch all students of currentCourse
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Student"];
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]];
-    request.predicate = [NSPredicate predicateWithFormat:@"course.name == %@",self.currentCourse.name];
+    //request.predicate = [NSPredicate predicateWithFormat:@"course.name == %@",self.currentCourse.name];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.currentCourse.managedObjectContext

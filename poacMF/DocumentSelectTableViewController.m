@@ -102,11 +102,12 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         //Get deleted URL
         NSURL *deletedURL = [indexPath.section == 0?self.icloudDocuments:self.localDocuments objectAtIndex:indexPath.row];
-        [self.delegate didDeleteDocumentWithURL:deletedURL];
         
         //Delete url
         [indexPath.section == 0?self.icloudDocuments:self.localDocuments removeObject:deletedURL];
-        
+                
+        [self.delegate didDeleteDocumentWithURL:deletedURL];
+
         // Delete the row from the tableView
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
         
@@ -139,24 +140,34 @@
     }
 }
 
--(void) didStartCreatingCourseWithURL:(NSURL *)newCourseURL inICloud:(BOOL)inICloud{
-    
-    [self.navigationController popToViewController:self animated:YES];
+-(void) didStartCreatingCourseWithURL:(NSURL *)newCourseURL inICloud:(BOOL)inICloud
+{
+    if (inICloud) {
+        //Do nothing
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        [[self.delegate documentStateActivityIndicator] startAnimating];
+    }
+    else {
+        [self.navigationController popToViewController:self animated:YES];
 
-    //Update Data  
-    [inICloud?self.icloudDocuments:self.localDocuments addObject:newCourseURL];
-    
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[inICloud?self.icloudDocuments:self.localDocuments indexOfObject:newCourseURL] inSection:inICloud?0:1];
-    [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewScrollPositionBottom];
-    
-    
-    //Animate loading
-    UITableViewCell *newCell = [self.tableView cellForRowAtIndexPath:indexPath];
-    UIActivityIndicatorView *spinner = (UIActivityIndicatorView*) [newCell viewWithTag:10];
-    [spinner startAnimating];
-    
+        //Update Data  
+        [inICloud?self.icloudDocuments:self.localDocuments addObject:newCourseURL];
+        
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[inICloud?self.icloudDocuments:self.localDocuments indexOfObject:newCourseURL] inSection:inICloud?0:1];
+        [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewScrollPositionBottom];
+        
+        
+        //Animate loading
+        UITableViewCell *newCell = [self.tableView cellForRowAtIndexPath:indexPath];
+        UIActivityIndicatorView *spinner = (UIActivityIndicatorView*) [newCell viewWithTag:10];
+        [spinner startAnimating];
+    }
 }
 -(void) didFinishCreatingCourseWithURL:(NSURL *)newCourseURL inICloud:(BOOL)inICloud{
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [[self.delegate documentStateActivityIndicator] stopAnimating];
+
+    
     //Animate loading
     UITableViewCell *newCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[inICloud?self.icloudDocuments:self.localDocuments indexOfObject:newCourseURL] inSection:inICloud?0:1]];
     UIActivityIndicatorView *spinner = (UIActivityIndicatorView*) [newCell viewWithTag:10];

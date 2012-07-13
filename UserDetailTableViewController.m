@@ -39,6 +39,15 @@
 @synthesize correctPlot = _correctPlot, incorrectPlot = _incorrectPlot, maxNumberY = _maxNumberY;
 
 -(void) setStudent:(Student *)student{
+    NSLog(@"Student:%@",student);
+    for (Result* result in student.results) {
+        NSLog(@"Result:%@",result.test.questionSet.name);
+    }
+
+    for (Test* test in student.tests) {
+        NSLog(@"Test:%@",test.questionSet.name);
+    }
+    
     if (![_student.username isEqualToString:student.username]) {
         _student = student;
         //Set Title and setup observer
