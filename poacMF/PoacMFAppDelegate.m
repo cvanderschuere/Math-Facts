@@ -116,6 +116,7 @@
     
     }
     
+    /*
     //Test iCloud
     NSURL *ubiq = [[NSFileManager defaultManager] 
                    URLForUbiquityContainerIdentifier:nil];
@@ -125,7 +126,8 @@
     } else {
         NSLog(@"No iCloud access");
     }
-
+    */
+    
 	return YES;
     
     //Register for iCloud updates

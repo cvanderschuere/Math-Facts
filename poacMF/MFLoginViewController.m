@@ -510,9 +510,11 @@
 {
     [super viewWillAppear:animated];
     
+    /*
     //Load iCloud documents
     if (![self.iCloudQuery isStarted]) [self.iCloudQuery startQuery];
     [self.iCloudQuery enableUpdates];
+     */
     
     //Set selected document from iCloud key value
     NSURL* selectedURL = [NSURL URLWithString:[[NSUserDefaults standardUserDefaults] objectForKey:@"selectedDocumentURL"]];

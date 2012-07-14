@@ -55,13 +55,13 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 2;
+    return 1;//iCloud: 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return section == 0?self.icloudDocuments.count:self.localDocuments.count;
+    return section == 1?self.icloudDocuments.count:self.localDocuments.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -70,7 +70,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     // Configure the cell...
-    NSURL *url = [indexPath.section == 0?self.icloudDocuments:self.localDocuments objectAtIndex:indexPath.row];
+    NSURL *url = [indexPath.section == 1?self.icloudDocuments:self.localDocuments objectAtIndex:indexPath.row];
     cell.textLabel.text = [[url lastPathComponent] stringByDeletingPathExtension];
     
     if ([url isEqual:self.selectedDocument.fileURL])
@@ -81,11 +81,13 @@
     return cell;
 }
 -(NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    return section == 0?@"iCloud":@"Local";
+    return section == 1?@"iCloud":@"Local";
 }
+/*
 -(NSString*) tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section{
-    return section == 0?@"These courses will sync to all of your iPads":@"These courses will only work on this iPad";
+    return section == 1?@"These courses will sync to all of your iPads":@"These courses will only work on this iPad";
 }
+*/
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -101,10 +103,10 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         //Get deleted URL
-        NSURL *deletedURL = [indexPath.section == 0?self.icloudDocuments:self.localDocuments objectAtIndex:indexPath.row];
+        NSURL *deletedURL = [indexPath.section == 1?self.icloudDocuments:self.localDocuments objectAtIndex:indexPath.row];
         
         //Delete url
-        [indexPath.section == 0?self.icloudDocuments:self.localDocuments removeObject:deletedURL];
+        [indexPath.section == 1?self.icloudDocuments:self.localDocuments removeObject:deletedURL];
                 
         [self.delegate didDeleteDocumentWithURL:deletedURL];
 
@@ -153,7 +155,7 @@
         //Update Data  
         [inICloud?self.icloudDocuments:self.localDocuments addObject:newCourseURL];
         
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[inICloud?self.icloudDocuments:self.localDocuments indexOfObject:newCourseURL] inSection:inICloud?0:1];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[inICloud?self.icloudDocuments:self.localDocuments indexOfObject:newCourseURL] inSection:inICloud?1:0];
         [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewScrollPositionBottom];
         
         
@@ -169,7 +171,7 @@
 
     
     //Animate loading
-    UITableViewCell *newCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[inICloud?self.icloudDocuments:self.localDocuments indexOfObject:newCourseURL] inSection:inICloud?0:1]];
+    UITableViewCell *newCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[inICloud?self.icloudDocuments:self.localDocuments indexOfObject:newCourseURL] inSection:inICloud?1:0]];
     UIActivityIndicatorView *spinner = (UIActivityIndicatorView*) [newCell viewWithTag:10];
     [spinner stopAnimating];
     
