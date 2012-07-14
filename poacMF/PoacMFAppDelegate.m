@@ -106,14 +106,15 @@
 
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"hasCreatedDefaultCourse"]) {
         //[self createDefaultCourseWithApplication:application];
-            
+           
+        /*
         //Create directories
         NSString* docURL = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, 
                                                        NSUserDomainMask, YES) objectAtIndex:0];
         
         [self createDirectory:@"Courses" atFilePath:docURL];
         [self createDirectory:@"Backups" atFilePath:docURL];
-    
+         */
     }
     
     /*
@@ -154,7 +155,6 @@
     application.networkActivityIndicatorVisible = YES;
     //Create localDocument
     NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-    url = [url URLByAppendingPathComponent:@"Courses"];
     url = [url URLByAppendingPathComponent:@"Default Course"];
     url = [url URLByAppendingPathExtension:@"mfCourse"];
     SPManagedDocument *defaultDocument = [[SPManagedDocument alloc] initWithFileURL:url];

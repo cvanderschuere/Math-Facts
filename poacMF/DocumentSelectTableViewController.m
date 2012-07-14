@@ -151,10 +151,10 @@
     }
     else {
         [self.navigationController popToViewController:self animated:YES];
-
+            
         //Update Data  
         [inICloud?self.icloudDocuments:self.localDocuments addObject:newCourseURL];
-        
+
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[inICloud?self.icloudDocuments:self.localDocuments indexOfObject:newCourseURL] inSection:inICloud?1:0];
         [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewScrollPositionBottom];
         
@@ -184,6 +184,6 @@
 {
     [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
 
-    [self.delegate didSelectDocumentWithURL:[indexPath.section == 0?self.icloudDocuments:self.localDocuments objectAtIndex:indexPath.row]];
+    [self.delegate didSelectDocumentWithURL:[indexPath.section == 1?self.icloudDocuments:self.localDocuments objectAtIndex:indexPath.row]];
 }
 @end

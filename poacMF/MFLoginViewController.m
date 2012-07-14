@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 CDVConcepts. All rights reserved.
 //
 
+//iCloud additions from Stanford C193pd
+
 /*
  //DEBUG INFORMATION//
  NSFetchRequest* fetch = [NSFetchRequest fetchRequestWithEntityName:@"Result"];
@@ -29,6 +31,8 @@
 #import "SubjectDetailViewController.h"
 #import "DocumentSelectTableViewController.h"
 
+#import "NSData+CocoaDevUsersAdditions.h"
+
 @interface MFLoginViewController ()
 
 @property (nonatomic, strong) NSArray *iCloudDocuments; //of NSURL
@@ -36,6 +40,7 @@
 @property (nonatomic, strong) NSMetadataQuery *iCloudQuery;
 
 @property (nonatomic, strong) UIPopoverController* coursePopover;
+@property (nonatomic, strong) UIActionSheet* backupActionSheet;
 
 @property (nonatomic, strong) UIManagedDocument* selectedDocument;
 
@@ -49,7 +54,7 @@
 @synthesize selectCourseBarButton = _selectCourseBarButton;
 @synthesize loginButton = _loginButton;
 @synthesize userNameTextField = _userNameTextField, passwordTextField = _passwordTextField, readyToLogin = _readyToLogin;
-@synthesize coursePopover = _coursePopover;
+@synthesize coursePopover = _coursePopover, backupActionSheet = _backupActionSheet;
 
 @synthesize iCloudDocuments = _iCloudDocuments, localDocuments = _localDocuments;
 @synthesize iCloudQuery = _iCloudQuery;
@@ -187,8 +192,6 @@
     return _iCloudQuery;
 }
 
-// 37. Reload the table whenever the ubiquitous key-value store changes
-
 - (void)ubiquitousKeyValueStoreChanged:(NSNotification *)notification
 {
     
@@ -200,13 +203,13 @@
         NSString *documentsDirectoryPath = [NSSearchPathForDirectoriesInDomains( NSDocumentDirectory,
                                                                                 NSUserDomainMask, YES ) objectAtIndex:0];
         localDocumentsDirectoryURL = [NSURL fileURLWithPath:documentsDirectoryPath];
-        localDocumentsDirectoryURL = [localDocumentsDirectoryURL URLByAppendingPathComponent:@"Courses"];
     }
     return localDocumentsDirectoryURL;
 }
+
 -(void) loadLocalDocuments{
     NSArray * localDocuments = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:[self localDocumentsDirectoryURL] includingPropertiesForKeys:nil options:0 error:nil];
-
+    localDocuments = [localDocuments filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension == %@",@"mfCourse"]];
     if (![localDocuments isEqualToArray:self.localDocuments]) {
         self.localDocuments = localDocuments;
         NSLog(@"Local Documents: %@",localDocuments);
@@ -295,7 +298,6 @@
 
 - (void)removeCloudURL:(NSURL *)url
 {
-    [[NSUbiquitousKeyValueStore defaultStore] removeObjectForKey:[url lastPathComponent]];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSFileCoordinator *coordinator = [[NSFileCoordinator alloc] initWithFilePresenter:nil];
         NSError *coordinationError;
@@ -340,30 +342,70 @@
 
 #pragma mark - Button Methods
 
-- (IBAction)backup:(id)sender {
-    if (self.selectedDocument && self.selectedDocument.documentState == UIDocumentStateNormal) {
+- (IBAction)backup:(UIBarButtonItem*)sender {
+    if (self.backupActionSheet.visible) {
+        return [self.backupActionSheet dismissWithClickedButtonIndex:-1 animated:YES];
+    }
+    
+    if (self.selectedDocument) {
+        self.backupActionSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Backup: %@",[self.selectedDocument.fileURL.lastPathComponent stringByDeletingPathExtension]]  delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Send Email",@"Save to documents", nil];
         
-        /*Write file to csv*/
-        NSFetchRequest* courseFetch = [NSFetchRequest fetchRequestWithEntityName:@"Course"];
-        courseFetch.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
-        
-        NSArray* courses = [self.selectedDocument.managedObjectContext executeFetchRequest:courseFetch error:NULL];
-        
-        //Create file url
-        NSString *documentsDirectoryPath = [NSSearchPathForDirectoriesInDomains( NSDocumentDirectory,
-                                                                                NSUserDomainMask, YES ) objectAtIndex:0];
-        documentsDirectoryPath = [documentsDirectoryPath stringByAppendingPathComponent:@"Backups"];
-        NSString* fileURL = [[documentsDirectoryPath stringByAppendingPathComponent:[self.selectedDocument.fileURL.lastPathComponent stringByDeletingPathExtension]] stringByAppendingPathExtension:@"csv"];
-        
-        [courses.lastObject setName:[self.selectedDocument.fileURL.lastPathComponent stringByDeletingPathExtension]];
-        [courses.lastObject performSelectorInBackground:@selector(saveCSVToFile:) withObject:fileURL];
+        return [self.backupActionSheet showFromBarButtonItem:sender animated:YES];
     }
     else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Course" message:@"You must select a course to backup first" delegate:nil cancelButtonTitle:@"Close" otherButtonTitles: nil];
         [alert show];
     }
 }
+-(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    [actionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
+    
+    //Create CSV
+    NSString* csvURLString = [self createCSVBackupForDocument:self.selectedDocument];
+    
+    if (csvURLString) {
+        if (buttonIndex == 0) {
+            //Email
+            NSData *csvData = [NSData dataWithContentsOfFile:csvURLString];
+            
+            MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
+            [picker setSubject:[NSString stringWithFormat:@"Backup: %@",[csvURLString.lastPathComponent stringByDeletingPathExtension]]];
+            
+            [picker addAttachmentData:csvData mimeType:@"text/csv" fileName:csvURLString.lastPathComponent];
+            [picker setMailComposeDelegate:self];
+            [self presentModalViewController:picker animated:YES]; 
+        }
+        else if (buttonIndex == 1) {
+            //Just save
+        }
+    }
+    
+}
+-(NSString*) createCSVBackupForDocument:(UIManagedDocument*)document{
+    if (document && document.documentState == UIDocumentStateNormal) {
+        
+        /*Write file to csv*/
+        NSFetchRequest* courseFetch = [NSFetchRequest fetchRequestWithEntityName:@"Course"];
+        courseFetch.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
+        
+        NSArray* courses = [document.managedObjectContext executeFetchRequest:courseFetch error:NULL];
+        
+        //Create file url
+        NSString *documentsDirectoryPath = [NSSearchPathForDirectoriesInDomains( NSDocumentDirectory,
+                                                                                NSUserDomainMask, YES ) objectAtIndex:0];
+        NSString* fileURL = [[documentsDirectoryPath stringByAppendingPathComponent:[document.fileURL.lastPathComponent stringByDeletingPathExtension]] stringByAppendingPathExtension:@"csv"];
+        
+        //[courses.lastObject setName:[document.fileURL.lastPathComponent stringByDeletingPathExtension]];
+        [courses.lastObject saveCSVToFile:fileURL];        //[courses.lastObject performSelectorInBackground:@selector(saveCSVToFile:) withObject:fileURL];
 
+        return fileURL;
+    }
+    else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Course" message:@"You must select a course to backup first" delegate:nil cancelButtonTitle:@"Close" otherButtonTitles: nil];
+        [alert show];
+        return nil;
+    }
+}
 - (IBAction)selectCourse:(UIBarButtonItem*)sender {
     if(self.coursePopover.popoverVisible){
         [self.coursePopover dismissPopoverAnimated:YES];
@@ -375,7 +417,7 @@
     UINavigationController* nav = [self.storyboard instantiateViewControllerWithIdentifier:@"SelectCourseNavController"];
     DocumentSelectTableViewController *courseVC = nav.viewControllers.lastObject;
     courseVC.icloudDocuments = self.iCloudDocuments.mutableCopy;
-    courseVC.localDocuments = self.localDocuments.mutableCopy;
+    courseVC.localDocuments = [NSMutableArray arrayWithArray:self.localDocuments];
     courseVC.selectedDocument = self.selectedDocument;
     courseVC.delegate = self;
     
@@ -530,7 +572,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [self.iCloudQuery disableUpdates];
+    //[self.iCloudQuery disableUpdates];
     [super viewWillDisappear:animated];
 }
 
@@ -544,6 +586,10 @@
 	NSString *build = [infoDictionary objectForKey:@"CFBundleVersion"];
 	self.buildString.text = [NSString stringWithFormat:@"%@ v%@ (build %@)",name,version,build];
     
+    //Create arrays
+    self.localDocuments = [NSArray array];
+    self.iCloudDocuments = [NSArray array];
+    
     //Load Local documents
     [self loadLocalDocuments];
 
@@ -556,12 +602,17 @@
     
 }//end method
 
-#pragma mark UITextFieldDelegate
+#pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *) textField {
 	[textField resignFirstResponder];
 	return YES;
 }//end method
-
+#pragma mark - MFMailComposeDelegate
+- (void)mailComposeController:(MFMailComposeViewController *)controller
+		  didFinishWithResult:(MFMailComposeResult)result
+						error:(NSError *)error {
+    [self dismissModalViewControllerAnimated:YES];
+}
 #pragma mark - Document Select Delegate
 -(void) didSelectDocumentWithURL:(NSURL *)url{
     if (!url) {

@@ -128,28 +128,18 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="WVL-x5-RRs"/>
                                     <barButtonItem title="Math Facts" width="259" style="plain" id="088-sy-Poh"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="sZZ-46-igq"/>
+                                    <barButtonItem title="Backup" id="lwp-h3-Rfn">
+                                        <connections>
+                                            <action selector="backup:" destination="rPp-Vw-Shc" id="ujf-qg-cP8"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="fzw-oT-Iyf">
-                                <rect key="frame" x="728" y="12" width="20" height="20"/>
+                                <rect key="frame" x="669" y="12" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                                 <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </activityIndicatorView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ILu-fq-D9a">
-                                <rect key="frame" x="20" y="955" width="139" height="37"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Backup">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="backup:" destination="rPp-Vw-Shc" eventType="touchUpInside" id="oxZ-ok-zmV"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                         <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>

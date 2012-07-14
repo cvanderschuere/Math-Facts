@@ -9,24 +9,18 @@
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>mfCourse</string>
-			</array>
 			<key>CFBundleTypeIconFiles</key>
-			<array>
-				<string>icon</string>
-			</array>
+			<array/>
 			<key>CFBundleTypeName</key>
-			<string>mfCourse</string>
+			<string>Math Facts Course Document</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>LSHandlerRank</key>
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>com.poac.mathfacts.mfCourse</string>
 			</array>
-			<key>LSTypeIsPackage</key>
-			<true/>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
@@ -74,19 +68,19 @@
 				<string>com.apple.package</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>Math Facts Course</string>
+			<string>Math Facts Course Data Document</string>
 			<key>UTTypeIdentifier</key>
 			<string>com.poac.mathfacts.mfCourse</string>
 			<key>UTTypeSize320IconFile</key>
-			<string>icon</string>
+			<string></string>
 			<key>UTTypeSize64IconFile</key>
-			<string>icon</string>
+			<string></string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
-				<string>mfCourse</string>
+				<string>mfc</string>
 				<key>public.mime-type</key>
-				<string>Application/poacMF</string>
+				<string>application/poacmf</string>
 			</dict>
 		</dict>
 	</array>

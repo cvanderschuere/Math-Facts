@@ -82,8 +82,6 @@
         NSString *documentsDirectoryPath = [NSSearchPathForDirectoriesInDomains( NSDocumentDirectory,
                                                                                 NSUserDomainMask, YES ) objectAtIndex:0];
         localDocumentsDirectoryURL = [NSURL fileURLWithPath:documentsDirectoryPath];
-        localDocumentsDirectoryURL = [localDocumentsDirectoryURL URLByAppendingPathComponent:@"Courses"];
-
     }
     return localDocumentsDirectoryURL;
 }

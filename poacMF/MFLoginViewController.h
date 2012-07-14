@@ -33,8 +33,10 @@ Document Status
 
 #import <UIKit/UIKit.h>
 #import "DocumentSelectTableViewController.h"
+#import <MessageUI/MessageUI.h>
 
-@interface MFLoginViewController : UIViewController <UITextFieldDelegate, DocumentSelectProtocol>
+
+@interface MFLoginViewController : UIViewController <UITextFieldDelegate, DocumentSelectProtocol, UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
 
 @property (nonatomic, weak) IBOutlet	UITextField				*userNameTextField;
 @property (nonatomic, weak) IBOutlet	UITextField				*passwordTextField;

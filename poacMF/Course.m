@@ -44,15 +44,16 @@
         [csvWriter writeLineOfFields:student.firstName,student.lastName,student.defaultTestLength,student.defaultPassCriteria,student.defaultMaximumIncorrect,student.defaultPracticeLength, nil];
         [csvWriter writeLine];
         
-        [csvWriter writeLineOfFields:@"Timings", nil];
+        [csvWriter writeCommentLine:@"Timings"];
         for (Test* test in student.tests) {
             [csvWriter writeLineOfFields:[NSString stringWithFormat:@"%@: %@",test.questionSet.typeName,test.questionSet.name,test.testLength],test.passCriteria,test.maximumIncorrect, nil];
-            
-            [csvWriter writeLineOfFields:@"Results", nil];
+                        
+            [csvWriter writeLine];
+
+            [csvWriter writeCommentLine:@"Results"];
             for (Result* result in test.results) {
                 [csvWriter writeLineOfFields:[NSNumber numberWithInt:result.correctResponses.count].stringValue,[NSNumber numberWithInt:result.incorrectResponses.count].stringValue, nil];
             }
-            [csvWriter writeLine];
         }
         [csvWriter writeLine];
         [csvWriter writeLine];
