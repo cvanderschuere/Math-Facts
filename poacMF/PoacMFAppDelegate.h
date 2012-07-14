@@ -25,6 +25,4 @@
 
 -(void) saveDatabase;
 
--(void) createInitalDocument;
-
 @end
