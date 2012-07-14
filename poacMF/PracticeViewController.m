@@ -65,7 +65,7 @@
         _practice = practice;
         
         //Set title label
-        self.title = [_practice.test.student.firstName stringByAppendingString:[NSString stringWithFormat:@": %@",_practice.test.questionSet.name]];
+        self.title = [_practice.test.student.username stringByAppendingString:[NSString stringWithFormat:@": %@",_practice.test.questionSet.name]];
         
         //Reload Questions to ask
         NSFetchRequest *previousQuestionSet = [NSFetchRequest fetchRequestWithEntityName:@"QuestionSet"];

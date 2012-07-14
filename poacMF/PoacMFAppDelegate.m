@@ -30,12 +30,7 @@
 
         //Switch to new document
         _documentToSave = documentToSave;
-        
-        /*[[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(documentStateChanged:)
-                                                     name:UIDocumentStateChangedNotification
-                                                   object:_documentToSave];*/
-        
+                
         [[NSNotificationCenter defaultCenter]
          addObserverForName:UIDocumentStateChangedNotification 
          object:_documentToSave 
@@ -103,39 +98,25 @@
     [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
     [TestFlight takeOff:@"697945e1548f653ac921aafc40670040_MTAwMzE3MjAxMi0wNi0xNCAyMDowNTozMi4zMjk2NDg"];
     
-
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"hasCreatedDefaultCourse"]) {
-        //[self createDefaultCourseWithApplication:application];
-           
-        /*
-        //Create directories
-        NSString* docURL = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, 
-                                                       NSUserDomainMask, YES) objectAtIndex:0];
-        
-        [self createDirectory:@"Courses" atFilePath:docURL];
-        [self createDirectory:@"Backups" atFilePath:docURL];
-         */
-    }
-    
     /*
     //Test iCloud
     NSURL *ubiq = [[NSFileManager defaultManager] 
-                   URLForUbiquityContainerIdentifier:nil];
-    if (ubiq) {
+                   URLForUbiquityContainerIdentifier:nil];    
+    if (ubiq){
         NSLog(@"iCloud access at %@", ubiq);
-        // TODO: Load document... 
-    } else {
+         //Register for iCloud updates
+        [[NSNotificationCenter defaultCenter]addObserver:self
+                                                selector:@selector(iCloudDidUpdateDocument:)
+                                                    name:NSPersistentStoreDidImportUbiquitousContentChangesNotification
+                                                  object:nil];
+     }
+    else
         NSLog(@"No iCloud access");
-    }
-    */
+     */
     
 	return YES;
     
-    //Register for iCloud updates
-    [[NSNotificationCenter defaultCenter]addObserver:self
-                                            selector:@selector(iCloudDidUpdateDocument:)
-                                                name:NSPersistentStoreDidImportUbiquitousContentChangesNotification
-                                              object:nil];
+    
     
 }//end method
 -(void)createDirectory:(NSString *)directoryName atFilePath:(NSString *)filePath
@@ -151,36 +132,6 @@
         NSLog(@"Create directory error: %@", error);
     }
 }
--(void) createDefaultCourseWithApplication:(UIApplication*)application{
-    application.networkActivityIndicatorVisible = YES;
-    //Create localDocument
-    NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-    url = [url URLByAppendingPathComponent:@"Default Course"];
-    url = [url URLByAppendingPathExtension:@"mfCourse"];
-    SPManagedDocument *defaultDocument = [[SPManagedDocument alloc] initWithFileURL:url];
-    
-    [defaultDocument saveToURL:defaultDocument.fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success){
-        if (success) {
-            //Add inital data
-            [defaultDocument openWithCompletionHandler:^(BOOL success){
-                if (success) {
-                    [self addInitalData:defaultDocument];
-                    [defaultDocument saveToURL:defaultDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:^(BOOL success){
-                        if (success) {
-                            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasCreatedDefaultCourse"];
-                            [[NSUserDefaults standardUserDefaults] synchronize];
-                            
-                            application.networkActivityIndicatorVisible = NO;
-                        }
-                    }];
-                }
-            }];
-        } 
-    }];
-
-}
-#pragma mark - iCloud
-
 - (void)applicationWillResignActive:(UIApplication *)application {
 	/*
 	 Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -219,73 +170,6 @@
 }//end method
 
 #pragma mark - Database methods
--(void) addInitalData:(SPManagedDocument*)document{
-    [document.managedObjectContext performBlockAndWait:^{
-    
-        //Load information for plist
-        NSDictionary *seedDict = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"databaseSeed" ofType:@"plist"]];
-        
-        //Create Course
-        Course *newCourse = [NSEntityDescription insertNewObjectForEntityForName:@"Course" inManagedObjectContext:document.managedObjectContext];
-        newCourse.name = [seedDict objectForKey:@"name"];
-        
-        //Add inital Administrators
-        NSArray* seedAdmins = [seedDict objectForKey:@"Administrators"];
-        if ([Administrator isUserNameUnique:[[seedAdmins lastObject] objectForKey:@"username"] inContext:document.managedObjectContext]) {
-            Administrator* newAdmin = [NSEntityDescription insertNewObjectForEntityForName:@"Administrator" inManagedObjectContext:document.managedObjectContext];
-            [newAdmin setValuesForKeysWithDictionary:[seedAdmins lastObject]];
-            [newCourse addAdministratorsObject:newAdmin];
-        }
-        
-        //Add inital Students
-        NSArray* seedStudents = [seedDict objectForKey:@"Students"];
-        for (NSDictionary* user in seedStudents) {
-            if ([Student isUserNameUnique:[user objectForKey:@"username"] inContext:document.managedObjectContext]) {
-                Student * newStudent = [NSEntityDescription insertNewObjectForEntityForName:@"Student" inManagedObjectContext:document.managedObjectContext];
-                [newStudent setValuesForKeysWithDictionary:user];
-                [newCourse addStudentsObject:newStudent];
-            }
-        }
-        
-        //Add inital question set to new admins
-        NSArray* seedQuestionSets = [seedDict objectForKey:@"Questions Sets New"];
-        
-        //Step through each type
-        for (NSArray* setTypeArray in seedQuestionSets) {
-            NSNumber* setType = [setTypeArray objectAtIndex:0];
-            
-            //Step through each set
-            [[setTypeArray objectAtIndex:1] enumerateObjectsUsingBlock:^(NSDictionary *questionSet,NSUInteger idx, BOOL *stop){
-                //Create QuestionSet
-                QuestionSet *qSet = [NSEntityDescription insertNewObjectForEntityForName:@"QuestionSet" inManagedObjectContext:document.managedObjectContext];
-                qSet.name = [NSString stringWithFormat:@"Set %d",idx+1];
-                qSet.type = setType;
-                qSet.difficultyLevel = [NSNumber numberWithInt:idx];
-                
-                //Set through each question
-                [[questionSet objectForKey:@"questions"] enumerateObjectsUsingBlock:^(NSArray* question, NSUInteger idx, BOOL *stop){
-                    Question* newQuestion = [NSEntityDescription insertNewObjectForEntityForName:@"Question" inManagedObjectContext:document.managedObjectContext];
-                    
-                    // -1 signifies the blank in the question
-                    newQuestion.x = [[question objectAtIndex:0] intValue]>=0?[question objectAtIndex:0]:nil;
-                    newQuestion.y = [[question objectAtIndex:1] intValue]>=0?[question objectAtIndex:1]:nil;
-                    newQuestion.z = [[question objectAtIndex:2] intValue]>=0?[question objectAtIndex:2]:nil;
-                    newQuestion.questionOrder = [NSNumber numberWithInt:idx];
-                    [qSet addQuestionsObject:newQuestion];
-                }];
-                
-                //Add new question set to all new admins
-                [newCourse addQuestionSetsObject:qSet];
-            }];
-        }
-    }];
-    //Save
-    [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:^(BOOL success){
-        NSLog(@"Save (Save Document) %@",success?@"Successful":@"Unsuccessful");
-    }];
-
-}
-
 -(void) saveDatabase{
     NSLog(@"Saving Document");
     [self.documentToSave saveToURL:self.documentToSave.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:^(BOOL success){

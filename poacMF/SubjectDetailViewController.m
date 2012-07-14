@@ -35,7 +35,6 @@
         
         //Update to currentStudent
         _currentStudent = currentStudent;
-        self.title = _currentStudent.username;
         
         //Register for iCloud updates
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -60,7 +59,7 @@
         return;
     
     //Set title
-    self.title = questionSet.typeName;
+    self.title = [NSString stringWithFormat:@"%@: %@",self.currentStudent.username,questionSet.typeName];
     
     //Fetch all tests of same type
     NSMutableArray* testsOfSubject = [self.currentStudent.tests filteredSetUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(Test* evaluatedObject,NSDictionary* bindings){

@@ -79,6 +79,11 @@
         
         //Open new document
         _selectedDocument = selectedDocument;
+        
+        //Update document and UI
+        [self setPersistentStoreOptionsInDocument:_selectedDocument];
+        self.selectCourseBarButton.title = [[_selectedDocument.fileURL lastPathComponent] stringByDeletingPathExtension];
+
 
         if (_selectedDocument.documentState != UIDocumentStateNormal) {
             if (_selectedDocument.documentState == UIDocumentStateClosed) {
@@ -111,10 +116,11 @@
         if (_selectedDocument.documentState != UIDocumentStateNormal) {
             NSLog(@"\n\n\nDocument Error\n\n\n");
             [self printDocumentError:_selectedDocument];
-
+            self.selectCourseBarButton.title = [[_selectedDocument.fileURL lastPathComponent] stringByDeletingPathExtension];
         }
         else {
             NSLog(@"Using current selected document");
+            self.selectCourseBarButton.title = [[_selectedDocument.fileURL lastPathComponent] stringByDeletingPathExtension];
         }
     }
 }
@@ -559,10 +565,38 @@
      */
     
     //Set selected document from iCloud key value
-    NSURL* selectedURL = [NSURL URLWithString:[[NSUserDefaults standardUserDefaults] objectForKey:@"selectedDocumentURL"]];
-    NSLog(@"Selected: %@ \n iCloud: %@\n Local: %@",selectedURL.absoluteString,self.iCloudDocuments,self.localDocuments);
-    if (selectedURL && ([self.iCloudDocuments containsObject:selectedURL] || [self.localDocuments containsObject:selectedURL])) {
-        [self didSelectDocumentWithURL:selectedURL];
+    NSString * selectedURL = [[[NSUserDefaults standardUserDefaults] objectForKey:@"selectedDocumentURL"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]; //Removes encoding from intial save
+    if (selectedURL) {
+        //Check local documents
+        NSUInteger localIndex =[self.localDocuments indexOfObjectPassingTest:^BOOL(NSURL* url, NSUInteger idx, BOOL *stop){
+            if ([url.lastPathComponent isEqualToString:selectedURL.lastPathComponent]) {
+                *stop = YES;
+                return YES;
+            }
+            return NO;
+        }];
+        
+        if (localIndex == NSNotFound) {
+            //Check iCloud
+            NSUInteger iCloudIndex =[self.localDocuments indexOfObjectPassingTest:^BOOL(NSURL* url, NSUInteger idx, BOOL *stop){
+                if ([url.lastPathComponent isEqualToString:selectedURL.lastPathComponent]) {
+                    *stop = YES;
+                    return YES;
+                }
+                return NO;
+            }];
+            if(iCloudIndex != NSNotFound){
+                NSLog(@"Document doesn't exist");
+            }
+            else {
+                //Select object
+                [self didSelectDocumentWithURL:[self.iCloudDocuments objectAtIndex:localIndex]];
+            }
+        }
+        else {
+            //Select object
+            [self didSelectDocumentWithURL:[self.localDocuments objectAtIndex:localIndex]];
+        }
     }
     
     //Autofill for testing
@@ -586,6 +620,12 @@
 	NSString *build = [infoDictionary objectForKey:@"CFBundleVersion"];
 	self.buildString.text = [NSString stringWithFormat:@"%@ v%@ (build %@)",name,version,build];
     
+    //Check inital setup
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"hasCreatedDefaultCourse"]) {
+        [self createDefaultCourse];
+    }
+    
+    
     //Create arrays
     self.localDocuments = [NSArray array];
     self.iCloudDocuments = [NSArray array];
@@ -601,6 +641,110 @@
    
     
 }//end method
+#pragma mark - Default Course
+-(void) createDefaultCourse{
+    [self.documentStateActivityIndicator startAnimating];
+    
+    //Create localDocument
+    NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    url = [url URLByAppendingPathComponent:@"Default Course"];
+    url = [url URLByAppendingPathExtension:@"mfCourse"];
+    UIManagedDocument *defaultDocument = [[UIManagedDocument alloc] initWithFileURL:url];
+    
+    [defaultDocument saveToURL:defaultDocument.fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success){
+        if (success) {
+            //Add inital data
+            [self addInitalData:defaultDocument];
+            
+            //Save URL Settings
+            [[NSUserDefaults standardUserDefaults] setObject:[[defaultDocument.fileURL absoluteString] stringByAppendingString:@"/"] forKey:@"selectedDocumentURL"];
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasCreatedDefaultCourse"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
+            self.selectedDocument = defaultDocument;
+            
+            [self.documentStateActivityIndicator stopAnimating];
+        } 
+    }];
+    
+}
+-(void) addInitalData:(UIManagedDocument*)document{
+    [document.managedObjectContext performBlockAndWait:^{
+        
+        //Load information for plist
+        NSDictionary *seedDict = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"databaseSeed" ofType:@"plist"]];
+        
+        //Create Course
+        Course *newCourse = [NSEntityDescription insertNewObjectForEntityForName:@"Course" inManagedObjectContext:document.managedObjectContext];
+        newCourse.name = [seedDict objectForKey:@"name"];
+        
+        //Add inital Administrators
+        NSArray* seedAdmins = [seedDict objectForKey:@"Administrators"];
+        if ([Administrator isUserNameUnique:[[seedAdmins lastObject] objectForKey:@"username"] inContext:document.managedObjectContext]) {
+            Administrator* newAdmin = [NSEntityDescription insertNewObjectForEntityForName:@"Administrator" inManagedObjectContext:document.managedObjectContext];
+            [newAdmin setValuesForKeysWithDictionary:[seedAdmins lastObject]];
+            [newCourse addAdministratorsObject:newAdmin];
+        }
+        
+        //Add inital question sets
+        NSArray* seedQuestionSets = [seedDict objectForKey:@"Questions Sets New"];
+        
+        __block QuestionSet* initalQuestionSet = nil;
+        
+        //Step through each type
+        for (NSArray* setTypeArray in seedQuestionSets) {
+            NSNumber* setType = [setTypeArray objectAtIndex:0];
+            
+            //Step through each set
+            [[setTypeArray objectAtIndex:1] enumerateObjectsUsingBlock:^(NSDictionary *questionSet,NSUInteger idx, BOOL *stop){
+                //Create QuestionSet
+                QuestionSet *qSet = [NSEntityDescription insertNewObjectForEntityForName:@"QuestionSet" inManagedObjectContext:document.managedObjectContext];
+                qSet.name = [NSString stringWithFormat:@"Set %d",idx+1];
+                qSet.type = setType;
+                qSet.difficultyLevel = [NSNumber numberWithInt:idx];
+                
+                //Set through each question
+                [[questionSet objectForKey:@"questions"] enumerateObjectsUsingBlock:^(NSArray* question, NSUInteger idx, BOOL *stop){
+                    Question* newQuestion = [NSEntityDescription insertNewObjectForEntityForName:@"Question" inManagedObjectContext:document.managedObjectContext];
+                    
+                    // -1 signifies the blank in the question
+                    newQuestion.x = [[question objectAtIndex:0] intValue]>=0?[question objectAtIndex:0]:nil;
+                    newQuestion.y = [[question objectAtIndex:1] intValue]>=0?[question objectAtIndex:1]:nil;
+                    newQuestion.z = [[question objectAtIndex:2] intValue]>=0?[question objectAtIndex:2]:nil;
+                    newQuestion.questionOrder = [NSNumber numberWithInt:idx];
+                    [qSet addQuestionsObject:newQuestion];
+                }];
+                
+                //Add new question set to all new admins
+                [newCourse addQuestionSetsObject:qSet];
+                
+                //Save first question set
+                if (!initalQuestionSet) {
+                    initalQuestionSet = qSet;
+                }
+            }];
+        }
+
+        //Add inital Students
+        NSArray* seedStudents = [seedDict objectForKey:@"Students"];
+        for (NSDictionary* user in seedStudents) {
+            if ([Student isUserNameUnique:[user objectForKey:@"username"] inContext:document.managedObjectContext]) {
+                Student * newStudent = [NSEntityDescription insertNewObjectForEntityForName:@"Student" inManagedObjectContext:document.managedObjectContext];
+                [newStudent setValuesForKeysWithDictionary:user];
+                [newCourse addStudentsObject:newStudent];
+                
+                //Set inital questionSet
+                if (initalQuestionSet)
+                    [newStudent selectQuestionSet:initalQuestionSet];
+            }
+        }
+        
+            }];
+    //Save
+    [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:^(BOOL success){
+        NSLog(@"Save (Inital Document) %@",success?@"Successful":@"Unsuccessful");
+    }];
+}
 
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *) textField {
@@ -635,12 +779,8 @@
 
     //Create document with this file url
     UIManagedDocument *selectDoc = [[UIManagedDocument alloc] initWithFileURL:url];
-    [self setPersistentStoreOptionsInDocument:selectDoc];
     self.selectedDocument = selectDoc; //Opens
             
-    //Update UI
-    self.selectCourseBarButton.title = [[url lastPathComponent] stringByDeletingPathExtension];
-    
     //Dismiss
     [self.coursePopover dismissPopoverAnimated:YES];
 }
