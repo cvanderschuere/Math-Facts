@@ -383,7 +383,7 @@
         }
     }
     //Save
-    [[UIApplication sharedApplication].delegate performSelector:@selector(saveDatabase)];    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SaveDatabase" object:nil];
     
     //Exit to test grid
     [self.navigationController popToRootViewControllerAnimated:YES];

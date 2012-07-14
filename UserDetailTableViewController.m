@@ -236,13 +236,13 @@
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.student.managedObjectContext
                                                                           sectionNameKeyPath:@"isCurrentTest"
-                                                                                   cacheName:[@"studentDetailTestCache" stringByAppendingString:self.student.username]];
+                                                                                   cacheName:nil];
     
     //Fetch all timings with current student
     NSFetchRequest *timingRequest = [NSFetchRequest fetchRequestWithEntityName:@"Result"];
     timingRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES]];
     timingRequest.predicate = [NSPredicate predicateWithFormat:@"student.username == %@ AND isPractice == %@",self.student.username,[NSNumber numberWithBool:NO]];
-    self.graphTimingsFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:timingRequest managedObjectContext:self.student.managedObjectContext sectionNameKeyPath:nil cacheName:[@"studentDetailResultCache" stringByAppendingString:self.student.username]];
+    self.graphTimingsFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:timingRequest managedObjectContext:self.student.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
     
 }
 #pragma mark - Graph Methods
@@ -336,7 +336,7 @@
     [graph addPlot:self.incorrectPlot];
     
     //Make symbol hit easy
-    self.correctPlot.plotSymbolMarginForHitDetection = self.incorrectPlot.plotSymbolMarginForHitDetection = 15.0f;;
+    self.correctPlot.plotSymbolMarginForHitDetection = self.incorrectPlot.plotSymbolMarginForHitDetection = 10.0f;;
 }
 
 #pragma mark -

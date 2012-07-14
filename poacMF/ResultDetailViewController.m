@@ -9,6 +9,8 @@
 #import "ResultDetailViewController.h"
 #import "Question.h"
 #import "QuestionSet.h"
+#import "Test.h"
+#import "Practice.h"
 
 @interface ResultDetailViewController ()
 
@@ -25,7 +27,8 @@
     _result = result;
     
     //Set title
-    self.title = [NSDateFormatter localizedStringFromDate:_result.startDate dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterShortStyle];
+    Test *test = result.isPractice.boolValue?result.practice.test:result.test;
+    self.title = [NSString stringWithFormat:@"%@ (%@): %@",test.questionSet.typeName,test.questionSet.name,[NSDateFormatter localizedStringFromDate:_result.startDate dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterShortStyle]];
     
     //Reload data
     self.questionsCorrect = _result.correctResponses.allObjects.mutableCopy;

@@ -82,7 +82,7 @@
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.currentCourse.managedObjectContext
                                                                           sectionNameKeyPath:@"typeName"
-                                                                                   cacheName:@"questionSetsCache"];
+                                                                                   cacheName:nil];
 }
 #pragma mark - Table view data source
 

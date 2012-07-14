@@ -166,10 +166,7 @@
 	}//end if
     
     //Delete cache for existing student
-    
     if (self.studentToUpdate && ![self.studentToUpdate.username isEqualToString:self.usernameTF.text.lowercaseString]) {
-        [NSFetchedResultsController deleteCacheWithName:[@"studentDetailTestCache" stringByAppendingString:self.studentToUpdate.username]];
-        [NSFetchedResultsController deleteCacheWithName:[@"studentDetailResultCache" stringByAppendingString:self.studentToUpdate.username]];
          self.studentToUpdate.username = self.usernameTF.text.lowercaseString;
     }
     //Create new student if necessary

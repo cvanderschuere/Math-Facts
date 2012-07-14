@@ -364,6 +364,9 @@
     }
 }
 -(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex >= 2)
+        return;    
+    
     [actionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
     
     //Create CSV
@@ -578,14 +581,14 @@
         
         if (localIndex == NSNotFound) {
             //Check iCloud
-            NSUInteger iCloudIndex =[self.localDocuments indexOfObjectPassingTest:^BOOL(NSURL* url, NSUInteger idx, BOOL *stop){
+            NSUInteger iCloudIndex =[self.iCloudDocuments indexOfObjectPassingTest:^BOOL(NSURL* url, NSUInteger idx, BOOL *stop){
                 if ([url.lastPathComponent isEqualToString:selectedURL.lastPathComponent]) {
                     *stop = YES;
                     return YES;
                 }
                 return NO;
             }];
-            if(iCloudIndex != NSNotFound){
+            if(iCloudIndex == NSNotFound){
                 NSLog(@"Document doesn't exist");
             }
             else {
@@ -784,13 +787,20 @@
     //Dismiss
     [self.coursePopover dismissPopoverAnimated:YES];
 }
--(void) didDeleteDocumentWithURL:(NSURL*) deletedURL{
-    [self removeCloudURL:deletedURL];    
-
-    if ([deletedURL isEqual:self.selectedDocument.fileURL]) {
-        [self didSelectDocumentWithURL:nil];
+-(void) didDeleteDocumentWithURL:(NSURL*) deletedURL{ 
+    if ([self.selectedDocument.fileURL isEqual:deletedURL]) {
+        self.selectCourseBarButton.title = @"Select Course"; //Deleting current document
     }
     
+    // Simple delete to start
+    NSFileManager* fileManager = [[NSFileManager alloc] init];
+    [fileManager removeItemAtURL:deletedURL error:nil];
+    
+    NSArray *documentArray = [self.localDocuments containsObject:deletedURL]?self.localDocuments:self.iCloudDocuments;
+    NSMutableArray *documentArrayMutable = [[self.localDocuments containsObject:deletedURL]?self.localDocuments:self.iCloudDocuments mutableCopy];
+    
+    [documentArrayMutable removeObject:deletedURL];
+    documentArray = documentArrayMutable;
 }
 
 #pragma mark - Dealloc

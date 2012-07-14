@@ -22,12 +22,6 @@
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="1" width="280" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <activityIndicatorView hidden="YES" opaque="NO" tag="10" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="kzH-0G-JX8">
-                                            <rect key="frame" x="240" y="12" width="20" height="20"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
-                                        </activityIndicatorView>
-                                    </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                             </tableViewCell>
@@ -38,11 +32,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Courses" id="dFL-i0-0WA">
-                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="SRO-zZ-gHL">
-                            <connections>
-                                <action selector="toggleEditMode:" destination="daL-EW-r5K" id="MbF-ep-rvu"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="xQZ-4o-3qm">
                             <connections>
                                 <segue destination="AJg-9M-l3X" kind="push" identifier="createCourseSegue" id="UXC-lt-1B6"/>
@@ -1116,7 +1105,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="onS-1l-8my" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="EJ3-lU-cfL" customClass="ResultDetailViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="3gg-xT-5Jw">
-                        <rect key="frame" x="0.0" y="64" width="768" height="916"/>
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
@@ -1160,7 +1149,7 @@
         <scene sceneID="OI6-Py-oVN">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vjq-Hl-fXf" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <navigationController toolbarHidden="NO" id="Mvr-0a-kVP" sceneMemberID="viewController">
+                <navigationController id="Mvr-0a-kVP" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="uhZ-iM-uaa">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
@@ -1184,7 +1173,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kDD-EA-sPE" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="QuestionSetDetailTableViewController" id="5kU-ZM-yg7" customClass="QuestionSetDetailTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="CQd-Zl-YAQ">
-                        <rect key="frame" x="0.0" y="64" width="768" height="916"/>
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
@@ -1252,7 +1241,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="editButton" destination="mZw-kY-YaG" id="GK2-CV-97u"/>
                     </connections>
@@ -1736,11 +1725,11 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nqo-j6-UrI" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="UserDetailTableViewController" id="O7s-mG-Ad2" customClass="UserDetailTableViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YsW-Z4-RWO">
-                        <rect key="frame" x="0.0" y="64" width="768" height="916"/>
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="1bn-bs-EFj">
-                                <rect key="frame" x="0.0" y="356" width="768" height="572"/>
+                                <rect key="frame" x="0.0" y="373" width="768" height="587"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
@@ -1816,7 +1805,7 @@
                                 <sections/>
                             </tableView>
                             <view contentMode="scaleToFill" id="SUV-tn-OTi" customClass="CPTGraphHostingView">
-                                <rect key="frame" x="0.0" y="0.0" width="773" height="356"/>
+                                <rect key="frame" x="0.0" y="0.0" width="773" height="373"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -1839,7 +1828,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="editButton" destination="3Z8-v2-ph6" id="Ogi-BJ-uhg"/>
                         <outlet property="graphView" destination="SUV-tn-OTi" id="JgX-us-mVC"/>
@@ -2257,7 +2246,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="280" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="AJg-9M-l3X" id="7XY-V2-lEY"/>
                                                     </connections>
@@ -2281,7 +2270,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="137" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="AJg-9M-l3X" id="aPQ-db-76l"/>
                                                     </connections>
@@ -2290,7 +2279,7 @@
                                                     <rect key="frame" x="145" y="0.0" width="135" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="AJg-9M-l3X" id="Zgb-3j-hwf"/>
                                                     </connections>
@@ -2564,11 +2553,11 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="301-nB-hIK"/>
+        <segue reference="ddt-OJ-p9G"/>
         <segue reference="Zlf-qc-6l8"/>
-        <segue reference="lda-Fg-vsm"/>
-        <segue reference="mjs-n6-7sf"/>
         <segue reference="8dB-Nx-BB0"/>
+        <segue reference="pyl-lN-f0d"/>
+        <segue reference="XXZ-fo-y3a"/>
         <segue reference="WIk-YA-VOd"/>
     </inferredMetricsTieBreakers>
 </document>

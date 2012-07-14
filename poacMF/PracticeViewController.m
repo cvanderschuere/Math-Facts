@@ -511,7 +511,9 @@
     else {
         [self.navigationController popToRootViewControllerAnimated:YES];
     }
-
+    
+    //Save for good measure
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SaveDatabase" object:nil];    
 }
 #pragma mark - IBActions
 -(IBAction)digitPressed:(id)sender{

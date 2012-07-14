@@ -144,40 +144,20 @@
 
 -(void) didStartCreatingCourseWithURL:(NSURL *)newCourseURL inICloud:(BOOL)inICloud
 {
-    if (inICloud) {
-        //Do nothing
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-        [[self.delegate documentStateActivityIndicator] startAnimating];
-    }
-    else {
-        [self.navigationController popToViewController:self animated:YES];
-            
-        //Update Data  
-        [inICloud?self.icloudDocuments:self.localDocuments addObject:newCourseURL];
+    //Animate Loading
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [[self.delegate documentStateActivityIndicator] startAnimating];
 
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[inICloud?self.icloudDocuments:self.localDocuments indexOfObject:newCourseURL] inSection:inICloud?1:0];
-        [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewScrollPositionBottom];
-        
-        
-        //Animate loading
-        UITableViewCell *newCell = [self.tableView cellForRowAtIndexPath:indexPath];
-        UIActivityIndicatorView *spinner = (UIActivityIndicatorView*) [newCell viewWithTag:10];
-        [spinner startAnimating];
-    }
+     //Update Data  
+    [inICloud?self.icloudDocuments:self.localDocuments addObject:newCourseURL];
+
 }
 -(void) didFinishCreatingCourseWithURL:(NSURL *)newCourseURL inICloud:(BOOL)inICloud{
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [[self.delegate documentStateActivityIndicator] stopAnimating];
 
-    
-    //Animate loading
-    UITableViewCell *newCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[inICloud?self.icloudDocuments:self.localDocuments indexOfObject:newCourseURL] inSection:inICloud?1:0]];
-    UIActivityIndicatorView *spinner = (UIActivityIndicatorView*) [newCell viewWithTag:10];
-    [spinner stopAnimating];
-    
     [self.delegate didSelectDocumentWithURL:newCourseURL];
 }
-
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
