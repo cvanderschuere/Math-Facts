@@ -106,6 +106,14 @@
 
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"hasCreatedDefaultCourse"]) {
         //[self createDefaultCourseWithApplication:application];
+            
+        //Create directories
+        NSString* docURL = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, 
+                                                       NSUserDomainMask, YES) objectAtIndex:0];
+        
+        [self createDirectory:@"Courses" atFilePath:docURL];
+        [self createDirectory:@"Backups" atFilePath:docURL];
+    
     }
     
     //Test iCloud
@@ -127,10 +135,24 @@
                                               object:nil];
     
 }//end method
+-(void)createDirectory:(NSString *)directoryName atFilePath:(NSString *)filePath
+{
+    NSString *filePathAndDirectory = [filePath stringByAppendingPathComponent:directoryName];
+    NSError *error;
+    
+    if (![[NSFileManager defaultManager] createDirectoryAtPath:filePathAndDirectory
+                                   withIntermediateDirectories:YES
+                                                    attributes:nil
+                                                         error:&error])
+    {
+        NSLog(@"Create directory error: %@", error);
+    }
+}
 -(void) createDefaultCourseWithApplication:(UIApplication*)application{
     application.networkActivityIndicatorVisible = YES;
     //Create localDocument
     NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    url = [url URLByAppendingPathComponent:@"Courses"];
     url = [url URLByAppendingPathComponent:@"Default Course"];
     url = [url URLByAppendingPathExtension:@"mfCourse"];
     SPManagedDocument *defaultDocument = [[SPManagedDocument alloc] initWithFileURL:url];
@@ -224,7 +246,7 @@
         }
         
         //Add inital question set to new admins
-        NSArray* seedQuestionSets = [seedDict objectForKey:@"Questions Sets"];
+        NSArray* seedQuestionSets = [seedDict objectForKey:@"Questions Sets New"];
         
         //Step through each type
         for (NSArray* setTypeArray in seedQuestionSets) {

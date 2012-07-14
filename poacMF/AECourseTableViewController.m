@@ -82,6 +82,8 @@
         NSString *documentsDirectoryPath = [NSSearchPathForDirectoriesInDomains( NSDocumentDirectory,
                                                                                 NSUserDomainMask, YES ) objectAtIndex:0];
         localDocumentsDirectoryURL = [NSURL fileURLWithPath:documentsDirectoryPath];
+        localDocumentsDirectoryURL = [localDocumentsDirectoryURL URLByAppendingPathComponent:@"Courses"];
+
     }
     return localDocumentsDirectoryURL;
 }
@@ -157,6 +159,7 @@
                 [newDocument.managedObjectContext performBlock:^{
                     //Reload Main login screen information
                     Course *newCourse = [NSEntityDescription insertNewObjectForEntityForName:@"Course" inManagedObjectContext:newDocument.managedObjectContext];
+                    newCourse.name = self.nameTextField.text;
                         
                     Administrator *newAdmin = [NSEntityDescription insertNewObjectForEntityForName:@"Administrator" inManagedObjectContext:newDocument.managedObjectContext];
                     newAdmin.username = self.admin1Username.text.lowercaseString;
@@ -174,15 +177,6 @@
                         }];
                     }];
                 }];
-                /*
-                    [newDocument saveToURL:newDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:^(BOOL success){
-                        if (success) {
-                            [newDocument closeWithCompletionHandler:^(BOOL success){
-                                [self.delegate didFinishCreatingCourseWithURL:newDocument.fileURL inICloud:self.icloudSwitch.on];
-                            }];
-                        }
-                    }];
-                 */
             }
         }];
         

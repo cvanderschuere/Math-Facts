@@ -60,5 +60,10 @@
     
     [self setCurrentTest:currentTest];
 }
-
+/*
+//Custom Description
+-(NSString*) description{
+    return self.username;
+}
+*/
 @end

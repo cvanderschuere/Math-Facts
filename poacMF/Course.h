@@ -36,4 +36,7 @@
 - (void)addQuestionSets:(NSSet *)values;
 - (void)removeQuestionSets:(NSSet *)values;
 
+//CSV
+-(void) saveCSVToFile:(NSString*) fileURL;
+
 @end

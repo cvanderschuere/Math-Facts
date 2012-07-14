@@ -19,10 +19,14 @@
 			</array>
 			<key>CFBundleTypeName</key>
 			<string>mfCourse</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>com.poac.mathfacts.mfCourse</string>
 			</array>
+			<key>LSTypeIsPackage</key>
+			<true/>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
@@ -80,9 +84,9 @@
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
-				<array>
-					<string>mfCourse</string>
-				</array>
+				<string>mfCourse</string>
+				<key>public.mime-type</key>
+				<string>Application/poacMF</string>
 			</dict>
 		</dict>
 	</array>

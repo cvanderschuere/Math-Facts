@@ -32,8 +32,10 @@
                                                         name:NSPersistentStoreDidImportUbiquitousContentChangesNotification
                                                       object:_currentStudent.managedObjectContext.persistentStoreCoordinator];
 
-            
+        
+        //Update to currentStudent
         _currentStudent = currentStudent;
+        self.title = _currentStudent.username;
         
         //Register for iCloud updates
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -49,7 +51,7 @@
         if (self.currentTest)
             [self updateDataForType:self.currentTest.questionSet];
         else {
-            self.title = @"No assigned timings";
+            self.title =  [NSString stringWithFormat:@"%@: No assigned timings",_currentStudent.username];
         }
     }
 }
@@ -80,7 +82,7 @@
     
     for (Test* test in testsOfSubject) {
         //Go thru array one by one and place test... more time consuming than previous method but prevents error when objects not finished saving
-        NSUInteger index = [subjectQuestionSets indexOfObjectAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(lastFoundIndex, subjectQuestionSets.count - lastFoundIndex)] options:nil passingTest:^BOOL(QuestionSet* set, NSUInteger idx, BOOL*stop){
+        NSUInteger index = [subjectQuestionSets indexOfObjectAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(lastFoundIndex, subjectQuestionSets.count - lastFoundIndex)] options:0 passingTest:^BOOL(QuestionSet* set, NSUInteger idx, BOOL*stop){
             //Only look for question sets
             if ([set isKindOfClass:[Test class]])
                 return NO;

@@ -45,6 +45,7 @@ Document Status
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *documentStateActivityIndicator;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *selectCourseBarButton;
 
+- (IBAction)backup:(id)sender;
 
 - (IBAction)selectCourse:(id)sender;
 -(IBAction) loginTapped;

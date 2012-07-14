@@ -200,6 +200,7 @@
         NSString *documentsDirectoryPath = [NSSearchPathForDirectoriesInDomains( NSDocumentDirectory,
                                                                                 NSUserDomainMask, YES ) objectAtIndex:0];
         localDocumentsDirectoryURL = [NSURL fileURLWithPath:documentsDirectoryPath];
+        localDocumentsDirectoryURL = [localDocumentsDirectoryURL URLByAppendingPathComponent:@"Courses"];
     }
     return localDocumentsDirectoryURL;
 }
@@ -338,6 +339,30 @@
 }
 
 #pragma mark - Button Methods
+
+- (IBAction)backup:(id)sender {
+    if (self.selectedDocument && self.selectedDocument.documentState == UIDocumentStateNormal) {
+        
+        /*Write file to csv*/
+        NSFetchRequest* courseFetch = [NSFetchRequest fetchRequestWithEntityName:@"Course"];
+        courseFetch.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
+        
+        NSArray* courses = [self.selectedDocument.managedObjectContext executeFetchRequest:courseFetch error:NULL];
+        
+        //Create file url
+        NSString *documentsDirectoryPath = [NSSearchPathForDirectoriesInDomains( NSDocumentDirectory,
+                                                                                NSUserDomainMask, YES ) objectAtIndex:0];
+        documentsDirectoryPath = [documentsDirectoryPath stringByAppendingPathComponent:@"Backups"];
+        NSString* fileURL = [[documentsDirectoryPath stringByAppendingPathComponent:[self.selectedDocument.fileURL.lastPathComponent stringByDeletingPathExtension]] stringByAppendingPathExtension:@"csv"];
+        
+        [courses.lastObject setName:[self.selectedDocument.fileURL.lastPathComponent stringByDeletingPathExtension]];
+        [courses.lastObject performSelectorInBackground:@selector(saveCSVToFile:) withObject:fileURL];
+    }
+    else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Course" message:@"You must select a course to backup first" delegate:nil cancelButtonTitle:@"Close" otherButtonTitles: nil];
+        [alert show];
+    }
+}
 
 - (IBAction)selectCourse:(UIBarButtonItem*)sender {
     if(self.coursePopover.popoverVisible){
