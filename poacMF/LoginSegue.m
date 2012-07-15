@@ -18,7 +18,7 @@
     //Account for status bar
     dst.view.frame = [[UIScreen mainScreen] applicationFrame];
 
-    [UIView transitionFromView:src.view toView:dst.view duration:.6 options:UIViewAnimationOptionTransitionFlipFromRight 
+    [UIView transitionFromView:src.view toView:dst.view duration:.3 options:UIViewAnimationTransitionNone 
                     completion:^(BOOL finished){
                         [[[[UIApplication sharedApplication] delegate] window] setRootViewController:dst];
                     }
