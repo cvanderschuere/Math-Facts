@@ -19,15 +19,6 @@
 @synthesize delegate = _delegate;
 @synthesize selectedDocument = _selectedDocument;
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -48,7 +39,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return YES;
 }
 
 #pragma mark - Table view data source
@@ -74,7 +65,7 @@
     NSURL *url = [indexPath.section == 1?self.icloudDocuments:self.localDocuments objectAtIndex:indexPath.row];
     cell.textLabel.text = [[url lastPathComponent] stringByDeletingPathExtension];
     
-    if ([url.lastPathComponent isEqual:self.selectedDocument.fileURL.lastPathComponent])
+    if ([url.lastPathComponent isEqualToString:self.selectedDocument.fileURL.lastPathComponent])
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     else
         cell.accessoryType = UITableViewCellAccessoryNone;

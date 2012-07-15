@@ -335,7 +335,7 @@
     [graph addPlot:self.incorrectPlot];
     
     //Make symbol hit easy
-    self.correctPlot.plotSymbolMarginForHitDetection = self.incorrectPlot.plotSymbolMarginForHitDetection = 10.0f;;
+    self.correctPlot.plotSymbolMarginForHitDetection = self.incorrectPlot.plotSymbolMarginForHitDetection = 15.0f;;
 }
 
 #pragma mark -
