@@ -58,7 +58,7 @@
             returnString = @"x";
             break;
         case QUESTION_TYPE_MATH_DIVISION:
-            returnString = @"/";
+            returnString = @"÷";//@"/";
             break;
         default:
             break;

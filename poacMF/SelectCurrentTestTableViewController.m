@@ -90,7 +90,7 @@
          return @"x";
      }
      else if ([sectionName isEqualToString:@"Division"]) {
-         return @"/";
+         return @"÷";//@"/";
      }
      return nil;
  }

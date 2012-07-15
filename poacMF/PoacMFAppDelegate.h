@@ -18,7 +18,7 @@
 
 }
 @property (nonatomic, strong) UIWindow *window;
-@property (nonatomic, strong)  SPManagedDocument* documentToSave;
+@property (nonatomic, strong)  SPManagedDocument* documentToSave; //Passed from login to handle saving
 @property (nonatomic, strong)	User		*currentUser;
 
 

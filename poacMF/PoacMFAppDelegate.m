@@ -156,6 +156,9 @@
 	/*
 	 Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 	 */
+    
+    
+    //Recieve notifications about saving
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveDatabase) name:@"SaveDatabase" object:nil];
 }//end method
 
@@ -173,6 +176,11 @@
     [self.documentToSave saveToURL:self.documentToSave.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:^(BOOL success){
         NSLog(@"Save (Save Document) %@",success?@"Successful":@"Unsuccessful");
     }];
+}
+
+#pragma mark - Dealloc
+-(void) dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self]; //Remove self here as well just in case
 }
 
 

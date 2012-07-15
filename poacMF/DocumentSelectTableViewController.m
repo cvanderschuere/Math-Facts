@@ -74,7 +74,7 @@
     NSURL *url = [indexPath.section == 1?self.icloudDocuments:self.localDocuments objectAtIndex:indexPath.row];
     cell.textLabel.text = [[url lastPathComponent] stringByDeletingPathExtension];
     
-    if ([url isEqual:self.selectedDocument.fileURL])
+    if ([url.lastPathComponent isEqual:self.selectedDocument.fileURL.lastPathComponent])
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     else
         cell.accessoryType = UITableViewCellAccessoryNone;

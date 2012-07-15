@@ -786,7 +786,7 @@
     [self.coursePopover dismissPopoverAnimated:YES];
 }
 -(void) didDeleteDocumentWithURL:(NSURL*) deletedURL{ 
-    if ([self.selectedDocument.fileURL isEqual:deletedURL]) {
+    if ([self.selectedDocument.fileURL.lastPathComponent isEqual:deletedURL.lastPathComponent]) {
         self.selectCourseBarButton.title = @"Select Course"; //Deleting current document
     }
     
