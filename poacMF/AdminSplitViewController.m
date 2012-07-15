@@ -154,9 +154,12 @@
     UserDetailTableViewController* detailController = [[[svc.viewControllers objectAtIndex:1] viewControllers] objectAtIndex:0];
     
     //Remove button
+    NSMutableArray *leftButtons = detailController.navigationItem.leftBarButtonItems.mutableCopy;
+    [leftButtons removeObject:barButtonItem];
+    [detailController.navigationItem setLeftBarButtonItems:leftButtons animated:NO];
+    
     detailController.revealMasterButton = nil;
-    if (detailController.navigationItem.leftBarButtonItems.count>1)
-        [detailController.navigationItem setLeftBarButtonItem:[detailController.navigationItem.leftBarButtonItems objectAtIndex:1] animated:NO];
+
 }
 -(void) splitViewController:(UISplitViewController *)svc popoverController:(UIPopoverController *)pc willPresentViewController:(UIViewController *)aViewController{
     self.masterPopoverController = pc;
