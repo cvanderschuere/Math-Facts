@@ -7,9 +7,7 @@
 //
 
 #import "AppLibrary.h"
-#import "AppConstants.h"
 #import "User.h"
-#import "SuperResults.h"
 
 @implementation AppLibrary
 

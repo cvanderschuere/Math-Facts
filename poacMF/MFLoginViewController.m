@@ -31,8 +31,6 @@
 #import "SubjectDetailViewController.h"
 #import "DocumentSelectTableViewController.h"
 
-#import "NSData+CocoaDevUsersAdditions.h"
-
 @interface MFLoginViewController ()
 
 @property (nonatomic, strong) NSArray *iCloudDocuments; //of NSURL

@@ -7,7 +7,6 @@
 //
 
 #import "StudentMainViewController.h"
-#import "CVCocosViewController.h"
 #import "SubjectDetailViewController.h"
 #import "Test.h"
 

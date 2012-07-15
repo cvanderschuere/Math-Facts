@@ -9,7 +9,6 @@
 #import "UsersTableViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "PoacMFAppDelegate.h"
-#import "AppConstants.h"
 #import "UserDetailTableViewController.h"
 #import "Student.h"
 #import "AEUserTableViewController.h"

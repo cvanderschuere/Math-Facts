@@ -29,6 +29,13 @@ Document Status
     -conflict resolution
  */
 
+/*
+    iCloud
+ 
+ *Built in support for iCloud throughout project
+ *Never could get relability in syncing
+ *Issues with corrupting documents after syncing for a while
+*/
 
 
 #import <UIKit/UIKit.h>

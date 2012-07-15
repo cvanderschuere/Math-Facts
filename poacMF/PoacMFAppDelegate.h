@@ -12,7 +12,6 @@
 
 #import <UIKit/UIKit.h>
 #import "User.h"
-#import "POACDetailViewController.h"
 #import "SPManagedDocument.h"
 
 @interface PoacMFAppDelegate : NSObject <UIApplicationDelegate> {	
