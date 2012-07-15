@@ -34,7 +34,7 @@
     if (![_test isEqual:test]) {
         _test = test;
         
-        self.title = [NSString stringWithFormat:@"%@. %@ (%@)",_test.student.firstNameInital,_test.student.lastName,_test.questionSet.name];
+        self.title = [NSString stringWithFormat:@"%@: %@ (%@)",_test.student.username,_test.questionSet.typeName,_test.questionSet.name];
         
         self.testResults = _test.results.allObjects.mutableCopy;
         
@@ -77,9 +77,10 @@
     if ([segue.identifier isEqualToString:@"resultDetailSegue"]) {
         //Find index path of sender
         NSIndexPath* selectedCellIndex = [self.resultsTableView indexPathForCell:sender];
-        if (selectedCellIndex.section == 0)
+        
+        if (selectedCellIndex.section==0 && self.testResults.count>0) //Test
             [segue.destinationViewController setResult:(Result*)[self.testResults objectAtIndex:selectedCellIndex.row]];
-        else if (selectedCellIndex.section == 1)
+        else if (self.practiceResults.count>0) //Practice
             [segue.destinationViewController setResult:(Result*)[self.practiceResults objectAtIndex:selectedCellIndex.row]];
 
         //Clear Selection
@@ -273,7 +274,7 @@
 
 
 
-#pragma UITableView DataSource
+#pragma mark - UITableView DataSource
 -(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
     NSInteger sections = self.testResults.count>0?1:0;
@@ -282,14 +283,14 @@
 }
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return section==0?self.testResults.count:self.practiceResults.count;
+    return section==0 && self.testResults.count>0?self.testResults.count:self.practiceResults.count;
 }
 -(UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"resultCell"];
     
     //Customize Cell
-    Result *result = [indexPath.section==0?self.testResults:self.practiceResults objectAtIndex:indexPath.row];
+    Result *result = [indexPath.section==0 && self.testResults.count>0?self.testResults:self.practiceResults objectAtIndex:indexPath.row];
     
     cell.textLabel.text = [NSDateFormatter localizedStringFromDate:[result startDate]  dateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterShortStyle];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"Correct: %d / Incorrect: %d",result.correctResponses.count,result.incorrectResponses.count];

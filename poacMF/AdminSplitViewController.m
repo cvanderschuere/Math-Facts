@@ -152,7 +152,6 @@
 }
 -(void) splitViewController:(UISplitViewController *)svc willShowViewController:(UIViewController *)aViewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem{
     UserDetailTableViewController* detailController = [[[svc.viewControllers objectAtIndex:1] viewControllers] objectAtIndex:0];
-    NSLog(@"ViewControllers:%@ Navitation Items:%@",detailController,detailController.navigationItem.leftBarButtonItems);
     
     //Remove button
     detailController.revealMasterButton = nil;
