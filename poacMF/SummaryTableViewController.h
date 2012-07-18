@@ -11,10 +11,13 @@
 #import "Result.h"
 #import "Course.h"
 #import "CoreDataTableViewController.h"
+#import <MessageUI/MessageUI.h>
 
-@interface SummaryTableViewController : CoreDataTableViewController
+
+@interface SummaryTableViewController : CoreDataTableViewController <MFMailComposeViewControllerDelegate,UIActionSheetDelegate>
 
 @property (nonatomic, strong) Course *currentCourse;
 - (IBAction)done:(id)sender;
+- (IBAction)backup:(UIBarButtonItem*)sender;
 
 @end

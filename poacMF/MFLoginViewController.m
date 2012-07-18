@@ -38,7 +38,6 @@
 @property (nonatomic, strong) NSMetadataQuery *iCloudQuery;
 
 @property (nonatomic, strong) UIPopoverController* coursePopover;
-@property (nonatomic, strong) UIActionSheet* backupActionSheet;
 
 @property (nonatomic, strong) UIManagedDocument* selectedDocument;
 
@@ -52,7 +51,7 @@
 @synthesize selectCourseBarButton = _selectCourseBarButton;
 @synthesize loginButton = _loginButton;
 @synthesize userNameTextField = _userNameTextField, passwordTextField = _passwordTextField, readyToLogin = _readyToLogin;
-@synthesize coursePopover = _coursePopover, backupActionSheet = _backupActionSheet;
+@synthesize coursePopover = _coursePopover;
 
 @synthesize iCloudDocuments = _iCloudDocuments, localDocuments = _localDocuments;
 @synthesize iCloudQuery = _iCloudQuery;
@@ -346,73 +345,6 @@
 
 #pragma mark - Button Methods
 
-- (IBAction)backup:(UIBarButtonItem*)sender {
-    if (self.backupActionSheet.visible) {
-        return [self.backupActionSheet dismissWithClickedButtonIndex:-1 animated:YES];
-    }
-    
-    if (self.selectedDocument) {
-        self.backupActionSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Backup: %@",[self.selectedDocument.fileURL.lastPathComponent stringByDeletingPathExtension]]  delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Send Email",@"Save to documents", nil];
-        
-        return [self.backupActionSheet showFromBarButtonItem:sender animated:YES];
-    }
-    else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Course" message:@"You must select a course to backup first" delegate:nil cancelButtonTitle:@"Close" otherButtonTitles: nil];
-        [alert show];
-    }
-}
--(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex >= 2)
-        return;    
-    
-    [actionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
-    
-    //Create CSV
-    NSString* csvURLString = [self createCSVBackupForDocument:self.selectedDocument];
-    
-    if (csvURLString) {
-        if (buttonIndex == 0) {
-            //Email
-            NSData *csvData = [NSData dataWithContentsOfFile:csvURLString];
-            
-            MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
-            [picker setSubject:[NSString stringWithFormat:@"Backup: %@",[csvURLString.lastPathComponent stringByDeletingPathExtension]]];
-            
-            [picker addAttachmentData:csvData mimeType:@"text/csv" fileName:csvURLString.lastPathComponent];
-            [picker setMailComposeDelegate:self];
-            [self presentModalViewController:picker animated:YES]; 
-        }
-        else if (buttonIndex == 1) {
-            //Just save
-        }
-    }
-    
-}
--(NSString*) createCSVBackupForDocument:(UIManagedDocument*)document{
-    if (document && document.documentState == UIDocumentStateNormal) {
-        
-        /*Write file to csv*/
-        NSFetchRequest* courseFetch = [NSFetchRequest fetchRequestWithEntityName:@"Course"];
-        courseFetch.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
-        
-        NSArray* courses = [document.managedObjectContext executeFetchRequest:courseFetch error:NULL];
-        
-        //Create file url
-        NSString *documentsDirectoryPath = [NSSearchPathForDirectoriesInDomains( NSDocumentDirectory,
-                                                                                NSUserDomainMask, YES ) objectAtIndex:0];
-        NSString* fileURL = [[documentsDirectoryPath stringByAppendingPathComponent:[document.fileURL.lastPathComponent stringByDeletingPathExtension]] stringByAppendingPathExtension:@"csv"];
-        
-        //[courses.lastObject setName:[document.fileURL.lastPathComponent stringByDeletingPathExtension]];
-        [courses.lastObject saveCSVToFile:fileURL];        //[courses.lastObject performSelectorInBackground:@selector(saveCSVToFile:) withObject:fileURL];
-
-        return fileURL;
-    }
-    else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Course" message:@"You must select a course to backup first" delegate:nil cancelButtonTitle:@"Close" otherButtonTitles: nil];
-        [alert show];
-        return nil;
-    }
-}
 - (IBAction)selectCourse:(UIBarButtonItem*)sender {
     if(self.coursePopover.popoverVisible){
         [self.coursePopover dismissPopoverAnimated:YES];
@@ -752,12 +684,6 @@
 	[textField resignFirstResponder];
 	return YES;
 }//end method
-#pragma mark - MFMailComposeDelegate
-- (void)mailComposeController:(MFMailComposeViewController *)controller
-		  didFinishWithResult:(MFMailComposeResult)result
-						error:(NSError *)error {
-    [self dismissModalViewControllerAnimated:YES];
-}
 #pragma mark - Document Select Delegate
 -(void) didSelectDocumentWithURL:(NSURL *)url{
     if (!url) {

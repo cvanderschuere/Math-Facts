@@ -111,6 +111,9 @@
 {
     [super viewDidLoad];
     
+    //Disable back button
+    self.navigationItem.hidesBackButton = YES;
+    
     //Set inital data
     self.nextButton.alpha = 0;
     self.instructionLabel.text = nil;
@@ -160,7 +163,7 @@
     self.xLabel.text = self.yLabel.text = self.zLabel.text = self.timeLabel.text = self.numberCorrectLabel.text = self.numberIncorrectLabel.text = nil;
 }
 
--(void) viewDidAppear:(BOOL)animated{
+-(void) viewDidAppear:(BOOL)animated{    
     //Alert to start test        
     UIActionSheet *startTestSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"Quit" otherButtonTitles:@"Start", nil];
     [startTestSheet showInView:self.view];

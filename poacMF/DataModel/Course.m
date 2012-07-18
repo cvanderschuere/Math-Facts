@@ -34,31 +34,20 @@
     [csvWriter writeLineOfFields:self.name, nil];
     [csvWriter writeLine];
     
-    //Students sort alphabetical
-    NSArray *sortedStudents = [self.students.allObjects sortedArrayUsingDescriptors:[NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES],[NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES], nil]];
+    //Heading
+    [csvWriter writeLineOfFields:@"First Name",@"Last Name",@"Date", @"Practice/Timing",@"Set",@"# correct",@"# incorrect",@"Time",nil];
     
-    [csvWriter writeLineOfFields:@"Student Name",@"",@"Test Length", @"Min Correct",@"Max Incorrect",@"Practice Length" ,nil];
+    //Find all results and sort by date/lastName/firstName
+    NSFetchRequest *allResults = [NSFetchRequest fetchRequestWithEntityName:@"Result"];
+    allResults.sortDescriptors = [NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES],[NSSortDescriptor sortDescriptorWithKey:@"student.lastName" ascending:YES],[NSSortDescriptor sortDescriptorWithKey:@"student.firstName" ascending:YES],nil];
     
-    for (Student* student in sortedStudents) {
-        //Print student name
-        [csvWriter writeLineOfFields:student.firstName,student.lastName,student.defaultTestLength,student.defaultPassCriteria,student.defaultMaximumIncorrect,student.defaultPracticeLength, nil];
-        [csvWriter writeLine];
-        
-        [csvWriter writeCommentLine:@"Timings"];
-        for (Test* test in student.tests) {
-            [csvWriter writeLineOfFields:[NSString stringWithFormat:@"%@: %@",test.questionSet.typeName,test.questionSet.name,test.testLength],test.passCriteria,test.maximumIncorrect, nil];
-                        
-            [csvWriter writeLine];
-
-            [csvWriter writeCommentLine:@"Results"];
-            for (Result* result in test.results) {
-                [csvWriter writeLineOfFields:[NSNumber numberWithInt:result.correctResponses.count].stringValue,[NSNumber numberWithInt:result.incorrectResponses.count].stringValue, nil];
-            }
-        }
-        [csvWriter writeLine];
-        [csvWriter writeLine];
+    NSArray * allResultsArray = [self.managedObjectContext executeFetchRequest:allResults error:NULL];
+    
+    for (Result* result in allResultsArray) {
+        //Create row
+        [csvWriter writeLineOfFields:result.student.firstName,result.student.lastName,[NSDateFormatter localizedStringFromDate:result.startDate dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterMediumStyle],result.isPractice.boolValue?@"Practice":@"Timing",result.isPractice.boolValue?[NSString stringWithFormat:@"%@: (%@)",result.practice.test.questionSet.typeName,result.practice.test.questionSet.name]:[NSString stringWithFormat:@"%@: (%@)",result.test.questionSet.typeName,result.test.questionSet.name],[NSNumber numberWithInt:result.correctResponses.count].stringValue,[NSNumber numberWithInt:result.incorrectResponses.count].stringValue,[NSString stringWithFormat:@"%.0f",[result.endDate timeIntervalSinceDate:result.startDate]], nil];
     }
-        
+    
     [csvWriter closeFile];
 }
 

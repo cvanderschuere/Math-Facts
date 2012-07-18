@@ -88,6 +88,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //Disable back button
+    self.navigationItem.hidesBackButton = YES;
+
         
     //Setup for question type
     if (self.test.questionSet.type.intValue == QUESTION_TYPE_MATH_DIVISION) {
@@ -135,7 +139,6 @@
     //Alert to start test        
     UIActionSheet *startTestSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"Quit" otherButtonTitles:@"Start", nil];
     [startTestSheet showInView:self.view];
-
 }
 -(void) viewWillDisappear:(BOOL)animated{
     [self.quitSheet dismissWithClickedButtonIndex:-1 animated:animated];

@@ -13,12 +13,15 @@
 @interface SummaryTableViewController ()
 
 @property (nonatomic, strong) NSMutableDictionary *studentInfoDict;
+@property (nonatomic, strong) UIActionSheet* backupActionSheet;
+
 
 @end
 
 @implementation SummaryTableViewController
 @synthesize studentInfoDict = _studentInfoDict;
 @synthesize currentCourse = _currentCourse;
+@synthesize backupActionSheet = _backupActionSheet;
 
 -(void) setCurrentCourse:(Course *)currentCourse{
     if (![_currentCourse isEqual:currentCourse]) {
@@ -109,11 +112,65 @@
      <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
      // ...
      // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
+     [self.navigationController pushV   iewController:detailViewController animated:YES];
      */
 }
 #pragma mark - IBActions
 - (IBAction)done:(id)sender {
     [self.presentingViewController dismissModalViewControllerAnimated:YES];
 }
+- (IBAction)backup:(UIBarButtonItem*)sender {
+    if (self.backupActionSheet.visible) {
+        return [self.backupActionSheet dismissWithClickedButtonIndex:-1 animated:YES];
+    }
+    
+    self.backupActionSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Backup: %@",self.currentCourse.name]  delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Send Email",@"Save to documents", nil];
+    
+    return [self.backupActionSheet showFromBarButtonItem:sender animated:YES];
+}
+-(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex >= 2)
+        return;    
+    
+    [actionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
+    
+    //Create CSV
+    NSString* csvURLString = [self createCSVBackupForCourse:self.currentCourse];
+    
+    if (csvURLString) {
+        if (buttonIndex == 0) {
+            //Email
+            NSData *csvData = [NSData dataWithContentsOfFile:csvURLString];
+            
+            MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
+            [picker setSubject:[NSString stringWithFormat:@"Math Facts Backup: %@",[csvURLString.lastPathComponent stringByDeletingPathExtension]]];
+            
+            [picker addAttachmentData:csvData mimeType:@"text/csv" fileName:csvURLString.lastPathComponent];
+            [picker setMailComposeDelegate:self];
+            [self presentModalViewController:picker animated:YES]; 
+        }
+        else if (buttonIndex == 1) {
+            //Just save
+        }
+    }
+    
+}
+-(NSString*) createCSVBackupForCourse:(Course*)course{                
+        //Create file url
+        NSString *documentsDirectoryPath = [NSSearchPathForDirectoriesInDomains( NSDocumentDirectory,
+                                                                                NSUserDomainMask, YES ) objectAtIndex:0];
+    NSString* fileURL = [[documentsDirectoryPath stringByAppendingPathComponent:course.name?course.name:@"Unnamed"] stringByAppendingPathExtension:@"csv"];
+        
+        [course saveCSVToFile:fileURL];  //[courses.lastObject performSelectorInBackground:@selector(saveCSVToFile:) withObject:fileURL];
+        
+        return fileURL;
+}
+#pragma mark - MFMailComposeDelegate
+- (void)mailComposeController:(MFMailComposeViewController *)controller
+		  didFinishWithResult:(MFMailComposeResult)result
+						error:(NSError *)error {
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+
 @end
