@@ -388,6 +388,8 @@
         [self.resultsPopover dismissPopoverAnimated:YES];
     }
     else {
+        [TestFlight passCheckpoint:[NSString stringWithFormat:@"Student: View Results"]];
+        
         StudentGraphPopoverViewController *graphVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StudentGraphPopoverViewController"];
         graphVC.resultsArray = self.currentStudent.results.allObjects;
         
