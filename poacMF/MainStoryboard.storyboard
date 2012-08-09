@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11E53" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="rPp-Vw-Shc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2549" systemVersion="12A269" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="rPp-Vw-Shc">
     <dependencies>
         <deployment defaultVersion="1296" identifier="iOS"/>
-        <development defaultVersion="4200" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1498"/>
     </dependencies>
     <scenes>
         <!--Document Select Table View Controller - Courses-->
@@ -2042,6 +2041,7 @@
                                         <state key="normal" title="4">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <state key="disabled" title="4"/>
                                         <state key="highlighted" title="4">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -2529,11 +2529,11 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="pyl-lN-f0d"/>
-        <segue reference="XXZ-fo-y3a"/>
         <segue reference="WIk-YA-VOd"/>
-        <segue reference="cQk-xi-Qoh"/>
+        <segue reference="XXZ-fo-y3a"/>
         <segue reference="Zlf-qc-6l8"/>
         <segue reference="ddt-OJ-p9G"/>
+        <segue reference="8dB-Nx-BB0"/>
+        <segue reference="pyl-lN-f0d"/>
     </inferredMetricsTieBreakers>
 </document>

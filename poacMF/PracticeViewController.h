@@ -12,6 +12,10 @@
 #import "Question.h"
 #import "Result.h"
 
+//Error Animation
+#import <QuartzCore/QuartzCore.h>
+#import <CoreText/CoreText.h>
+
 @protocol PracticeResultProtocol <NSObject>
 
 -(void) didFinishTest:(Practice*)finishedPractice;

@@ -34,6 +34,12 @@
 @property (nonatomic, strong) NSMutableArray *oldQuestions;
 @property (nonatomic, strong) NSMutableArray *errorQueue;
 
+//Error
+@property (nonatomic, strong) CAShapeLayer *errorIndicatorLayer;
+@property (nonatomic, strong) CAShapeLayer *correctAnswerTextLayer;
+
+-(UIBezierPath*) createPathForText:(NSString*)text;
+
 @end
 
 @implementation PracticeViewController
@@ -56,6 +62,7 @@
 @synthesize updateTimer = _updateTimer;
 @synthesize delegate = _delegate;
 @synthesize quitSheet = _quitSheet;
+@synthesize errorIndicatorLayer = _errorIndicatorLayer, correctAnswerTextLayer = _correctAnswerTextLayer;
 
 @synthesize currentQuestionIsRetake = _currentQuestionIsRetake, questionsBeforeRetake = _questionsBeforeRetake, errorQueue = _errorQueue,questionsNeedShuffle = _questionsNeedShuffle, oldQuestions = _oldQuestions;
 
@@ -161,6 +168,8 @@
     
     //Clear labels
     self.xLabel.text = self.yLabel.text = self.zLabel.text = self.timeLabel.text = self.numberCorrectLabel.text = self.numberIncorrectLabel.text = nil;
+    
+    //Setup Error Indicator Layer
 }
 
 -(void) viewDidAppear:(BOOL)animated{    
@@ -270,7 +279,7 @@
 }
 -(void) loadNextQuestion{
     //Disable instruction
-    self.nextButton.layer.opacity = 0;
+    self.nextButton.alpha = 0;
     self.instructionLabel.text = nil;
     Question* previousQuestion = self.questionsToAsk.lastObject;
 
@@ -319,8 +328,11 @@
 }
 -(void) prepareForQuestion:(Question*)question{
     if (question) {
+        //Clear error layer
+        [self.errorIndicatorLayer removeFromSuperlayer];
+        [self.correctAnswerTextLayer removeFromSuperlayer];
+                
         NSLog(@"Question from Question set: %@",question.questionSet.difficultyLevel.stringValue);
-        
         //Setup text
         self.xLabel.text = question.x?[NSNumberFormatter localizedStringFromNumber:question.x numberStyle:NSNumberFormatterBehavior10_4]:nil;
         self.yLabel.text = question.y?[NSNumberFormatter localizedStringFromNumber:question.y numberStyle:NSNumberFormatterBehavior10_4]:nil;
@@ -398,7 +410,7 @@
     }
     return answer;
 }
--(void) evaluateGivenAnswer:(NSString*)givenAnswer withActualAnswer:(NSNumber*)actualAnswer{
+-(void) evaluateGivenAnswer:(NSString*)givenAnswer withActualAnswer:(NSNumber*)actualAnswer fromLabel:(UILabel*)answerLabel{
     //Convert to string
     NSNumberFormatter * formatter = [[NSNumberFormatter alloc] init];
     formatter.numberStyle = NSNumberFormatterBehavior10_4;
@@ -441,6 +453,9 @@
         
         self.instructionLabel.text = [@"Incorrect. The correct answer was " stringByAppendingString:actualAnswer.stringValue];
         
+        //Show error indicator
+        [self addErrorIndicationToLabel:answerLabel withCorrectAnswer:actualAnswer.stringValue];
+        
         //Animate Incorrect image
         [UIView animateWithDuration:ANSWER_ANIMATION_HALF_LENGTH animations:^{
             //Scale large
@@ -482,7 +497,7 @@
     if ([answer compare:actualAnswer] == NSOrderedSame)
         [self performSelector:@selector(loadNextQuestion) withObject:nil afterDelay:.2];
     else
-        self.nextButton.layer.opacity = 1;
+        self.nextButton.alpha = 1;
     
 }
 -(void) checkPassConditions{
@@ -547,7 +562,7 @@
 	NSNumber* actualAnswer = [self getAnswerForQuestion:[self.questionsToAsk lastObject]];
 	
 	if ([answerLabel.text length] == [[actualAnswer stringValue] length])
-		 [self evaluateGivenAnswer:answerLabel.text  withActualAnswer:actualAnswer];
+        [self evaluateGivenAnswer:answerLabel.text  withActualAnswer:actualAnswer fromLabel:answerLabel];
 }
 -(IBAction)didPressNextButton:(UIButton *)sender{
     [self loadNextQuestion];
@@ -573,6 +588,136 @@
 }
 -(void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
     [self performSegueWithIdentifier:@"startTestFromPractice" sender:self.delegate];
+}
+
+#pragma mark - Error Indication Methods
+-(void) addErrorIndicationToLabel:(UILabel*) label withCorrectAnswer:(NSString*) correctAnswer{
+        //Setup Error layer (Must be done each time to account for new label)
+        CGRect pathRect = CGRectInset(label.bounds, label.bounds.size.width/3, 10.0f);
+        CGPoint bottomLeft 	= CGPointMake(CGRectGetMinX(pathRect), CGRectGetMinY(pathRect));
+        CGPoint topLeft		= CGPointMake(CGRectGetMinX(pathRect), CGRectGetMinY(pathRect) + CGRectGetHeight(pathRect));
+        CGPoint bottomRight = CGPointMake(CGRectGetMaxX(pathRect), CGRectGetMinY(pathRect));
+        CGPoint topRight	= CGPointMake(CGRectGetMaxX(pathRect), CGRectGetMinY(pathRect) + CGRectGetHeight(pathRect));
+        
+        UIBezierPath *path = [UIBezierPath bezierPath];
+        [path moveToPoint:topRight];
+        [path addLineToPoint:bottomLeft];
+        [path moveToPoint:topLeft];
+        [path addLineToPoint:bottomRight];
+        
+        self.errorIndicatorLayer = [CAShapeLayer layer];
+        self.errorIndicatorLayer.frame = label.bounds;
+        self.errorIndicatorLayer.bounds = pathRect;
+        self.errorIndicatorLayer.geometryFlipped = YES;
+        self.errorIndicatorLayer.path = path.CGPath;
+        self.errorIndicatorLayer.strokeColor = [[UIColor redColor] CGColor];
+        self.errorIndicatorLayer.fillColor = nil;
+        self.errorIndicatorLayer.lineWidth = 7.0f;
+        self.errorIndicatorLayer.lineJoin = kCALineJoinBevel;
+    
+    if (!self.correctAnswerTextLayer) {
+        //Setup Layer
+        self.correctAnswerTextLayer = [CAShapeLayer layer];
+       //pathLayer.backgroundColor = [[UIColor yellowColor] CGColor];
+        self.correctAnswerTextLayer.geometryFlipped = YES;
+        self.correctAnswerTextLayer.strokeColor = [[UIColor blackColor] CGColor];
+        self.correctAnswerTextLayer.fillColor = [UIColor colorWithRed:34.0/255.0 green:139.0/255.0 blue:34.0/255.0 alpha:1.0f].CGColor;
+        self.correctAnswerTextLayer.lineWidth = 1.5f;
+        self.correctAnswerTextLayer.lineJoin = kCALineJoinBevel;
+    }
+    //Customize correct label
+    self.correctAnswerTextLayer.frame = CGRectOffset(label.frame, label.bounds.size.width * 1, 0);
+    UIBezierPath *textPath = [self createPathForText:correctAnswer];
+    self.correctAnswerTextLayer.bounds = CGPathGetBoundingBox(textPath.CGPath);
+    self.correctAnswerTextLayer.path = textPath.CGPath;
+    
+    //Center error indicator
+    self.errorIndicatorLayer.anchorPoint = label.layer.anchorPoint;
+
+
+    //Add as sublayers
+    [label.layer addSublayer:self.errorIndicatorLayer];
+    [self.view.layer addSublayer:self.correctAnswerTextLayer];
+    
+    CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+    pathAnimation.duration = .8;
+    pathAnimation.fromValue = [NSNumber numberWithFloat:0.0f];
+    pathAnimation.toValue = [NSNumber numberWithFloat:1.0f];
+    [self.errorIndicatorLayer addAnimation:pathAnimation forKey:@"strokeEnd"];
+    [self.correctAnswerTextLayer addAnimation:pathAnimation forKey:@"strokeEnd"];
+}
+
+-(UIBezierPath*) createPathForText:(NSString*)text{
+    // Create path from text
+    // See: http://www.codeproject.com/KB/iPhone/Glyph.aspx
+    // License: The Code Project Open License (CPOL) 1.02 http://www.codeproject.com/info/cpol10.aspx
+    CGMutablePathRef letters = CGPathCreateMutable();
+    
+    CTFontRef font = CTFontCreateWithName(CFSTR("Chalkboard SE Bold"), 65.0f, NULL);
+    NSDictionary *attrs = [NSDictionary dictionaryWithObjectsAndKeys:
+                           (__bridge id)font, kCTFontAttributeName,
+                           nil];
+    NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:text
+                                                                     attributes:attrs];
+    CTLineRef line = CTLineCreateWithAttributedString((__bridge CFAttributedStringRef)attrString);
+    CFArrayRef runArray = CTLineGetGlyphRuns(line);
+    
+    // for each RUN
+    for (CFIndex runIndex = 0; runIndex < CFArrayGetCount(runArray); runIndex++)
+    {
+        // Get FONT for this run
+        CTRunRef run = (CTRunRef)CFArrayGetValueAtIndex(runArray, runIndex);
+        CTFontRef runFont = CFDictionaryGetValue(CTRunGetAttributes(run), kCTFontAttributeName);
+        
+        // for each GLYPH in run
+        for (CFIndex runGlyphIndex = 0; runGlyphIndex < CTRunGetGlyphCount(run); runGlyphIndex++)
+        {
+            // get Glyph & Glyph-data
+            CFRange thisGlyphRange = CFRangeMake(runGlyphIndex, 1);
+            CGGlyph glyph;
+            CGPoint position;
+            CTRunGetGlyphs(run, thisGlyphRange, &glyph);
+            CTRunGetPositions(run, thisGlyphRange, &position);
+            
+            // Get PATH of outline
+            {
+                CGPathRef letter = CTFontCreatePathForGlyph(runFont, glyph, NULL);
+                CGAffineTransform t = CGAffineTransformMakeTranslation(position.x, position.y);
+                CGPathAddPath(letters, &t, letter);
+                CGPathRelease(letter);
+            }
+        }
+    }
+    CFRelease(line);
+    
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointZero];
+    [path appendPath:[UIBezierPath bezierPathWithCGPath:letters]];
+    
+    CGPathRelease(letters);
+    CFRelease(font);
+    
+    return path;
+}
+
+-(void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{
+    //Adjust error correction layers
+    //self.errorIndicatorLayer.bounds = self.errorIndicatorLayer.superlayer.bounds;
+    self.errorIndicatorLayer.anchorPoint = self.errorIndicatorLayer.superlayer.anchorPoint;
+    
+    Question* currentQuestion = [self.questionsToAsk lastObject];
+    UILabel* answerLabel = nil;
+    if (!currentQuestion.x)
+        answerLabel = self.xLabel;
+    else if (!currentQuestion.y)
+        answerLabel = self.yLabel;
+    else if(!currentQuestion.z)
+        answerLabel = self.zLabel;
+    
+    
+    self.correctAnswerTextLayer.frame = CGRectOffset(answerLabel.frame, answerLabel.bounds.size.width * 1.5, -10);
+
+    
 }
 
 @end
