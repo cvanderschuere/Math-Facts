@@ -34,8 +34,6 @@
 {
     [super viewDidLoad];
     
-    [TestFlight passCheckpoint:@"Admin: Summary Launched"];
-
     self.studentInfoDict = [NSMutableDictionary dictionary];
 
     // Uncomment the following line to preserve selection between presentations.
@@ -125,7 +123,6 @@
     if (self.backupActionSheet.visible) {
         return [self.backupActionSheet dismissWithClickedButtonIndex:-1 animated:YES];
     }
-    [TestFlight passCheckpoint:@"Admin: Backup pressed"];
 
     self.backupActionSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Backup: %@",self.currentCourse.name]  delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Send Email",@"Save to documents", nil];
     

@@ -21,12 +21,10 @@
 -(IBAction)switchViewController:(UISegmentedControl*)sender{
     switch (sender.selectedSegmentIndex) {
         case 0:
-            [TestFlight passCheckpoint:@"SwitchToUsersViewController"];
             //Set Users ViewController
             [self setViewControllers:[NSArray arrayWithObject:[self.storyboard instantiateViewControllerWithIdentifier:@"usersTableViewController"]] animated:NO];
             break;
         case 1:
-            [TestFlight passCheckpoint:@"SwitchToSetsViewController"];
             //Set Sets ViewController
             [self setViewControllers:[NSArray arrayWithObject:[self.storyboard instantiateViewControllerWithIdentifier:@"setsTableViewController"]] animated:NO];
             break;

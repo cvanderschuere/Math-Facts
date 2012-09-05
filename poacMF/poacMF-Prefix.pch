@@ -13,5 +13,4 @@
 	#import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
     #import "CorePlot-CocoaTouch.h"
-    #import "TestFlight.h"
 #endif

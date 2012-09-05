@@ -164,9 +164,7 @@
 }
 
 #pragma mark - Test Flow Methods
--(void) startTest{
-    [TestFlight passCheckpoint:[NSString stringWithFormat:@"Start Test: %@ (%@)",self.test.questionSet.typeName,self.test.questionSet.name]];
-    
+-(void) startTest{    
     //Create Result and set values
     self.result = [NSEntityDescription insertNewObjectForEntityForName:@"Result" inManagedObjectContext:self.test.managedObjectContext];
     self.result.test = self.test;

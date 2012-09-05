@@ -315,12 +315,10 @@
     else {
         if ([actionSheet.title isEqualToString:@"Timing"] && buttonIndex != -1) {
             //Launch Test
-            [TestFlight passCheckpoint:@"StartTest"];
             [self performSegueWithIdentifier:@"startTestSegue" sender:self.gridView];
         }
         else if ([actionSheet.title isEqualToString:@"Practice"] && buttonIndex != -1) {
             //Launch Practice
-            [TestFlight passCheckpoint:@"StartPractice"];
             [self performSegueWithIdentifier:@"startPracticeSegue" sender:self.gridView];
         }
         [self.gridView deselectItemAtIndex:self.gridView.selectedIndex animated:YES];
@@ -346,7 +344,6 @@
 }
 #pragma mark - Test Result Delegate
 -(void) didFinishTest:(Test*)finishedTest withResult:(Result*)result{
-    [TestFlight passCheckpoint:@"FinishedTest"];
 
     BOOL passed = result.didPass.boolValue;
     
@@ -387,9 +384,7 @@
     if (self.resultsPopover.popoverVisible) {
         [self.resultsPopover dismissPopoverAnimated:YES];
     }
-    else {
-        [TestFlight passCheckpoint:[NSString stringWithFormat:@"Student: View Results"]];
-        
+    else {        
         StudentGraphPopoverViewController *graphVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StudentGraphPopoverViewController"];
         graphVC.resultsArray = self.currentStudent.results.allObjects;
         

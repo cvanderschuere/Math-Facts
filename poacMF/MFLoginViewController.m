@@ -456,7 +456,6 @@
 }//end method
 
 - (IBAction)sendFeedback:(id)sender {
-    [TestFlight openFeedbackView];
 }
 
 #pragma mark - Storyboard Segues

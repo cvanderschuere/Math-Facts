@@ -136,7 +136,6 @@
 
     //Create questionSet if necessary
     if (!self.questionSetToUpdate) {
-        [TestFlight passCheckpoint:@"Created Question Set"];
         self.questionSetToUpdate = [NSEntityDescription insertNewObjectForEntityForName:@"QuestionSet" inManagedObjectContext:self.courseToCreateIn.managedObjectContext];
         self.questionSetToUpdate.difficultyLevel = [NSNumber numberWithInt:self.courseToCreateIn.questionSets.count];
         self.questionSetToUpdate.course = self.courseToCreateIn;
@@ -257,9 +256,7 @@
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [TestFlight passCheckpoint:[NSString stringWithFormat:@"Delete Question: %@ (%@)",self.questionSetToUpdate.typeName,self.questionSetToUpdate.name]];
-        
+    if (editingStyle == UITableViewCellEditingStyleDelete) {        
         //Remove out of caches
         [self.createdQuestions removeObjectIdenticalTo:[self.questionArray objectAtIndex:indexPath.row]];
         [self.questionArray removeObjectAtIndex:indexPath.row];

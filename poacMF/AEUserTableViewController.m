@@ -133,7 +133,6 @@
 }//end method
 
 -(IBAction) saveClicked {
-	//TODO: Need to check for valid values and unique username
 	AppLibrary *al = [[AppLibrary alloc] init];
 	if (nil == self.usernameTF.text){
 		NSString *msg = @"Username must be entered.";
@@ -170,8 +169,6 @@
     }
     //Create new student if necessary
     if (!self.studentToUpdate) {
-        [TestFlight passCheckpoint:@"Created Student"];
-
         self.studentToUpdate = [NSEntityDescription insertNewObjectForEntityForName:@"Student" inManagedObjectContext:self.courseToCreateIn.managedObjectContext];
         self.studentToUpdate.username = self.usernameTF.text.lowercaseString;
         [self.courseToCreateIn addStudentsObject:self.studentToUpdate];
