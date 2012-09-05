@@ -191,7 +191,6 @@
     //If student has tests and a test setting changed...ask to update all tests to new settings
     if (self.studentToUpdate.tests.count>0 && (self.studentToUpdate.defaultTestLength.doubleValue != self.testLengthStepper.value || self.studentToUpdate.defaultPassCriteria.doubleValue != self.passCriteriaStepper.value || self.studentToUpdate.defaultMaximumIncorrect.doubleValue != self.maximumIncorrectStepper.value)) {
         
-        
         UIAlertView *updateTests = [[UIAlertView alloc] initWithTitle:@"Update Settings" message:@"Should all current timings be updated to new settings?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
         [updateTests show];
     }

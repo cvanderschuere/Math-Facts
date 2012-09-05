@@ -159,7 +159,7 @@
     
     
     //Recieve notifications about saving
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveDatabase) name:@"SaveDatabase" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shouldSave) name:@"SaveDatabase" object:nil];
 }//end method
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -176,6 +176,9 @@
     [self.documentToSave saveToURL:self.documentToSave.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:^(BOOL success){
         NSLog(@"Save (Save Document) %@",success?@"Successful":@"Unsuccessful");
     }];
+}
+- (void) shouldSave{
+    [self.documentToSave updateChangeCount:UIDocumentChangeDone];
 }
 
 #pragma mark - Dealloc

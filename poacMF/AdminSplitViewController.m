@@ -103,7 +103,6 @@
             QuestionSetDetailTableViewController *detailTVC = [self.storyboard instantiateViewControllerWithIdentifier:@"QuestionSetDetailTableViewController"];
             [detailTVC setQuestionSet:aObject];
             
-            NSLog(@"NavController %@",navController.viewControllers);
             //Check if needs to show revealMaster button
             if ([[navController.viewControllers objectAtIndex:0] revealMasterButton]) {
                 UIBarButtonItem *masterButton = [[navController.viewControllers objectAtIndex:0] revealMasterButton];
@@ -140,12 +139,10 @@
 }
 #pragma mark - UISplitViewDelegate Methods
 -(BOOL) splitViewController:(UISplitViewController *)svc shouldHideViewController:(UIViewController *)vc inOrientation:(UIInterfaceOrientation)orientation{
-    NSLog(@"Controlers: %@",svc.viewControllers);
     return UIInterfaceOrientationIsPortrait(orientation);
 }
 -(void) splitViewController:(UISplitViewController *)svc willHideViewController:(SegmentedControlNavigationController *)aViewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)pc{
     UserDetailTableViewController* detailController = [[[svc.viewControllers objectAtIndex:1] viewControllers] objectAtIndex:0];
-    NSLog(@"ViewControllers:%@ Navitation Items:%@",detailController,detailController.navigationItem.leftBarButtonItems);
     barButtonItem.title = [[[[svc.viewControllers objectAtIndex:1] viewControllers] objectAtIndex:0] isKindOfClass:[UserDetailTableViewController class]]?@"Students":@"Sets";
     detailController.revealMasterButton = barButtonItem;
     [detailController.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:barButtonItem,detailController.navigationItem.leftBarButtonItem, nil] animated:NO];
