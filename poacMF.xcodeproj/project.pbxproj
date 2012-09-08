@@ -408,7 +408,7 @@
 				830F5B3B15AE407600BDD02D /* AECourseTableViewController.h */,
 				830F5B3C15AE407700BDD02D /* AECourseTableViewController.m */,
 			);
-			name = Course;
+			path = Course;
 			sourceTree = "<group>";
 		};
 		83127C2E1580CFC600AA0882 /* Data Model */ = {
@@ -452,7 +452,7 @@
 				833A8BD6158BA26200C9B476 /* ResultDetailViewController.h */,
 				833A8BD7158BA26200C9B476 /* ResultDetailViewController.m */,
 			);
-			name = Student;
+			path = Student;
 			sourceTree = "<group>";
 		};
 		83208C37158B68F6006605AF /* Question Set */ = {
@@ -475,6 +475,7 @@
 				83208C37158B68F6006605AF /* Question Set */,
 			);
 			name = "Detail Views";
+			path = Detail;
 			sourceTree = "<group>";
 		};
 		833A8BD5158BA1AB00C9B476 /* Popovers */ = {
@@ -485,7 +486,7 @@
 				8338D9C615975F830005EE14 /* SelectCurrentTestTableViewController.h */,
 				8338D9C715975F830005EE14 /* SelectCurrentTestTableViewController.m */,
 			);
-			name = Popovers;
+			path = Popovers;
 			sourceTree = "<group>";
 		};
 		835C2555158167E500977BE0 /* External Libraries */ = {
@@ -610,7 +611,7 @@
 				83E6D476159CC5BF00CD862F /* SummaryTableViewCell.h */,
 				83E6D477159CC5BF00CD862F /* SummaryTableViewCell.m */,
 			);
-			name = Summary;
+			path = Summary;
 			sourceTree = "<group>";
 		};
 		83AB15E415B284B8006FC09A /* Database */ = {
@@ -692,6 +693,7 @@
 				83208FE1157DCC6F00E59A3B /* Detail Views */,
 			);
 			name = "Admin Screens";
+			path = Admin;
 			sourceTree = "<group>";
 		};
 		A7C62C9313356B420034B327 /* Images */ = {
@@ -705,7 +707,7 @@
 				83749F571598E5BD00DC1FF3 /* lock.png */,
 				835C9245158D5B610037F597 /* redX.png */,
 			);
-			name = Images;
+			path = Images;
 			sourceTree = "<group>";
 		};
 		A7F60D031333143C00271D17 = {
