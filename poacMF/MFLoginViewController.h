@@ -37,11 +37,11 @@ Document Status
  *Issues with corrupting documents after syncing for a while
 */
 
-
+#import <QuickLook/QuickLook.h>
 #import <UIKit/UIKit.h>
 #import "DocumentSelectTableViewController.h"
 
-@interface MFLoginViewController : UIViewController <UITextFieldDelegate, DocumentSelectProtocol, UIActionSheetDelegate>
+@interface MFLoginViewController : UIViewController <UITextFieldDelegate, DocumentSelectProtocol, UIActionSheetDelegate, QLPreviewControllerDataSource,QLPreviewControllerDelegate>
 
 @property (nonatomic, weak) IBOutlet	UITextField				*userNameTextField;
 @property (nonatomic, weak) IBOutlet	UITextField				*passwordTextField;
@@ -52,10 +52,10 @@ Document Status
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *documentStateActivityIndicator;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *selectCourseBarButton;
 
-- (IBAction)backup:(id)sender;
 
 - (IBAction)selectCourse:(id)sender;
 -(IBAction) loginTapped;
 - (IBAction)sendFeedback:(id)sender;
+- (IBAction)showHelpInformation:(id)sender;
 
 @end

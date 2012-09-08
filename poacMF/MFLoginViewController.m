@@ -38,13 +38,14 @@
 @property (nonatomic, strong) NSMetadataQuery *iCloudQuery;
 
 @property (nonatomic, strong) UIPopoverController* coursePopover;
+@property (nonatomic, strong) UIPopoverController* helpPopover;
+
 
 @property (nonatomic, strong) UIManagedDocument* selectedDocument;
 
 @end
 
 @implementation MFLoginViewController
-
 @synthesize errorLabel = _errorLabel;
 @synthesize buildString = _buildString;
 @synthesize documentStateActivityIndicator = _documentStateActivityIndicator;
@@ -455,9 +456,31 @@
     
 }//end method
 
-- (IBAction)sendFeedback:(id)sender {
+- (IBAction)showHelpInformation:(id)sender {
+    if(self.helpPopover.popoverVisible){
+        [self.helpPopover dismissPopoverAnimated:YES];
+        self.helpPopover = nil;
+        return;
+    }
+    
+    
+    QLPreviewController *helpPDFVC = [[QLPreviewController alloc] init];
+    helpPDFVC.dataSource = self;
+    helpPDFVC.currentPreviewItemIndex = 0;
+    helpPDFVC.contentSizeForViewInPopover = CGSizeMake(600, helpPDFVC.contentSizeForViewInPopover.height);
+    
+    self.helpPopover = [[UIPopoverController alloc] initWithContentViewController:helpPDFVC];
+    [self.helpPopover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
-
+#pragma mark - QLPreviewDelegate and Datasource methods
+- (NSInteger) numberOfPreviewItemsInPreviewController: (QLPreviewController *) controller{
+    return 1;
+}
+- (id <QLPreviewItem>) previewController: (QLPreviewController *) controller previewItemAtIndex: (NSInteger) index{
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"Math Facts Help" ofType:@"pdf"];
+    
+	return [NSURL fileURLWithPath:path];
+}
 #pragma mark - Storyboard Segues
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"adminUserSegue"]) {
@@ -532,8 +555,8 @@
     }
     
     //Autofill for testing
-    //self.userNameTextField.text = @"admin";
-	//self.passwordTextField.text = @"poacmf";
+        //self.userNameTextField.text = @"admin";
+        //self.passwordTextField.text = @"poacmf";
 }
 
 - (void)viewWillDisappear:(BOOL)animated

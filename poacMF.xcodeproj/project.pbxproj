@@ -42,6 +42,8 @@
 		833A8BE1158BB99F00C9B476 /* goldenStarOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 833A8BDF158BB99F00C9B476 /* goldenStarOn.png */; };
 		833A8BE4158BCA0A00C9B476 /* Result.m in Sources */ = {isa = PBXBuildFile; fileRef = 833A8BE3158BCA0A00C9B476 /* Result.m */; };
 		833A8BE7158BCA4B00C9B476 /* Response.m in Sources */ = {isa = PBXBuildFile; fileRef = 833A8BE6158BCA4B00C9B476 /* Response.m */; };
+		833E5CCC15F8327D00D8D8DE /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 833E5CCB15F8327D00D8D8DE /* QuickLook.framework */; };
+		833E5CCF15F8354900D8D8DE /* Math Facts Help.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 833E5CCE15F8354900D8D8DE /* Math Facts Help.pdf */; };
 		8344A257157D9B5A00BBFFA9 /* AdminSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8344A256157D9B5A00BBFFA9 /* AdminSplitViewController.m */; };
 		8344A25F157DA05500BBFFA9 /* UsersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8344A25E157DA05500BBFFA9 /* UsersTableViewController.m */; };
 		8344A272157DB40600BBFFA9 /* SegmentedControlNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8344A271157DB40600BBFFA9 /* SegmentedControlNavigationController.m */; };
@@ -160,6 +162,8 @@
 		833A8BE3158BCA0A00C9B476 /* Result.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Result.m; sourceTree = "<group>"; };
 		833A8BE5158BCA4B00C9B476 /* Response.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Response.h; sourceTree = "<group>"; };
 		833A8BE6158BCA4B00C9B476 /* Response.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Response.m; sourceTree = "<group>"; };
+		833E5CCB15F8327D00D8D8DE /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
+		833E5CCE15F8354900D8D8DE /* Math Facts Help.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Math Facts Help.pdf"; sourceTree = "<group>"; };
 		8344A256157D9B5A00BBFFA9 /* AdminSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdminSplitViewController.m; sourceTree = "<group>"; };
 		8344A25D157DA05500BBFFA9 /* UsersTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsersTableViewController.h; sourceTree = "<group>"; };
 		8344A25E157DA05500BBFFA9 /* UsersTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersTableViewController.m; sourceTree = "<group>"; };
@@ -329,6 +333,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				833E5CCC15F8327D00D8D8DE /* QuickLook.framework in Frameworks */,
 				8301578C15D20FBD0082867C /* CoreText.framework in Frameworks */,
 				837A057415B1BF430078E8D4 /* MessageUI.framework in Frameworks */,
 				A73C44F61335C19C008E51D4 /* QuartzCore.framework in Frameworks */,
@@ -723,6 +728,7 @@
 		A7F60D111333143C00271D17 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				833E5CCB15F8327D00D8D8DE /* QuickLook.framework */,
 				8301578B15D20FBD0082867C /* CoreText.framework */,
 				835C26651581685400977BE0 /* libz.dylib */,
 				835C26631581684700977BE0 /* OpenGLES.framework */,
@@ -765,6 +771,7 @@
 				A7F60D1E1333143C00271D17 /* poacMF-Prefix.pch */,
 				A7F60D1F1333143C00271D17 /* main.m */,
 				830F5B3F15AE7D8E00BDD02D /* poacMF.entitlements */,
+				833E5CCE15F8354900D8D8DE /* Math Facts Help.pdf */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -828,6 +835,7 @@
 				835C9244158D48C30037F597 /* passStamp.png in Resources */,
 				835C9246158D5B620037F597 /* redX.png in Resources */,
 				83749F581598E5BD00DC1FF3 /* lock.png in Resources */,
+				833E5CCF15F8354900D8D8DE /* Math Facts Help.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
