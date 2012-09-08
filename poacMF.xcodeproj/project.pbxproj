@@ -398,6 +398,7 @@
 				835C9241158D45E60037F597 /* PracticeViewController.m */,
 			);
 			name = "Student Screens";
+			path = Student;
 			sourceTree = "<group>";
 		};
 		830F5B3E15AE409800BDD02D /* Course */ = {
@@ -466,6 +467,7 @@
 				83208C39158B86F0006605AF /* AEQuestionViewController.m */,
 			);
 			name = "Question Set";
+			path = QuestionSet;
 			sourceTree = "<group>";
 		};
 		83208FE1157DCC6F00E59A3B /* Detail Views */ = {
