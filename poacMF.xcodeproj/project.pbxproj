@@ -379,6 +379,7 @@
 				830560F3158554ED009B30B1 /* UIColor+AQGridView.m */,
 			);
 			name = "Grid View";
+			path = External/GridView;
 			sourceTree = "<group>";
 		};
 		830DE88B15815B90004A86C6 /* Student Screens */ = {
