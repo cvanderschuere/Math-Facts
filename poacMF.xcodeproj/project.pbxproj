@@ -955,7 +955,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/poacMF\"",
-					"\"$(SRCROOT)/../External/CorePlot_1.0/\"",
+					"\"$(SRCROOT)/poacMF/External/CorePlot_1.0\"",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -1035,7 +1035,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/poacMF\"",
-					"\"$(SRCROOT)/../External/CorePlot_1.0/\"",
+					"\"$(SRCROOT)/poacMF/External/CorePlot_1.0\"",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -1064,7 +1064,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/poacMF\"",
-					"\"$(SRCROOT)/../External/CorePlot_1.0/\"",
+					"\"$(SRCROOT)/poacMF/External/CorePlot_1.0\"",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",
