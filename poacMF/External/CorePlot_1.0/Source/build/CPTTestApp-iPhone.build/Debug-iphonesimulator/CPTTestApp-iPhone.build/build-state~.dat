@@ -1,451 +1,0 @@
-TCPTTestApp-iPhone
-v5
-r1
-cCheck dependencies
-cProcessInfoPlistFile /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/Info.plist Info.plist
-cCompileXIB /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/MainWindow.xib
-cCompileXIB /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/BarChart.xib
-cCompileXIB /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/ScatterPlot.xib
-cCpResource CorePlotIcon.png ../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/CorePlotIcon.png
-cCompileXIB /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/PieChart.xib
-cCpResource GlyphishIcons/16-line-chart.png ../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/16-line-chart.png
-cCpResource GlyphishIcons/17-bar-chart.png ../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/17-bar-chart.png
-cCpResource GlyphishIcons/62-contrast.png ../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/62-contrast.png
-cProcessPCH /var/folders/rh/mc3d58fn7_nbb6613gsw1mmh0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_iPhone_Prefix-dswlqzjkresunzakrozqydromxfu/CPTTestApp_iPhone_Prefix.pch.pth CPTTestApp_iPhone_Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC ../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/main.o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/main.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC ../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/CPTTestApp_iPhoneAppDelegate.o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/CPTTestApp_iPhoneAppDelegate.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC ../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/CPTTestAppBarChartController.o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/CPTTestAppBarChartController.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC ../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/CPTTestAppScatterPlotController.o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/CPTTestAppScatterPlotController.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC ../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/CPTTestAppPieChartController.o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/CPTTestAppPieChartController.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC ../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/TestXYTheme.o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/TestXYTheme.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cLd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/CPTTestApp-iPhone normal i386
-cGenerateDSYMFile /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app.dSYM /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/CPTTestApp-iPhone
-cTouch /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app
-
-N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk
-c000000004F453DF80000000000000110
-t1329937912
-s272
-
-N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics
-c000000004FD34FD10000000000244490
-t1339248593
-s2376848
-
-N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk/System/Library/Frameworks/Foundation.framework/Foundation
-c000000004FD34FD40000000000353830
-t1339248596
-s3487792
-
-N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.h
-c000000004FD34FD30000000000001534
-t1339248595
-s5428
-
-N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk/System/Library/Frameworks/QuartzCore.framework/QuartzCore
-c000000004FD34FDA00000000001AB190
-t1339248602
-s1749392
-
-N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.h
-c000000004FD34FDA0000000000000BF5
-t1339248602
-s3061
-
-N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk/System/Library/Frameworks/UIKit.framework/UIKit
-c000000004FD34FDC0000000000905E40
-t1339248604
-s9461312
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/build/Debug-iphonesimulator/libCorePlot-CocoaTouch.a
-c000000004FD8B08A00000000002A7548
-t1339601034
-s2782536
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/CPTTestApp-iPhone.LinkFileList
-c000000004FD8B08A000000000000051A
-t1339601034
-s1306
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/CPTTestAppBarChartController.o
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/CPTTestAppPieChartController.o
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/CPTTestAppScatterPlotController.o
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/CPTTestApp_iPhoneAppDelegate.o
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/TestXYTheme.o
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/main.o
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app.dSYM
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/16-line-chart.png
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/17-bar-chart.png
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/62-contrast.png
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/BarChart.nib
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/CPTTestApp-iPhone
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/CorePlotIcon.png
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/Info.plist
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/MainWindow.nib
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/PieChart.nib
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/PkgInfo
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/ScatterPlot.nib
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/BarChart.xib
-c000000004E978B180000000000003E47
-t1318554392
-s15943
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/CPTTestApp_iPhone_Prefix.pch
-c000000004E978B1800000000000000CB
-t1318554392
-s203
-i<Foundation/Foundation.h>
-i<UIKit/UIKit.h>
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/CPTTestAppBarChartController.m
-c000000004F4118B900000000000012CA
-t1329666233
-s4810
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/CPTTestAppPieChartController.m
-c000000004F4118B90000000000000A50
-t1329666233
-s2640
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/CPTTestAppScatterPlotController.m
-c000000004F4118B900000000000013A8
-t1329666233
-s5032
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/CPTTestApp_iPhoneAppDelegate.m
-c000000004F4118B9000000000000039E
-t1329666233
-s926
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/TestXYTheme.m
-c000000004F4118B90000000000000E35
-t1329666233
-s3637
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/CorePlotIcon.png
-c000000004E978AC900000000000013FF
-t1318554313
-s5119
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/GlyphishIcons/16-line-chart.png
-c000000004E978AC90000000000000226
-t1318554313
-s550
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/GlyphishIcons/17-bar-chart.png
-c000000004E978AC900000000000000B5
-t1318554313
-s181
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/GlyphishIcons/62-contrast.png
-c000000004E978AC900000000000001A8
-t1318554313
-s424
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/MainWindow.xib
-c000000004E978B180000000000006AC3
-t1318554392
-s27331
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/PieChart.xib
-c000000004E978B180000000000003E06
-t1318554392
-s15878
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/ScatterPlot.xib
-c000000004E978B180000000000003FDD
-t1318554392
-s16349
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/main.m
-c000000004F4118BA000000000000012B
-t1329666234
-s299
-
-N/var/folders/rh/mc3d58fn7_nbb6613gsw1mmh0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_iPhone_Prefix-dswlqzjkresunzakrozqydromxfu/CPTTestApp_iPhone_Prefix.pch.pth
-t2
-s0
-
-NInfo.plist
-c000000004E978B180000000000000383
-t1318554392
-s899
-
-CBuild AST from /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/CPTTestAppBarChartController.m
-r0
-
-CBuild AST from /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/CPTTestAppPieChartController.m
-r0
-
-CBuild AST from /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/CPTTestAppScatterPlotController.m
-r0
-
-CBuild AST from /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/CPTTestApp_iPhoneAppDelegate.m
-r0
-
-CBuild AST from /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/TestXYTheme.m
-r0
-
-CBuild AST from /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/main.m
-r0
-
-CCheck dependencies
-r0
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependenciesde00430ae888b541^94174d0ae888b541^---0#1#0#--18"Check dependencies36"251AC6A7-EED2-4F45-AA9B-B4D4AC8945B2-
-
-CCompileC ../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/CPTTestAppBarChartController.o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/CPTTestAppBarChartController.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s361293835.594688
-e361293836.182774
-r1
-xCompileC
-x../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/CPTTestAppBarChartController.o
-x/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/CPTTestAppBarChartController.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection137"Compile /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/CPTTestAppBarChartController.m6e6a980be888b541^bcca2e0ce888b541^---0#0#0#-19%DVTDocumentLocation2@145"file://localhost/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/CPTTestAppBarChartController.m0000000000000000^4508"CompileC ../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/CPTTestAppBarChartController.o Classes/CPTTestAppBarChartController.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Werror -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -fvisibility=hidden -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -iquote /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/CPTTestApp-iPhone-generated-files.hmap -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/CPTTestApp-iPhone-own-target-headers.hmap -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/CPTTestApp-iPhone-all-target-headers.hmap -iquote /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/CPTTestApp-iPhone-project-headers.hmap -iquote../../framework -iquote../../framework/iPhoneOnly -iquote../../framework/MacOnly -iquote../../framework/Source -iquote../../framework/TestResources -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/include -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/DerivedSources/i386 -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/DerivedSources -F/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator -include /var/folders/rh/mc3d58fn7_nbb6613gsw1mmh0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_iPhone_Prefix-dswlqzjkresunzakrozqydromxfu/CPTTestApp_iPhone_Prefix.pch -MMD -MT dependencies -MF /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/CPTTestAppBarChartController.d --serialize-diagnostics /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/CPTTestAppBarChartController.dia -c /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/CPTTestAppBarChartController.m -o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/CPTTestAppBarChartController.o36"C01FE3A6-15D2-4C1A-8253-0250DF812952-
-
-CCompileC ../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/CPTTestAppPieChartController.o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/CPTTestAppPieChartController.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s361293835.594806
-e361293836.181965
-r1
-xCompileC
-x../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/CPTTestAppPieChartController.o
-x/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/CPTTestAppPieChartController.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection137"Compile /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/CPTTestAppPieChartController.m7574980be888b541^14982e0ce888b541^---0#0#0#-19%DVTDocumentLocation2@145"file://localhost/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/CPTTestAppPieChartController.m0000000000000000^4508"CompileC ../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/CPTTestAppPieChartController.o Classes/CPTTestAppPieChartController.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Werror -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -fvisibility=hidden -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -iquote /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/CPTTestApp-iPhone-generated-files.hmap -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/CPTTestApp-iPhone-own-target-headers.hmap -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/CPTTestApp-iPhone-all-target-headers.hmap -iquote /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/CPTTestApp-iPhone-project-headers.hmap -iquote../../framework -iquote../../framework/iPhoneOnly -iquote../../framework/MacOnly -iquote../../framework/Source -iquote../../framework/TestResources -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/include -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/DerivedSources/i386 -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/DerivedSources -F/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator -include /var/folders/rh/mc3d58fn7_nbb6613gsw1mmh0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_iPhone_Prefix-dswlqzjkresunzakrozqydromxfu/CPTTestApp_iPhone_Prefix.pch -MMD -MT dependencies -MF /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/CPTTestAppPieChartController.d --serialize-diagnostics /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/CPTTestAppPieChartController.dia -c /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/CPTTestAppPieChartController.m -o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/CPTTestAppPieChartController.o36"5F755A15-89A2-4FEF-ACC4-6F91DC906F4B-
-
-CCompileC ../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/CPTTestAppScatterPlotController.o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/CPTTestAppScatterPlotController.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s361293835.594756
-e361293836.181255
-r1
-xCompileC
-x../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/CPTTestAppScatterPlotController.o
-x/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/CPTTestAppScatterPlotController.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection140"Compile /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/CPTTestAppScatterPlotController.m9b73980be888b541^7b692e0ce888b541^---0#0#0#-19%DVTDocumentLocation2@148"file://localhost/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/CPTTestAppScatterPlotController.m0000000000000000^4526"CompileC ../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/CPTTestAppScatterPlotController.o Classes/CPTTestAppScatterPlotController.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Werror -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -fvisibility=hidden -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -iquote /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/CPTTestApp-iPhone-generated-files.hmap -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/CPTTestApp-iPhone-own-target-headers.hmap -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/CPTTestApp-iPhone-all-target-headers.hmap -iquote /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/CPTTestApp-iPhone-project-headers.hmap -iquote../../framework -iquote../../framework/iPhoneOnly -iquote../../framework/MacOnly -iquote../../framework/Source -iquote../../framework/TestResources -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/include -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/DerivedSources/i386 -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/DerivedSources -F/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator -include /var/folders/rh/mc3d58fn7_nbb6613gsw1mmh0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_iPhone_Prefix-dswlqzjkresunzakrozqydromxfu/CPTTestApp_iPhone_Prefix.pch -MMD -MT dependencies -MF /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/CPTTestAppScatterPlotController.d --serialize-diagnostics /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/CPTTestAppScatterPlotController.dia -c /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/CPTTestAppScatterPlotController.m -o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/CPTTestAppScatterPlotController.o36"77C01A39-112F-4FFC-AA18-2A0944D6EC6F-
-
-CCompileC ../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/CPTTestApp_iPhoneAppDelegate.o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/CPTTestApp_iPhoneAppDelegate.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s361293835.594185
-e361293836.181354
-r1
-xCompileC
-x../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/CPTTestApp_iPhoneAppDelegate.o
-x/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/CPTTestApp_iPhoneAppDelegate.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection137"Compile /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/CPTTestApp_iPhoneAppDelegate.me84a980be888b541^207e2e0ce888b541^---0#0#0#-19%DVTDocumentLocation2@145"file://localhost/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/CPTTestApp_iPhoneAppDelegate.m0000000000000000^4508"CompileC ../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/CPTTestApp_iPhoneAppDelegate.o Classes/CPTTestApp_iPhoneAppDelegate.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Werror -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -fvisibility=hidden -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -iquote /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/CPTTestApp-iPhone-generated-files.hmap -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/CPTTestApp-iPhone-own-target-headers.hmap -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/CPTTestApp-iPhone-all-target-headers.hmap -iquote /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/CPTTestApp-iPhone-project-headers.hmap -iquote../../framework -iquote../../framework/iPhoneOnly -iquote../../framework/MacOnly -iquote../../framework/Source -iquote../../framework/TestResources -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/include -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/DerivedSources/i386 -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/DerivedSources -F/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator -include /var/folders/rh/mc3d58fn7_nbb6613gsw1mmh0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_iPhone_Prefix-dswlqzjkresunzakrozqydromxfu/CPTTestApp_iPhone_Prefix.pch -MMD -MT dependencies -MF /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/CPTTestApp_iPhoneAppDelegate.d --serialize-diagnostics /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/CPTTestApp_iPhoneAppDelegate.dia -c /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/CPTTestApp_iPhoneAppDelegate.m -o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/CPTTestApp_iPhoneAppDelegate.o36"1B5419C5-0B4B-4A11-901D-DDCC70ECEDF3-
-
-CCompileC ../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/TestXYTheme.o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/TestXYTheme.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s361293835.594817
-e361293836.182920
-r1
-xCompileC
-x../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/TestXYTheme.o
-x/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/TestXYTheme.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection120"Compile /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/TestXYTheme.me675980be888b541^0ed72e0ce888b541^---0#0#0#-19%DVTDocumentLocation2@128"file://localhost/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/TestXYTheme.m0000000000000000^4406"CompileC ../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/TestXYTheme.o Classes/TestXYTheme.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Werror -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -fvisibility=hidden -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -iquote /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/CPTTestApp-iPhone-generated-files.hmap -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/CPTTestApp-iPhone-own-target-headers.hmap -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/CPTTestApp-iPhone-all-target-headers.hmap -iquote /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/CPTTestApp-iPhone-project-headers.hmap -iquote../../framework -iquote../../framework/iPhoneOnly -iquote../../framework/MacOnly -iquote../../framework/Source -iquote../../framework/TestResources -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/include -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/DerivedSources/i386 -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/DerivedSources -F/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator -include /var/folders/rh/mc3d58fn7_nbb6613gsw1mmh0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_iPhone_Prefix-dswlqzjkresunzakrozqydromxfu/CPTTestApp_iPhone_Prefix.pch -MMD -MT dependencies -MF /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/TestXYTheme.d --serialize-diagnostics /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/TestXYTheme.dia -c /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Classes/TestXYTheme.m -o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/TestXYTheme.o36"2A1684CF-00A3-4D0E-A587-A94A957FF452-
-
-CCompileC ../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/main.o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/main.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s361293835.594165
-e361293835.832654
-r1
-xCompileC
-x../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/main.o
-x/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/main.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection105"Compile /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/main.m5e47980be888b541^4529d50be888b541^---0#0#0#-19%DVTDocumentLocation2@113"file://localhost/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/main.m0000000000000000^4348"CompileC ../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/main.o main.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Werror -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -fvisibility=hidden -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -iquote /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/CPTTestApp-iPhone-generated-files.hmap -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/CPTTestApp-iPhone-own-target-headers.hmap -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/CPTTestApp-iPhone-all-target-headers.hmap -iquote /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/CPTTestApp-iPhone-project-headers.hmap -iquote../../framework -iquote../../framework/iPhoneOnly -iquote../../framework/MacOnly -iquote../../framework/Source -iquote../../framework/TestResources -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/include -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/DerivedSources/i386 -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/DerivedSources -F/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator -include /var/folders/rh/mc3d58fn7_nbb6613gsw1mmh0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_iPhone_Prefix-dswlqzjkresunzakrozqydromxfu/CPTTestApp_iPhone_Prefix.pch -MMD -MT dependencies -MF /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/main.d --serialize-diagnostics /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/main.dia -c /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/main.m -o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/main.o36"F0238D70-58C4-4678-9037-21B6585E6614-
-
-CCompileXIB /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/BarChart.xib
-s361293834.343581
-e361293834.393100
-r1
-xCompileXIB
-x/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/BarChart.xib
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection113"Compiling /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/BarChart.xibd00a580ae888b541^09a4640ae888b541^---0#0#0#-19%DVTDocumentLocation2@119"file://localhost/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/BarChart.xib0000000000000000^980"CompileXIB BarChart.xib    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest    setenv IBC_MINIMUM_COMPATIBILITY_VERSION 3.2    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    setenv XCODE_DEVELOPER_USR_PATH /Applications/Xcode.app/Contents/Developer/usr/bin/..    /Applications/Xcode.app/Contents/Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/BarChart.nib /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/BarChart.xib --sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk36"6F7A8EAF-C4FA-4994-B2BC-83E75DFB2EAE-
-
-CCompileXIB /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/MainWindow.xib
-s361293834.342795
-e361293835.162715
-r1
-xCompileXIB
-x/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/MainWindow.xib
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection115"Compiling /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/MainWindow.xib1f64590ae888b541^58a8290be888b541^---0#0#0#-19%DVTDocumentLocation2@121"file://localhost/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/MainWindow.xib0000000000000000^986"CompileXIB MainWindow.xib    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest    setenv IBC_MINIMUM_COMPATIBILITY_VERSION 3.2    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    setenv XCODE_DEVELOPER_USR_PATH /Applications/Xcode.app/Contents/Developer/usr/bin/..    /Applications/Xcode.app/Contents/Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/MainWindow.nib /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/MainWindow.xib --sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk36"9EA386A4-5315-4BCC-ACAA-DF1164B87C4A-
-
-CCompileXIB /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/PieChart.xib
-s361293834.349130
-e361293835.135624
-r1
-xCompileXIB
-x/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/PieChart.xib
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection113"Compiling /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/PieChart.xibafb25a0ae888b541^72c4220be888b541^---0#0#0#-19%DVTDocumentLocation2@119"file://localhost/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/PieChart.xib0000000000000000^980"CompileXIB PieChart.xib    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest    setenv IBC_MINIMUM_COMPATIBILITY_VERSION 3.2    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    setenv XCODE_DEVELOPER_USR_PATH /Applications/Xcode.app/Contents/Developer/usr/bin/..    /Applications/Xcode.app/Contents/Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/PieChart.nib /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/PieChart.xib --sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk36"D0C3BDB2-D2F2-40C0-958A-A2E399058AFA-
-
-CCompileXIB /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/ScatterPlot.xib
-s361293834.344396
-e361293834.397416
-r1
-xCompileXIB
-x/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/ScatterPlot.xib
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection116"Compiling /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/ScatterPlot.xib4641580ae888b541^68cb650ae888b541^---0#0#0#-19%DVTDocumentLocation2@122"file://localhost/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/ScatterPlot.xib0000000000000000^989"CompileXIB ScatterPlot.xib    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest    setenv IBC_MINIMUM_COMPATIBILITY_VERSION 3.2    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    setenv XCODE_DEVELOPER_USR_PATH /Applications/Xcode.app/Contents/Developer/usr/bin/..    /Applications/Xcode.app/Contents/Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/ScatterPlot.nib /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/ScatterPlot.xib --sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk36"9001DCB5-A359-4D27-9412-1B7605B466EA-
-
-CCpResource CorePlotIcon.png ../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/CorePlotIcon.png
-s361293834.349077
-e361293834.360157
-r1
-xCpResource
-xCorePlotIcon.png
-x../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/CorePlotIcon.png
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection77"Copy ../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/CorePlotIcon.png5e835a0ae888b541^09345c0ae888b541^---0#0#0#-19%DVTDocumentLocation2@179"file://localhost/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/CorePlotIcon.png000000000080d041^866"CpResource CorePlotIcon.png ../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/CorePlotIcon.png    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -strip-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/CorePlotIcon.png /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app36"AF6A8A65-9767-4C39-A171-8A47748B384B-
-
-CCpResource GlyphishIcons/16-line-chart.png ../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/16-line-chart.png
-s361293834.349134
-e361293834.356208
-r1
-xCpResource
-xGlyphishIcons/16-line-chart.png
-x../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/16-line-chart.png
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection78"Copy ../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/16-line-chart.png5776590ae888b541^14425b0ae888b541^---0#0#0#-19%DVTDocumentLocation2@180"file://localhost/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/16-line-chart.png000000000080d041^897"CpResource GlyphishIcons/16-line-chart.png ../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/16-line-chart.png    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -strip-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/GlyphishIcons/16-line-chart.png /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app36"F8407F93-2223-4AA6-BEB8-12CB6C8DB31B-
-
-CCpResource GlyphishIcons/17-bar-chart.png ../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/17-bar-chart.png
-s361293834.349152
-e361293834.365823
-r1
-xCpResource
-xGlyphishIcons/17-bar-chart.png
-x../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/17-bar-chart.png
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection77"Copy ../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/17-bar-chart.png35985a0ae888b541^93a65d0ae888b541^---0#0#0#-19%DVTDocumentLocation2@179"file://localhost/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/17-bar-chart.png000000000080d041^894"CpResource GlyphishIcons/17-bar-chart.png ../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/17-bar-chart.png    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -strip-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/GlyphishIcons/17-bar-chart.png /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app36"E0F36AE0-D6C8-4996-9AA2-D19A9239DEDB-
-
-CCpResource GlyphishIcons/62-contrast.png ../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/62-contrast.png
-s361293834.349170
-e361293834.363621
-r1
-xCpResource
-xGlyphishIcons/62-contrast.png
-x../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/62-contrast.png
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection76"Copy ../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/62-contrast.pngb3965a0ae888b541^f5655d0ae888b541^---0#0#0#-19%DVTDocumentLocation2@178"file://localhost/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/62-contrast.png000000000080d041^891"CpResource GlyphishIcons/62-contrast.png ../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/62-contrast.png    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -strip-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/GlyphishIcons/62-contrast.png /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app36"983B0843-2598-457B-AA85-C0B5769ACB93-
-
-CGenerateDSYMFile /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app.dSYM /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/CPTTestApp-iPhone
-s361293836.456204
-e361293836.535097
-r1
-xGenerateDSYMFile
-x/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app.dSYM
-x/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/CPTTestApp-iPhone
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection162"Generating /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app.dSYM8cdb740ce888b541^61fc880ce888b541^---0#0#0#-19%DVTDocumentLocation2@167"file://localhost/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app.dSYM000000000080d041^874"GenerateDSYMFile ../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app.dSYM ../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/CPTTestApp-iPhone    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/dsymutil /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/CPTTestApp-iPhone -o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app.dSYM36"FFB4B94E-27E1-4A60-BA5C-03E25B4E5896-
-
-CLd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/CPTTestApp-iPhone normal i386
-s361293836.190810
-e361293836.449380
-r1
-xLd
-x/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/CPTTestApp-iPhone
-xnormal
-xi386
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection169"Link /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/CPTTestApp-iPhone34f7300ce888b541^c40a730ce888b541^---0#0#0#--1655"Ld ../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/CPTTestApp-iPhone normal i386    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest    setenv MACOSX_DEPLOYMENT_TARGET 10.6    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -arch i386 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -L/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator -F/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator -filelist /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/Objects-normal/i386/CPTTestApp-iPhone.LinkFileList -mmacosx-version-min=10.6 -Xlinker -objc_abi_version -Xlinker 2 -all_load -ObjC -Xlinker -no_implicit_dylibs -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -framework Foundation -framework UIKit -framework CoreGraphics -framework QuartzCore /Users/Chris/Programming/External/CorePlot_1.0/Source/build/Debug-iphonesimulator/libCorePlot-CocoaTouch.a -o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/CPTTestApp-iPhone36"B9955B5B-DA2C-4482-8524-945C7409EA6E-
-
-CProcessInfoPlistFile /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/Info.plist Info.plist
-s361293834.307971
-e361293834.312347
-r1
-xProcessInfoPlistFile
-x/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/Info.plist
-xInfo.plist
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Process Info.plistb3ef4e0ae888b541^4df64f0ae888b541^---0#0#0#-19%DVTDocumentLocation2@117"file://localhost/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/Info.plist0000000000000000^822"ProcessInfoPlistFile ../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/Info.plist Info.plist    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-infoPlistUtility Info.plist -genpkginfo /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/PkgInfo -expandbuildsettings -format binary -platform iphonesimulator -o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app/Info.plist36"CDC2A7CB-E9EA-4BCE-B1D6-C078404AE007-
-
-CProcessPCH /Users/Chris/Library/Developer/Xcode/DerivedData/CPTTestApp-iPhone-ednxnwqohkrczobuqrguhewdlqux/Index/PrecompiledHeaders/CPTTestApp_iPhone_Prefix-bwelmicbnpptzgfazojywgrokzsf_ast/CPTTestApp_iPhone_Prefix.pch.pth CPTTestApp_iPhone_Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.astbuilder
-r0
-
-CProcessPCH /var/folders/rh/mc3d58fn7_nbb6613gsw1mmh0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_iPhone_Prefix-dswlqzjkresunzakrozqydromxfu/CPTTestApp_iPhone_Prefix.pch.pth CPTTestApp_iPhone_Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s361293835.233419
-e361293835.586940
-r1
-xProcessPCH
-x/var/folders/rh/mc3d58fn7_nbb6613gsw1mmh0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_iPhone_Prefix-dswlqzjkresunzakrozqydromxfu/CPTTestApp_iPhone_Prefix.pch.pth
-xCPTTestApp_iPhone_Prefix.pch
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection39"Precompile CPTTestApp_iPhone_Prefix.pch8eeb3b0be888b541^e944960be888b541^---0#0#0#-19%DVTDocumentLocation2@135"file://localhost/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/CPTTestApp_iPhone_Prefix.pch0000000000000000^4226"ProcessPCH /var/folders/rh/mc3d58fn7_nbb6613gsw1mmh0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_iPhone_Prefix-dswlqzjkresunzakrozqydromxfu/CPTTestApp_iPhone_Prefix.pch.pth CPTTestApp_iPhone_Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c-header -arch i386 -fmessage-length=0 -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Werror -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -fvisibility=hidden -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -iquote /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/CPTTestApp-iPhone-generated-files.hmap -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/CPTTestApp-iPhone-own-target-headers.hmap -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/CPTTestApp-iPhone-all-target-headers.hmap -iquote /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/CPTTestApp-iPhone-project-headers.hmap -iquote../../framework -iquote../../framework/iPhoneOnly -iquote../../framework/MacOnly -iquote../../framework/Source -iquote../../framework/TestResources -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/include -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/DerivedSources/i386 -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/CPTTestApp-iPhone.build/Debug-iphonesimulator/CPTTestApp-iPhone.build/DerivedSources -F/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator --serialize-diagnostics /var/folders/rh/mc3d58fn7_nbb6613gsw1mmh0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_iPhone_Prefix-dswlqzjkresunzakrozqydromxfu/CPTTestApp_iPhone_Prefix.pch.dia -c /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/CPTTestApp_iPhone_Prefix.pch -o /var/folders/rh/mc3d58fn7_nbb6613gsw1mmh0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_iPhone_Prefix-dswlqzjkresunzakrozqydromxfu/CPTTestApp_iPhone_Prefix.pch.pth -MMD -MT dependencies -MF /var/folders/rh/mc3d58fn7_nbb6613gsw1mmh0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_iPhone_Prefix-dswlqzjkresunzakrozqydromxfu/CPTTestApp_iPhone_Prefix.pch.d36"CB057B51-7B89-4282-A025-A8609B6D5480-
-
-CTouch /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app
-s361293836.544003
-e361293836.549483
-r1
-xTouch
-x/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection152"Touch /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.appa4538b0ce888b541^50ab8c0ce888b541^---0#0#0#--524"Touch ../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /usr/bin/touch -c /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp-iPhone-SpeedTest/../../build/Debug-iphonesimulator/CPTTestApp-iPhone.app36"CC923E63-B862-4AD2-A278-63BE47704A01-
-

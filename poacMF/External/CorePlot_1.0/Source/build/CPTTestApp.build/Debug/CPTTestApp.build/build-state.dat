@@ -1,421 +1,0 @@
-TCPTTestApp
-v5
-r1
-cCheck dependencies
-cProcessInfoPlistFile /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Info.plist Info.plist
-cCopyStringsFile /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources/English.lproj/InfoPlist.strings English.lproj/InfoPlist.strings
-cCompileXIB /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Resources/CPTTestApp.xib
-cCpResource CorePlotIcon.icns ../../build/Debug/CPTTestApp.app/Contents/Resources/CorePlotIcon.icns
-cCompileXIB /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Resources/PlotSymbolDemo.xib
-cCpResource Resources/BlueTexture.png ../../build/Debug/CPTTestApp.app/Contents/Resources/BlueTexture.png
-cCompileXIB /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Resources/AxisDemo.xib
-cCompileXIB /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Resources/SelectionDemo.xib
-cPBXCp /Users/Chris/Programming/External/CorePlot_1.0/Source/build/Debug/CorePlot.framework ../../build/Debug/CPTTestApp.app/Contents/Frameworks/CorePlot.framework
-cProcessPCH /var/folders/rh/mc3d58fn7_nbb6613gsw1mmh0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_Prefix-axkpwfcdzmpdapaaialtdopiukdv/CPTTestApp_Prefix.pch.pth CPTTestApp_Prefix.pch normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/main.o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/main.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/Controller.o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/Controller.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/RotationView.o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/RotationView.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/CPTPlotSymbolTestController.o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/CPTPlotSymbolTestController.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/AxisDemoController.o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/AxisDemoController.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/SelectionDemoController.o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/SelectionDemoController.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cLd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/MacOS/CPTTestApp normal x86_64
-cTouch /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app
-
-N/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk
-c000000004F29C61A00000000000000EE
-t1328137754
-s238
-
-N/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk/System/Library/Frameworks/Cocoa.framework/Headers/Cocoa.h
-c000000004FD3500700000000000001E5
-t1339248647
-s485
-
-N/System/Library/Frameworks/Cocoa.framework/Cocoa
-c000000004E2BAFEE0000000000006560
-t1311485934
-s25952
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/build/Debug/CorePlot.framework
-c000000004FD8B0D600000000000000EE
-t1339601110
-s238
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/build/Debug/CorePlot.framework/CorePlot
-c000000004FD8B0D50000000000133DB8
-t1339601109
-s1260984
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../../../../../System/Library/Frameworks/QuartzCore.framework/QuartzCore
-c00000000000000000000000000000000
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/AxisDemoController.o
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/CPTPlotSymbolTestController.o
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/CPTTestApp.LinkFileList
-c000000004FD8B0EA00000000000003E8
-t1339601130
-s1000
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/Controller.o
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/RotationView.o
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/SelectionDemoController.o
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/main.o
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Frameworks/CorePlot.framework
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Info.plist
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/MacOS/CPTTestApp
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/PkgInfo
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources/AxisDemo.nib
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources/BlueTexture.png
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources/CPTTestApp.nib
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources/CorePlotIcon.icns
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources/English.lproj/InfoPlist.strings
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources/PlotSymbolDemo.nib
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources/SelectionDemo.nib
-t2
-s0
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/CPTTestApp_Prefix.pch
-c000000004E978B180000000000000097
-t1318554392
-s151
-i<Cocoa/Cocoa.h>
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/CorePlotIcon.icns
-c000000004ED454600000000000048DD5
-t1322538080
-s298453
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/English.lproj/InfoPlist.strings
-c000000004E978B18000000000000005C
-t1318554392
-s92
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Resources/AxisDemo.xib
-c000000004F0D016F0000000000002310
-t1326252399
-s8976
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Resources/BlueTexture.png
-c000000004E978AC90000000000059EFE
-t1318554313
-s368382
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Resources/CPTTestApp.xib
-c000000004F1E187D000000000002B1E3
-t1327372413
-s176611
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Resources/PlotSymbolDemo.xib
-c000000004E978B180000000000002286
-t1318554392
-s8838
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Resources/SelectionDemo.xib
-c000000004E978B180000000000003FBA
-t1318554392
-s16314
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/AxisDemoController.m
-c000000004F4118B80000000000000F8C
-t1329666232
-s3980
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/CPTPlotSymbolTestController.m
-c000000004F4118B80000000000000F4A
-t1329666232
-s3914
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/Controller.m
-c000000004F41959F0000000000005B8B
-t1329698207
-s23435
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/RotationView.m
-c000000004F4118B800000000000007AF
-t1329666232
-s1967
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/SelectionDemoController.m
-c000000004F4118B80000000000002254
-t1329666232
-s8788
-
-N/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/main.m
-c000000004F4118B800000000000000FF
-t1329666232
-s255
-
-N/var/folders/rh/mc3d58fn7_nbb6613gsw1mmh0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_Prefix-axkpwfcdzmpdapaaialtdopiukdv/CPTTestApp_Prefix.pch.pth
-t2
-s0
-
-NInfo.plist
-c000000004E978B180000000000000365
-t1318554392
-s869
-
-CBuild AST from /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/AxisDemoController.m
-r0
-
-CBuild AST from /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/CPTPlotSymbolTestController.m
-r0
-
-CBuild AST from /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/Controller.m
-r0
-
-CBuild AST from /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/RotationView.m
-r0
-
-CBuild AST from /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/SelectionDemoController.m
-r0
-
-CBuild AST from /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/main.m
-r0
-
-CCheck dependencies
-r0
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependenciesc37e136ae888b541^6b2d146ae888b541^---0#1#0#--18"Check dependencies36"D8FDEAFA-54A5-4F79-8891-973E1B375425-
-
-CCompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/AxisDemoController.o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/AxisDemoController.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s361293931.328153
-e361293931.552226
-r1
-xCompileC
-x../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/AxisDemoController.o
-x/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/AxisDemoController.m
-xnormal
-xx86_64
-xobjective-c
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection109"Compile /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/AxisDemoController.m2844546be888b541^0f608d6be888b541^---0#0#0#-19%DVTDocumentLocation2@117"file://localhost/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/AxisDemoController.m0000000000000000^3400"CompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/AxisDemoController.o Source/AxisDemoController.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Werror -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.5 -g -fvisibility=hidden -Wno-conversion -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-generated-files.hmap -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-own-target-headers.hmap -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-all-target-headers.hmap -iquote /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-project-headers.hmap -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/include -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/DerivedSources/x86_64 -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/DerivedSources -F/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug -include /var/folders/rh/mc3d58fn7_nbb6613gsw1mmh0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_Prefix-axkpwfcdzmpdapaaialtdopiukdv/CPTTestApp_Prefix.pch -MMD -MT dependencies -MF /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/AxisDemoController.d --serialize-diagnostics /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/AxisDemoController.dia -c /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/AxisDemoController.m -o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/AxisDemoController.o36"836A3CD4-7B50-4BAE-8BC3-6AAAB4DCA225-
-
-CCompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/CPTPlotSymbolTestController.o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/CPTPlotSymbolTestController.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s361293931.328137
-e361293931.552610
-r1
-xCompileC
-x../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/CPTPlotSymbolTestController.o
-x/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/CPTPlotSymbolTestController.m
-xnormal
-xx86_64
-xobjective-c
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection118"Compile /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/CPTPlotSymbolTestController.me144546be888b541^8a768d6be888b541^---0#0#0#-19%DVTDocumentLocation2@126"file://localhost/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/CPTPlotSymbolTestController.m0000000000000000^3454"CompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/CPTPlotSymbolTestController.o Source/CPTPlotSymbolTestController.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Werror -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.5 -g -fvisibility=hidden -Wno-conversion -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-generated-files.hmap -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-own-target-headers.hmap -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-all-target-headers.hmap -iquote /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-project-headers.hmap -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/include -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/DerivedSources/x86_64 -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/DerivedSources -F/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug -include /var/folders/rh/mc3d58fn7_nbb6613gsw1mmh0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_Prefix-axkpwfcdzmpdapaaialtdopiukdv/CPTTestApp_Prefix.pch -MMD -MT dependencies -MF /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/CPTPlotSymbolTestController.d --serialize-diagnostics /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/CPTPlotSymbolTestController.dia -c /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/CPTPlotSymbolTestController.m -o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/CPTPlotSymbolTestController.o36"C1F6DBC2-F87A-4271-B302-6ADAF3134FBF-
-
-CCompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/Controller.o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/Controller.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s361293931.327507
-e361293931.677396
-r1
-xCompileC
-x../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/Controller.o
-x/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/Controller.m
-xnormal
-xx86_64
-xobjective-c
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection101"Compile /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/Controller.md509546be888b541^ba6bad6be888b541^---0#0#0#-19%DVTDocumentLocation2@109"file://localhost/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/Controller.m0000000000000000^3352"CompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/Controller.o Source/Controller.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Werror -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.5 -g -fvisibility=hidden -Wno-conversion -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-generated-files.hmap -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-own-target-headers.hmap -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-all-target-headers.hmap -iquote /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-project-headers.hmap -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/include -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/DerivedSources/x86_64 -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/DerivedSources -F/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug -include /var/folders/rh/mc3d58fn7_nbb6613gsw1mmh0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_Prefix-axkpwfcdzmpdapaaialtdopiukdv/CPTTestApp_Prefix.pch -MMD -MT dependencies -MF /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/Controller.d --serialize-diagnostics /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/Controller.dia -c /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/Controller.m -o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/Controller.o36"D089A916-6C5F-46C3-AEA2-2D566F9D393A-
-
-CCompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/RotationView.o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/RotationView.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s361293931.328128
-e361293931.552251
-r1
-xCompileC
-x../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/RotationView.o
-x/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/RotationView.m
-xnormal
-xx86_64
-xobjective-c
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection103"Compile /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/RotationView.m6f2c546be888b541^f06a8d6be888b541^---0#0#0#-19%DVTDocumentLocation2@111"file://localhost/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/RotationView.m0000000000000000^3364"CompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/RotationView.o Source/RotationView.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Werror -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.5 -g -fvisibility=hidden -Wno-conversion -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-generated-files.hmap -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-own-target-headers.hmap -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-all-target-headers.hmap -iquote /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-project-headers.hmap -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/include -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/DerivedSources/x86_64 -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/DerivedSources -F/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug -include /var/folders/rh/mc3d58fn7_nbb6613gsw1mmh0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_Prefix-axkpwfcdzmpdapaaialtdopiukdv/CPTTestApp_Prefix.pch -MMD -MT dependencies -MF /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/RotationView.d --serialize-diagnostics /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/RotationView.dia -c /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/RotationView.m -o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/RotationView.o36"6AAB0E05-C23B-483A-9885-96637581F5F8-
-
-CCompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/SelectionDemoController.o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/SelectionDemoController.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s361293931.328199
-e361293931.552993
-r1
-xCompileC
-x../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/SelectionDemoController.o
-x/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/SelectionDemoController.m
-xnormal
-xx86_64
-xobjective-c
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection114"Compile /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/SelectionDemoController.mc93a546be888b541^58918d6be888b541^---0#0#0#-19%DVTDocumentLocation2@122"file://localhost/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/SelectionDemoController.m0000000000000000^3430"CompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/SelectionDemoController.o Source/SelectionDemoController.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Werror -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.5 -g -fvisibility=hidden -Wno-conversion -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-generated-files.hmap -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-own-target-headers.hmap -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-all-target-headers.hmap -iquote /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-project-headers.hmap -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/include -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/DerivedSources/x86_64 -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/DerivedSources -F/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug -include /var/folders/rh/mc3d58fn7_nbb6613gsw1mmh0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_Prefix-axkpwfcdzmpdapaaialtdopiukdv/CPTTestApp_Prefix.pch -MMD -MT dependencies -MF /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/SelectionDemoController.d --serialize-diagnostics /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/SelectionDemoController.dia -c /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/SelectionDemoController.m -o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/SelectionDemoController.o36"A146A4CC-4AC1-4DE1-A307-3264C27DA582-
-
-CCompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/main.o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/main.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s361293931.327483
-e361293931.419743
-r1
-xCompileC
-x../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/main.o
-x/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/main.m
-xnormal
-xx86_64
-xobjective-c
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection95"Compile /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/main.mdd07546be888b541^1fbf6b6be888b541^---0#0#0#-19%DVTDocumentLocation2@103"file://localhost/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/main.m0000000000000000^3316"CompileC ../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/main.o Source/main.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Werror -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.5 -g -fvisibility=hidden -Wno-conversion -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-generated-files.hmap -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-own-target-headers.hmap -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-all-target-headers.hmap -iquote /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-project-headers.hmap -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/include -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/DerivedSources/x86_64 -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/DerivedSources -F/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug -include /var/folders/rh/mc3d58fn7_nbb6613gsw1mmh0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_Prefix-axkpwfcdzmpdapaaialtdopiukdv/CPTTestApp_Prefix.pch -MMD -MT dependencies -MF /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/main.d --serialize-diagnostics /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/main.dia -c /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Source/main.m -o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/main.o36"9AA4B45D-B09B-43F5-981E-7A2DD7FDA7B3-
-
-CCompileXIB /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Resources/AxisDemo.xib
-s361293930.096583
-e361293930.270097
-r1
-xCompileXIB
-x/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Resources/AxisDemo.xib
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection106"Compiling /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Resources/AxisDemo.xibe3c7186ae888b541^1c27456ae888b541^---0#0#0#-19%DVTDocumentLocation2@112"file://localhost/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Resources/AxisDemo.xib0000000000000000^684"CompileXIB Resources/AxisDemo.xib    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp    setenv XCODE_DEVELOPER_USR_PATH /Applications/Xcode.app/Contents/Developer/usr/bin/..    /Applications/Xcode.app/Contents/Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources/AxisDemo.nib /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Resources/AxisDemo.xib --sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk36"0289AD33-119B-4F3F-B108-DC9A4C433C52-
-
-CCompileXIB /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Resources/CPTTestApp.xib
-s361293930.096326
-e361293930.283276
-r1
-xCompileXIB
-x/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Resources/CPTTestApp.xib
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection108"Compiling /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Resources/CPTTestApp.xiba6b6186ae888b541^4986486ae888b541^---0#0#0#-19%DVTDocumentLocation2@114"file://localhost/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Resources/CPTTestApp.xib0000000000000000^690"CompileXIB Resources/CPTTestApp.xib    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp    setenv XCODE_DEVELOPER_USR_PATH /Applications/Xcode.app/Contents/Developer/usr/bin/..    /Applications/Xcode.app/Contents/Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources/CPTTestApp.nib /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Resources/CPTTestApp.xib --sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk36"0D27423A-7136-4830-ABF6-46B4F69965FE-
-
-CCompileXIB /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Resources/PlotSymbolDemo.xib
-s361293930.096365
-e361293930.266963
-r1
-xCompileXIB
-x/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Resources/PlotSymbolDemo.xib
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection112"Compiling /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Resources/PlotSymbolDemo.xib56b9186ae888b541^8461446ae888b541^---0#0#0#-19%DVTDocumentLocation2@118"file://localhost/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Resources/PlotSymbolDemo.xib0000000000000000^702"CompileXIB Resources/PlotSymbolDemo.xib    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp    setenv XCODE_DEVELOPER_USR_PATH /Applications/Xcode.app/Contents/Developer/usr/bin/..    /Applications/Xcode.app/Contents/Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources/PlotSymbolDemo.nib /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Resources/PlotSymbolDemo.xib --sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk36"1851840D-0056-49B4-9F23-14F652976058-
-
-CCompileXIB /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Resources/SelectionDemo.xib
-s361293930.096595
-e361293930.267354
-r1
-xCompileXIB
-x/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Resources/SelectionDemo.xib
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection111"Compiling /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Resources/SelectionDemo.xib1dca186ae888b541^d978446ae888b541^---0#0#0#-19%DVTDocumentLocation2@117"file://localhost/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Resources/SelectionDemo.xib0000000000000000^699"CompileXIB Resources/SelectionDemo.xib    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp    setenv XCODE_DEVELOPER_USR_PATH /Applications/Xcode.app/Contents/Developer/usr/bin/..    /Applications/Xcode.app/Contents/Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources/SelectionDemo.nib /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Resources/SelectionDemo.xib --sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk36"0D9C6155-A2A4-46EB-8EB0-E63ED688D780-
-
-CCopyStringsFile /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources/English.lproj/InfoPlist.strings English.lproj/InfoPlist.strings
-s361293930.096115
-e361293930.230445
-r1
-xCopyStringsFile
-x/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources/English.lproj/InfoPlist.strings
-xEnglish.lproj/InfoPlist.strings
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection36"Copy English.lproj/InfoPlist.strings65aa186ae888b541^ed0c3b6ae888b541^---0#0#0#-19%DVTDocumentLocation2@121"file://localhost/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/English.lproj/InfoPlist.strings0000000000000000^479"CopyStringsFile ../../build/Debug/CPTTestApp.app/Contents/Resources/English.lproj/InfoPlist.strings English.lproj/InfoPlist.strings    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp    builtin-copyStrings --validate --inputencoding utf-16 --outputencoding UTF-16 --outdir /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources/English.lproj -- English.lproj/InfoPlist.strings36"B751D42E-1CDC-45CB-89CC-6D25D29FBD53-
-
-CCpResource CorePlotIcon.icns ../../build/Debug/CPTTestApp.app/Contents/Resources/CorePlotIcon.icns
-s361293930.096341
-e361293930.219915
-r1
-xCpResource
-xCorePlotIcon.icns
-x../../build/Debug/CPTTestApp.app/Contents/Resources/CorePlotIcon.icns
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection74"Copy ../../build/Debug/CPTTestApp.app/Contents/Resources/CorePlotIcon.icns46b5186ae888b541^36043b6ae888b541^---0#0#0#-19%DVTDocumentLocation2@159"file://localhost/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources/CorePlotIcon.icns000000000080d041^615"CpResource CorePlotIcon.icns ../../build/Debug/CPTTestApp.app/Contents/Resources/CorePlotIcon.icns    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -strip-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/CorePlotIcon.icns /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources36"03AB157E-7FBB-4CFD-85AE-D9BFBC5BE745-
-
-CCpResource Resources/BlueTexture.png ../../build/Debug/CPTTestApp.app/Contents/Resources/BlueTexture.png
-s361293930.096366
-e361293930.261879
-r1
-xCpResource
-xResources/BlueTexture.png
-x../../build/Debug/CPTTestApp.app/Contents/Resources/BlueTexture.png
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection72"Copy ../../build/Debug/CPTTestApp.app/Contents/Resources/BlueTexture.png23bd186ae888b541^9352446ae888b541^---0#0#0#-19%DVTDocumentLocation2@157"file://localhost/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources/BlueTexture.png000000000080d041^629"CpResource Resources/BlueTexture.png ../../build/Debug/CPTTestApp.app/Contents/Resources/BlueTexture.png    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -strip-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Resources/BlueTexture.png /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Resources36"66CC6052-5F8B-4B9E-ABF6-990598E186AD-
-
-CLd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/MacOS/CPTTestApp normal x86_64
-s361293931.684168
-e361293933.025054
-r1
-xLd
-x/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/MacOS/CPTTestApp
-xnormal
-xx86_64
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection137"Link /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/MacOS/CPTTestAppe738af6be888b541^c26c066de888b541^---0#0#0#--1082"Ld ../../build/Debug/CPTTestApp.app/Contents/MacOS/CPTTestApp normal x86_64    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp    setenv MACOSX_DEPLOYMENT_TARGET 10.5    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -arch x86_64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -L/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug -F/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug -filelist /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/Objects-normal/x86_64/CPTTestApp.LinkFileList -mmacosx-version-min=10.5 -framework QuartzCore /Users/Chris/Programming/External/CorePlot_1.0/Source/build/Debug/CorePlot.framework/CorePlot -framework Cocoa -o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/MacOS/CPTTestApp36"56ECBC79-476B-44DB-AB0D-94D913CE809B-
-
-CPBXCp /Users/Chris/Programming/External/CorePlot_1.0/Source/build/Debug/CorePlot.framework ../../build/Debug/CPTTestApp.app/Contents/Frameworks/CorePlot.framework
-s361293930.305971
-e361293930.397364
-r1
-xPBXCp
-x/Users/Chris/Programming/External/CorePlot_1.0/Source/build/Debug/CorePlot.framework
-x../../build/Debug/CPTTestApp.app/Contents/Frameworks/CorePlot.framework
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection76"Copy ../../build/Debug/CPTTestApp.app/Contents/Frameworks/CorePlot.framework3db84f6ae888b541^fed7696ae888b541^---0#0#0#-19%DVTDocumentLocation2@161"file://localhost/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Frameworks/CorePlot.framework000000000080d041^673"PBXCp /Users/Chris/Programming/External/CorePlot_1.0/Source/build/Debug/CorePlot.framework ../../build/Debug/CPTTestApp.app/Contents/Frameworks/CorePlot.framework    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -strip-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip /Users/Chris/Programming/External/CorePlot_1.0/Source/build/Debug/CorePlot.framework /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Frameworks36"90B3BAAC-4D7B-4D1F-9A8F-27D7C277AC68-
-
-CProcessInfoPlistFile /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Info.plist Info.plist
-s361293930.084028
-e361293930.087954
-r1
-xProcessInfoPlistFile
-x/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Info.plist
-xInfo.plist
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Process Info.plist1990156ae888b541^1285166ae888b541^---0#0#0#-19%DVTDocumentLocation2@100"file://localhost/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/Info.plist0000000000000000^510"ProcessInfoPlistFile ../../build/Debug/CPTTestApp.app/Contents/Info.plist Info.plist    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp    builtin-infoPlistUtility Info.plist -genpkginfo /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/PkgInfo -expandbuildsettings -platform macosx -o /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app/Contents/Info.plist36"BD1C1137-8514-4D72-B33F-468881D1D71C-
-
-CProcessPCH /Users/Chris/Library/Developer/Xcode/DerivedData/CPTTestApp-exppqsrcobcfkfgpdyeiwlpzkfzd/Index/PrecompiledHeaders/CPTTestApp_Prefix-amyyvjudbmucsegexfmopvirpkvo_ast/CPTTestApp_Prefix.pch.pth CPTTestApp_Prefix.pch normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.astbuilder
-r0
-
-CProcessPCH /var/folders/rh/mc3d58fn7_nbb6613gsw1mmh0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_Prefix-axkpwfcdzmpdapaaialtdopiukdv/CPTTestApp_Prefix.pch.pth CPTTestApp_Prefix.pch normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s361293930.405261
-e361293931.320307
-r1
-xProcessPCH
-x/var/folders/rh/mc3d58fn7_nbb6613gsw1mmh0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_Prefix-axkpwfcdzmpdapaaialtdopiukdv/CPTTestApp_Prefix.pch.pth
-xCPTTestApp_Prefix.pch
-xnormal
-xx86_64
-xobjective-c
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection32"Precompile CPTTestApp_Prefix.pchb4e6676ae888b541^96af6b6be888b541^---0#0#0#-19%DVTDocumentLocation2@111"file://localhost/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/CPTTestApp_Prefix.pch0000000000000000^3287"ProcessPCH /var/folders/rh/mc3d58fn7_nbb6613gsw1mmh0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_Prefix-axkpwfcdzmpdapaaialtdopiukdv/CPTTestApp_Prefix.pch.pth CPTTestApp_Prefix.pch normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c-header -arch x86_64 -fmessage-length=0 -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Werror -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.5 -g -fvisibility=hidden -Wno-conversion -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -iquote /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-generated-files.hmap -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-own-target-headers.hmap -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-all-target-headers.hmap -iquote /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/CPTTestApp-project-headers.hmap -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/include -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/DerivedSources/x86_64 -I/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/CPTTestApp.build/Debug/CPTTestApp.build/DerivedSources -F/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug --serialize-diagnostics /var/folders/rh/mc3d58fn7_nbb6613gsw1mmh0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_Prefix-axkpwfcdzmpdapaaialtdopiukdv/CPTTestApp_Prefix.pch.dia -c /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/CPTTestApp_Prefix.pch -o /var/folders/rh/mc3d58fn7_nbb6613gsw1mmh0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_Prefix-axkpwfcdzmpdapaaialtdopiukdv/CPTTestApp_Prefix.pch.pth -MMD -MT dependencies -MF /var/folders/rh/mc3d58fn7_nbb6613gsw1mmh0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/CPTTestApp_Prefix-axkpwfcdzmpdapaaialtdopiukdv/CPTTestApp_Prefix.pch.d36"01AB93C0-F3C4-439A-88D3-E8CBDC05067A-
-
-CTouch /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app
-s361293933.034083
-e361293933.084845
-r1
-xTouch
-x/Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection112"Touch /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app64c9086de888b541^feb8156de888b541^---0#0#0#--249"Touch ../../build/Debug/CPTTestApp.app    cd /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp    /usr/bin/touch -c /Users/Chris/Programming/External/CorePlot_1.0/Source/examples/CPTTestApp/../../build/Debug/CPTTestApp.app36"A9CF4488-D003-4252-8036-8FE4A8B46C47-
-

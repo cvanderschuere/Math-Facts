@@ -196,7 +196,7 @@
 		837A057315B1BF430078E8D4 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		837FA03B15860EC100C43C1D /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
 		837FA03C15860EC100C43C1D /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
-		837FA06B1588CD9A00C43C1D /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libCorePlot-CocoaTouch.a"; path = "../../External/CorePlot_1.0/Binaries/iOS/libCorePlot-CocoaTouch.a"; sourceTree = "<group>"; };
+		837FA06B1588CD9A00C43C1D /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCorePlot-CocoaTouch.a"; sourceTree = "<group>"; };
 		837FA06E1588CDA400C43C1D /* _CPTConstraintsFixed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPTConstraintsFixed.h; sourceTree = "<group>"; };
 		837FA06F1588CDA400C43C1D /* _CPTConstraintsRelative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPTConstraintsRelative.h; sourceTree = "<group>"; };
 		837FA0701588CDA400C43C1D /* _CPTDarkGradientTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPTDarkGradientTheme.h; sourceTree = "<group>"; };
@@ -603,8 +603,7 @@
 				837FA0BB1588CDA400C43C1D /* NSDecimalNumberExtensions.h */,
 				837FA0BC1588CDA400C43C1D /* NSNumberExtensions.h */,
 			);
-			name = CorePlotHeaders;
-			path = ../../External/CorePlot_1.0/Binaries/iOS/CorePlotHeaders;
+			path = CorePlotHeaders;
 			sourceTree = "<group>";
 		};
 		83AB15E315B283A5006FC09A /* Summary */ = {
