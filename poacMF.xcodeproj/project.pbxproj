@@ -120,8 +120,8 @@
 		830560F1158554ED009B30B1 /* NSIndexSet+AQIndexesOutsideSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+AQIndexesOutsideSet.m"; sourceTree = "<group>"; };
 		830560F2158554ED009B30B1 /* UIColor+AQGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+AQGridView.h"; sourceTree = "<group>"; };
 		830560F3158554ED009B30B1 /* UIColor+AQGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+AQGridView.m"; sourceTree = "<group>"; };
-		830E1A72158A6CA60058B5F7 /* SPManagedDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPManagedDocument.h; path = "../../Scorepad+/Scorepad+/SPManagedDocument.h"; sourceTree = "<group>"; };
-		830E1A73158A6CA60058B5F7 /* SPManagedDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPManagedDocument.m; path = "../../Scorepad+/Scorepad+/SPManagedDocument.m"; sourceTree = "<group>"; };
+		830E1A72158A6CA60058B5F7 /* SPManagedDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPManagedDocument.h; sourceTree = "<group>"; };
+		830E1A73158A6CA60058B5F7 /* SPManagedDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPManagedDocument.m; sourceTree = "<group>"; };
 		830E1A79158A97E00058B5F7 /* AdjustTestPopoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdjustTestPopoverViewController.h; sourceTree = "<group>"; };
 		830E1A7A158A97E10058B5F7 /* AdjustTestPopoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdjustTestPopoverViewController.m; sourceTree = "<group>"; };
 		830F5B2915AE0D9200BDD02D /* MFLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFLoginViewController.h; sourceTree = "<group>"; };
@@ -382,7 +382,7 @@
 			path = GridView;
 			sourceTree = "<group>";
 		};
-		830DE88B15815B90004A86C6 /* Student Screens */ = {
+		830DE88B15815B90004A86C6 /* Student */ = {
 			isa = PBXGroup;
 			children = (
 				83209013157E447D00E59A3B /* StudentMainViewController.h */,
@@ -398,7 +398,6 @@
 				835C9240158D45E60037F597 /* PracticeViewController.h */,
 				835C9241158D45E60037F597 /* PracticeViewController.m */,
 			);
-			name = "Student Screens";
 			path = Student;
 			sourceTree = "<group>";
 		};
@@ -626,7 +625,7 @@
 				83127C0F1580AA7C00AA0882 /* model.xcdatamodeld */,
 				83127C311580D75300AA0882 /* databaseSeed.plist */,
 			);
-			name = Database;
+			path = Database;
 			sourceTree = "<group>";
 		};
 		83AB15E515B284E5006FC09A /* Additions */ = {
@@ -639,7 +638,7 @@
 				83E6D470159CB1E000CD862F /* NSMutableArray+Shuffling.h */,
 				83E6D471159CB1E000CD862F /* NSMutableArray+Shuffling.m */,
 			);
-			name = Additions;
+			path = Additions;
 			sourceTree = "<group>";
 		};
 		83AB15E615B286D0006FC09A /* CorePlot */ = {
@@ -674,10 +673,10 @@
 				A7C62C96133576180034B327 /* AppLibrary.h */,
 				A7C62C97133576180034B327 /* AppLibrary.m */,
 			);
-			name = Utilities;
+			path = Utilities;
 			sourceTree = "<group>";
 		};
-		A7C62C6913355ACD0034B327 /* Admin Screens */ = {
+		A7C62C6913355ACD0034B327 /* Admin */ = {
 			isa = PBXGroup;
 			children = (
 				83AB15E315B283A5006FC09A /* Summary */,
@@ -697,7 +696,6 @@
 				8344A275157DB8DD00BBFFA9 /* SetsTableViewController.m */,
 				83208FE1157DCC6F00E59A3B /* Detail Views */,
 			);
-			name = "Admin Screens";
 			path = Admin;
 			sourceTree = "<group>";
 		};
@@ -759,15 +757,15 @@
 				830F5B2915AE0D9200BDD02D /* MFLoginViewController.h */,
 				830F5B2A15AE0D9200BDD02D /* MFLoginViewController.m */,
 				830F5B3E15AE409800BDD02D /* Course */,
-				A7C62C6913355ACD0034B327 /* Admin Screens */,
-				830DE88B15815B90004A86C6 /* Student Screens */,
-				A7F60D191333143C00271D17 /* Supporting Files */,
+				A7C62C6913355ACD0034B327 /* Admin */,
+				830DE88B15815B90004A86C6 /* Student */,
+				A7F60D191333143C00271D17 /* Support */,
 				835C2555158167E500977BE0 /* External Libraries */,
 			);
 			path = poacMF;
 			sourceTree = "<group>";
 		};
-		A7F60D191333143C00271D17 /* Supporting Files */ = {
+		A7F60D191333143C00271D17 /* Support */ = {
 			isa = PBXGroup;
 			children = (
 				83AB15E515B284E5006FC09A /* Additions */,
@@ -780,7 +778,7 @@
 				830F5B3F15AE7D8E00BDD02D /* poacMF.entitlements */,
 				833E5CCE15F8354900D8D8DE /* Math Facts Help.pdf */,
 			);
-			name = "Supporting Files";
+			path = Support;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -951,9 +949,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "poacMF/poacMF-Prefix.pch";
+				GCC_PREFIX_HEADER = "poacMF/Support/poacMF-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INFOPLIST_FILE = "poacMF/poacMF-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/poacMF/Support/poacMF-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1031,9 +1029,9 @@
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "poacMF/poacMF-Prefix.pch";
+				GCC_PREFIX_HEADER = "poacMF/Support/poacMF-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INFOPLIST_FILE = "poacMF/poacMF-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/poacMF/Support/poacMF-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1060,9 +1058,9 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "poacMF/poacMF-Prefix.pch";
+				GCC_PREFIX_HEADER = "poacMF/Support/poacMF-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INFOPLIST_FILE = "poacMF/poacMF-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/poacMF/Support/poacMF-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1114,7 +1112,7 @@
 				83127C101580AA7C00AA0882 /* model.xcdatamodel */,
 			);
 			currentVersion = 83127C101580AA7C00AA0882 /* model.xcdatamodel */;
-			path = model.xcdatamodeld;
+			name = model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
