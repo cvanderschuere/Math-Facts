@@ -955,7 +955,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/poacMF\"",
-					"\"$(SRCROOT)/../External/CorePlot_1.0/Binaries/iOS\"",
+					"\"$(SRCROOT)/../External/CorePlot_1.0/\"",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -965,7 +965,7 @@
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = 2;
-				USER_HEADER_SEARCH_PATHS = "/Users/Chris/Programming/External/cocos2d-iphone-2.0-rc2/**";
+				USER_HEADER_SEARCH_PATHS = "";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1035,7 +1035,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/poacMF\"",
-					"\"$(SRCROOT)/../External/CorePlot_1.0/Binaries/iOS\"",
+					"\"$(SRCROOT)/../External/CorePlot_1.0/\"",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -1045,7 +1045,7 @@
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = 2;
-				USER_HEADER_SEARCH_PATHS = "/Users/Chris/Programming/External/cocos2d-iphone-2.0-rc2/**";
+				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1064,7 +1064,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/poacMF\"",
-					"\"$(SRCROOT)/../External/CorePlot_1.0/Binaries/iOS\"",
+					"\"$(SRCROOT)/../External/CorePlot_1.0/\"",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -1073,7 +1073,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = 2;
-				USER_HEADER_SEARCH_PATHS = "/Users/Chris/Programming/External/cocos2d-iphone-2.0-rc2/**";
+				USER_HEADER_SEARCH_PATHS = "";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
