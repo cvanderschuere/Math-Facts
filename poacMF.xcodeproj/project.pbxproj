@@ -184,15 +184,15 @@
 		83749F5415984C2E00DC1FF3 /* Student.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Student.h; sourceTree = "<group>"; };
 		83749F5515984C2E00DC1FF3 /* Student.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Student.m; sourceTree = "<group>"; };
 		83749F571598E5BD00DC1FF3 /* lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lock.png; sourceTree = "<group>"; };
-		837A056615B0F03C0078E8D4 /* CHCSV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHCSV.h; path = "../../External/davedelong-CHCSVParser-8b2cbb8/CHCSV.h"; sourceTree = "<group>"; };
-		837A056715B0F03C0078E8D4 /* CHCSVParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHCSVParser.h; path = "../../External/davedelong-CHCSVParser-8b2cbb8/CHCSVParser.h"; sourceTree = "<group>"; };
-		837A056815B0F03C0078E8D4 /* CHCSVParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHCSVParser.m; path = "../../External/davedelong-CHCSVParser-8b2cbb8/CHCSVParser.m"; sourceTree = "<group>"; };
-		837A056915B0F03C0078E8D4 /* CHCSVWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHCSVWriter.h; path = "../../External/davedelong-CHCSVParser-8b2cbb8/CHCSVWriter.h"; sourceTree = "<group>"; };
-		837A056A15B0F03C0078E8D4 /* CHCSVWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHCSVWriter.m; path = "../../External/davedelong-CHCSVParser-8b2cbb8/CHCSVWriter.m"; sourceTree = "<group>"; };
-		837A056B15B0F03C0078E8D4 /* NSArray+CHCSVAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+CHCSVAdditions.h"; path = "../../External/davedelong-CHCSVParser-8b2cbb8/NSArray+CHCSVAdditions.h"; sourceTree = "<group>"; };
-		837A056C15B0F03C0078E8D4 /* NSArray+CHCSVAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+CHCSVAdditions.m"; path = "../../External/davedelong-CHCSVParser-8b2cbb8/NSArray+CHCSVAdditions.m"; sourceTree = "<group>"; };
-		837A056D15B0F03C0078E8D4 /* NSString+CHCSVAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+CHCSVAdditions.h"; path = "../../External/davedelong-CHCSVParser-8b2cbb8/NSString+CHCSVAdditions.h"; sourceTree = "<group>"; };
-		837A056E15B0F03C0078E8D4 /* NSString+CHCSVAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+CHCSVAdditions.m"; path = "../../External/davedelong-CHCSVParser-8b2cbb8/NSString+CHCSVAdditions.m"; sourceTree = "<group>"; };
+		837A056615B0F03C0078E8D4 /* CHCSV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCSV.h; sourceTree = "<group>"; };
+		837A056715B0F03C0078E8D4 /* CHCSVParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCSVParser.h; sourceTree = "<group>"; };
+		837A056815B0F03C0078E8D4 /* CHCSVParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHCSVParser.m; sourceTree = "<group>"; };
+		837A056915B0F03C0078E8D4 /* CHCSVWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCSVWriter.h; sourceTree = "<group>"; };
+		837A056A15B0F03C0078E8D4 /* CHCSVWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHCSVWriter.m; sourceTree = "<group>"; };
+		837A056B15B0F03C0078E8D4 /* NSArray+CHCSVAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+CHCSVAdditions.h"; sourceTree = "<group>"; };
+		837A056C15B0F03C0078E8D4 /* NSArray+CHCSVAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+CHCSVAdditions.m"; sourceTree = "<group>"; };
+		837A056D15B0F03C0078E8D4 /* NSString+CHCSVAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CHCSVAdditions.h"; sourceTree = "<group>"; };
+		837A056E15B0F03C0078E8D4 /* NSString+CHCSVAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CHCSVAdditions.m"; sourceTree = "<group>"; };
 		837A057315B1BF430078E8D4 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		837FA03B15860EC100C43C1D /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
 		837FA03C15860EC100C43C1D /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
@@ -379,7 +379,7 @@
 				830560F3158554ED009B30B1 /* UIColor+AQGridView.m */,
 			);
 			name = "Grid View";
-			path = External/GridView;
+			path = GridView;
 			sourceTree = "<group>";
 		};
 		830DE88B15815B90004A86C6 /* Student Screens */ = {
@@ -501,6 +501,7 @@
 				83AB15E615B286D0006FC09A /* CorePlot */,
 			);
 			name = "External Libraries";
+			path = External;
 			sourceTree = "<group>";
 		};
 		837A056515B0EFF80078E8D4 /* CSV */ = {
@@ -517,6 +518,7 @@
 				837A056E15B0F03C0078E8D4 /* NSString+CHCSVAdditions.m */,
 			);
 			name = CSV;
+			path = CHCSVParser;
 			sourceTree = "<group>";
 		};
 		837FA06D1588CDA400C43C1D /* CorePlotHeaders */ = {
@@ -647,6 +649,7 @@
 				837FA06B1588CD9A00C43C1D /* libCorePlot-CocoaTouch.a */,
 			);
 			name = CorePlot;
+			path = CorePlot_1.0;
 			sourceTree = "<group>";
 		};
 		83D678FC15B3378D008CAAF8 /* MKAdditions */ = {
@@ -660,8 +663,7 @@
 				83D6790215B3378D008CAAF8 /* UIAlertView+MKBlockAdditions.h */,
 				83D6790315B3378D008CAAF8 /* UIAlertView+MKBlockAdditions.m */,
 			);
-			name = MKAdditions;
-			path = ../../External/MKAdditions;
+			path = MKAdditions;
 			sourceTree = "<group>";
 		};
 		A732F05B1333214500BC7900 /* Utilities */ = {
