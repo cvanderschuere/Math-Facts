@@ -35,8 +35,8 @@
 		83208C3A158B86F0006605AF /* AEQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83208C39158B86F0006605AF /* AEQuestionViewController.m */; };
 		83208FDF157DCC5B00E59A3B /* UserDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83208FDE157DCC5B00E59A3B /* UserDetailTableViewController.m */; };
 		83209015157E448200E59A3B /* StudentMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83209014157E447F00E59A3B /* StudentMainViewController.m */; };
-		8334DFED167BD27700D52D60 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8334D0BE167BD27200D52D60 /* libCorePlot-CocoaTouch.a */; };
 		8334DFEE167BD27700D52D60 /* License.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8334D0BF167BD27200D52D60 /* License.txt */; };
+		8334DFF2167BD4C800D52D60 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8334D0BE167BD27200D52D60 /* libCorePlot-CocoaTouch.a */; };
 		8338D9C815975F830005EE14 /* SelectCurrentTestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8338D9C715975F830005EE14 /* SelectCurrentTestTableViewController.m */; };
 		833A8BD8158BA26200C9B476 /* ResultDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 833A8BD7158BA26200C9B476 /* ResultDetailViewController.m */; };
 		833A8BDD158BA87700C9B476 /* TestSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 833A8BDC158BA87700C9B476 /* TestSelectCell.m */; };
@@ -330,6 +330,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8334DFF2167BD4C800D52D60 /* libCorePlot-CocoaTouch.a in Frameworks */,
 				833E5CCC15F8327D00D8D8DE /* QuickLook.framework in Frameworks */,
 				8301578C15D20FBD0082867C /* CoreText.framework in Frameworks */,
 				837A057415B1BF430078E8D4 /* MessageUI.framework in Frameworks */,
@@ -341,7 +342,6 @@
 				A7F60D131333143C00271D17 /* UIKit.framework in Frameworks */,
 				A7F60D151333143C00271D17 /* Foundation.framework in Frameworks */,
 				A7F60D171333143C00271D17 /* CoreGraphics.framework in Frameworks */,
-				8334DFED167BD27700D52D60 /* libCorePlot-CocoaTouch.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -926,7 +926,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
-					"\"$(SRCROOT)/poacMF/External/CorePlot_1.0\"",
+					"\"$(SRCROOT)/poacMF/External/CorePlot_1.1\"",
 					"$(inherited)",
 				);
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
@@ -951,9 +951,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/poacMF\"",
-					"\"$(SRCROOT)/poacMF/External/CorePlot_1.0\"",
-					"\"$(SRCROOT)/poacMF/External/GridView/CorePlot_1.1\"",
 					"\"$(SRCROOT)/poacMF/External/GridView\"",
+					"\"$(SRCROOT)/poacMF/External/CorePlot_1.1\"",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -988,7 +987,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
-					"\"$(SRCROOT)/poacMF/External/CorePlot_1.0\"",
+					"\"$(SRCROOT)/poacMF/External/CorePlot_1.1\"",
 					"$(inherited)",
 				);
 				PROVISIONING_PROFILE = "";
@@ -1013,7 +1012,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
-					"\"$(SRCROOT)/poacMF/External/CorePlot_1.0\"",
+					"\"$(SRCROOT)/poacMF/External/CorePlot_1.1\"",
 					"$(inherited)",
 				);
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
@@ -1040,9 +1039,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/poacMF\"",
-					"\"$(SRCROOT)/poacMF/External/CorePlot_1.0\"",
-					"\"$(SRCROOT)/poacMF/External/GridView/CorePlot_1.1\"",
 					"\"$(SRCROOT)/poacMF/External/GridView\"",
+					"\"$(SRCROOT)/poacMF/External/CorePlot_1.1\"",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -1072,9 +1070,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/poacMF\"",
-					"\"$(SRCROOT)/poacMF/External/CorePlot_1.0\"",
-					"\"$(SRCROOT)/poacMF/External/GridView/CorePlot_1.1\"",
 					"\"$(SRCROOT)/poacMF/External/GridView\"",
+					"\"$(SRCROOT)/poacMF/External/CorePlot_1.1\"",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",
