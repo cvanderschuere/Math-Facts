@@ -139,13 +139,12 @@
         self.questionSetToUpdate = [NSEntityDescription insertNewObjectForEntityForName:@"QuestionSet" inManagedObjectContext:self.courseToCreateIn.managedObjectContext];
         self.questionSetToUpdate.difficultyLevel = [NSNumber numberWithInt:self.courseToCreateIn.questionSets.count];
         self.questionSetToUpdate.course = self.courseToCreateIn;
+        self.questionSetToUpdate.type = [NSNumber numberWithDouble:self.typeStepper.value]; //Disable Editing type
+
     }
     
     //Assign Variables
     self.questionSetToUpdate.name = self.nameTextField.text;  
-    if (self.questionSetToUpdate.type == nil) {
-        self.questionSetToUpdate.type = [NSNumber numberWithDouble:self.typeStepper.value]; //Disable Editing type
-    }
          
     //Remove all current question associations
     [self.questionSetToUpdate removeQuestions:self.questionSetToUpdate.questions];
