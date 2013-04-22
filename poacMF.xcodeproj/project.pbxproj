@@ -24,7 +24,6 @@
 		830F5B2B15AE0D9200BDD02D /* MFLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 830F5B2A15AE0D9200BDD02D /* MFLoginViewController.m */; };
 		830F5B3315AE1F8E00BDD02D /* DocumentSelectTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 830F5B3215AE1F8E00BDD02D /* DocumentSelectTableViewController.m */; };
 		830F5B3D15AE407700BDD02D /* AECourseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 830F5B3C15AE407700BDD02D /* AECourseTableViewController.m */; };
-		83127C111580AA7C00AA0882 /* model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 83127C0F1580AA7C00AA0882 /* model.xcdatamodeld */; };
 		83127C1E1580CFB500AA0882 /* Administrator.m in Sources */ = {isa = PBXBuildFile; fileRef = 83127C1D1580CFB500AA0882 /* Administrator.m */; };
 		83127C2A1580CFB500AA0882 /* Question.m in Sources */ = {isa = PBXBuildFile; fileRef = 83127C291580CFB500AA0882 /* Question.m */; };
 		83127C301580D25500AA0882 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83127C2F1580D25500AA0882 /* CoreData.framework */; };
@@ -65,6 +64,7 @@
 		837A057215B0F03C0078E8D4 /* NSString+CHCSVAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 837A056E15B0F03C0078E8D4 /* NSString+CHCSVAdditions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		837A057415B1BF430078E8D4 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 837A057315B1BF430078E8D4 /* MessageUI.framework */; };
 		837FA03D15860EC100C43C1D /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 837FA03C15860EC100C43C1D /* TestViewController.m */; };
+		8385B2E91724DF82007FC7F5 /* model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8385B2E71724DF82007FC7F5 /* model.xcdatamodeld */; };
 		8396C698157D728200CBF30B /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8396C697157D728000CBF30B /* MainStoryboard.storyboard */; };
 		8396CDF115B0C20400E865D6 /* FormSheetDismissNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8396CDF015B0C20400E865D6 /* FormSheetDismissNavController.m */; };
 		8399C9F315AA00AF005DC6C9 /* StudentGraphPopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399C9F215AA00AF005DC6C9 /* StudentGraphPopoverViewController.m */; };
@@ -132,7 +132,6 @@
 		830F5B3B15AE407600BDD02D /* AECourseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AECourseTableViewController.h; sourceTree = "<group>"; };
 		830F5B3C15AE407700BDD02D /* AECourseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AECourseTableViewController.m; sourceTree = "<group>"; };
 		830F5B3F15AE7D8E00BDD02D /* poacMF.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = poacMF.entitlements; sourceTree = "<group>"; };
-		83127C101580AA7C00AA0882 /* model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = model.xcdatamodel; sourceTree = "<group>"; };
 		83127C1C1580CFB500AA0882 /* Administrator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Administrator.h; sourceTree = "<group>"; };
 		83127C1D1580CFB500AA0882 /* Administrator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Administrator.m; sourceTree = "<group>"; };
 		83127C281580CFB500AA0882 /* Question.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Question.h; sourceTree = "<group>"; };
@@ -273,6 +272,7 @@
 		837A057315B1BF430078E8D4 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		837FA03B15860EC100C43C1D /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
 		837FA03C15860EC100C43C1D /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
+		8385B2E81724DF82007FC7F5 /* model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = model.xcdatamodel; sourceTree = "<group>"; };
 		8396C697157D728000CBF30B /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
 		8396CDEF15B0C20400E865D6 /* FormSheetDismissNavController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormSheetDismissNavController.h; sourceTree = "<group>"; };
 		8396CDF015B0C20400E865D6 /* FormSheetDismissNavController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormSheetDismissNavController.m; sourceTree = "<group>"; };
@@ -623,7 +623,7 @@
 			isa = PBXGroup;
 			children = (
 				83127C2E1580CFC600AA0882 /* Data Model */,
-				83127C0F1580AA7C00AA0882 /* model.xcdatamodeld */,
+				8385B2E71724DF82007FC7F5 /* model.xcdatamodeld */,
 				83127C311580D75300AA0882 /* databaseSeed.plist */,
 			);
 			path = Database;
@@ -854,7 +854,6 @@
 				8344A27C157DBF9600BBFFA9 /* AEUserTableViewController.m in Sources */,
 				83208FDF157DCC5B00E59A3B /* UserDetailTableViewController.m in Sources */,
 				83209015157E448200E59A3B /* StudentMainViewController.m in Sources */,
-				83127C111580AA7C00AA0882 /* model.xcdatamodeld in Sources */,
 				83127C1E1580CFB500AA0882 /* Administrator.m in Sources */,
 				83127C2A1580CFB500AA0882 /* Question.m in Sources */,
 				83127C421580E62A00AA0882 /* User.m in Sources */,
@@ -906,6 +905,7 @@
 				83D6790415B3378D008CAAF8 /* NSObject+MKBlockAdditions.m in Sources */,
 				83D6790515B3378D008CAAF8 /* UIActionSheet+MKBlockAdditions.m in Sources */,
 				83D6790615B3378D008CAAF8 /* UIAlertView+MKBlockAdditions.m in Sources */,
+				8385B2E91724DF82007FC7F5 /* model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1111,13 +1111,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		83127C0F1580AA7C00AA0882 /* model.xcdatamodeld */ = {
+		8385B2E71724DF82007FC7F5 /* model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				83127C101580AA7C00AA0882 /* model.xcdatamodel */,
+				8385B2E81724DF82007FC7F5 /* model.xcdatamodel */,
 			);
-			currentVersion = 83127C101580AA7C00AA0882 /* model.xcdatamodel */;
-			name = model.xcdatamodeld;
+			currentVersion = 8385B2E81724DF82007FC7F5 /* model.xcdatamodel */;
+			path = model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
