@@ -141,11 +141,12 @@
      
      // Grab the item we're moving.
      QuestionSet *setToMove = [[self fetchedResultsController] objectAtIndexPath:fromIndexPath];
-     
+     NSUInteger currentPosition = [questionSets indexOfObject:setToMove];
+
      // Remove the object we're moving from the array.
      [questionSets removeObject:setToMove];
-     // Now re-insert it at the destination.
-     [questionSets insertObject:setToMove atIndex:toIndexPath.row];
+     // Now re-insert it at the destination (move to current index + to/from delta)
+     [questionSets insertObject:setToMove atIndex: currentPosition + (toIndexPath.row-fromIndexPath.row)];
      
      // All of the objects are now in their correct order. Update each
      // object's displayOrder field by iterating through the array.

@@ -55,7 +55,6 @@ Document Status
 
 - (IBAction)selectCourse:(id)sender;
 -(IBAction) loginTapped;
-- (IBAction)sendFeedback:(id)sender;
 - (IBAction)showHelpInformation:(id)sender;
 
 @end
