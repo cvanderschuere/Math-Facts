@@ -156,13 +156,15 @@
     
 }
 -(NSString*) createCSVBackupForCourse:(Course*)course{                
-        //Create file url
-        NSString *documentsDirectoryPath = [NSSearchPathForDirectoriesInDomains( NSDocumentDirectory,
+    //Create file url
+    NSString *documentsDirectoryPath = [NSSearchPathForDirectoriesInDomains( NSDocumentDirectory,
                                                                                 NSUserDomainMask, YES ) objectAtIndex:0];
-    NSString* fileURL = [[documentsDirectoryPath stringByAppendingPathComponent:course.name?course.name:@"Unnamed"] stringByAppendingPathExtension:@"csv"];
+    
+    NSString *fileName = [NSString stringWithFormat:@"%@ (%@)",course.name?course.name:@"Unnamed",[UIDevice currentDevice].name];
+    NSString* fileURL = [[documentsDirectoryPath stringByAppendingPathComponent:fileName] stringByAppendingPathExtension:@"csv"];
         
-        [course saveCSVToFile:fileURL];  //[courses.lastObject performSelectorInBackground:@selector(saveCSVToFile:) withObject:fileURL];
-        
+        [course saveCSVToFile:fileURL];
+    
         return fileURL;
 }
 #pragma mark - MFMailComposeDelegate

@@ -407,6 +407,7 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Done" id="pJL-0Z-iNz">
+                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="done:" destination="cRl-0L-vxh" id="QjI-Hv-d8H"/>
                             </connections>
@@ -2416,8 +2417,6 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PracticeViewController.h"/>
             <relationships>
                 <relationship kind="action" name="didPressNextButton:" candidateClass="UIButton"/>
-                <relationship kind="action" name="digitPressed:"/>
-                <relationship kind="action" name="quitTest:"/>
                 <relationship kind="outlet" name="correctStar" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="horizontalLine" candidateClass="UIView"/>
                 <relationship kind="outlet" name="incorrectImage" candidateClass="UIImageView"/>
@@ -2472,6 +2471,7 @@
         <class className="SubjectDetailViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SubjectDetailViewController.h"/>
             <relationships>
+                <relationship kind="action" name="logOut:"/>
                 <relationship kind="action" name="showResultsGraph:"/>
             </relationships>
         </class>
