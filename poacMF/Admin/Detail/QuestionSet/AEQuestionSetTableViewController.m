@@ -198,6 +198,9 @@
             self.typeStepper = (UIStepper *) [cell.contentView viewWithTag:15];
             [self.typeStepper addTarget:self action:@selector(stepperUpdated:) forControlEvents:UIControlEventValueChanged];
             self.typeLabel = (UILabel*) [cell.contentView viewWithTag:10];
+            
+            if(self.isEditing)
+                self.typeLabel.text = self.questionSetToUpdate.typeName; //Update to correct name
         }
         else if (indexPath.row == 0) {
             self.nameTextField = (UITextField*) [cell.contentView viewWithTag:5];
