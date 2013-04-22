@@ -523,7 +523,7 @@
     
     //Move to test or exit
     if (self.result && endedWithTimer) {
-        UIAlertView *finishAlert = [[UIAlertView alloc] initWithTitle:@"Good work" message:[NSString stringWithFormat:@"You got %d questions correct and %d incorrect.",self.result.correctResponses.count,self.result.incorrectResponses.count] delegate:self cancelButtonTitle:@"Go To Test" otherButtonTitles:nil];
+        UIAlertView *finishAlert = [[UIAlertView alloc] initWithTitle:@"Good work" message:[NSString stringWithFormat:@"You got %d questions correct and %d incorrect.",self.result.correctResponses.count,self.result.incorrectResponses.count] delegate:self cancelButtonTitle:@"Go To Timing" otherButtonTitles:nil];
         [finishAlert show];
     }
     else {
