@@ -134,32 +134,32 @@
 
 -(IBAction) saveClicked {
 	AppLibrary *al = [[AppLibrary alloc] init];
-	if (nil == self.usernameTF.text){
+	if (self.usernameTF.text.length == 0){
 		NSString *msg = @"Username must be entered.";
-		[al showAlertFromDelegate:self withWarning:msg];
+		[al showAlertFromDelegate:nil withWarning:msg];
 		return;
 	}//end if
     else {
         //Check if username is unique or the same username as before
         if (![Student isUserNameUnique:self.usernameTF.text inContext:self.studentToUpdate?self.studentToUpdate.managedObjectContext:self.courseToCreateIn.managedObjectContext] && ![self.studentToUpdate.username isEqualToString:self.usernameTF.text.lowercaseString]) {
             NSString *msg = @"Username already used.";
-            [al showAlertFromDelegate:self withWarning:msg];
+            [al showAlertFromDelegate:nil withWarning:msg];
             return;
         }
     }
-	if (nil == self.passwordTF.text){
+	if (self.passwordTF.text.length == 0){
 		NSString *msg = @"Password must be entered.";
-		[al showAlertFromDelegate:self withWarning:msg];
+		[al showAlertFromDelegate:nil withWarning:msg];
 		return;
 	}//end if
-	if (nil == self.firstNameTF.text){
+	if (self.firstNameTF.text.length == 0){
 		NSString *msg = @"First name must be entered.";
-		[al showAlertFromDelegate:self withWarning:msg];
+		[al showAlertFromDelegate:nil withWarning:msg];
 		return;
 	}//end if
-	if (nil == self.lastNameTF.text){
+	if (self.lastNameTF.text.length == 0){
 		NSString *msg = @"Last name must be entered.";
-		[al showAlertFromDelegate:self withWarning:msg];
+		[al showAlertFromDelegate:nil withWarning:msg];
 		return;
 	}//end if
     
@@ -209,6 +209,9 @@
 }//end method
 #pragma mark - UIAlertView Delegate
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if ([alertView.title isEqualToString:@"Oops!"])
+        return;
+    
     if (buttonIndex == 1) {
         //Update all current tests to new values if changed
         if (self.studentToUpdate.defaultTestLength.doubleValue != self.testLengthStepper.value) {
