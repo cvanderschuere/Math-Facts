@@ -93,8 +93,9 @@
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {        
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
         UIAlertView *deleteAlert = [UIAlertView alertViewWithTitle:@"Delete Course" message:@"Are you sure you want to delete this entire course?" cancelButtonTitle:@"No" otherButtonTitles:[NSArray arrayWithObject:@"Delete"] onDismiss:^(int buttonIndex){
+            
                     //Get deleted URL
                     NSURL *deletedURL = [indexPath.section == 1?self.icloudDocuments:self.localDocuments objectAtIndex:indexPath.row];
                     

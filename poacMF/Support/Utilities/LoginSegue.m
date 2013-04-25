@@ -10,6 +10,7 @@
 #import "PoacMFAppDelegate.h"
 
 @implementation LoginSegue
+
 - (void) perform {
     [[[[UIApplication sharedApplication] delegate] window] setRootViewController:self.destinationViewController];
 }
