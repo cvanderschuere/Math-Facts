@@ -11,19 +11,7 @@
 
 @implementation LoginSegue
 - (void) perform {
-    
-    UIViewController *src = (UIViewController *) self.sourceViewController;
-    UIViewController *dst = (UIViewController *) self.destinationViewController;
-    
-    //Account for status bar
-    dst.view.frame = [[UIScreen mainScreen] applicationFrame];
-
-    [UIView transitionFromView:src.view toView:dst.view duration:.3 options:UIViewAnimationTransitionNone 
-                    completion:^(BOOL finished){
-                        [[[[UIApplication sharedApplication] delegate] window] setRootViewController:dst];
-                    }
-     ];
-       
+    [[[[UIApplication sharedApplication] delegate] window] setRootViewController:self.destinationViewController];
 }
 
 @end

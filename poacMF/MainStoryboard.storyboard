@@ -150,9 +150,8 @@
         <!--Admin Split View Controller-->
         <scene sceneID="LND-OX-TIs">
             <objects>
-                <splitViewController wantsFullScreenLayout="YES" id="RwQ-Ii-5H6" customClass="AdminSplitViewController" sceneMemberID="viewController">
+                <splitViewController storyboardIdentifier="AdminSplitViewController" autoresizesArchivedViewToFullSize="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RwQ-Ii-5H6" customClass="AdminSplitViewController" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
                     <connections>
                         <segue destination="PtI-HW-Sbt" kind="relationship" relationship="masterViewController" id="oMt-ua-qI0"/>
                         <segue destination="Mvr-0a-kVP" kind="relationship" relationship="detailViewController" id="JkB-xE-upG"/>
@@ -165,7 +164,7 @@
         <!--Users Table View Controller - Students-->
         <scene sceneID="Foe-lt-VFm">
             <objects>
-                <tableViewController storyboardIdentifier="usersTableViewController" wantsFullScreenLayout="YES" id="m3L-O9-a6Q" customClass="UsersTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="usersTableViewController" id="m3L-O9-a6Q" customClass="UsersTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="eb2-q5-H4K">
                         <rect key="frame" x="0.0" y="64" width="320" height="744"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -852,10 +851,9 @@
         <!--Segmented Control Navigation Controller-->
         <scene sceneID="Gt4-mH-AI0">
             <objects>
-                <navigationController autoresizesArchivedViewToFullSize="NO" toolbarHidden="NO" id="PtI-HW-Sbt" customClass="SegmentedControlNavigationController" sceneMemberID="viewController">
+                <navigationController toolbarHidden="NO" id="PtI-HW-Sbt" customClass="SegmentedControlNavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <value key="contentSizeForViewInPopover" type="size" width="320" height="744"/>
-                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="eo4-x2-Nb3">
                         <autoresizingMask key="autoresizingMask"/>
@@ -1341,7 +1339,7 @@
         <!--Navigation Controller-->
         <scene sceneID="xYv-ww-lZX">
             <objects>
-                <navigationController id="3ep-aq-AKb" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="StudentNavViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3ep-aq-AKb" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="GZY-cl-IJQ">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
@@ -2305,243 +2303,17 @@
         <image name="passStamp.png" width="450" height="451"/>
         <image name="redX.png" width="300" height="300"/>
     </resources>
-    <classes>
-        <class className="AECourseTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AECourseTableViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="courseSaved:"/>
-                <relationship kind="outlet" name="admin1Password" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="admin1Username" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="icloudSwitch" candidateClass="UISwitch"/>
-                <relationship kind="outlet" name="nameTextField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="AEQuestionSetTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AEQuestionSetTableViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="stepperUpdated:" candidateClass="UIStepper"/>
-                <relationship kind="outlet" name="nameTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="typeLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="typeStepper" candidateClass="UIStepper"/>
-            </relationships>
-        </class>
-        <class className="AEQuestionViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AEQuestionViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="stepperUpdate:"/>
-                <relationship kind="outlet" name="operatorLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="xLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="xStepper" candidateClass="UIStepper"/>
-                <relationship kind="outlet" name="yLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="yStepper" candidateClass="UIStepper"/>
-                <relationship kind="outlet" name="zLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="zStepper" candidateClass="UIStepper"/>
-            </relationships>
-        </class>
-        <class className="AEUserTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AEUserTableViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="stepperUpdated:"/>
-                <relationship kind="outlet" name="distractionNumberLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="distractionNumberStepper" candidateClass="UIStepper"/>
-                <relationship kind="outlet" name="emailAddressTF" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="firstNameTF" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="lastNameTF" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="maximumIncorrectLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="maximumIncorrectStepper" candidateClass="UIStepper"/>
-                <relationship kind="outlet" name="passCriteriaLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="passCriteriaStepper" candidateClass="UIStepper"/>
-                <relationship kind="outlet" name="passwordTF" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="practiceLengthLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="practiceLengthStepper" candidateClass="UIStepper"/>
-                <relationship kind="outlet" name="testLengthLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="testLengthStepper" candidateClass="UIStepper"/>
-                <relationship kind="outlet" name="usernameTF" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="AdjustTestPopoverViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AdjustTestPopoverViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="stepperValueChanged:"/>
-                <relationship kind="outlet" name="maxIncorrectLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="maxIncorrectStepper" candidateClass="UIStepper"/>
-                <relationship kind="outlet" name="passCriteriaLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="passCriteriaStepper" candidateClass="UIStepper"/>
-                <relationship kind="outlet" name="testLengthLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="testLengthStepper" candidateClass="UIStepper"/>
-            </relationships>
-        </class>
-        <class className="AdminMasterTableViewController" superclassName="CoreDataTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AdminMasterTableViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="logout:"/>
-                <relationship kind="outlet" name="delegate"/>
-            </relationships>
-        </class>
-        <class className="AdminSplitViewController" superclassName="UISplitViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AdminSplitViewController.h"/>
-        </class>
-        <class className="CPTGraphHostingView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CPTGraphHostingView.h"/>
-        </class>
-        <class className="CoreDataTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataTableViewController.h"/>
-        </class>
-        <class className="CoreDataViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="DocumentSelectTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DocumentSelectTableViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="toggleEditMode:"/>
-            </relationships>
-        </class>
-        <class className="FormSheetDismissNavController" superclassName="UINavigationController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FormSheetDismissNavController.h"/>
-        </class>
-        <class className="MFLoginViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MFLoginViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="loginTapped"/>
-                <relationship kind="action" name="selectCourse:"/>
-                <relationship kind="action" name="showHelpInformation:"/>
-                <relationship kind="outlet" name="buildString" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="documentStateActivityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="passwordTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="selectCourseBarButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="userNameTextField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="PracticeViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PracticeViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="didPressNextButton:" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="correctStar" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="horizontalLine" candidateClass="UIView"/>
-                <relationship kind="outlet" name="incorrectImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="instructionLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="mathOperatorSymbol" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="nextButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="numberCorrectLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="numberIncorrectLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="questionsLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="timeLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="verticalLine" candidateClass="UIView"/>
-                <relationship kind="outlet" name="xLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="yLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="zLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="QuestionSetDetailTableViewController" superclassName="CoreDataTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/QuestionSetDetailTableViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="editButton" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-        <class className="ResultDetailViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ResultDetailViewController.h"/>
-        </class>
-        <class className="SegmentedControlNavigationController" superclassName="UINavigationController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SegmentedControlNavigationController.h"/>
-            <relationships>
-                <relationship kind="action" name="switchViewController:" candidateClass="UISegmentedControl"/>
-            </relationships>
-        </class>
-        <class className="SelectCurrentTestTableViewController" superclassName="CoreDataTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SelectCurrentTestTableViewController.h"/>
-        </class>
-        <class className="SetsTableViewController" superclassName="AdminMasterTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SetsTableViewController.h"/>
-        </class>
-        <class className="StudentGraphPopoverViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/StudentGraphPopoverViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="graphView" candidateClass="CPTGraphHostingView"/>
-            </relationships>
-        </class>
-        <class className="StudentMainViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/StudentMainViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="changePage:"/>
-                <relationship kind="outlet" name="pageControl" candidateClass="UIPageControl"/>
-                <relationship kind="outlet" name="subjectScrollView" candidateClass="UIScrollView"/>
-            </relationships>
-        </class>
-        <class className="SubjectDetailViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SubjectDetailViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="showResultsGraph:"/>
-            </relationships>
-        </class>
-        <class className="SummaryTableViewCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SummaryTableViewCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="correctLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="incorrectLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="lengthLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="setLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SummaryTableViewController" superclassName="CoreDataTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SummaryTableViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="backup:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="action" name="done:"/>
-            </relationships>
-        </class>
-        <class className="TestDetailViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TestDetailViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="adjustTestPressed:"/>
-                <relationship kind="outlet" name="graphView" candidateClass="CPTGraphHostingView"/>
-                <relationship kind="outlet" name="resultsTableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="TestViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TestViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="horizontalLine" candidateClass="UIView"/>
-                <relationship kind="outlet" name="mathOperatorSymbol" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="numberCorrectLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="questionsLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="timeLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="verticalLine" candidateClass="UIView"/>
-                <relationship kind="outlet" name="xLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="yLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="zLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="UserDetailTableViewController" superclassName="CoreDataViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserDetailTableViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="selectCurrentTest:"/>
-                <relationship kind="outlet" name="editButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="graphView" candidateClass="CPTGraphHostingView"/>
-                <relationship kind="outlet" name="shareButton" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-        <class className="UsersTableViewController" superclassName="AdminMasterTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UsersTableViewController.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="XXZ-fo-y3a"/>
-        <segue reference="8dB-Nx-BB0"/>
+        <segue reference="cQk-xi-Qoh"/>
         <segue reference="Zlf-qc-6l8"/>
         <segue reference="mjs-n6-7sf"/>
-        <segue reference="pyl-lN-f0d"/>
+        <segue reference="lda-Fg-vsm"/>
         <segue reference="mC8-kJ-oI5"/>
+        <segue reference="XXZ-fo-y3a"/>
     </inferredMetricsTieBreakers>
 </document>
