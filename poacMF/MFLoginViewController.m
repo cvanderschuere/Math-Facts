@@ -32,6 +32,9 @@
 #import "DocumentSelectTableViewController.h"
 
 @interface MFLoginViewController ()
+{
+    NSString *_iOSVersion;
+}
 
 @property (nonatomic, strong) NSArray *iCloudDocuments; //of NSURL
 @property (nonatomic, strong) NSArray *localDocuments; //NSURL
@@ -57,6 +60,8 @@
 @synthesize iCloudDocuments = _iCloudDocuments, localDocuments = _localDocuments;
 @synthesize iCloudQuery = _iCloudQuery;
 @synthesize selectedDocument = _selectedDocument;
+
+@synthesize topToolBar;
 
 #pragma mark - Use Document
 -(void) setSelectedDocument:(UIManagedDocument *)selectedDocument{    
@@ -272,6 +277,25 @@
 }
 
 #pragma mark - Misc
+- (void) displayAlertMessage
+{
+    UIAlertView *theAlert = [[UIAlertView alloc] initWithTitle:@"Welcome to Math Facts"
+                                                       message:@"Student user: user\nPassword: user\n\nAdmin user: admin\nPassword: admin\n\n Please consult the help file at the top right of the screen"
+                                                      delegate:self
+                                             cancelButtonTitle:@"Dismiss"
+                                             otherButtonTitles:nil];
+    [theAlert show];
+}
+- (void) resizeTopToolbar
+{
+    if ([_iOSVersion floatValue] >= 7.0) {
+        
+        CGRect frame = topToolBar.frame;
+        frame.size.height += 20;
+        topToolBar.frame = frame;
+        
+    }
+}
 
 // 3. Autorotation YES in all orientations
 // Back to the top for step 4.
@@ -567,7 +591,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-        
+    _iOSVersion = [[UIDevice currentDevice] systemVersion];
+    [self displayAlertMessage];
+    
+    [self resizeTopToolbar];
+    
     //Load Build Information
 	NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
 	NSString *name = [infoDictionary objectForKey:@"CFBundleDisplayName"];
@@ -596,6 +624,8 @@
    
     
 }//end method
+
+
 #pragma mark - Default Course
 -(void) createDefaultCourse{
     [self.documentStateActivityIndicator startAnimating];

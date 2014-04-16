@@ -798,7 +798,7 @@
 		A7F60D051333143C00271D17 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = CDVConcepts;
 			};
 			buildConfigurationList = A7F60D081333143C00271D17 /* Build configuration list for PBXProject "poacMF" */;
@@ -916,7 +916,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -973,7 +972,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: C D. VANDERSCHUERE (8K2ASBLBJ7)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -989,6 +987,7 @@
 					"\"$(SRCROOT)/poacMF/External/CorePlot_1.1\"",
 					"$(inherited)",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "D33D97AF-984E-4415-AD47-5BB01F84FB21";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -1000,7 +999,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
