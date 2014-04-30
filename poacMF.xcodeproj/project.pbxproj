@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6A16FFAD1910A6B4008E7070 /* button_125x60.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A16FFAC1910A6B4008E7070 /* button_125x60.png */; };
 		8301578C15D20FBD0082867C /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8301578B15D20FBD0082867C /* CoreText.framework */; };
 		830560C915855206009B30B1 /* SubjectDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 830560C815855206009B30B1 /* SubjectDetailViewController.m */; };
 		830560F4158554EF009B30B1 /* AQGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 830560DE158554E9009B30B1 /* AQGridView.m */; };
@@ -95,6 +96,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6A16FFAC1910A6B4008E7070 /* button_125x60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_125x60.png; sourceTree = "<group>"; };
 		8301578B15D20FBD0082867C /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		830560C715855206009B30B1 /* SubjectDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubjectDetailViewController.h; sourceTree = "<group>"; };
 		830560C815855206009B30B1 /* SubjectDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectDetailViewController.m; sourceTree = "<group>"; };
@@ -348,6 +350,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6A16FFAB1910A6AB008E7070 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				6A16FFAC1910A6B4008E7070 /* button_125x60.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 		830560FE158554F7009B30B1 /* Grid View */ = {
 			isa = PBXGroup;
 			children = (
@@ -742,6 +752,7 @@
 		A7F60D181333143C00271D17 /* poacMF */ = {
 			isa = PBXGroup;
 			children = (
+				6A16FFAB1910A6AB008E7070 /* Images */,
 				8396C697157D728000CBF30B /* MainStoryboard.storyboard */,
 				A7F60D211333143C00271D17 /* PoacMFAppDelegate.h */,
 				A7F60D221333143C00271D17 /* PoacMFAppDelegate.m */,
@@ -824,6 +835,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7D10F81136E4374003D6134 /* icon.png in Resources */,
+				6A16FFAD1910A6B4008E7070 /* button_125x60.png in Resources */,
 				A7E03C6C139489B000FCD4D1 /* fog.png in Resources */,
 				8396C698157D728200CBF30B /* MainStoryboard.storyboard in Resources */,
 				83127C321580D75300AA0882 /* databaseSeed.plist in Resources */,

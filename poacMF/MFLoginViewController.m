@@ -494,6 +494,11 @@
     helpPDFVC.contentSizeForViewInPopover = CGSizeMake(600, helpPDFVC.contentSizeForViewInPopover.height);
     
     self.helpPopover = [[UIPopoverController alloc] initWithContentViewController:helpPDFVC];
+    
+    float width = self.view.frame.size.width - 120;
+    float height = self.view.frame.size.height - 100;
+    
+    self.helpPopover.popoverContentSize = CGSizeMake(width, height);
     [self.helpPopover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 #pragma mark - QLPreviewDelegate and Datasource methods
