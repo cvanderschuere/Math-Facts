@@ -81,7 +81,13 @@
 	}
 	
 	NSString * animationDesc = @"<Unknown>";
-	switch ( _animation )
+    
+    /*
+     Was ...
+     switch ( _animation )
+     */
+    
+	switch ( (int)_animation )
 	{
 		case UITableViewRowAnimationFade:
 			animationDesc = @"Fade";

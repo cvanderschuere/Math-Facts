@@ -51,6 +51,7 @@ Document Status
 @property (weak, nonatomic) IBOutlet UILabel *buildString;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *documentStateActivityIndicator;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *selectCourseBarButton;
+@property (weak, nonatomic) IBOutlet UIView *topToolBar;
 
 
 - (IBAction)selectCourse:(id)sender;

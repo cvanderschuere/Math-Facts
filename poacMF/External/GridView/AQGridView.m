@@ -1281,7 +1281,13 @@ NSString * const AQGridViewSelectionDidChangeNotification = @"AQGridViewSelectio
 	// see if the touch is (possibly) being tracked by a gesture recognizer
 	for ( id recognizer in self.gestureRecognizers )
 	{
-		switch ( [recognizer state] )
+        
+        /*
+         Was ...
+         switch ( [recognizer state] )
+         */
+        
+		switch ( (int)[recognizer state] )
 		{
 			case UIGestureRecognizerStateEnded:
 			case UIGestureRecognizerStateCancelled:
